@@ -21,11 +21,8 @@ import '../Models/runningRace.dart';
 
 import 'upload.dart';
 
-
-
-
 /// Initialize the Strava API
-///  clientID: ID of your Strava app 
+///  clientID: ID of your Strava app
 /// redirectURL: url that will be called after Strava authorize your app
 /// prompt: to choose to ask Strava always to authenticate or only when needed (with 'auto')
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
@@ -45,9 +42,9 @@ class Strava with Upload {
   StreamController<String> onCodeReceived = StreamController();
 
   /// getRunningRacebyId
-  /// 
+  ///
   /// Scope needed:
-  /// 
+  ///
   /// Answer has route_ids [int]
   Future<RunningRace> getRunningRaceById(String id) async {
     RunningRace returnRace = RunningRace();
@@ -490,11 +487,11 @@ class Strava with Upload {
         scope;
 
     var reqAuth = authorizationEndpoint + params;
-    print(reqAuth);
+    print('---> $reqAuth');
 
     closeWebView();
     launch(reqAuth,
-        forceWebView: false, forceSafariVC: true, enableJavaScript: true);
+        forceWebView: true, forceSafariVC: true, enableJavaScript: true);
 
     // Launch small http server to collect the answer from Strava
     //------------------------------------------------------------
@@ -506,7 +503,7 @@ class Strava with Upload {
 
       code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];
-      print('code $code, error $error');
+      print('---> code $code, error $error');
 
       closeWebView();
       server.close(force: true);
@@ -520,7 +517,7 @@ class Strava with Upload {
   Future<Token> _getStravaToken(String code) async {
     Token _answer = Token();
 
-    print('Entering getStravaToken!!');
+    print('---> Entering getStravaToken!!');
     var urlToken = tokenEndpoint +
         '?client_id=' +
         clientID +
@@ -531,22 +528,30 @@ class Strava with Upload {
         '&grant_type=' +
         'authorization_code';
 
-    print('urlToken $urlToken');
+    print('----> urlToken $urlToken');
 
     var value = await http.post(urlToken);
 
     // responseToken.then((value) {
-    print('body ${value.body}');
-    var tokenBody = json.decode(value.body);
-    var _body = Token.fromJson(tokenBody);
-    var accessToken = _body.accessToken;
-    var refreshToken = _body.refreshToken;
-    var expiresAt = _body.expiresAt * 1000;
+    print('----> body ${value.body}');
 
-    _answer.accessToken = accessToken;
-    _answer.refreshToken = refreshToken;
-    _answer.expiresAt = expiresAt;
+    if (value.body.contains('message')) {
+      // This is not the normal message
+      print('---> Error in getStravaToken');
+      // will return _answer null
+    } else {
+      var tokenBody = json.decode(value.body);
+      // Todo: handle error with message "Authorization Error" and errors != null
+      var _body = Token.fromJson(tokenBody);
+      var accessToken = _body.accessToken;
+      var refreshToken = _body.refreshToken;
+      var expiresAt = _body.expiresAt * 1000;
 
+      _answer.accessToken = accessToken;
+      _answer.refreshToken = refreshToken;
+      _answer.expiresAt = expiresAt;
+    }
+    
     return (_answer);
     // });
   }
@@ -566,7 +571,7 @@ class Strava with Upload {
 
     // Check if the token is not expired
     if (_token != "null") {
-      print('token has been stored before! ${tokenStored.accessToken}');
+      print('----> token has been stored before! ${tokenStored.accessToken}');
 
       isExpired = _isTokenExpired(tokenStored);
     }
@@ -579,15 +584,18 @@ class Strava with Upload {
         if (stravaCode != null) {
           var answer = await _getStravaToken(stravaCode);
 
-          print('answer ${answer.expiresAt}  , ${answer.accessToken}');
+          print('---> answer ${answer.expiresAt}  , ${answer.accessToken}');
 
           // Save the token information
-          _saveToken(answer.accessToken, answer.expiresAt);
+          if (answer.accessToken != null && answer.expiresAt != null) {
+               _saveToken(answer.accessToken, answer.expiresAt);
+          }
+       
           // Update the header
-          header = {'Authorization': 'Bearer ${answer.accessToken}'};
+          header = {'----> Authorization': 'Bearer ${answer.accessToken}'};
           returnValue = true;
         } else {
-          print('code is still null');
+          print('----> code is still null');
           returnValue = false;
         }
       });

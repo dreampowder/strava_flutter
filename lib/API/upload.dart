@@ -107,7 +107,7 @@ abstract class Upload {
     final strava = Strava(
         "32212", secret, "http://localhost:8080", 'auto', 'activity:write');
 
-    strava.Auth();
+    await strava.Auth();
     // var token = Token();
     // var _token = await token.getStoredToken();
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'secret.dart'; // Store Strava app secret secret =
+import 'secret.dart'; // Store Strava app secret
 
 import 'package:strava_flutter/API/strava.dart';
 import 'package:strava_flutter/Models/detailedActivity.dart';
@@ -47,7 +47,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             secret,     // Put your secret key in secret.dart file
             "http://localhost:8080", 
             'auto',
-            'profile:write'   // The scope you need 
+            'profile:read_all',   // The scope you need 
             // Check https://developers.strava.com/docs/oauth-updates/  scope update
           );
 
@@ -94,9 +94,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
   void upload() {
     print('Trying to upload');
-
-
-   
 
     showDialog(
                   context: context,
