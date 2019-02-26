@@ -22,17 +22,17 @@ class DetailedAthlete {
   int badgeTypeId;
   String profileMedium;
   String profile;
-  Null friend;
-  Null follower;
+  String friend;
+  String follower;
   int followerCount;
   int friendCount;
   int mutualFriendCount;
   int athleteType;
   String datePreference;
   String measurementPreference;
-  List<Null> clubs;
-  Null ftp;
-  int weight;
+  // List<Null> clubs;
+  int ftp;
+  double weight;
   List<Bikes> bikes;
   List<Shoes> shoes;
 
@@ -61,7 +61,7 @@ class DetailedAthlete {
       this.athleteType,
       this.datePreference,
       this.measurementPreference,
-      this.clubs,
+      // this.clubs,
       this.ftp,
       this.weight,
       this.bikes,

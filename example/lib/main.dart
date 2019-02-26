@@ -47,7 +47,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             secret,     // Put your secret key in secret.dart file
             "http://localhost:8080", 
             'auto',
-            'profile:read_all',   // The scope you need 
+            'profile:read_all, profile:write',   // The scope you need 
             // Check https://developers.strava.com/docs/oauth-updates/  scope update
           );
 
