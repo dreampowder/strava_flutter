@@ -213,13 +213,13 @@ StreamController<String> onCodeReceived = StreamController();
 
     var _token = await getStoredToken();
 
-    var header = createHeader(_token.accessToken)
+    var header = createHeader(_token.accessToken);
     if (header != null) {
       final reqDeAuthorize = "https://www.strava.com/oauth/deauthorize";
       var rep = await http.post(reqDeAuthorize, headers: header);
       if (rep.statusCode == 200) {
         print('DeAuthorize done');
-        _saveToken(null, null);
+        _saveToken(null, null, null);
       } else {
         print('problem in deAuthorize request');
         // Todo add an error code
