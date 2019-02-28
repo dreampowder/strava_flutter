@@ -28,3 +28,26 @@ class UploadActivity {
     return data;
   }
 }
+
+
+class ResponseUploadActivity {
+  int id;
+  String externalId;
+  String error;
+  String status;
+  int activityId;
+
+
+  ResponseUploadActivity(this.id, this.externalId, this.error, this.status, this.activityId);
+
+  ResponseUploadActivity.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    externalId = json['external_id'];
+    error = json['error'];
+    status = json['status'];
+    activityId = json['activity_id'];
+  }
+
+
+
+}

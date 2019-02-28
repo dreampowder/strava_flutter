@@ -13,7 +13,6 @@ import 'package:strava_flutter/Models/summaryAthlete.dart';
 import 'package:strava_flutter/Models/summaryActivity.dart';
 
 
-
 Strava strava;
 
 void main() => runApp(MyApp());

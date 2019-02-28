@@ -12,11 +12,25 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 
+import 'constants.dart';
+import '../Models/uploadActivity.dart';
 import 'strava.dart';  // To remove when removing test1 and test2
+
+// To check if the activity has been uploaded successfully
+// No numeric error code for the moment given by Strava
+class StatusUpload {
+        String ready = "Your activity is ready.";
+        String deleted = "The created activity has been deleted.";
+        String error = "There was an error processing your activity.";
+        String processed = "Your activity is still being processed.";
+        String notFound = 'Not Found';
+        
+}  // End of enum statusUpload
+    
 
 
 abstract class Upload {
-  // Upload();
+
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -51,9 +65,11 @@ abstract class Upload {
         buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
   }
 
-  void uploadActivity(String name, String description, String fileUrl,
+  Future<Fault> uploadActivity(String name, String description, String fileUrl,
       String fileType, String accessToken) async {
     final postUri = Uri.parse('https://www.strava.com/api/v3/uploads');
+
+    var fault = Fault(888, '');
 
     var request = http.MultipartRequest("POST", postUri);
     request.fields['data_type'] = fileType; // tested with gpx
@@ -68,38 +84,60 @@ abstract class Upload {
 
     request.files.add(await http.MultipartFile.fromPath('file', fileUrl));
 
-    // var response = await request.send();
-
-    // Not working
-    // var response = await request.send();
-    // print('Response: ${response.statusCode} ${response.reasonPhrase}');
-    // String _body = await response.stream.transform(utf8.decoder).join();
-
-//  Working
     String _body = '';
-    request.send().then((response) {
+
+    var response = await request.send();
+
+    // request.send().then((response) {
       print('Response: ${response.statusCode} ${response.reasonPhrase}');
+
+      fault.statusCode =response.statusCode;
+      fault.message =response.reasonPhrase;
+
       if (response.statusCode == 201) {
         print('Created!!!');
+      } else {
+        print('Error while uploading the activity');
+        print('---> ${response.reasonPhrase}');
+
       }
 
-      // if statusCode == 400 and "Bad Request" Most probbaly the activity has been alreacdy created
+    int idUpload;
+
+    // Upload is processed by the server
+    if (fault.statusCode == 201) {
 
       response.stream.transform(utf8.decoder).listen((value) {
         print(value);
-        _body = _body + value;
-      });
-    });
+        var _body = json.decode(value);
+        ResponseUploadActivity _response = ResponseUploadActivity.fromJson(_body);
 
-// Not working yet
-/****
-    final jsonResponse = json.decode(_body);
-    final UploadActivity _uploadActivity =
-        UploadActivity.fromJson(jsonResponse);
-    var _activityID = _uploadActivity.id;
-    print('activity $_activityID');
-***/
+        print('id ${_response.id}');
+        idUpload =_response.id;
+
+      });
+
+
+      // Todo: Every second or two check if upload has been susccesful
+ 
+      final reqCheckUpgrade = 'https://www.strava.com/api/v3/uploads/' + idUpload.toString();
+      
+      var resp =  await http.get(reqCheckUpgrade, headers: header);
+      print('check status ${resp.reasonPhrase}');
+      
+
+
+    }
+    
+    return fault;
+
+
   }
+
+
+
+
+  //// test2()
   /// This is a test function 
   /// to debug Strava upload activity
   void test2(String secret) async {
@@ -108,9 +146,6 @@ abstract class Upload {
         "32212", secret, "http://localhost:8080", 'auto', 'activity:write');
 
     await strava.OAuth("32212", "http://localhost:8080", 'activity:write', secret);
-    // var token = Token();
-    // var _token = await token.getStoredToken();
-
     var _token = await strava.getStoredToken();
 
     // Use the asset file to test without having to create internally a ride
@@ -133,8 +168,6 @@ abstract class Upload {
     var text = await readFile();
     print('text ?? $text');
 
-    // var currentDir = Directory.current;
-
     String dir = (await getApplicationDocumentsDirectory()).path;
 
     var newFile = File('$dir/tototo.txt');
@@ -153,8 +186,6 @@ abstract class Upload {
     var newAct = File('$dir/myActivity.gpx');
     print(newAct.lengthSync());
 
-    // Will not work for asset file
-    // var fileActivity = File('assets/test.JPG');
 
     final strava = Strava(
         "32212", secret, "http://localhost:8080", 'auto', 'activity:write');
@@ -189,17 +220,6 @@ abstract class Upload {
       }
     });
 
-    /****
-    var documentsDir = await getApplicationDocumentsDirectory();
-    print('documents directory path ${documentsDir.path}');
 
-
-   
-    documentsDir
-        .list(recursive: false, followLinks: false)
-        .listen((FileSystemEntity entity) {
-      print(entity.path);
-    });
-  ****/
   }
 }

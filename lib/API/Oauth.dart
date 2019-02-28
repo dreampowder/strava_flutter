@@ -8,20 +8,15 @@ import 'dart:convert';
 import 'constants.dart';
 import 'token.dart';
 
-
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 //===========================================
 // Code related to Authorization processs
 //===========================================
 
 abstract class Auth {
-
-
-StreamController<String> onCodeReceived = StreamController();
+  StreamController<String> onCodeReceived = StreamController();
 
 // Save the token and the expiry date
   void _saveToken(String token, int expire, String scope) async {
@@ -41,7 +36,6 @@ StreamController<String> onCodeReceived = StreamController();
       localToken.accessToken = prefs.getString('token').toString();
       localToken.expiresAt = prefs.getInt('expire');
       localToken.scope = prefs.getString('scope');
-
     } catch (error) {
       print('Error getting the key');
       localToken.accessToken = null;
@@ -61,14 +55,11 @@ StreamController<String> onCodeReceived = StreamController();
     return (localToken);
   }
 
-
-
   Map<String, String> createHeader(String token) {
-    return  {'Authorization': 'Bearer $token'};
-
+    return {'Authorization': 'Bearer $token'};
   }
 
-  // Get the code from Strava server 
+  // Get the code from Strava server
   Future<void> _getStravaCode(
       String clientID, String redirectUrl, String scope) async {
     print('Welcome to getStravaCode');
@@ -114,7 +105,8 @@ StreamController<String> onCodeReceived = StreamController();
     print('End of getStravaCode');
   }
 
-  Future<Token> _getStravaToken(String clientID, String secret, String code) async {
+  Future<Token> _getStravaToken(
+      String clientID, String secret, String code) async {
     Token _answer = Token();
 
     print('---> Entering getStravaToken!!');
@@ -151,7 +143,7 @@ StreamController<String> onCodeReceived = StreamController();
       _answer.refreshToken = refreshToken;
       _answer.expiresAt = expiresAt;
     }
-    
+
     return (_answer);
     // });
   }
@@ -162,12 +154,14 @@ StreamController<String> onCodeReceived = StreamController();
     return (_expiryDate.isBefore(DateTime.now()));
   }
 
-  Future<bool> OAuth(String clientID, String redirectUrl, String scope, String secret) async {
+  Future<bool> OAuth(
+      String clientID, String redirectUrl, String scope, String secret) async {
     bool isExpired = true;
-    bool returnValue = false;
+    bool isAuthOK = false;
 
     final Token tokenStored = await getStoredToken();
     final String _token = tokenStored.accessToken;
+
 
     // Check if the token is not expired
     if (_token != "null") {
@@ -176,36 +170,48 @@ StreamController<String> onCodeReceived = StreamController();
       isExpired = _isTokenExpired(tokenStored);
     }
 
-    // Check if access token has been stored previously or expired
-    if ((_token == "null") || (isExpired)) {
-
-      // todo: if accessToken is expired use the refresh token
-      // to get a new access code
-      await _getStravaCode(clientID, redirectUrl, scope);
-
-      onCodeReceived.stream.listen((stravaCode) async {
-        if (stravaCode != null) {
-          var answer = await _getStravaToken(clientID, secret, stravaCode);
-
-          print('---> answer ${answer.expiresAt}  , ${answer.accessToken}');
-
-          // Save the token information
-          if (answer.accessToken != null && answer.expiresAt != null) {
-               _saveToken(answer.accessToken, answer.expiresAt, scope);
-          }
-
-          returnValue = true;
-        } else {
-          print('----> code is still null');
-          returnValue = false;
-        }
-      });
-    } else {
-      
-      returnValue = true;
+    // Check if the scope has changed
+    if ((tokenStored.scope != scope) ||  (_token == "null") || isExpired) {
+      // Ask for a new authorization
+      isAuthOK = await newAuthorization(clientID, redirectUrl, secret, scope);
     }
 
-    return (returnValue);
+    if (tokenStored.scope == scope) {
+      isAuthOK = true;
+    }
+
+    return isAuthOK;
+
+  }
+
+  Future<bool> newAuthorization(
+     String clientID, String redirectUrl, String secret, String scope) async {
+    // todo: if accessToken is expired use the refresh token
+    // to get a new access code
+
+    bool returnValue = false;
+
+    await _getStravaCode(clientID, redirectUrl, scope);
+
+    onCodeReceived.stream.listen((stravaCode) async {
+      if (stravaCode != null) {
+        var answer = await _getStravaToken(clientID, secret, stravaCode);
+
+        print('---> answer ${answer.expiresAt}  , ${answer.accessToken}');
+
+        // Save the token information
+        if (answer.accessToken != null && answer.expiresAt != null) {
+          _saveToken(answer.accessToken, answer.expiresAt, scope);
+        }
+
+        returnValue = true;
+      } else {
+        print('----> code is still null');
+        returnValue = false;
+      }
+    });
+
+    return returnValue;
   }
 
   Future<void> deAuthorize() async {
@@ -226,7 +232,4 @@ StreamController<String> onCodeReceived = StreamController();
       }
     }
   }
-
-
-
 }

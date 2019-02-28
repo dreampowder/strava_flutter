@@ -49,3 +49,7 @@ Thanks to Joe Birch, I used his code to better understand Oauth process
 https://github.com/hitherejoe/FlutterOAuth
 
 And Javier for https://javiercbk.github.io/json_to_dart/
+
+
+License:
+strava-flutter is provided under a MIT License. Copyright (c) 2019 Patrick FINKELSTEIN
