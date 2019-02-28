@@ -42,12 +42,17 @@ class StravaFlutterPage extends StatefulWidget {
 }
 
 class _StravaFlutterPageState extends State<StravaFlutterPage> {
+
+  String clientID = "32212";
+  final String redirectUrl = "http://localhost:8080";
+  final String scope = 'profile:write';
+
   final strava = Strava(
             "32212",    // Put your Strava id app
             secret,     // Put your secret key in secret.dart file
             "http://localhost:8080", 
             'auto',
-            'profile:read_all, profile:write',   // The scope you need 
+            'profile:write',   // The scope you need 
             // Check https://developers.strava.com/docs/oauth-updates/  scope update
           );
 
@@ -58,7 +63,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
   }
 
   void example() async {
-    var resAuth = await strava.Auth();
+    var resAuth = await strava.OAuth(clientID, redirectUrl, scope, secret);
 
     if (resAuth) {
       DetailedAthlete athlete = await strava.getLoggedInAthlete();

@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'token.dart';
+// import 'token.dart';
 
 import 'constants.dart';
 import '../Models/gear.dart';
@@ -19,6 +19,7 @@ import '../Models/zone.dart';
 import '../Models/summaryAthlete.dart';
 import '../Models/runningRace.dart';
 
+import 'Oauth.dart';
 import 'upload.dart';
 
 /// Initialize the Strava API
@@ -26,7 +27,7 @@ import 'upload.dart';
 /// redirectURL: url that will be called after Strava authorize your app
 /// prompt: to choose to ask Strava always to authenticate or only when needed (with 'auto')
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
-class Strava with Upload {
+class Strava with Upload, Auth {
   Strava(this.clientID, this.secret, this.redirectUrl, this.prompt, this.scope);
   final String clientID;
   final String secret;
@@ -39,7 +40,7 @@ class Strava with Upload {
 
   Map<String, String> header; // set in _getStoredToken
 
-  StreamController<String> onCodeReceived = StreamController();
+  // StreamController<String> onCodeReceived = StreamController();
 
   /// getRunningRacebyId
   ///
@@ -424,209 +425,5 @@ class Strava with Upload {
     onCodeReceived.close();
   }
 
-//===========================================
-// Code related to Authorization processs
-//===========================================
 
-// Save the token and the expiry date
-  void _saveToken(String token, int expire) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', token);
-    prefs.setInt('expire', expire); // Stored in seconds
-
-    print('token saved!!!');
-  }
-
-// get the stored token and expiry date
-  Future<Token> getStoredToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    var localToken = Token();
-    try {
-      localToken.accessToken = prefs.getString('token').toString();
-      localToken.expiresAt = prefs.getInt('expire');
-
-      // Update the header
-      // header is global to change TODO:
-      header = {'Authorization': 'Bearer ${localToken.accessToken}'};
-    } catch (error) {
-      print('Error getting the key');
-      localToken.accessToken = null;
-      localToken.expiresAt = null;
-    }
-
-    if (localToken.expiresAt != null) {
-      var dateExpired =
-          DateTime.fromMillisecondsSinceEpoch(localToken.expiresAt);
-      var disp = dateExpired.day.toString() +
-          dateExpired.month.toString() +
-          dateExpired.hour.toString();
-      print('stored token ${localToken.accessToken}  expires: $disp ');
-    }
-
-    return (localToken);
-  }
-
-// Get the code from Strava
-// TODO: Test when no internet and when error url
-
-  Future<void> _getStravaCode(
-      String clientID, String redirectUrl, String scope) async {
-    print('Welcome to getStravaCode');
-    var code = "";
-    var params = '?' +
-        'client_id=' +
-        clientID +
-        '&redirect_uri=' +
-        redirectUrl +
-        '&response_type=' +
-        'code' +
-        '&approval_prompt=' +
-        'auto' +
-        // '&scope=' + 'read,read_all,profile:read_all';
-        '&scope=' +
-        scope;
-
-    var reqAuth = authorizationEndpoint + params;
-    print('---> $reqAuth');
-
-    closeWebView();
-    launch(reqAuth,
-        forceWebView: true, forceSafariVC: true, enableJavaScript: true);
-
-    // Launch small http server to collect the answer from Strava
-    //------------------------------------------------------------
-    final server =
-        await HttpServer.bind(InternetAddress.loopbackIPv4, 8080, shared: true);
-    server.listen((HttpRequest request) async {
-      // Get the answer from Strava
-      final uri = request.uri;
-
-      code = uri.queryParameters["code"];
-      final error = uri.queryParameters["error"];
-      print('---> code $code, error $error');
-
-      closeWebView();
-      server.close(force: true);
-
-      onCodeReceived.add(code);
-    });
-
-    print('End of getStravaCode');
-  }
-
-  Future<Token> _getStravaToken(String code) async {
-    Token _answer = Token();
-
-    print('---> Entering getStravaToken!!');
-    var urlToken = tokenEndpoint +
-        '?client_id=' +
-        clientID +
-        '&client_secret=' +
-        secret + // Put your own secret in secret.dart
-        '&code=' +
-        code +
-        '&grant_type=' +
-        'authorization_code';
-
-    print('----> urlToken $urlToken');
-
-    var value = await http.post(urlToken);
-
-    // responseToken.then((value) {
-    print('----> body ${value.body}');
-
-    if (value.body.contains('message')) {
-      // This is not the normal message
-      print('---> Error in getStravaToken');
-      // will return _answer null
-    } else {
-      var tokenBody = json.decode(value.body);
-      // Todo: handle error with message "Authorization Error" and errors != null
-      var _body = Token.fromJson(tokenBody);
-      var accessToken = _body.accessToken;
-      var refreshToken = _body.refreshToken;
-      var expiresAt = _body.expiresAt * 1000;
-
-      _answer.accessToken = accessToken;
-      _answer.refreshToken = refreshToken;
-      _answer.expiresAt = expiresAt;
-    }
-    
-    return (_answer);
-    // });
-  }
-
-  bool _isTokenExpired(Token token) {
-    final DateTime _expiryDate =
-        DateTime.fromMillisecondsSinceEpoch(token.expiresAt);
-    return (_expiryDate.isBefore(DateTime.now()));
-  }
-
-  Future<bool> Auth() async {
-    bool isExpired = true;
-    bool returnValue = false;
-
-    final Token tokenStored = await getStoredToken();
-    final String _token = tokenStored.accessToken;
-
-    // Check if the token is not expired
-    if (_token != "null") {
-      print('----> token has been stored before! ${tokenStored.accessToken}');
-
-      isExpired = _isTokenExpired(tokenStored);
-    }
-
-    // Check if access token has been stored previously or expired
-    if ((_token == "null") || (isExpired)) {
-      await _getStravaCode(clientID, redirectUrl, scope);
-
-      onCodeReceived.stream.listen((stravaCode) async {
-        if (stravaCode != null) {
-          var answer = await _getStravaToken(stravaCode);
-
-          print('---> answer ${answer.expiresAt}  , ${answer.accessToken}');
-
-          // Save the token information
-          if (answer.accessToken != null && answer.expiresAt != null) {
-               _saveToken(answer.accessToken, answer.expiresAt);
-          }
-       
-          // Update the header
-          header = {'----> Authorization': 'Bearer ${answer.accessToken}'};
-          returnValue = true;
-        } else {
-          print('----> code is still null');
-          returnValue = false;
-        }
-      });
-    } else {
-      // No need to start again the authentication
-      // Use directly the stored token
-      // Update the header
-      header = {'Authorization': 'Bearer $_token'};
-      returnValue = true;
-    }
-
-    return (returnValue);
-  }
-
-  Future<void> deAuthorize() async {
-    String returnValue;
-
-    var _token = await getStoredToken();
-
-    header = {'Authorization': 'Bearer ${_token.accessToken}'};
-
-    if (header != null) {
-      final reqDeAuthorize = "https://www.strava.com/oauth/deauthorize";
-      var rep = await http.post(reqDeAuthorize, headers: header);
-      if (rep.statusCode == 200) {
-        print('DeAuthorize done');
-        _saveToken(null, null);
-      } else {
-        print('problem in deAuthorize request');
-        // Todo add an error code
-      }
-    }
-  }
 }

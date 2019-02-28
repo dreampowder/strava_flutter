@@ -6,3 +6,8 @@ enum ErrorCode {
   tokenIsInvalid,
   unknownError,
 }
+
+
+
+final tokenEndpoint = "https://www.strava.com/oauth/token";
+final authorizationEndpoint = "https://www.strava.com/oauth/authorize";

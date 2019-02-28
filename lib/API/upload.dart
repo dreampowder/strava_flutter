@@ -63,7 +63,7 @@ abstract class Upload {
     request.fields['external_id'] = 'strava_flutter';
     request.fields['description'] = description;
 
-    Map<String, String> header = {'Authorization': 'Bearer ${accessToken}'};
+    Map<String, String> header = {'Authorization': 'Bearer $accessToken'};
     request.headers.addAll(header);
 
     request.files.add(await http.MultipartFile.fromPath('file', fileUrl));
@@ -107,7 +107,7 @@ abstract class Upload {
     final strava = Strava(
         "32212", secret, "http://localhost:8080", 'auto', 'activity:write');
 
-    await strava.Auth();
+    await strava.OAuth("32212", "http://localhost:8080", 'activity:write', secret);
     // var token = Token();
     // var _token = await token.getStoredToken();
 
@@ -158,8 +158,8 @@ abstract class Upload {
 
     final strava = Strava(
         "32212", secret, "http://localhost:8080", 'auto', 'activity:write');
-
-    strava.Auth();
+  
+    strava.OAuth("32212", "http://localhost:8080", 'activity:write', secret);
 
     final postUri = Uri.parse('https://www.strava.com/api/v3/uploads');
     final fileUrl = '$dir/myActivity.gpx';

@@ -5,6 +5,7 @@ class Token {
   String refreshToken;
   String tokenType;
   int expiresAt;
+  String scope;
 
   Token();
 
@@ -35,13 +36,16 @@ class Token {
     return model;
   }
 
-// To put in the class Token?
+
+  // NOT used for the moment
+  //-------------------------
   Future<Token> getStoredToken() async {
     final prefs = await SharedPreferences.getInstance();
     var localToken = Token();
     try {
       localToken.accessToken = prefs.getString('token').toString();
       localToken.expiresAt = prefs.getInt('expire');
+      localToken.scope = prefs.getString('scope');
 
       //  the header
       // header is global to change TODO:
@@ -50,8 +54,9 @@ class Token {
       print('Error getting the key');
       localToken.accessToken = null;
       localToken.expiresAt = null;
+      localToken.scope = null;
     }
+    return localToken;
 
-    // INCOMPLETE
   }
 }
