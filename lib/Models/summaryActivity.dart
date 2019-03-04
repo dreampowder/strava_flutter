@@ -1,6 +1,10 @@
 // Summary Activity
 
+import 'fault.dart';
+
+
 class SummaryActivity {
+  Fault fault;
   int id;
   int resourceState;
   Athlete athlete;

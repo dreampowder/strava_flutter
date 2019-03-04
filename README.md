@@ -31,7 +31,7 @@ https://github.com/BirdyF/strava_flutter/blob/master/lib/main.dart
 
 
 Tested on:
-- Android 4.4.2 
+- Android 4.4.2 , 4.4.23
 - iOS 12.1.2
 
 

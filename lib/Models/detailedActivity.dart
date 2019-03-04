@@ -1,10 +1,11 @@
 // Activity 
 
 import 'gear.dart';
+import 'fault.dart';
 
 
 class DetailedActivity {
-  int errorCode;
+  Fault fault;
   int id;
   int resourceState;
   String externalId;
@@ -69,7 +70,7 @@ class DetailedActivity {
   bool leaderboardOptOut;
 
   DetailedActivity(
-      {this.errorCode,
+      {this.fault,
       this.id,
       this.resourceState,
       this.externalId,

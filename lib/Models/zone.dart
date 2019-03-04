@@ -1,17 +1,18 @@
 // zones
-import '../API/constants.dart';
+import 'fault.dart';
 
 
 class Zone {
+  Fault fault;
   List<DistributionBuckets> distributionBuckets;
-  ErrorCode error;
+  // ErrorCode error;
   String type;
   int resourceState;
   bool sensorBased;
 
   Zone(
-      {this.distributionBuckets,
-      this.error,
+      {this.fault,
+      this.distributionBuckets,
       this.type,
       this.resourceState,
       this.sensorBased});

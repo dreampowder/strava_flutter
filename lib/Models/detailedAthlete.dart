@@ -1,11 +1,13 @@
 // Detailed athlete
 
 import '../API/constants.dart';
+import 'fault.dart';
 
 // NOT working yet, problem with club
 import 'club.dart';
 
 class DetailedAthlete {
+  Fault fault;
   int id;
   ErrorCode errorCode;
   String username;

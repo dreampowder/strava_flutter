@@ -28,19 +28,16 @@ import 'upload.dart';
 /// prompt: to choose to ask Strava always to authenticate or only when needed (with 'auto')
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
 class Strava with Upload, Auth {
-  Strava(this.clientID, this.secret, this.redirectUrl, this.prompt, this.scope);
-  final String clientID;
+  Strava( this.secret,  this.prompt);
   final String secret;
-  final String redirectUrl;
   final String prompt;
-  final String scope;
+
 
   final tokenEndpoint = "https://www.strava.com/oauth/token";
   final authorizationEndpoint = "https://www.strava.com/oauth/authorize";
 
   Map<String, String> header; // set in _getStoredToken
 
-  // StreamController<String> onCodeReceived = StreamController();
 
   /// getRunningRacebyId
   ///

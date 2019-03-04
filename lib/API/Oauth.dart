@@ -11,15 +11,14 @@ import 'token.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//===========================================
-// Code related to Authorization processs
-//===========================================
-
+///===========================================
+/// Class related to Authorization processs
+///===========================================
 abstract class Auth {
   StreamController<String> onCodeReceived = StreamController();
 
 // Save the token and the expiry date
-  void _saveToken(String token, int expire, String scope) async {
+  Future<void> saveToken(String token, int expire, String scope) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
     prefs.setInt('expire', expire); // Stored in seconds
@@ -28,16 +27,18 @@ abstract class Auth {
     print('token saved!!!');
   }
 
-// get the stored token and expiry date
+// Get the stored token and expiry date
   Future<Token> getStoredToken() async {
     final prefs = await SharedPreferences.getInstance();
     var localToken = Token();
+    print('---> Entering getStoredToken');
+
     try {
       localToken.accessToken = prefs.getString('token').toString();
       localToken.expiresAt = prefs.getInt('expire');
       localToken.scope = prefs.getString('scope');
     } catch (error) {
-      print('Error getting the key');
+      print('---> Error getting the key');
       localToken.accessToken = null;
       localToken.expiresAt = null;
       localToken.scope = null;
@@ -46,10 +47,10 @@ abstract class Auth {
     if (localToken.expiresAt != null) {
       var dateExpired =
           DateTime.fromMillisecondsSinceEpoch(localToken.expiresAt);
-      var disp = dateExpired.day.toString() +
-          dateExpired.month.toString() +
+      var disp = dateExpired.day.toString() + '/' +
+          dateExpired.month.toString() + '/' +
           dateExpired.hour.toString();
-      print('stored token ${localToken.accessToken}  expires: $disp ');
+      print('---> stored token ${localToken.accessToken}  expires: $disp ');
     }
 
     return (localToken);
@@ -60,7 +61,7 @@ abstract class Auth {
   }
 
   // Get the code from Strava server
-  Future<void> _getStravaCode(
+  Future<void> getStravaCode(
       String clientID, String redirectUrl, String scope) async {
     print('Welcome to getStravaCode');
     var code = "";
@@ -73,7 +74,6 @@ abstract class Auth {
         'code' +
         '&approval_prompt=' +
         'auto' +
-        // '&scope=' + 'read,read_all,profile:read_all';
         '&scope=' +
         scope;
 
@@ -89,23 +89,87 @@ abstract class Auth {
     final server =
         await HttpServer.bind(InternetAddress.loopbackIPv4, 8080, shared: true);
     server.listen((HttpRequest request) async {
+      //  server.listen((HttpRequest request)  {
       // Get the answer from Strava
       final uri = request.uri;
 
       code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];
+      request.response.close();
       print('---> code $code, error $error');
 
       closeWebView();
       server.close(force: true);
 
       onCodeReceived.add(code);
-    });
 
-    print('End of getStravaCode');
+      print('---> Get the new code $code');
+    });
   }
 
-  Future<Token> _getStravaToken(
+  // Test purpose only
+  Future<bool> OAuth(
+      String clientID, String redirectUrl, String scope, String secret) async {
+    print('Welcome to Oauth');
+    bool isAuthOk = false;
+    bool isExpired = true;
+
+
+    final Token tokenStored = await getStoredToken();
+    final String _token = tokenStored.accessToken;
+
+
+
+     // Check if the token is not expired
+    if (_token != "null") {
+      print('----> token has been stored before! ${tokenStored.accessToken}');
+
+      isExpired = isTokenExpired(tokenStored);
+      print('----> isExpired $isExpired');
+    }
+
+
+   // Check if the scope has changed
+    if ((tokenStored.scope != scope) || (_token == "null") || isExpired) {
+      // Ask for a new authorization
+      print('---> Doing a new authorization');
+      isAuthOk = await newAuthorization(clientID, redirectUrl, secret, scope);
+    } else {
+      isAuthOk = true;
+    }
+
+    return isAuthOk;
+  }
+
+
+Future<bool> newAuthorization(
+      String clientID, String redirectUrl, String secret, String scope) async {
+    
+    bool returnValue = false;
+
+    await getStravaCode(clientID, redirectUrl, scope);
+
+     var stravaCode = await onCodeReceived.stream.first;
+
+    if (stravaCode != null) {
+      var answer = await getStravaToken(clientID, secret, stravaCode);
+
+      print('---> answer ${answer.expiresAt}  , ${answer.accessToken}');
+
+      // Save the token information
+      if (answer.accessToken != null && answer.expiresAt != null) {
+        await saveToken(answer.accessToken, answer.expiresAt, scope);
+        returnValue = true;
+      }
+    } else {
+      print('----> code is still null');
+    }
+    return returnValue;
+  }
+
+
+
+  Future<Token> getStravaToken(
       String clientID, String secret, String code) async {
     Token _answer = Token();
 
@@ -148,11 +212,13 @@ abstract class Auth {
     // });
   }
 
-  bool _isTokenExpired(Token token) {
+  bool isTokenExpired(Token token) {
     final DateTime _expiryDate =
         DateTime.fromMillisecondsSinceEpoch(token.expiresAt);
     return (_expiryDate.isBefore(DateTime.now()));
   }
+
+/*******
 
   Future<bool> OAuth(
       String clientID, String redirectUrl, String scope, String secret) async {
@@ -162,57 +228,27 @@ abstract class Auth {
     final Token tokenStored = await getStoredToken();
     final String _token = tokenStored.accessToken;
 
-
     // Check if the token is not expired
     if (_token != "null") {
       print('----> token has been stored before! ${tokenStored.accessToken}');
 
-      isExpired = _isTokenExpired(tokenStored);
+      isExpired = isTokenExpired(tokenStored);
+      print('----> isExpired $isExpired');
     }
 
     // Check if the scope has changed
-    if ((tokenStored.scope != scope) ||  (_token == "null") || isExpired) {
+    if ((tokenStored.scope != scope) || (_token == "null") || isExpired) {
       // Ask for a new authorization
+      print('---> Doing a new authorization');
       isAuthOK = await newAuthorization(clientID, redirectUrl, secret, scope);
-    }
-
-    if (tokenStored.scope == scope) {
+    } else {
       isAuthOK = true;
     }
 
     return isAuthOK;
-
   }
-
-  Future<bool> newAuthorization(
-     String clientID, String redirectUrl, String secret, String scope) async {
-    // todo: if accessToken is expired use the refresh token
-    // to get a new access code
-
-    bool returnValue = false;
-
-    await _getStravaCode(clientID, redirectUrl, scope);
-
-    onCodeReceived.stream.listen((stravaCode) async {
-      if (stravaCode != null) {
-        var answer = await _getStravaToken(clientID, secret, stravaCode);
-
-        print('---> answer ${answer.expiresAt}  , ${answer.accessToken}');
-
-        // Save the token information
-        if (answer.accessToken != null && answer.expiresAt != null) {
-          _saveToken(answer.accessToken, answer.expiresAt, scope);
-        }
-
-        returnValue = true;
-      } else {
-        print('----> code is still null');
-        returnValue = false;
-      }
-    });
-
-    return returnValue;
-  }
+*****/
+  
 
   Future<void> deAuthorize() async {
     String returnValue;
@@ -225,7 +261,7 @@ abstract class Auth {
       var rep = await http.post(reqDeAuthorize, headers: header);
       if (rep.statusCode == 200) {
         print('DeAuthorize done');
-        _saveToken(null, null, null);
+        await saveToken(null, null, null);
       } else {
         print('problem in deAuthorize request');
         // Todo add an error code
