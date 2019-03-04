@@ -25,9 +25,18 @@ work in progress
 
 How to use: 
 
-Please check example() in main.dart for the moment
+Please check examples.dart for the moment
 
-https://github.com/BirdyF/strava_flutter/blob/master/lib/main.dart
+https://github.com/BirdyF/strava_flutter/blob/master/example/lib/examples.dart
+
+
+How to use it
+1 - Create a file secret.dart to put the secret shown on  Strava settings related to your app
+https://www.strava.com/settings/api
+
+2 - In constants.dart put your appID in clientID
+
+3 - To see debug info in Strava API, set isInDebug to true in globals.dart
 
 
 Tested on:

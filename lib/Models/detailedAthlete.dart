@@ -9,7 +9,6 @@ import 'club.dart';
 class DetailedAthlete {
   Fault fault;
   int id;
-  ErrorCode errorCode;
   String username;
   int resourceState;
   String firstname;
@@ -39,8 +38,8 @@ class DetailedAthlete {
   List<Shoes> shoes;
 
   DetailedAthlete (
-      {this.id,
-      this.errorCode,
+      {Fault fault,
+      this.id,
       this.username,
       this.resourceState,
       this.firstname,
@@ -67,7 +66,7 @@ class DetailedAthlete {
       this.ftp,
       this.weight,
       this.bikes,
-      this.shoes});
+      this.shoes}): fault = Fault(99, '');
 
   DetailedAthlete .fromJson(Map<String, dynamic> json) {
     id = json['id'];

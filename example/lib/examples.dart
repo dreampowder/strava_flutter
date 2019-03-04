@@ -28,9 +28,13 @@ import 'package:strava_flutter/Models/summaryActivity.dart';
 
 
   /// Example showing how to upload an activity on Strava
+  /// 
   /// Use file Bormes.gpx in assets
+  /// 
   /// Should appear on your activities 6 Feb. 2018
+  /// 
   /// Under the title Bormes3
+  /// 
   Future<Fault> exampleUpload(String secret) async {
 
     Future<void> writeToFile(ByteData data, String path) {
@@ -81,10 +85,16 @@ void example(String secret) async {
 
     if (isAuthOk) {
 
-      DetailedAthlete athlete = await strava.getLoggedInAthlete();
+      DetailedAthlete _athlete = await strava.getLoggedInAthlete();
+      if (_athlete.fault.statusCode != strava.statusOk) {
+
+        print('Error in getloggedInAthlete ${_athlete.fault.statusCode}');
+      }
+    
 
       List<RunningRace> listRunningRaces = await strava.getRunningRaces("2019");
 
+      // id corresponding to BMW Berlin Marathon 29th Sept 2019
       RunningRace race = await strava.getRunningRaceById('2724');
 
       // Change of the loggedAthlete in profile
@@ -94,7 +104,7 @@ void example(String secret) async {
       Gear gear = await strava.getGearById("b4366285");
       // print('error code getGearById  ${gear.errorCode}');
 
-      Stats stats = await strava.getStats(athlete.id);
+      Stats stats = await strava.getStats(_athlete.id);
 
       // List<Zone> list = await strava.getLoggedInAthleteZones();
 

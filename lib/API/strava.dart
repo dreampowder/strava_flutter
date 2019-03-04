@@ -3,12 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
-import 'package:url_launcher/url_launcher.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-// import 'token.dart';
-
-import 'constants.dart';
+import '../Models/fault.dart';
 import '../Models/gear.dart';
 import '../Models/detailedAthlete.dart';
 import '../Models/stats.dart';
@@ -19,6 +15,7 @@ import '../Models/zone.dart';
 import '../Models/summaryAthlete.dart';
 import '../Models/runningRace.dart';
 
+import 'globals.dart' as globals;
 import 'Oauth.dart';
 import 'upload.dart';
 
@@ -33,33 +30,46 @@ class Strava with Upload, Auth {
   final String prompt;
 
 
+
+/// List of statuscode used by Fault 
+/// To get info to API caller
+/// Should have a nicer to do it in Dart!
+final statusOk = 0;
+final statusInvalidToken = 1;
+final statusUnknownError = 2;
+final statusHeaderIsEmpty = 3;
+
+
   final tokenEndpoint = "https://www.strava.com/oauth/token";
   final authorizationEndpoint = "https://www.strava.com/oauth/authorize";
 
   Map<String, String> header; // set in _getStoredToken
 
+  
 
   /// getRunningRacebyId
   ///
-  /// Scope needed:
+  /// Scope needed: none
   ///
   /// Answer has route_ids [int]
   Future<RunningRace> getRunningRaceById(String id) async {
     RunningRace returnRace = RunningRace();
 
-    if (header != null) {
+    var _header = createHeader();
+
+    if (_header != null) {
       final reqRace = 'https://www.strava.com/api/v3/running_races/' + id;
 
-      var rep = await http.get(reqRace, headers: header);
+      var rep = await http.get(reqRace, headers: _header);
       if (rep.statusCode == 200) {
-        print(rep.statusCode);
-        print('Race info ${rep.body}');
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo('Race info ${rep.body}');
         final jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
           returnRace = RunningRace.fromJson(jsonResponse);
         } else {
-          print('problem in getRunningRaceById request');
+          globals.displayInfo('problem in getRunningRaceById request');
         }
       }
       return returnRace;
@@ -77,8 +87,8 @@ class Strava with Upload, Auth {
 
       var rep = await http.get(reqList, headers: header);
       if (rep.statusCode == 200) {
-        print(rep.statusCode);
-        print('List races info ${rep.body}');
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo('List races info ${rep.body}');
         final jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
@@ -233,47 +243,55 @@ class Strava with Upload, Auth {
 
             Gear _gear = Gear.fromJson(jsonResponse);
             print(_gear.description);
-            _gear.errorCode = ErrorCode.ok;
+            // _gear.fault.statusCode = statusOk;
             returnGear = _gear;
           }
           break;
 
         case 401:
           {
-            print('problem in getGearById request');
-            returnGear.errorCode = ErrorCode.tokenIsInvalid;
+            
+            // returnGear.errorCode = statusInvalidToken;
           }
           break;
 
         default:
           {
-            returnGear.errorCode = ErrorCode.unknownError;
+            // returnGear.errorCode = statusUnknownError;
           }
           break;
       }
     } else {
-      returnGear.errorCode = ErrorCode.headerIsEmpty;
+      // returnGear.errorCode = statusHeaderIsEmpty;
     }
 
     return returnGear;
   }
 
+  /// 
+  /// scope needed: profile:read_all scope
+  /// 
+  /// return: see status value in strava class
   Future<DetailedAthlete> getLoggedInAthlete() async {
     DetailedAthlete returnAthlete = DetailedAthlete();
-    if (header != null) {
+    returnAthlete.fault = Fault(88, '');
+
+    var _header = createHeader();
+
+    if (_header != null) {
       final reqAthlete = "https://www.strava.com/api/v3/athlete";
-      var rep = await http.get(reqAthlete, headers: header);
+      var rep = await http.get(reqAthlete, headers: _header);
 
       switch (rep.statusCode) {
         case 200:
           {
-            print(rep.statusCode);
-            print('Athlete info ${rep.body}');
+            globals.displayInfo(rep.statusCode.toString());
+            globals.displayInfo('Athlete info ${rep.body}');
             final jsonResponse = json.decode(rep.body);
 
             DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
-            print(' athlete ${_athlete.firstname}, ${_athlete.lastname}');
-            _athlete.errorCode = ErrorCode.ok;
+            globals.displayInfo(' athlete ${_athlete.firstname}, ${_athlete.lastname}');
+            _athlete.fault = Fault(statusOk, 'getLoggedInAthlete done');
 
             returnAthlete = _athlete;
           }
@@ -281,17 +299,17 @@ class Strava with Upload, Auth {
 
         case 401:
           {
-            returnAthlete.errorCode = ErrorCode.tokenIsInvalid;
+            returnAthlete.fault = Fault(statusInvalidToken, 'invalid token');
 
-            print(
-                'problem in getLoggedInAthlete request , ${returnAthlete.errorCode}  ${rep.body}');
+            globals.displayInfo(
+                'problem in getLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
           }
           break;
 
         default:
           {
-            returnAthlete.errorCode = ErrorCode.unknownError;
-            print('problem in getLoggedInAthlete, unknown error');
+            returnAthlete.fault = Fault(statusUnknownError, 'Unknown Error');
+            globals.displayInfo('problem in getLoggedInAthlete, unknown error');
           }
           break;
       }
@@ -366,7 +384,7 @@ class Strava with Upload, Auth {
 
             DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
             print(' athlete ${_athlete.firstname}, ${_athlete.weight}');
-            _athlete.errorCode = ErrorCode.ok;
+            _athlete.fault.statusCode = statusOk;
 
             returnAthlete = _athlete;
           }
@@ -374,16 +392,16 @@ class Strava with Upload, Auth {
 
         case 401:
           {
-            returnAthlete.errorCode = ErrorCode.tokenIsInvalid;
+            returnAthlete.fault.statusCode = statusInvalidToken;
 
             print(
-                'problem in updateLoggedInAthleteequest , ${returnAthlete.errorCode}  ${rep.body}');
+                'problem in updateLoggedInAthleteequest , ${returnAthlete.fault.statusCode}  ${rep.body}');
           }
           break;
 
         default:
           {
-            returnAthlete.errorCode = ErrorCode.unknownError;
+            returnAthlete.fault.statusCode = statusUnknownError;
             print(
                 'problem in updateLoggedInAthlete, unknown error  ${rep.body}');
           }

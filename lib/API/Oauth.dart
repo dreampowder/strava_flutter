@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
+import 'globals.dart' as globals;
 import 'constants.dart';
 import 'token.dart';
 
@@ -24,6 +25,11 @@ abstract class Auth {
     prefs.setInt('expire', expire); // Stored in seconds
     prefs.setString('scope', scope);
 
+    // Save also in globals to get direct access
+    globals.token.accessToken = token;
+    globals.token.scope = scope;
+    globals.token.expiresAt =expire;
+
     print('token saved!!!');
   }
 
@@ -37,6 +43,11 @@ abstract class Auth {
       localToken.accessToken = prefs.getString('token').toString();
       localToken.expiresAt = prefs.getInt('expire');
       localToken.scope = prefs.getString('scope');
+
+      // load the data in globals 
+      globals.token.accessToken =localToken.accessToken;
+      globals.token.expiresAt =localToken.expiresAt;
+      globals.token.scope =localToken.scope;
     } catch (error) {
       print('---> Error getting the key');
       localToken.accessToken = null;
@@ -50,14 +61,20 @@ abstract class Auth {
       var disp = dateExpired.day.toString() + '/' +
           dateExpired.month.toString() + '/' +
           dateExpired.hour.toString();
-      print('---> stored token ${localToken.accessToken}  expires: $disp ');
+
+      globals.displayInfo('stored token ${localToken.accessToken}  expires: $disp ');
     }
 
     return (localToken);
   }
 
-  Map<String, String> createHeader(String token) {
-    return {'Authorization': 'Bearer $token'};
+  Map<String, String> createHeader() {
+    var _token =  globals.token;
+    if (_token != null) {
+      return {'Authorization': 'Bearer ${_token.accessToken}'};
+    } else {
+      return {null: null};
+    }
   }
 
   // Get the code from Strava server
@@ -107,7 +124,12 @@ abstract class Auth {
     });
   }
 
-  // Test purpose only
+  /// Do Strava Authentication. 
+  /// 
+  /// Do not do/show the Strava login if a token has been stored previously
+  /// and is not expired
+  /// Do/show the Strava login if the scope has been changed since last storage of the token
+  /// return true if no problem in authentication has been found
   Future<bool> OAuth(
       String clientID, String redirectUrl, String scope, String secret) async {
     print('Welcome to Oauth');
@@ -117,8 +139,6 @@ abstract class Auth {
 
     final Token tokenStored = await getStoredToken();
     final String _token = tokenStored.accessToken;
-
-
 
      // Check if the token is not expired
     if (_token != "null") {
@@ -255,10 +275,10 @@ Future<bool> newAuthorization(
 
     var _token = await getStoredToken();
 
-    var header = createHeader(_token.accessToken);
-    if (header != null) {
+    var _header =  createHeader();
+    if (_header != null) {
       final reqDeAuthorize = "https://www.strava.com/oauth/deauthorize";
-      var rep = await http.post(reqDeAuthorize, headers: header);
+      var rep = await http.post(reqDeAuthorize, headers: _header);
       if (rep.statusCode == 200) {
         print('DeAuthorize done');
         await saveToken(null, null, null);

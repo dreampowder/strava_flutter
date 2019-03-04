@@ -3,7 +3,6 @@ import '../API/constants.dart';
 
 
 class Gear {
-  ErrorCode errorCode;
 
   String id;
   bool primary;
@@ -16,7 +15,6 @@ class Gear {
 
   Gear(
       {this.id,
-      this.errorCode,
       this.primary,
       this.resourceState,
       this.distance,
