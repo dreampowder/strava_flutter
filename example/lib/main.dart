@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:path_provider/path_provider.dart';
-
 import 'examples.dart';
 
 import 'secret.dart'; // Store Strava app secret
@@ -43,10 +40,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
   final String redirectUrl = "http://localhost:8080";
   final String scope = 'profile:write';
 
-  final strava = Strava(
-    secret, // Put your secret key in secret.dart file
-    'auto',  // Prompt strava login only when needed
-  );
 
   @override
   void initState() {
@@ -78,6 +71,11 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
   void deAuthorize() async {
     // need to get authorized before (valid token)
+    final strava = Strava(
+      true,   // to get disply info in API
+      secret, // Put your secret key in secret.dart file
+      'auto',  // Prompt strava login only when needed
+    );
     await strava.deAuthorize();
   }
 
@@ -102,22 +100,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             // Working
             // Image.asset('assets/test.JPG'),
 
-            Text('Push this button'),
-            Text(
-              'to revoke/DeAuthorize Strava user',
-            ),
-            Text(''),
-            RaisedButton(
-              child: Text('DeAuthorize'),
-              onPressed: deAuthorize,
-            ),
-            Text('Push this button to start'),
-            Text(
-              'the Strava authentication',
-            ),
-            Text(
-              'using basic example',
-            ),
+            
             Text(''),
             Text('Authentication'),
             Text('with strava_flutter Api'),
@@ -126,10 +109,23 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
               onPressed: exampleStrava,
             ),
             Text(''),
+            Text(''),
             Text('Upload with authentication'),
             RaisedButton(
               child: Text('upload'),
               onPressed: upload,
+            ),
+            Text(' '),
+            Text(''),
+            Text(''),
+            Text('Push this button'),
+            Text(
+              'to revoke/DeAuthorize Strava user',
+            ),
+            
+            RaisedButton(
+              child: Text('DeAuthorize'),
+              onPressed: deAuthorize,
             ),
           ],
         ),

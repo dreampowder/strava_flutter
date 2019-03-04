@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:io';
 import 'dart:async';
 
 
@@ -8,24 +7,24 @@ import '../Models/fault.dart';
 import '../Models/gear.dart';
 import '../Models/detailedAthlete.dart';
 import '../Models/stats.dart';
-import '../Models/club.dart';
 import '../Models/detailedActivity.dart';
-import '../Models/summaryActivity.dart';
 import '../Models/zone.dart';
-import '../Models/summaryAthlete.dart';
 import '../Models/runningRace.dart';
 
 import 'globals.dart' as globals;
 import 'Oauth.dart';
 import 'upload.dart';
+import 'clubs.dart';
+
 
 /// Initialize the Strava API
 ///  clientID: ID of your Strava app
 /// redirectURL: url that will be called after Strava authorize your app
 /// prompt: to choose to ask Strava always to authenticate or only when needed (with 'auto')
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
-class Strava with Upload, Auth {
-  Strava( this.secret,  this.prompt);
+class Strava with Upload, Auth, Clubs {
+  Strava( this.isInDebug, this.secret,  this.prompt);
+  final bool isInDebug;
   final String secret;
   final String prompt;
 
@@ -38,14 +37,12 @@ final statusOk = 0;
 final statusInvalidToken = 1;
 final statusUnknownError = 2;
 final statusHeaderIsEmpty = 3;
+final statusNotFound = 4;
+
+final tokenEndpoint = "https://www.strava.com/oauth/token";
+final authorizationEndpoint = "https://www.strava.com/oauth/authorize";
 
 
-  final tokenEndpoint = "https://www.strava.com/oauth/token";
-  final authorizationEndpoint = "https://www.strava.com/oauth/authorize";
-
-  Map<String, String> header; // set in _getStoredToken
-
-  
 
   /// getRunningRacebyId
   ///
@@ -55,7 +52,9 @@ final statusHeaderIsEmpty = 3;
   Future<RunningRace> getRunningRaceById(String id) async {
     RunningRace returnRace = RunningRace();
 
-    var _header = createHeader();
+    globals.displayInfo('Entering getRunningRaceById');
+
+    var _header = globals.createHeader();
 
     if (_header != null) {
       final reqRace = 'https://www.strava.com/api/v3/running_races/' + id;
@@ -76,193 +75,141 @@ final statusHeaderIsEmpty = 3;
     }
   }
 
-  // Scope needed:
-  // Answer has NO route_ids
+  /// Scope needed: none
+  /// Answer has NO route_ids for the moment
   Future<List<RunningRace>> getRunningRaces(String year) async {
     List<RunningRace> returnListRaces = List<RunningRace>();
 
-    if (header != null) {
+    globals.displayInfo('Entering getRunningRaces');
+
+    var _header = globals.createHeader();
+
+    if (_header != null) {
       final reqList =
           'https://www.strava.com/api/v3/running_races?year=' + year;
 
-      var rep = await http.get(reqList, headers: header);
+      var rep = await http.get(reqList, headers: _header);
       if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo('List races info ${rep.body}');
+        // globals.displayInfo('List races info ${rep.body}');
         final jsonResponse = json.decode(rep.body);
+      
 
         if (jsonResponse != null) {
           List<RunningRace> _listRaces = List<RunningRace>();
 
           jsonResponse.forEach((element) {
-            var race = RunningRace.fromJson(element);
-            print('---> ${race.name} ,  ${race.startDateLocal}    ${race.id}');
-            _listRaces.add(race);
+            var _race = RunningRace.fromJson(element);
+            _race.fault = Fault(88, '');
+            globals.displayInfo('${_race.name} ,  ${_race.startDateLocal}    ${_race.id}');
+            _race.fault.statusCode = statusOk;
+            _listRaces.add(_race);
           });
 
           returnListRaces = _listRaces;
         } else {
-          print('problem in getRunningRaces request');
+          globals.displayInfo('problem in getRunningRaces request');
         }
       }
       return returnListRaces;
     }
   }
 
-  // Scope needed:
-  // id of the club
-  Future<List<SummaryAthlete>> getClubMembersById(String id) async {
-    List<SummaryAthlete> returnListMembers = List<SummaryAthlete>();
-
-    if (header != null) {
-      final reqList = "https://www.strava.com/api/v3/clubs/" +
-          id +
-          '/members?page=1&per_page=200';
-
-      var rep = await http.get(reqList, headers: header);
-      if (rep.statusCode == 200) {
-        print(rep.statusCode);
-        print('List members info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
-
-        if (jsonResponse != null) {
-          List<SummaryAthlete> _listMembers = List<SummaryAthlete>();
-
-          jsonResponse.forEach((summ) {
-            var member = SummaryAthlete.fromJson(summ);
-            print(
-                '---> ${member.lastname} ,  ${member.firstname},  admin:${member.admin}');
-            _listMembers.add(member);
-          });
-
-          returnListMembers = _listMembers;
-        } else {
-          print('problem in getClubMembersById request');
-        }
-      }
-    }
-    return returnListMembers;
-  }
-
+  
+  /// scope: activity:read
   Future<DetailedActivity> getActivityById(String id) async {
     DetailedActivity returnActivity = DetailedActivity();
 
-    if (header != null) {
+    var _header = globals.createHeader();
+
+    globals.displayInfo('Entering getActivityById');
+
+    if (_header != null) {
       final reqActivity = "https://www.strava.com/api/v3/activities/" +
-          id +
-          '?include_all_efforts=true';
-      var rep = await http.get(reqActivity, headers: header);
-      if (rep.statusCode == 200) {
-        print(rep.statusCode);
-        print('Activity info ${rep.body}');
+          id +  '?include_all_efforts=true';
+      var rep = await http.get(reqActivity, headers: _header);
+
+  switch (rep.statusCode) {
+      case 200: {
+
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo('Activity info ${rep.body}');
         final jsonResponse = json.decode(rep.body);
 
-        // Error 404  Activity not found
+        
 
         DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
-        print(_activity.name);
+        _activity.fault = Fault(88, '');
+        _activity.fault.statusCode = statusOk;
+        globals.displayInfo(_activity.name);
 
         returnActivity = _activity;
-      } else {
-        print('problem in getActivityById request');
+        break;
       }
+
+      case 404: {
+        globals.displayInfo('Activity not found');
+        returnActivity.fault.statusCode = statusNotFound;
+      }
+      break;
+      
+      default: {
+        returnActivity.fault.statusCode = statusUnknownError;
+
+        break;
+      }
+
+      // add error 404 activity not found
+
     }
     return returnActivity;
   }
-
-  Future<Club> getClubById(String id) async {
-    Club returnClub;
-
-    if (header != null) {
-      final reqClub = 'https://www.strava.com/api/v3/clubs/' + id;
-      var rep = await http.get(reqClub, headers: header);
-      if (rep.statusCode == 200) {
-        print(rep.statusCode);
-        print('Club info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
-
-        Club _club = Club.fromJson(jsonResponse);
-        print(_club.name);
-
-        returnClub = _club;
-      } else {
-        print('problem in getClubById request');
-        // Todo add an error code
-      }
-    }
-    return returnClub;
   }
 
-  Future<List<SummaryActivity>> getClubActivitiesById(String id) async {
-    List<SummaryActivity> returnSummary;
+  
 
-    if (header != null) {
-      final reqClub = 'https://www.strava.com/api/v3/clubs/' +
-          id +
-          "/activities?page=1&per_page=10";
-      var rep = await http.get(reqClub, headers: header);
-      if (rep.statusCode == 200) {
-        print(rep.statusCode);
-        print('Club activity ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+  
 
-        if (jsonResponse != null) {
-          List<SummaryActivity> _listSummary = List<SummaryActivity>();
-
-          jsonResponse.forEach((summ) {
-            var activity = SummaryActivity.fromJson(summ);
-            print(
-                '---> ${activity.name} ,  ${activity.distance},  ${activity.id}');
-            _listSummary.add(activity);
-          });
-
-          print(_listSummary);
-          returnSummary = _listSummary;
-        }
-      } else {
-        print('problem in getClubActivitiesById request');
-        print('answer ${rep.body}');
-      }
-    }
-    return returnSummary;
-  }
-
+  /// Scope needed: any
+  /// Give answer only if id is related to logged athlete
+  /// 
   Future<Gear> getGearById(String id) async {
     Gear returnGear = Gear();
 
-    if (header != null) {
+    globals.displayInfo('Entering getGearById');
+
+    var _header = globals.createHeader();
+
+
+    if (_header != null) {
       final reqGear = 'https://www.strava.com/api/v3/gear/' + id;
-      var rep = await http.get(reqGear, headers: header);
+      var rep = await http.get(reqGear, headers: _header);
 
       switch (rep.statusCode) {
-        case 200:
-          {
-            print(rep.statusCode);
-            print('Bike info ${rep.body}');
+        case 200: {
+            globals.displayInfo(rep.statusCode.toString());
+            globals.displayInfo(' ${rep.body}');
             final jsonResponse = json.decode(rep.body);
 
             Gear _gear = Gear.fromJson(jsonResponse);
-            print(_gear.description);
-            // _gear.fault.statusCode = statusOk;
+            _gear.fault = Fault(88, '');
+            globals.displayInfo(_gear.description);
+            _gear.fault.statusCode = statusOk;
             returnGear = _gear;
-          }
-          break;
+        }
+        break;
 
-        case 401:
-          {
-            
-            // returnGear.errorCode = statusInvalidToken;
-          }
-          break;
+        case 401: { 
+            returnGear.fault.statusCode = statusInvalidToken;
+        }
+        break;
 
-        default:
-          {
-            // returnGear.errorCode = statusUnknownError;
-          }
-          break;
+        default: {
+            returnGear.fault.statusCode = statusUnknownError;
+        }
+        break;
       }
     } else {
-      // returnGear.errorCode = statusHeaderIsEmpty;
+      returnGear.fault.statusCode = statusHeaderIsEmpty;
     }
 
     return returnGear;
@@ -276,15 +223,14 @@ final statusHeaderIsEmpty = 3;
     DetailedAthlete returnAthlete = DetailedAthlete();
     returnAthlete.fault = Fault(88, '');
 
-    var _header = createHeader();
+    var _header = globals.createHeader();
 
     if (_header != null) {
       final reqAthlete = "https://www.strava.com/api/v3/athlete";
       var rep = await http.get(reqAthlete, headers: _header);
 
       switch (rep.statusCode) {
-        case 200:
-          {
+        case 200: {
             globals.displayInfo(rep.statusCode.toString());
             globals.displayInfo('Athlete info ${rep.body}');
             final jsonResponse = json.decode(rep.body);
@@ -294,24 +240,22 @@ final statusHeaderIsEmpty = 3;
             _athlete.fault = Fault(statusOk, 'getLoggedInAthlete done');
 
             returnAthlete = _athlete;
-          }
-          break;
+        }
+        break;
 
-        case 401:
-          {
+        case 401:{
             returnAthlete.fault = Fault(statusInvalidToken, 'invalid token');
 
             globals.displayInfo(
                 'problem in getLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
-          }
-          break;
+        }
+      break;
 
-        default:
-          {
+        default: {
             returnAthlete.fault = Fault(statusUnknownError, 'Unknown Error');
             globals.displayInfo('problem in getLoggedInAthlete, unknown error');
-          }
-          break;
+        }
+        break;
       }
     }
 
@@ -320,15 +264,19 @@ final statusHeaderIsEmpty = 3;
 
   Future<List<Zone>> getLoggedInAthleteZones() async {
     List<Zone> returnZones = List<Zone>();
-    if (header != null) {
+
+    globals.displayInfo('Entering getLoggedInAthleteZones');
+
+    var _header = globals.createHeader();
+
+    if (_header != null) {
       final reqAthlete = "https://www.strava.com/api/v3/athlete/zones";
-      var rep = await http.get(reqAthlete, headers: header);
+      var rep = await http.get(reqAthlete, headers: _header);
 
       switch (rep.statusCode) {
-        case 200:
-          {
-            print(rep.statusCode);
-            print('Zone info ${rep.body}');
+        case 200: {
+            globals.displayInfo(rep.statusCode.toString());
+            globals.displayInfo('Zone info ${rep.body}');
             final jsonResponse = json.decode(rep.body);
 
             if (jsonResponse != null) {
@@ -339,28 +287,25 @@ final statusHeaderIsEmpty = 3;
                 _zones.add(zone);
               });
 
-              //  To fi
-              // _zones.errorCode = ErrorCode.ok;
+              ;
 
               returnZones = _zones;
             }
           }
           break;
 
-        case 401:
-          {
+        case 401: {
             // returnAthlete.errorCode = ErrorCode.tokenIsInvalid;
 
             print('problem in getLoggedInAthlete request ,   ${rep.body}');
-          }
-          break;
+        }
+        break;
 
-        default:
-          {
+        default:{
             // returnAthlete.errorCode = ErrorCode.unknownError;
             print('problem in getLoggedInAthlete, unknown error');
-          }
-          break;
+        }
+        break;
       }
     }
 
@@ -369,17 +314,19 @@ final statusHeaderIsEmpty = 3;
 
   Future<DetailedAthlete> updateLoggedInAthlete(double weight) async {
     DetailedAthlete returnAthlete = DetailedAthlete();
-    if (header != null) {
+
+    var _header = globals.createHeader();
+
+    if (_header != null) {
       // final reqAthlete = "https://www.strava.com/api/v3/athlete/&weight=" + weight.toString();
       final reqAthlete = 'https://www.strava.com/api/v3/athlete?weight=84.0';
       print('update $reqAthlete');
-      var rep = await http.put(reqAthlete, headers: header);
+      var rep = await http.put(reqAthlete, headers: _header);
 
       switch (rep.statusCode) {
-        case 200:
-          {
-            print(rep.statusCode);
-            print('Athlete info ${rep.body}');
+        case 200:{
+            globals.displayInfo(rep.statusCode.toString());
+            globals.displayInfo('Athlete info ${rep.body}');
             final jsonResponse = json.decode(rep.body);
 
             DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
@@ -387,58 +334,69 @@ final statusHeaderIsEmpty = 3;
             _athlete.fault.statusCode = statusOk;
 
             returnAthlete = _athlete;
-          }
-          break;
+        }
+        break;
 
-        case 401:
-          {
+        case 401: {
             returnAthlete.fault.statusCode = statusInvalidToken;
 
-            print(
+            globals.displayInfo(
                 'problem in updateLoggedInAthleteequest , ${returnAthlete.fault.statusCode}  ${rep.body}');
-          }
-          break;
+        }
+        break;
 
-        default:
-          {
+        default: {
             returnAthlete.fault.statusCode = statusUnknownError;
-            print(
+            globals.displayInfo(
                 'problem in updateLoggedInAthlete, unknown error  ${rep.body}');
-          }
-          break;
+        }
+        break;
       }
     }
 
     return returnAthlete;
   }
 
+  /// For the moment, only 1 page is handled
+  /// 
   Future<Stats> getStats(int id) async {
     Stats returnStats;
-    if (header != null) {
+
+    var _header = globals.createHeader();
+
+    if (_header != null) {
       final reqStats = "https://www.strava.com/api/v3/athletes/" +
           id.toString() +
           "/stats?page=&per_page=;";
-      var rep = await http.get(reqStats, headers: header);
-      if (rep.statusCode == 200) {
-        print(rep.statusCode);
-        print('stats info ${rep.body}');
+      var rep = await http.get(reqStats, headers: _header);
+
+    switch (rep.statusCode) {
+      case 200: { 
+        globals.displayInfo('stats info ${rep.body}');
         final jsonResponse = json.decode(rep.body);
 
         Stats _stats = Stats.fromJson(jsonResponse);
-
+        _stats.fault =Fault(88, '');
+        _stats.fault.statusCode = statusOk;
         returnStats = _stats;
-      } else {
-        print('problem in getStats request');
+      } 
+      break;
+      
+      // case 400:
+      
+      default: {
+        returnStats.fault.statusCode = statusUnknownError;
+        globals.displayInfo('problem in getStats request, {rep.statusCode}');
         // Todo add an error code
       }
+      break;
     }
 
     return returnStats;
   }
+}
 
   void dispose() {
     onCodeReceived.close();
   }
-
-
 }

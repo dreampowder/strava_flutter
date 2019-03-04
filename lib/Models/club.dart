@@ -1,6 +1,9 @@
 // Club 
 
+import 'fault.dart';
+
 class Club {
+  Fault fault;
   int id;
   int resourceState;
   String name;
@@ -27,7 +30,8 @@ class Club {
   int followingCount;
 
   Club(
-      {this.id,
+      {Fault fault,
+      this.id,
       this.resourceState,
       this.name,
       this.profileMedium,
@@ -50,7 +54,7 @@ class Club {
       this.clubType,
       this.postCount,
       this.ownerId,
-      this.followingCount});
+      this.followingCount}): fault = Fault(88, '');
 
   Club.fromJson(Map<String, dynamic> json) {
     id = json['id'];

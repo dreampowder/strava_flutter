@@ -6,24 +6,13 @@ import 'dart:convert';
 
 
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 import '../Models/fault.dart';
 import '../Models/uploadActivity.dart';
-import 'constants.dart';
-
-import 'strava.dart'; // To remove when removing test1 and test2
 
 
 
 abstract class Upload {
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-
-  
 
   Future<Fault> uploadActivity(String name, String description, String fileUrl,
       String fileType, String accessToken) async {

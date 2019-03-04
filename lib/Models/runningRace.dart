@@ -1,8 +1,10 @@
 // Running Race
+import 'fault.dart';
 
 // It seems that routeIds is missing
 
 class RunningRace {
+  Fault fault;   
   String country;
   // List<int> routeIds;
   int runningRaceType;
@@ -18,6 +20,7 @@ class RunningRace {
 
   RunningRace(
       {
+      Fault fault,
       this.country,
       // this.routeIds,
       this.runningRaceType,
@@ -29,7 +32,7 @@ class RunningRace {
       this.measurementPreference,
       this.id,
       this.state,
-      this.url});
+      this.url}): fault = Fault(99, '');
 
   RunningRace.fromJson(Map<String, dynamic> json) {
     country = json['country'];

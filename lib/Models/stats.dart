@@ -1,6 +1,9 @@
-// stats
+// Stats
+
+import 'fault.dart';
 
 class Stats {
+  Fault fault;
   StatsTotals recentRunTotals;
   ActivityTotals allRunTotals;
   StatsTotals recentSwimTotals;
@@ -14,7 +17,8 @@ class Stats {
   ActivityTotals ytdRunTotals;
 
   Stats(
-      {this.recentRunTotals,
+      {Fault fault,
+      this.recentRunTotals,
       this.allRunTotals,
       this.recentSwimTotals,
       this.biggestRideDistance,
@@ -24,7 +28,7 @@ class Stats {
       this.biggestClimbElevationGain,
       this.ytdRideTotals,
       this.allRideTotals,
-      this.ytdRunTotals});
+      this.ytdRunTotals}): fault = Fault(88, '');
 
   Stats.fromJson(Map<String, dynamic> json) {
     recentRunTotals = json['recent_run_totals'] != null ? StatsTotals.fromJson(json['recent_run_totals']) : null;

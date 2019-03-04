@@ -70,7 +70,7 @@ class DetailedActivity {
   bool leaderboardOptOut;
 
   DetailedActivity(
-      {this.fault,
+      {Fault fault,
       this.id,
       this.resourceState,
       this.externalId,
@@ -132,7 +132,7 @@ class DetailedActivity {
       this.deviceName,
       this.embedToken,
       this.segmentLeaderboardOptOut,
-      this.leaderboardOptOut});
+      this.leaderboardOptOut}): fault = Fault(88, '');
 
 
   DetailedActivity.fromJson(Map<String, dynamic> json) {

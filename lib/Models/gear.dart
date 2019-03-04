@@ -1,9 +1,10 @@
-// JsonGear
-import '../API/constants.dart';
+// gear.dart
+
+import 'fault.dart';
 
 
 class Gear {
-
+  Fault fault;
   String id;
   bool primary;
   int resourceState;
@@ -14,14 +15,15 @@ class Gear {
   String description;
 
   Gear(
-      {this.id,
+      {Fault fault,
+      this.id,
       this.primary,
       this.resourceState,
       this.distance,
       this.brandName,
       this.modelName,
       this.frameType,
-      this.description});
+      this.description}): fault = Fault(88, '');
 
   Gear.fromJson(Map<String, dynamic> json) {
     id = json['id'];
