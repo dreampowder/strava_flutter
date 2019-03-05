@@ -23,11 +23,17 @@ import 'clubs.dart';
 /// prompt: to choose to ask Strava always to authenticate or only when needed (with 'auto')
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
 class Strava with Upload, Auth, Clubs {
-  Strava( this.isInDebug, this.secret);
-  final bool isInDebug;
-  final String secret;
+  String secret;
+ 
+  Strava (bool isInDebug, String secretKey) {
+    globals.isInDebug = isInDebug;
+    secret = secretKey;
+  }
 
-
+  // Strava( this.isInDebug, this.secret);
+  // final bool isInDebug;
+  // final String secret;
+  
 
 /// List of statuscode used by Fault 
 /// To get info to API caller
@@ -37,6 +43,8 @@ final statusInvalidToken = 1;
 final statusUnknownError = 2;
 final statusHeaderIsEmpty = 3;
 final statusNotFound = 4;
+
+
 
 
   /// getRunningRacebyId

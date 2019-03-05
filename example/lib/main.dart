@@ -71,7 +71,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     final strava = Strava(
       true,   // to get disply info in API
       secret, // Put your secret key in secret.dart file
-      'auto',  // Prompt strava login only when needed
     );
     await strava.deAuthorize();
   }

@@ -46,11 +46,11 @@ import 'package:strava_flutter/Models/summaryActivity.dart';
 
     // Do authentication with the right scope
     final strava = Strava(true, // To get display info in API
-         secret, 'auto');
+         secret);
 
     bool isAuthOk = false;
 
-    isAuthOk = await strava.OAuth(clientID, "http://localhost:8080", 'activity:write', secret);
+    isAuthOk = await strava.OAuth(clientID, 'activity:write', secret, 'auto');
 
     print('---> Authentication result: $isAuthOk');
 
@@ -80,7 +80,7 @@ void example(String secret) async {
 
     bool isAuthOk = false;
 
-    final strava = Strava(true,
+    final strava = Strava(false,
          secret);
     final prompt = 'auto';
 
