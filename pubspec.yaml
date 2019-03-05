@@ -1,6 +1,6 @@
 name: strava_flutter
-description:  to access Strava v3 API using flutter/Dart
-version: 0.0.1
+description:  Flutter/Dart code to access Strava v3 API 
+version: 1.0.1+2
 author: Patrick FINKELSTEIN
 homepage:
 
@@ -12,10 +12,9 @@ dependencies:
     sdk: flutter
 
   http: ^0.12.0+1
-  flutter_oauth: 
-    git:
-       url: git://github.com/ibrierley/FlutterOAuth.git
-  url_launcher: ^5.0.0
+ # url_launcher: ^5.0.0
+  url_launcher: 
+    path: vendor/url_launcher
   shared_preferences: ^0.5.0
   path_provider: ^0.5.0+1
   

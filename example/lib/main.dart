@@ -36,9 +36,6 @@ class StravaFlutterPage extends StatefulWidget {
 }
 
 class _StravaFlutterPageState extends State<StravaFlutterPage> {
-  String clientID = "32212";
-  final String redirectUrl = "http://localhost:8080";
-  final String scope = 'profile:write';
 
 
   @override

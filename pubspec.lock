@@ -41,27 +41,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_oauth:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "2b5e66e1963efe8b1c337eeba5cce8d0d246552c"
-      url: "git://github.com/ibrierley/FlutterOAuth.git"
-    source: git
-    version: "0.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_webview_plugin:
-    dependency: transitive
-    description:
-      name: flutter_webview_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0+2"
   http:
     dependency: "direct main"
     description:

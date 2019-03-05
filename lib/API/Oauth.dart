@@ -72,7 +72,7 @@ abstract class Auth {
 
   // Get the code from Strava server
   Future<void> getStravaCode(
-      String clientID, String redirectUrl, String scope) async {
+      String clientID, String scope, String prompt) async {
     globals.displayInfo('Entering getStravaCode');
     var code = "";
     var params = '?' +
@@ -83,7 +83,7 @@ abstract class Auth {
         '&response_type=' +
         'code' +
         '&approval_prompt=' +
-        'auto' +
+        prompt +
         '&scope=' +
         scope;
 
@@ -124,7 +124,7 @@ abstract class Auth {
   /// Do/show the Strava login if the scope has been changed since last storage of the token
   /// return true if no problem in authentication has been found
   Future<bool> OAuth(
-      String clientID, String redirectUrl, String scope, String secret) async {
+      String clientID, String scope, String secret, String promt) async {
     print('Welcome to Oauth');
     bool isAuthOk = false;
     bool isExpired = true;
@@ -146,7 +146,7 @@ abstract class Auth {
     if ((tokenStored.scope != scope) || (_token == "null") || isExpired) {
       // Ask for a new authorization
       globals.displayInfo('Doing a new authorization');
-      isAuthOk = await newAuthorization(clientID, redirectUrl, secret, scope);
+      isAuthOk = await newAuthorization(clientID,  secret, scope, prompt);
     } else {
       isAuthOk = true;
     }
@@ -156,11 +156,11 @@ abstract class Auth {
 
 
 Future<bool> newAuthorization(
-      String clientID, String redirectUrl, String secret, String scope) async {
+      String clientID,  String secret, String scope, String prompt) async {
     
     bool returnValue = false;
 
-    await getStravaCode(clientID, redirectUrl, scope);
+    await getStravaCode(clientID, scope, prompt);
 
      var stravaCode = await onCodeReceived.stream.first;
 

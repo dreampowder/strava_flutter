@@ -81,9 +81,10 @@ void example(String secret) async {
     bool isAuthOk = false;
 
     final strava = Strava(true,
-         secret, 'auto');
+         secret);
+    final prompt = 'auto';
 
-    isAuthOk = await strava.OAuth(clientID, "http://localhost:8080", 'profile:read_all', secret);
+    isAuthOk = await strava.OAuth(clientID, 'activity:write,profile:read_all', secret, prompt);
 
     if (isAuthOk) {
 
