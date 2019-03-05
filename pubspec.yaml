@@ -1,8 +1,8 @@
 name: strava_flutter
 description:  Flutter/Dart code to access Strava v3 API 
 version: 1.0.1+2
-author: Patrick FINKELSTEIN
-homepage:
+author: Patrick FINKELSTEIN <patrick@rosemarine.com>
+homepage: https://github.com/BirdyF/strava_flutter
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -12,9 +12,9 @@ dependencies:
     sdk: flutter
 
   http: ^0.12.0+1
- # url_launcher: ^5.0.0
-  url_launcher: 
-    path: vendor/url_launcher
+  url_launcher: ^5.0.0
+ # url_launcher: 
+  #  path: vendor/url_launcher
   shared_preferences: ^0.5.0
   path_provider: ^0.5.0+1
   

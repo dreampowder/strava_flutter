@@ -106,7 +106,7 @@ abstract class Auth {
       code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];
       request.response.close();
-      print('---> code $code, error $error');
+      globals.displayInfo('code $code, error $error');
 
       closeWebView();
       server.close(force: true);
