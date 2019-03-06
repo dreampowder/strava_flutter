@@ -42,6 +42,7 @@ import 'package:strava_flutter/Models/summaryActivity.dart';
       return File(path).writeAsBytes(
         buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
     }
+
   
 
     // Do authentication with the right scope
@@ -60,6 +61,8 @@ import 'package:strava_flutter/Models/summaryActivity.dart';
     // Use the asset file to test without having to create internally a ride
     //----------------------------------------------------------------------
     String dir = (await getApplicationDocumentsDirectory()).path;
+
+
     var data = await rootBundle.load('assets/Bormes.gpx');
     // Save the data loaded from the assert into a file
     // Transfer the data into a real file

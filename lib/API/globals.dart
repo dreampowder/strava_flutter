@@ -1,5 +1,7 @@
 // globals.dart 
 
+import 'package:flutter/foundation.dart';
+
 import 'token.dart';
 
 bool isInDebug = true;  // set to true to see debug message in API 
@@ -10,7 +12,7 @@ Token token = Token();   // Where the token info is stored when executing APIs
 void displayInfo(String message) {
     if (isInDebug) {
       var msgToDisplay = '--> Strava_flutter: ' + message;
-      print(msgToDisplay);
+      debugPrint(msgToDisplay);
     }
 
   }
