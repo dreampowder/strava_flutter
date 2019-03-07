@@ -1,8 +1,7 @@
-// clubs.dart 
+// clubs.dart
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-
 
 import '../Models/summaryAthlete.dart';
 import '../Models/summaryActivity.dart';
@@ -10,11 +9,7 @@ import '../Models/club.dart';
 
 import 'globals.dart' as globals;
 
-
-
 abstract class Clubs {
-
-
   // Scope needed:
   // id of the club
   Future<List<SummaryAthlete>> getClubMembersById(String id) async {
@@ -23,7 +18,6 @@ abstract class Clubs {
     globals.displayInfo('Entering getClubMembersById');
 
     var _header = globals.createHeader();
-
 
     if (_header != null) {
       final reqList = "https://www.strava.com/api/v3/clubs/" +
@@ -55,8 +49,7 @@ abstract class Clubs {
     return returnListMembers;
   }
 
-
-Future<Club> getClubById(String id) async {
+  Future<Club> getClubById(String id) async {
     Club returnClub;
 
     var _header = globals.createHeader();
@@ -80,7 +73,6 @@ Future<Club> getClubById(String id) async {
     }
     return returnClub;
   }
-
 
   Future<List<SummaryActivity>> getClubActivitiesById(String id) async {
     List<SummaryActivity> returnSummary;
@@ -117,5 +109,4 @@ Future<Club> getClubById(String id) async {
     }
     return returnSummary;
   }
-
 }

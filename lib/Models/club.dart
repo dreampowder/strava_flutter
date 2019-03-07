@@ -1,4 +1,4 @@
-// Club 
+// Club
 
 import 'fault.dart';
 
@@ -54,7 +54,8 @@ class Club {
       this.clubType,
       this.postCount,
       this.ownerId,
-      this.followingCount}): fault = Fault(88, '');
+      this.followingCount})
+      : fault = Fault(88, '');
 
   Club.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -112,4 +113,3 @@ class Club {
     return data;
   }
 }
-

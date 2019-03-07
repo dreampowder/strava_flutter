@@ -51,7 +51,7 @@ import 'package:strava_flutter/Models/summaryActivity.dart';
 
     bool isAuthOk = false;
 
-    isAuthOk = await strava.OAuth(clientID, 'activity:write', secret, 'auto');
+    isAuthOk = await strava.Oauth(clientId, 'activity:write', secret, 'auto');
 
     print('---> Authentication result: $isAuthOk');
 
@@ -87,7 +87,7 @@ void example(String secret) async {
          secret);
     final prompt = 'auto';
 
-    isAuthOk = await strava.OAuth(clientID, 'activity:write,profile:read_all', secret, prompt);
+    isAuthOk = await strava.Oauth(clientId, 'activity:write,profile:read_all', secret, prompt);
 
     if (isAuthOk) {
 

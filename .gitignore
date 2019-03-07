@@ -1,6 +1,8 @@
 # strava_flutter specific
 secret.dart
 todo.txt
+# temp 
+starSegment.dart
 
 .DS_Store
 .dart_tool/

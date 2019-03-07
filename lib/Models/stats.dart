@@ -28,24 +28,43 @@ class Stats {
       this.biggestClimbElevationGain,
       this.ytdRideTotals,
       this.allRideTotals,
-      this.ytdRunTotals}): fault = Fault(88, '');
+      this.ytdRunTotals})
+      : fault = Fault(88, '');
 
   Stats.fromJson(Map<String, dynamic> json) {
-    recentRunTotals = json['recent_run_totals'] != null ? StatsTotals.fromJson(json['recent_run_totals']) : null;
-    allRunTotals = json['all_run_totals'] != null ? ActivityTotals.fromJson(json['all_run_totals']) : null;
-    recentSwimTotals = json['recent_swim_totals'] != null ? StatsTotals.fromJson(json['recent_swim_totals']) : null;
+    recentRunTotals = json['recent_run_totals'] != null
+        ? StatsTotals.fromJson(json['recent_run_totals'])
+        : null;
+    allRunTotals = json['all_run_totals'] != null
+        ? ActivityTotals.fromJson(json['all_run_totals'])
+        : null;
+    recentSwimTotals = json['recent_swim_totals'] != null
+        ? StatsTotals.fromJson(json['recent_swim_totals'])
+        : null;
     biggestRideDistance = json['biggest_ride_distance'];
-    ytdSwimTotals = json['ytd_swim_totals'] != null ? ActivityTotals.fromJson(json['ytd_swim_totals']) : null;
+    ytdSwimTotals = json['ytd_swim_totals'] != null
+        ? ActivityTotals.fromJson(json['ytd_swim_totals'])
+        : null;
 
-    allSwimTotals = json['all_swim_totals'] != null ? ActivityTotals.fromJson(json['all_swim_totals']) : null;
-  
-    recentRideTotals = json['recent_ride_totals'] != null ? StatsTotals.fromJson(json['recent_ride_totals']): null;
+    allSwimTotals = json['all_swim_totals'] != null
+        ? ActivityTotals.fromJson(json['all_swim_totals'])
+        : null;
+
+    recentRideTotals = json['recent_ride_totals'] != null
+        ? StatsTotals.fromJson(json['recent_ride_totals'])
+        : null;
 
     biggestClimbElevationGain = json['biggest_climb_elevation_gain'];
-    ytdRideTotals = json['ytd_ride_totals'] != null ? ActivityTotals.fromJson(json['ytd_ride_totals']) : null;
+    ytdRideTotals = json['ytd_ride_totals'] != null
+        ? ActivityTotals.fromJson(json['ytd_ride_totals'])
+        : null;
 
-    allRideTotals = json['all_ride_totals'] != null ? ActivityTotals.fromJson(json['all_ride_totals']) : null;
-    ytdRunTotals = json['ytd_run_totals'] != null ? ActivityTotals.fromJson(json['ytd_run_totals']) : null;
+    allRideTotals = json['all_ride_totals'] != null
+        ? ActivityTotals.fromJson(json['all_ride_totals'])
+        : null;
+    ytdRunTotals = json['ytd_run_totals'] != null
+        ? ActivityTotals.fromJson(json['ytd_run_totals'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -93,7 +112,7 @@ class StatsTotals {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['distance'] = this.distance;
     data['achievement_count'] = this.achievementCount;
     data['count'] = this.count;
@@ -104,9 +123,7 @@ class StatsTotals {
   }
 }
 
-
-
-  class ActivityTotals {
+class ActivityTotals {
   int distance;
   int achievementCount;
   int count;

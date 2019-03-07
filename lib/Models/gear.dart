@@ -2,7 +2,6 @@
 
 import 'fault.dart';
 
-
 class Gear {
   Fault fault;
   String id;
@@ -23,7 +22,8 @@ class Gear {
       this.brandName,
       this.modelName,
       this.frameType,
-      this.description}): fault = Fault(88, '');
+      this.description})
+      : fault = Fault(88, '');
 
   Gear.fromJson(Map<String, dynamic> json) {
     id = json['id'];

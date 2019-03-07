@@ -2,7 +2,6 @@
 
 import 'fault.dart';
 
-
 class SummaryActivity {
   Fault fault;
   int id;
@@ -81,4 +80,3 @@ class Athlete {
     return data;
   }
 }
-

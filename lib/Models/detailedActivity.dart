@@ -1,8 +1,7 @@
-// Activity 
+// Activity
 
 import 'gear.dart';
 import 'fault.dart';
-
 
 class DetailedActivity {
   Fault fault;
@@ -132,8 +131,8 @@ class DetailedActivity {
       this.deviceName,
       this.embedToken,
       this.segmentLeaderboardOptOut,
-      this.leaderboardOptOut}): fault = Fault(88, '');
-
+      this.leaderboardOptOut})
+      : fault = Fault(88, '');
 
   DetailedActivity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -371,7 +370,7 @@ class SegmentEfforts {
   Segment segment;
   int komRank;
   int prRank;
-  
+
   List<String> achievements;
   bool hidden;
 
@@ -420,7 +419,7 @@ class SegmentEfforts {
         json['segment'] != null ? new Segment.fromJson(json['segment']) : null;
     komRank = json['kom_rank'];
     prRank = json['pr_rank'];
-  /****
+    /****
     if (json['achievements'] != null) {
       achievements = new List<Null>();
       json['achievements'].forEach((v) {
@@ -728,7 +727,6 @@ class Laps {
   }
 }
 
-
 class Photos {
   Primary primary;
   bool usePrimaryPhoto;
@@ -824,7 +822,4 @@ class HighlightedKudosers {
     data['show_name'] = this.showName;
     return data;
   }
-
-
-  
 }

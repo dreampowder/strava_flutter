@@ -1,7 +1,6 @@
 // zones
 import 'fault.dart';
 
-
 class Zone {
   Fault fault;
   List<DistributionBuckets> distributionBuckets;

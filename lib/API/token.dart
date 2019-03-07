@@ -36,7 +36,6 @@ class Token {
     return model;
   }
 
-
   // NOT used for the moment
   //-------------------------
   Future<Token> getStoredToken() async {
@@ -57,6 +56,5 @@ class Token {
       localToken.scope = null;
     }
     return localToken;
-
   }
 }

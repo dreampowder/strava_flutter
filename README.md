@@ -68,4 +68,4 @@ And Javier for https://javiercbk.github.io/json_to_dart/
 
 
 License:
-strava-flutter is provided under a MIT License. Copyright (c) 2019 Patrick FINKELSTEIN
+strava-flutter is provided under a MIT License. Copyright (c) 2019 Patrick FINK

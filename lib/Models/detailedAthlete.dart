@@ -37,7 +37,7 @@ class DetailedAthlete {
   List<Bikes> bikes;
   List<Shoes> shoes;
 
-  DetailedAthlete (
+  DetailedAthlete(
       {Fault fault,
       this.id,
       this.username,
@@ -66,9 +66,10 @@ class DetailedAthlete {
       this.ftp,
       this.weight,
       this.bikes,
-      this.shoes}): fault = Fault(99, '');
+      this.shoes})
+      : fault = Fault(99, '');
 
-  DetailedAthlete .fromJson(Map<String, dynamic> json) {
+  DetailedAthlete.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     username = json['username'];
     resourceState = json['resource_state'];
@@ -103,7 +104,7 @@ class DetailedAthlete {
     ftp = json['ftp'];
     weight = json['weight'];
     if (json['bikes'] != null) {
-      bikes =  List<Bikes>();
+      bikes = List<Bikes>();
       json['bikes'].forEach((v) {
         bikes.add(Bikes.fromJson(v));
       });
