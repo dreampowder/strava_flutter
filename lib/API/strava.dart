@@ -22,24 +22,17 @@ import 'clubs.dart';
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
 class Strava with Upload, Auth, Clubs {
   String secret;
-
+  
+  /// Initialize the Strava class 
+  /// Needed to call Strava API
+  /// 
+  /// secretKey is the key found in strava settings my Application (secret key)
+  /// Set isIndebug to true to get debug print in strava API
   Strava(bool isInDebug, String secretKey) {
     globals.isInDebug = isInDebug;
     secret = secretKey;
   }
 
-  // Strava( this.isInDebug, this.secret);
-  // final bool isInDebug;
-  // final String secret;
-
-  /// List of statuscode used by Fault
-  /// To get info to API caller
-  /// Should have a nicer to do it in Dart!
-  final statusOk = 0;
-  final statusInvalidToken = 1;
-  final statusUnknownError = 2;
-  final statusHeaderIsEmpty = 3;
-  final statusNotFound = 4;
 
   /// getRunningRacebyId
   ///
@@ -68,8 +61,8 @@ class Strava with Upload, Auth, Clubs {
           globals.displayInfo('problem in getRunningRaceById request');
         }
       }
-      return returnRace;
     }
+    return returnRace;
   }
 
   /// Scope needed: none
@@ -98,7 +91,7 @@ class Strava with Upload, Auth, Clubs {
             _race.fault = Fault(88, '');
             globals.displayInfo(
                 '${_race.name} ,  ${_race.startDateLocal}    ${_race.id}');
-            _race.fault.statusCode = statusOk;
+            _race.fault.statusCode = globals.statusOk;
             _listRaces.add(_race);
           });
 
@@ -107,8 +100,8 @@ class Strava with Upload, Auth, Clubs {
           globals.displayInfo('problem in getRunningRaces request');
         }
       }
-      return returnListRaces;
     }
+    return returnListRaces;
   }
 
   /// scope: activity:read
@@ -135,7 +128,7 @@ class Strava with Upload, Auth, Clubs {
             DetailedActivity _activity =
                 DetailedActivity.fromJson(jsonResponse);
             _activity.fault = Fault(88, '');
-            _activity.fault.statusCode = statusOk;
+            _activity.fault.statusCode = globals.statusOk;
             globals.displayInfo(_activity.name);
 
             returnActivity = _activity;
@@ -145,22 +138,19 @@ class Strava with Upload, Auth, Clubs {
         case 404:
           {
             globals.displayInfo('Activity not found');
-            returnActivity.fault.statusCode = statusNotFound;
+            returnActivity.fault.statusCode = globals.statusNotFound;
           }
           break;
 
         default:
           {
-            returnActivity.fault.statusCode = statusUnknownError;
+            returnActivity.fault.statusCode = globals.statusUnknownError;
 
             break;
           }
-
-        // add error 404 activity not found
-
       }
-      return returnActivity;
     }
+    return returnActivity;
   }
 
   /// Scope needed: any
@@ -187,25 +177,25 @@ class Strava with Upload, Auth, Clubs {
             Gear _gear = Gear.fromJson(jsonResponse);
             _gear.fault = Fault(88, '');
             globals.displayInfo(_gear.description);
-            _gear.fault.statusCode = statusOk;
+            _gear.fault.statusCode = globals.statusOk;
             returnGear = _gear;
           }
           break;
 
         case 401:
           {
-            returnGear.fault.statusCode = statusInvalidToken;
+            returnGear.fault.statusCode = globals.statusInvalidToken;
           }
           break;
 
         default:
           {
-            returnGear.fault.statusCode = statusUnknownError;
+            returnGear.fault.statusCode = globals.statusUnknownError;
           }
           break;
       }
     } else {
-      returnGear.fault.statusCode = statusHeaderIsEmpty;
+      returnGear.fault.statusCode = globals.statusHeaderIsEmpty;
     }
 
     return returnGear;
@@ -235,7 +225,7 @@ class Strava with Upload, Auth, Clubs {
             DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
             globals.displayInfo(
                 ' athlete ${_athlete.firstname}, ${_athlete.lastname}');
-            _athlete.fault = Fault(statusOk, 'getLoggedInAthlete done');
+            _athlete.fault = Fault(globals.statusOk, 'getLoggedInAthlete done');
 
             returnAthlete = _athlete;
           }
@@ -243,7 +233,7 @@ class Strava with Upload, Auth, Clubs {
 
         case 401:
           {
-            returnAthlete.fault = Fault(statusInvalidToken, 'invalid token');
+            returnAthlete.fault = Fault(globals.statusInvalidToken, 'invalid token');
 
             globals.displayInfo(
                 'problem in getLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
@@ -252,7 +242,7 @@ class Strava with Upload, Auth, Clubs {
 
         default:
           {
-            returnAthlete.fault = Fault(statusUnknownError, 'Unknown Error');
+            returnAthlete.fault = Fault(globals.statusUnknownError, 'Unknown Error');
             globals.displayInfo('problem in getLoggedInAthlete, unknown error');
           }
           break;
@@ -287,9 +277,6 @@ class Strava with Upload, Auth, Clubs {
                 print(zone.distributionBuckets);
                 _zones.add(zone);
               });
-
-              ;
-
               returnZones = _zones;
             }
           }
@@ -335,7 +322,7 @@ class Strava with Upload, Auth, Clubs {
 
             DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
             print(' athlete ${_athlete.firstname}, ${_athlete.weight}');
-            _athlete.fault.statusCode = statusOk;
+            _athlete.fault.statusCode = globals.statusOk;
 
             returnAthlete = _athlete;
           }
@@ -343,7 +330,7 @@ class Strava with Upload, Auth, Clubs {
 
         case 401:
           {
-            returnAthlete.fault.statusCode = statusInvalidToken;
+            returnAthlete.fault.statusCode = globals.statusInvalidToken;
 
             globals.displayInfo(
                 'problem in updateLoggedInAthleteequest , ${returnAthlete.fault.statusCode}  ${rep.body}');
@@ -352,7 +339,7 @@ class Strava with Upload, Auth, Clubs {
 
         default:
           {
-            returnAthlete.fault.statusCode = statusUnknownError;
+            returnAthlete.fault.statusCode = globals.statusUnknownError;
             globals.displayInfo(
                 'problem in updateLoggedInAthlete, unknown error  ${rep.body}');
           }
@@ -384,7 +371,7 @@ class Strava with Upload, Auth, Clubs {
 
             Stats _stats = Stats.fromJson(jsonResponse);
             _stats.fault = Fault(88, '');
-            _stats.fault.statusCode = statusOk;
+            _stats.fault.statusCode = globals.statusOk;
             returnStats = _stats;
           }
           break;
@@ -393,15 +380,14 @@ class Strava with Upload, Auth, Clubs {
 
         default:
           {
-            returnStats.fault.statusCode = statusUnknownError;
+            returnStats.fault.statusCode = globals.statusUnknownError;
             globals
                 .displayInfo('problem in getStats request, {rep.statusCode}');
           }
           break;
       }
-
-      return returnStats;
     }
+    return returnStats;
   }
 
   void dispose() {

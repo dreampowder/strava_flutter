@@ -5,12 +5,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'globals.dart' as globals;
 import 'constants.dart';
 import 'token.dart';
-
-import 'package:url_launcher/url_launcher.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../Models/fault.dart';
 
 ///===========================================
 /// Class related to Authorization processs
@@ -72,7 +73,8 @@ abstract class Auth {
     return (localToken);
   }
 
-  // Get the code from Strava server
+  /// Get the code from Strava server
+  /// 
   Future<void> getStravaCode(
       String clientID, String scope, String prompt) async {
     globals.displayInfo('Entering getStravaCode');
@@ -100,8 +102,8 @@ abstract class Auth {
     //------------------------------------------------------------
     final server =
         await HttpServer.bind(InternetAddress.loopbackIPv4, 8080, shared: true);
-    server.listen((HttpRequest request) async {
-      //  server.listen((HttpRequest request)  {
+    // server.listen((HttpRequest request) async {
+      await for (HttpRequest request in server) {
       // Get the answer from Strava
       final uri = request.uri;
 
@@ -115,8 +117,9 @@ abstract class Auth {
 
       onCodeReceived.add(code);
 
-      globals.displayInfo('Get the new code $code');
-    });
+      globals.displayInfo('Got the new code: $code');
+    }
+    // });
   }
 
   /// Do Strava Authentication.
@@ -220,7 +223,6 @@ abstract class Auth {
     }
 
     return (_answer);
-    // });
   }
 
   bool isTokenExpired(Token token) {
@@ -229,7 +231,13 @@ abstract class Auth {
     return (_expiryDate.isBefore(DateTime.now()));
   }
 
-  Future<void> deAuthorize() async {
+  /// To revoke the current token
+  /// Useful when doing test to force the Strava login
+  /// 
+  /// scope needed: none
+  /// 
+  Future<Fault> deAuthorize() async {
+    Fault fault = Fault(globals.statusUnknownError, '');
 
     var _header = globals.createHeader();
     if (_header != null) {
@@ -238,10 +246,12 @@ abstract class Auth {
       if (rep.statusCode == 200) {
         globals.displayInfo('DeAuthorize done');
         await saveToken(null, null, null);
+        fault.statusCode = globals.statusOk;
       } else {
-        globals.displayInfo('problem in deAuthorize request');
-        // Todo add an error code
+        globals.displayInfo('Problem in deAuthorize request');
+        fault.statusCode =globals.statusOk;
       }
     }
+    return fault;
   }
 }

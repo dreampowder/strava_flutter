@@ -1,10 +1,8 @@
 // Detailed athlete
-
-import '../API/constants.dart';
 import 'fault.dart';
 
 // NOT working yet, problem with club
-import 'club.dart';
+// import 'club.dart';
 
 class DetailedAthlete {
   Fault fault;
@@ -164,7 +162,7 @@ class Bikes {
   bool primary;
   String name;
   int resourceState;
-  int distance;
+  double distance;
 
   Bikes({this.id, this.primary, this.name, this.resourceState, this.distance});
 
