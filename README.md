@@ -11,8 +11,8 @@ https://developers.strava.com/docs/authentication/
 API currently supported:
 
 - authorize
-- token
 - deauthorize
+
 
 
 - getLoggedInAthlete
