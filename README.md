@@ -53,14 +53,6 @@ If you have any problem and need an API not yet implemented please post an new i
 - iOS 12.1.2
 
 
-## Problem found on iOS:
-
-After Strava screen authentication not returning to app
-because of know issue
-https://github.com/flutter/flutter/issues/25721
-You need to push OK button to get back to app
-
-
 ## Thanks 
 
 Thanks to Joe Birch, I used his code to better understand Oauth process
