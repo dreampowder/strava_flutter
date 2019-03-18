@@ -6,7 +6,7 @@ import '../Models/fault.dart';
 import '../Models/gear.dart';
 import '../Models/detailedAthlete.dart';
 import '../Models/stats.dart';
-import '../Models/detailedActivity.dart';
+// import '../Models/detailedActivity.dart';
 import '../Models/zone.dart';
 import '../Models/runningRace.dart';
 
@@ -22,7 +22,7 @@ import 'segments.dart';
 /// redirectURL: url that will be called after Strava authorize your app
 /// prompt: to choose to ask Strava always to authenticate or only when needed (with 'auto')
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
-class Strava with Upload, Auth, Clubs, Activities, Segments {
+class Strava with Upload, Activities, Auth, Clubs, Segments {
   String secret;
   
   /// Initialize the Strava class 
