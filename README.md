@@ -25,6 +25,8 @@ https://developers.strava.com/docs/authentication/
 - getRunningRaces
 - getRunningRaceById
 - uploadActivity (including getUploadById)
+- getSegmentById
+- getLoggedInAthleteStarredSegments
 
 
 

@@ -14,13 +14,15 @@ import 'globals.dart' as globals;
 import 'Oauth.dart';
 import 'upload.dart';
 import 'clubs.dart';
+import 'activities.dart';
+import 'segments.dart';
 
 /// Initialize the Strava API
 ///  clientID: ID of your Strava app
 /// redirectURL: url that will be called after Strava authorize your app
 /// prompt: to choose to ask Strava always to authenticate or only when needed (with 'auto')
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
-class Strava with Upload, Auth, Clubs {
+class Strava with Upload, Auth, Clubs, Activities, Segments {
   String secret;
   
   /// Initialize the Strava class 
@@ -104,55 +106,7 @@ class Strava with Upload, Auth, Clubs {
     return returnListRaces;
   }
 
-  /// scope: activity:read
-  Future<DetailedActivity> getActivityById(String id) async {
-    DetailedActivity returnActivity = DetailedActivity();
-
-    var _header = globals.createHeader();
-
-    globals.displayInfo('Entering getActivityById');
-
-    if (_header != null) {
-      final reqActivity = "https://www.strava.com/api/v3/activities/" +
-          id +
-          '?include_all_efforts=true';
-      var rep = await http.get(reqActivity, headers: _header);
-
-      switch (rep.statusCode) {
-        case 200:
-          {
-            globals.displayInfo(rep.statusCode.toString());
-            globals.displayInfo('Activity info ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
-
-            DetailedActivity _activity =
-                DetailedActivity.fromJson(jsonResponse);
-            _activity.fault = Fault(88, '');
-            _activity.fault.statusCode = globals.statusOk;
-            globals.displayInfo(_activity.name);
-
-            returnActivity = _activity;
-            break;
-          }
-
-        case 404:
-          {
-            globals.displayInfo('Activity not found');
-            returnActivity.fault.statusCode = globals.statusNotFound;
-          }
-          break;
-
-        default:
-          {
-            returnActivity.fault.statusCode = globals.statusUnknownError;
-
-            break;
-          }
-      }
-    }
-    return returnActivity;
-  }
-
+  
   /// Scope needed: any
   /// Give answer only if id is related to logged athlete
   ///

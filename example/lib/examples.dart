@@ -15,6 +15,9 @@ import 'package:strava_flutter/API/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
 import 'package:strava_flutter/API/token.dart';
 
+// Used by segment
+import 'package:strava_flutter/Models/segment.dart';
+
 
 
 
@@ -64,5 +67,37 @@ import 'package:strava_flutter/API/token.dart';
 
     return fault;
   }
+
+
+
+
+   Future<Fault> exampleSegment(String secret) async {
+
+
+     // Do authentication with the right scope
+    final strava = Strava(true, // To get display info in API
+         secret);
+
+    bool isAuthOk = false;
+
+    isAuthOk = await strava.Oauth(clientId, 'read_all', secret, 'auto');
+
+    print('---> Authentication result: $isAuthOk'); 
+
+    // Expected answer should start like:
+    //  {"id":229781,"resource_state":3,"name":"Hawk Hill","activity_type":"Ride","distance":2684.82,"average_grade":5.7,"maximum_grade":14.2,
+    DetailedSegment _seg = await strava.getSegmentById('229781');
+    // if (_seg.fault.statusCode)
+    DetailedSegment _seg2 = await strava.getSegmentById('8186850');
+
+
+    // Get the list of segments that have been starred by the loggedin athlete
+    SegmentsList _list = await strava.getLoggedInAthleteStarredSegments();
+
+    _list.segments.forEach((seg) => print('Starred segment: ${seg.id}  ${seg.name} ${seg.maximumGrade}' ));
+  
+
+
+   }
 
 

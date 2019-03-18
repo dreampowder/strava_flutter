@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'examples.dart';
 
-import 'secret.dart'; // Store Strava app secret
+import 'secret.dart'; // Where Strava app secret is stored
 
 import 'package:strava_flutter/API/strava.dart';
 import 'package:strava_flutter/API/constants.dart';
@@ -66,6 +66,14 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
   }
 
 
+  void exampleSeg() {
+
+    exampleSegment(secret);
+
+
+  }
+
+
 
 ///
 /// Example of dart code to use Strava API
@@ -82,6 +90,18 @@ void example(String secret) async {
     isAuthOk = await strava.Oauth(clientId, 'activity:write,profile:read_all', secret, prompt);
 
     if (isAuthOk) {
+
+
+/**** Not yet working!
+      // Create an new activity
+      String _startDate = '20190316T093500+0100';
+      DetailedActivity _newActivity = await strava.createActivity('Test3', 'Run', _startDate, 3600);
+      if (_newActivity.fault.statusCode !=globals.statusOk ) {
+        print('Error in createActivity ${_newActivity.fault.statusCode}');
+
+      }
+****/
+
 
       // Type of expected answer:
       // {"id":25707617,"username":"patrick_ff","resource_state":3,"firstname":"Patrick","lastname":"FF",
@@ -200,11 +220,22 @@ void example(String secret) async {
           children: <Widget>[
             Text(''),
             Text('Authentication'),
-            Text('with strava_flutter Api'),
+            Text('with segments Apis'),
+            RaisedButton(
+              child: Text('Segments'),
+              // onPressed: exampleStrava,
+              onPressed: exampleSeg,
+
+            ),
+
+            Text(''),
+            Text('Authentication'),
+            Text('with other Apis'),
             RaisedButton(
               child: Text('strava_flutter'),
               onPressed: exampleStrava,
             ),
+
             Text(''),
             Text(''),
             Text('Upload with authentication'),
