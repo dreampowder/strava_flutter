@@ -24,17 +24,16 @@ import 'segments.dart';
 /// scope: Strava scope check https://developers.strava.com/docs/oauth-updates/
 class Strava with Upload, Activities, Auth, Clubs, Segments {
   String secret;
-  
-  /// Initialize the Strava class 
+
+  /// Initialize the Strava class
   /// Needed to call Strava API
-  /// 
+  ///
   /// secretKey is the key found in strava settings my Application (secret key)
   /// Set isIndebug to true to get debug print in strava API
   Strava(bool isInDebug, String secretKey) {
     globals.isInDebug = isInDebug;
     secret = secretKey;
   }
-
 
   /// getRunningRacebyId
   ///
@@ -53,7 +52,6 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
 
       var rep = await http.get(reqRace, headers: _header);
       if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Race info ${rep.body}');
         final jsonResponse = json.decode(rep.body);
 
@@ -63,6 +61,7 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
           globals.displayInfo('problem in getRunningRaceById request');
         }
       }
+      returnRace.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
     return returnRace;
   }
@@ -90,10 +89,8 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
 
           jsonResponse.forEach((element) {
             var _race = RunningRace.fromJson(element);
-            _race.fault = Fault(88, '');
             globals.displayInfo(
                 '${_race.name} ,  ${_race.startDateLocal}    ${_race.id}');
-            _race.fault.statusCode = globals.statusOk;
             _listRaces.add(_race);
           });
 
@@ -102,11 +99,11 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
           globals.displayInfo('problem in getRunningRaces request');
         }
       }
+      returnListRaces[0].fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
     return returnListRaces;
   }
 
-  
   /// Scope needed: any
   /// Give answer only if id is related to logged athlete
   ///
@@ -121,35 +118,20 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
       final reqGear = 'https://www.strava.com/api/v3/gear/' + id;
       var rep = await http.get(reqGear, headers: _header);
 
-      switch (rep.statusCode) {
-        case 200:
-          {
-            globals.displayInfo(rep.statusCode.toString());
-            globals.displayInfo(' ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
+      if (rep.statusCode == 200) {
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo(' ${rep.body}');
+        final jsonResponse = json.decode(rep.body);
 
-            Gear _gear = Gear.fromJson(jsonResponse);
-            _gear.fault = Fault(88, '');
-            globals.displayInfo(_gear.description);
-            _gear.fault.statusCode = globals.statusOk;
-            returnGear = _gear;
-          }
-          break;
-
-        case 401:
-          {
-            returnGear.fault.statusCode = globals.statusInvalidToken;
-          }
-          break;
-
-        default:
-          {
-            returnGear.fault.statusCode = globals.statusUnknownError;
-          }
-          break;
+        Gear _gear = Gear.fromJson(jsonResponse);
+        _gear.fault = Fault(88, '');
+        globals.displayInfo(_gear.description);
+        _gear.fault.statusCode = globals.statusOk;
+        returnGear = _gear;
+      } else {
+        globals.displayInfo('Problem in getGearById');
       }
-    } else {
-      returnGear.fault.statusCode = globals.statusHeaderIsEmpty;
+      returnGear.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
 
     return returnGear;
@@ -169,38 +151,23 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
       final reqAthlete = "https://www.strava.com/api/v3/athlete";
       var rep = await http.get(reqAthlete, headers: _header);
 
-      switch (rep.statusCode) {
-        case 200:
-          {
-            globals.displayInfo(rep.statusCode.toString());
-            globals.displayInfo('Athlete info ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
+      if (rep.statusCode == 200) {
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo('Athlete info ${rep.body}');
+        final jsonResponse = json.decode(rep.body);
 
-            DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
-            globals.displayInfo(
-                ' athlete ${_athlete.firstname}, ${_athlete.lastname}');
-            _athlete.fault = Fault(globals.statusOk, 'getLoggedInAthlete done');
+        DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
+        globals.displayInfo(
+            ' athlete ${_athlete.firstname}, ${_athlete.lastname}');
 
-            returnAthlete = _athlete;
-          }
-          break;
-
-        case 401:
-          {
-            returnAthlete.fault = Fault(globals.statusInvalidToken, 'invalid token');
-
-            globals.displayInfo(
-                'problem in getLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
-          }
-          break;
-
-        default:
-          {
-            returnAthlete.fault = Fault(globals.statusUnknownError, 'Unknown Error');
-            globals.displayInfo('problem in getLoggedInAthlete, unknown error');
-          }
-          break;
+        returnAthlete = _athlete;
+      } else {
+        globals.displayInfo(
+            'problem in getLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
       }
+
+      returnAthlete.fault =
+          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
 
     return returnAthlete;
@@ -217,40 +184,26 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
       final reqAthlete = "https://www.strava.com/api/v3/athlete/zones";
       var rep = await http.get(reqAthlete, headers: _header);
 
-      switch (rep.statusCode) {
-        case 200:
-          {
-            globals.displayInfo(rep.statusCode.toString());
-            globals.displayInfo('Zone info ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
+      if (rep.statusCode == 200) {
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo('Zone info ${rep.body}');
+        final jsonResponse = json.decode(rep.body);
 
-            if (jsonResponse != null) {
-              List<Zone> _zones = List<Zone>();
-              jsonResponse.forEach((value) {
-                var zone = Zone.fromJson(value);
-                print(zone.distributionBuckets);
-                _zones.add(zone);
-              });
-              returnZones = _zones;
-            }
-          }
-          break;
-
-        case 401:
-          {
-            // returnAthlete.errorCode = ErrorCode.tokenIsInvalid;
-
-            print('problem in getLoggedInAthlete request ,   ${rep.body}');
-          }
-          break;
-
-        default:
-          {
-            // returnAthlete.errorCode = ErrorCode.unknownError;
-            print('problem in getLoggedInAthlete, unknown error');
-          }
-          break;
+        if (jsonResponse != null) {
+          List<Zone> _zones = List<Zone>();
+          jsonResponse.forEach((value) {
+            var zone = Zone.fromJson(value);
+            print(zone.distributionBuckets);
+            _zones.add(zone);
+          });
+          returnZones = _zones;
+        }
+      } else {
+        globals.displayInfo(
+            'problem in getLoggedInAthlete request ,   ${rep.body}');
       }
+      returnZones[0].fault =
+          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
 
     return returnZones;
@@ -267,79 +220,49 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
       print('update $reqAthlete');
       var rep = await http.put(reqAthlete, headers: _header);
 
-      switch (rep.statusCode) {
-        case 200:
-          {
-            globals.displayInfo(rep.statusCode.toString());
-            globals.displayInfo('Athlete info ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
+      if (rep.statusCode == 200) {
+        globals.displayInfo('Athlete info ${rep.body}');
+        final jsonResponse = json.decode(rep.body);
 
-            DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
-            print(' athlete ${_athlete.firstname}, ${_athlete.weight}');
-            _athlete.fault.statusCode = globals.statusOk;
+        DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
+        print(' athlete ${_athlete.firstname}, ${_athlete.weight}');
 
-            returnAthlete = _athlete;
-          }
-          break;
-
-        case 401:
-          {
-            returnAthlete.fault.statusCode = globals.statusInvalidToken;
-
-            globals.displayInfo(
-                'problem in updateLoggedInAthleteequest , ${returnAthlete.fault.statusCode}  ${rep.body}');
-          }
-          break;
-
-        default:
-          {
-            returnAthlete.fault.statusCode = globals.statusUnknownError;
-            globals.displayInfo(
-                'problem in updateLoggedInAthlete, unknown error  ${rep.body}');
-          }
-          break;
+        returnAthlete = _athlete;
+      } else {
+        globals.displayInfo(
+            'problem in updateLoggedInAthleteequest , ${returnAthlete.fault.statusCode}  ${rep.body}');
       }
+
+      returnAthlete.fault =
+          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
 
     return returnAthlete;
   }
 
   /// For the moment, only 1 page is handled
+  /// 50 activities max
+  ///
+  /// Give activiy stats of the loggedInAthlete
   ///
   Future<Stats> getStats(int id) async {
-    Stats returnStats;
+    Stats returnStats = Stats();
 
     var _header = globals.createHeader();
 
     if (_header != null) {
       final reqStats = "https://www.strava.com/api/v3/athletes/" +
           id.toString() +
-          "/stats?page=&per_page=;";
+          "/stats?page=1&per_page=50;";
       var rep = await http.get(reqStats, headers: _header);
 
-      switch (rep.statusCode) {
-        case 200:
-          {
-            globals.displayInfo('stats info ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
-
-            Stats _stats = Stats.fromJson(jsonResponse);
-            _stats.fault = Fault(88, '');
-            _stats.fault.statusCode = globals.statusOk;
-            returnStats = _stats;
-          }
-          break;
-
-        // case 400:
-
-        default:
-          {
-            returnStats.fault.statusCode = globals.statusUnknownError;
-            globals
-                .displayInfo('problem in getStats request, {rep.statusCode}');
-          }
-          break;
+      if (rep.statusCode == 200) {
+        globals.displayInfo('getStats ${rep.body}');
+      } else {
+        globals.displayInfo('problem in getStats request, ${rep.statusCode}');
       }
+
+      returnStats.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
     return returnStats;
   }

@@ -1,6 +1,9 @@
 // Summary Athlete
 
+import 'fault.dart';
+
 class SummaryAthlete {
+  Fault fault;
   int resourceState;
   String firstname;
   String lastname;
@@ -9,7 +12,8 @@ class SummaryAthlete {
   bool owner;
 
   SummaryAthlete(
-      {this.resourceState,
+      {this.fault,
+      this.resourceState,
       this.firstname,
       this.lastname,
       this.membership,

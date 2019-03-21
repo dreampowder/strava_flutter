@@ -74,7 +74,7 @@ abstract class Auth {
   }
 
   /// Get the code from Strava server
-  /// 
+  ///
   Future<void> getStravaCode(
       String clientID, String scope, String prompt) async {
     globals.displayInfo('Entering getStravaCode');
@@ -103,7 +103,7 @@ abstract class Auth {
     final server =
         await HttpServer.bind(InternetAddress.loopbackIPv4, 8080, shared: true);
     // server.listen((HttpRequest request) async {
-      await for (HttpRequest request in server) {
+    await for (HttpRequest request in server) {
       // Get the answer from Strava
       final uri = request.uri;
 
@@ -233,9 +233,9 @@ abstract class Auth {
 
   /// To revoke the current token
   /// Useful when doing test to force the Strava login
-  /// 
+  ///
   /// scope needed: none
-  /// 
+  ///
   Future<Fault> deAuthorize() async {
     Fault fault = Fault(globals.statusUnknownError, '');
 
@@ -249,7 +249,7 @@ abstract class Auth {
         fault.statusCode = globals.statusOk;
       } else {
         globals.displayInfo('Problem in deAuthorize request');
-        fault.statusCode =globals.statusOk;
+        fault.statusCode = globals.statusOk;
       }
     }
     return fault;

@@ -9,9 +9,11 @@ import 'package:http/http.dart' as http;
 import '../Models/fault.dart';
 import '../Models/uploadActivity.dart';
 
+import 'globals.dart' as globals;
+
 abstract class Upload {
-  Future<Fault> uploadActivity(String name, String description, String fileUrl,
-      String fileType, String accessToken) async {
+  Future<Fault> uploadActivity(
+      String name, String description, String fileUrl, String fileType) async {
     print('Starting to upload activity');
 
     // To check if the activity has been uploaded successfully
@@ -35,8 +37,8 @@ abstract class Upload {
     request.fields['external_id'] = 'strava_flutter';
     request.fields['description'] = description;
 
-    Map<String, String> header = {'Authorization': 'Bearer $accessToken'};
-    request.headers.addAll(header);
+    var _header = globals.createHeader();
+    request.headers.addAll(_header);
 
     request.files.add(await http.MultipartFile.fromPath('file', fileUrl));
 
@@ -71,7 +73,7 @@ abstract class Upload {
       String reqCheckUpgrade = 'https://www.strava.com/api/v3/uploads/';
       onUploadPending.stream.listen((id) async {
         reqCheckUpgrade = reqCheckUpgrade + id.toString();
-        var resp = await http.get(reqCheckUpgrade, headers: header);
+        var resp = await http.get(reqCheckUpgrade, headers: _header);
         print('check status ${resp.reasonPhrase}');
 
         if (resp.reasonPhrase == ready) {

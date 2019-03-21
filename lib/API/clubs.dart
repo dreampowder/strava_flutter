@@ -25,6 +25,7 @@ abstract class Clubs {
           '/members?page=1&per_page=200';
 
       var rep = await http.get(reqList, headers: _header);
+
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('List members info ${rep.body}');
@@ -41,10 +42,13 @@ abstract class Clubs {
           });
 
           returnListMembers = _listMembers;
-        } else {
-          globals.displayInfo('problem in getClubMembersById request');
         }
+      } else {
+        globals.displayInfo('Problem in getClubMembersById request');
       }
+
+      returnListMembers[0].fault =
+          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
     return returnListMembers;
   }
@@ -57,6 +61,7 @@ abstract class Clubs {
     if (_header != null) {
       final reqClub = 'https://www.strava.com/api/v3/clubs/' + id;
       var rep = await http.get(reqClub, headers: _header);
+
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Club info ${rep.body}');
@@ -70,7 +75,9 @@ abstract class Clubs {
         globals.displayInfo('problem in getClubById request');
         // Todo add an error code
       }
+      returnClub.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
+
     return returnClub;
   }
 
@@ -84,6 +91,7 @@ abstract class Clubs {
           id +
           "/activities?page=1&per_page=10";
       var rep = await http.get(reqClub, headers: _header);
+
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Club activity ${rep.body}');
@@ -106,6 +114,9 @@ abstract class Clubs {
         globals.displayInfo('problem in getClubActivitiesById request');
         globals.displayInfo('answer ${rep.body}');
       }
+
+      returnSummary[0].fault =
+          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
     return returnSummary;
   }

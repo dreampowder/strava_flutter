@@ -6,7 +6,6 @@ import 'dart:async';
 import 'globals.dart' as globals;
 
 import 'package:strava_flutter/Models/detailedActivity.dart';
-import 'package:strava_flutter/Models/fault.dart';
 
 abstract class Activities {
   /// scope: activity:read
@@ -25,125 +24,74 @@ abstract class Activities {
           '?include_all_efforts=true';
       var rep = await http.get(reqActivity, headers: _header);
 
-      switch (rep.statusCode) {
-        case 200:
-          {
-            globals.displayInfo(rep.statusCode.toString());
-            globals.displayInfo('Activity info ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
+      if (rep.statusCode == 200) {
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo('Activity info ${rep.body}');
+        final jsonResponse = json.decode(rep.body);
+        DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
+        globals.displayInfo(_activity.name);
 
-            DetailedActivity _activity =
-                DetailedActivity.fromJson(jsonResponse);
-            _activity.fault = Fault(88, '');
-            _activity.fault.statusCode = globals.statusOk;
-            globals.displayInfo(_activity.name);
-
-            returnActivity = _activity;
-            break;
-          }
-
-        case 404:
-          {
-            globals.displayInfo('Activity not found');
-            returnActivity.fault.statusCode = globals.statusNotFound;
-          }
-          break;
-
-        default:
-          {
-            returnActivity.fault.statusCode = globals.statusUnknownError;
-
-            break;
-          }
+        returnActivity = _activity;
+      } else {
+        globals.displayInfo('Activity not found');
       }
+      returnActivity.fault =
+          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
+
     return returnActivity;
   }
 
-  /// NOT WORKING YET
+  ///
   /// scope: activity:write
+  ///
   /// Retrieve a detailed activity from its id
+  ///
   /// NO photo can be added for the moment
   /// No check is done on parameters for the moment
+  ///
   /// start date should be compliant to ISO 8601
+  /// like 2019-02-18 10:02:13'
+  ///
   Future<DetailedActivity> createActivity(
-      String name,
-      String type,
-      String startDate,
-      int elapsedTime,
-      {
-        String description,
-        int distance,
-        int isTrainer,
-        int isCommute
-      } 
-    ) async {
+      String name, String type, String startDate, int elapsedTime,
+      {String description, int distance, int isTrainer, int isCommute}) async {
     DetailedActivity returnActivity = DetailedActivity();
 
     var _header = globals.createHeader();
 
     globals.displayInfo('Entering createActivity');
 
+    var _queryParams = {
+      'name': name,
+      'type': type,
+      'start_date_local': startDate,
+      'elapsed_time': (elapsedTime != null) ? elapsedTime.toString() : '0',
+      'description': description ?? 'no description',
+      'distance': (distance != null) ? distance.toString() : '0',
+      'trainer': (isTrainer != null) ? isTrainer.toString() : '0',
+      'commute': (isCommute != null) ? isCommute.toString() : '0',
+    };
+
     if (_header != null) {
+      var uri = Uri.https('www.strava.com', '/api/v3/activities', _queryParams);
 
-      /*****
-      final reqActivity = "https://www.strava.com/api/v3/activities/" +
-          '?name=' + name +
-          '&type=' + type +
-          '&start_date_local=' + startDate +
-          '&elapsed_time=' + elapsedTime.toString()
-          
-          ;
-   *****/
-   final reqActivity = Uri.parse('https://www.strava.com/api/v3/activities/');
+      var resp = await http.post(uri, headers: _header);
 
-  var request = http.MultipartRequest("POST", reqActivity);
-    request.fields['name'] = name; // tested with gpx
-    request.fields['type'] = type;
-    request.fields['start_date_local'] = startDate;
-    request.fields['elapsed_time='] = elapsedTime.toString();
+      if (resp.statusCode == 201) {
+        globals.displayInfo(resp.statusCode.toString());
+        globals.displayInfo('Activity info ${resp.body}');
+        final jsonResponse = json.decode(resp.body);
 
-    request.headers.addAll(globals.createHeader());
+        DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
+        globals.displayInfo(_activity.name);
 
-
-
-
-      var rep = await request.send();
-      // var rep = await http.post(reqActivity, headers: _header);
-
-      switch (rep.statusCode) {
-        case 201:
-          {
-            globals.displayInfo(rep.statusCode.toString());
-            /***
-            globals.displayInfo('Activity info ${rep.body}');
-            final jsonResponse = json.decode(rep.body);
-
-            DetailedActivity _activity =
-                DetailedActivity.fromJson(jsonResponse);
-            _activity.fault = Fault(88, '');
-            _activity.fault.statusCode = globals.statusOk;
-            globals.displayInfo(_activity.name);
-
-            returnActivity = _activity;
-*****/
-            break;
-          }
-
-        case 404:
-          {
-            globals.displayInfo('Activity not found');
-            returnActivity.fault.statusCode = globals.statusNotFound;
-          }
-          break;
-
-        default:
-          {
-            returnActivity.fault.statusCode = globals.statusUnknownError;
-
-            break;
-          }
+        returnActivity = _activity;
+      } else {
+        globals.displayInfo('Activity not found');
       }
+      returnActivity.fault =
+          globals.errorCheck(resp.statusCode, resp.reasonPhrase);
     }
     return returnActivity;
   }

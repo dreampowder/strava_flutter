@@ -22,11 +22,15 @@ https://developers.strava.com/docs/authentication/
 - getClubById
 - getClubActivitiesById (need to be member of the club)
 - getClubMembersById (no need to be member of the club)
+* Race related APIs
 - getRunningRaces
 - getRunningRaceById
+* Activity related APIs
 - uploadActivity (including getUploadById)
+* Segments related APIs
 - getSegmentById
 - getLoggedInAthleteStarredSegments
+- getLeaderboardBySegmentId
 
 
 
@@ -47,12 +51,12 @@ https://github.com/BirdyF/strava_flutter/blob/master/example/lib/main.dart
 https://github.com/BirdyF/strava_flutter/blob/master/example/lib/examples.dart
 
 
-If you have any problem and need an API not yet implemented please post an new issue
+If you have any problem or need an API not yet implemented please post an new issue
 
 
 ## Tested on:
 - Android 4.4.2 , 4.4.23
-- iOS 12.1.2
+- iOS 12.1, 12.1.2, 12.1.4
 
 
 ## Thanks 

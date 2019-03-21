@@ -54,12 +54,13 @@ Future<Fault> exampleUpload(String secret) async {
   // Transfer the data into a real file
   await writeToFile(data, '$dir/myActivity.gpx');
 
-  Fault fault = await strava.uploadActivity('Bormes3', 'It is working!',
-      '$dir/myActivity.gpx', 'gpx', tokenStored.accessToken);
+  Fault fault = await strava.uploadActivity(
+      'Bormes3', 'It is working!', '$dir/myActivity.gpx', 'gpx');
 
   return fault;
 }
 
+///
 /// Example showing how to use Strava 3 API
 /// related to segments
 ///
@@ -71,15 +72,18 @@ Future<Fault> exampleSegment(String secret) async {
 
   bool isAuthOk = false;
 
-  isAuthOk = await strava.Oauth(clientId, 'read_all', secret, 'auto');
+  isAuthOk = await strava.Oauth(
+      clientId, 'profile:write,profile:read_all', secret, 'auto');
 
   print('---> Authentication result: $isAuthOk');
 
   // Expected answer should start like:
   //  {"id":229781,"resource_state":3,"name":"Hawk Hill","activity_type":"Ride","distance":2684.82,"average_grade":5.7,"maximum_grade":14.2,
   DetailedSegment _seg = await strava.getSegmentById('229781');
+  print(' segment $_seg');
 
   DetailedSegment _seg2 = await strava.getSegmentById('8186850');
+  print(' segment $_seg');
 
   // Get the list of segments that have been starred by the loggedin athlete
   SegmentsList _list = await strava.getLoggedInAthleteStarredSegments();
@@ -103,4 +107,13 @@ Future<Fault> exampleSegment(String secret) async {
       await strava.getLeaderboardBySegmentId(8186850);
   _leaderboard.entries.forEach(
       (f) => print('Leaderboard entry ${f.athleteName}  ${f.elapsedTime}'));
+
+  /// Star (or unstar) a segment for the loggedInAthlete
+  ///
+
+//   NOT working for the moment
+  // DetailedSegment _segmentStarred = await strava.starSegment(8186850, true);
+  // DetailedSegment _segmentStarred = await strava.starSegment(8186850, true);
+
+  // print('new starred segment ${_segmentStarred.id}  ${_segmentStarred.name}  starred: ${_segmentStarred.starred}');
 }

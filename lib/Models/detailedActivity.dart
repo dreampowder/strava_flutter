@@ -2,6 +2,7 @@
 
 import 'gear.dart';
 import 'fault.dart';
+import '../API/globals.dart' as globals;
 
 class DetailedActivity {
   Fault fault;
@@ -11,15 +12,15 @@ class DetailedActivity {
   int uploadId;
   Athlete athlete;
   String name;
-  int distance;
+  double distance;
   int movingTime;
   int elapsedTime;
-  int totalElevationGain;
+  double totalElevationGain;
   String type;
   String startDate;
   String startDateLocal;
   String timezone;
-  int utcOffset;
+  double utcOffset;
   List<double> startLatlng;
   List<double> endLatlng;
   double startLatitude;
@@ -136,7 +137,7 @@ class DetailedActivity {
 
   DetailedActivity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    resourceState = json['resource_state'];
+    resourceState = json['resource_state'] ?? 0;
     externalId = json['external_id'];
     uploadId = json['upload_id'];
     athlete =
@@ -151,8 +152,16 @@ class DetailedActivity {
     startDateLocal = json['start_date_local'];
     timezone = json['timezone'];
     utcOffset = json['utc_offset'];
-    startLatlng = json['start_latlng'].cast<double>();
-    endLatlng = json['end_latlng'].cast<double>();
+    // startLatlng = json['start_latlng'].cast<double>();
+    startLatlng = (json['start_latlng'] != null)
+        ? json['start_latlng'].cast<double>()
+        : [globals.defaultStartLatlng, globals.defaultEndlatlng];
+
+    // endLatlng = json['end_latlng'].cast<double>();
+    endLatlng = (json['end_latlng'] != null)
+        ? json['end_latlng'].cast<double>()
+        : [globals.defaultStartLatlng, globals.defaultEndlatlng];
+
     startLatitude = json['start_latitude'];
     startLongitude = json['start_longitude'];
     achievementCount = json['achievement_count'];
@@ -183,10 +192,10 @@ class DetailedActivity {
     prCount = json['pr_count'];
     totalPhotoCount = json['total_photo_count'];
     hasKudoed = json['has_kudoed'];
-    workoutType = json['workout_type'];
+    workoutType = json['workout_type'] ?? 10; //
     sufferScore = json['suffer_score'];
     description = json['description'];
-    calories = json['calories'];
+    calories = (json['calories']).toDouble();
     if (json['segment_efforts'] != null) {
       segmentEfforts = new List<SegmentEfforts>();
       json['segment_efforts'].forEach((v) {
@@ -640,7 +649,7 @@ class Laps {
   double distance;
   int startIndex;
   int endIndex;
-  int totalElevationGain;
+  double totalElevationGain;
   double averageSpeed;
   double maxSpeed;
   double averageCadence;
@@ -687,7 +696,7 @@ class Laps {
     distance = json['distance'];
     startIndex = json['start_index'];
     endIndex = json['end_index'];
-    totalElevationGain = json['total_elevation_gain'];
+    totalElevationGain = (json['total_elevation_gain']).toDouble();
     averageSpeed = json['average_speed'];
     maxSpeed = json['max_speed'];
     averageCadence = json['average_cadence'];

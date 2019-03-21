@@ -1,6 +1,5 @@
 import 'fault.dart';
 
-
 class SummarySegment {
   Fault fault;
   int id;
@@ -186,10 +185,6 @@ class AthleteSegmentStats {
   }
 }
 
-
-
-
-
 class DetailedSegment {
   Fault fault;
   int id;
@@ -223,7 +218,7 @@ class DetailedSegment {
   int starCount;
   AthleteSegmentStats athleteSegmentStats;
 
-  DetailedSegment (
+  DetailedSegment(
       {Fault fault,
       this.id,
       this.resourceState,
@@ -329,39 +324,36 @@ class DetailedSegment {
     }
     return data;
   }
-
 }
 
+class SegmentsList {
+  final List<SummarySegment> segments;
 
- class SegmentsList {
-    final List<SummarySegment> segments;
+  SegmentsList({this.segments});
 
-    SegmentsList({this.segments});
-
-
-    factory SegmentsList.fromJson(List<dynamic> parsedJson) {
-
+  factory SegmentsList.fromJson(List<dynamic> parsedJson) {
     List<SummarySegment> segments = List<SummarySegment>();
-    segments = parsedJson.map((i)=>SummarySegment.fromJson(i)).toList();
+    segments = parsedJson.map((i) => SummarySegment.fromJson(i)).toList();
 
     return SegmentsList(segments: segments);
   }
+}
 
-  }
-
-
-
-
-  class SegmentLeaderboard {
+class SegmentLeaderboard {
+  Fault fault;
   int effortCount;
   int entryCount;
   String komType;
   List<Entries> entries;
 
-  SegmentLeaderboard (
-      {this.effortCount, this.entryCount, this.komType, this.entries});
+  SegmentLeaderboard(
+      {this.fault,
+      this.effortCount,
+      this.entryCount,
+      this.komType,
+      this.entries});
 
-  SegmentLeaderboard .fromJson(Map<String, dynamic> json) {
+  SegmentLeaderboard.fromJson(Map<String, dynamic> json) {
     effortCount = json['effort_count'];
     entryCount = json['entry_count'];
     komType = json['kom_type'];
@@ -421,9 +413,3 @@ class Entries {
     return data;
   }
 }
-
-
-
-
-
-
