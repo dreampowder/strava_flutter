@@ -65,7 +65,7 @@ abstract class Segments {
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('List starred segments  info ${rep.body}');
-        var parsedJson = json.decode(rep.body);
+        // var parsedJson = json.decode(rep.body);
         returnList = SegmentsList.fromJson(json.decode(rep.body));
       } else {
         globals.displayInfo(
@@ -162,7 +162,7 @@ abstract class Segments {
 
     returnSegment = DetailedSegment();
     var _header = globals.createHeader();
-    String toStarred = star ? 'true' : 'false';
+    // String toStarred = star ? 'true' : 'false';
     // var _queryParams = {'starred': toStarred};
 
     globals.displayInfo('Entering starSegment');

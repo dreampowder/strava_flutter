@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'globals.dart' as globals;
 import 'constants.dart';
-import 'token.dart';
+import '../Models/token.dart';
 import '../Models/fault.dart';
 
 ///===========================================
@@ -19,36 +19,44 @@ import '../Models/fault.dart';
 abstract class Auth {
   StreamController<String> onCodeReceived = StreamController();
 
-// Save the token and the expiry date
-  Future<void> saveToken(String token, int expire, String scope) async {
+/// Save the token and the expiry date
+  Future<void> saveToken(String token, int expire, String scope, String refreshToken) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', token);
+    prefs.setString('accessToken', token);
     prefs.setInt('expire', expire); // Stored in seconds
     prefs.setString('scope', scope);
+    prefs.setString('refreshToken', refreshToken);
 
     // Save also in globals to get direct access
     globals.token.accessToken = token;
     globals.token.scope = scope;
     globals.token.expiresAt = expire;
+    globals.token.refreshToken = refreshToken;
 
     globals.displayInfo('token saved!!!');
   }
 
-// Get the stored token and expiry date
+
+/// Get the stored token and expiry date
+/// 
+/// And refreshToken as well
+/// 
   Future<Token> getStoredToken() async {
     final prefs = await SharedPreferences.getInstance();
     var localToken = Token();
     globals.displayInfo('Entering getStoredToken');
 
     try {
-      localToken.accessToken = prefs.getString('token').toString();
+      localToken.accessToken = prefs.getString('accessToken').toString();
       localToken.expiresAt = prefs.getInt('expire');
       localToken.scope = prefs.getString('scope');
+      localToken.refreshToken = prefs.getString('refreshToken');
 
       // load the data in globals
       globals.token.accessToken = localToken.accessToken;
       globals.token.expiresAt = localToken.expiresAt;
       globals.token.scope = localToken.scope;
+      globals.token.refreshToken =localToken.refreshToken;
     } catch (error) {
       globals.displayInfo('Error getting the key');
       localToken.accessToken = null;
@@ -126,11 +134,12 @@ abstract class Auth {
   ///
   /// Do not do/show the Strava login if a token has been stored previously
   /// and is not expired
+  /// 
   /// Do/show the Strava login if the scope has been changed since last storage of the token
   /// return true if no problem in authentication has been found
-  Future<bool> Oauth(
+  Future<bool> oauth(
       String clientID, String scope, String secret, String prompt) async {
-    print('Welcome to Oauth');
+    globals.displayInfo('Welcome to Oauth');
     bool isAuthOk = false;
     bool isExpired = true;
 
@@ -146,8 +155,22 @@ abstract class Auth {
       globals.displayInfo('isExpired $isExpired');
     }
 
+    // Use the refresh token to get a new access token
+    if (isExpired && (_token != "null")) {
+      RefreshAnswer _refreshAnswer = await getNewAccessToken(clientID, secret, tokenStored.refreshToken);
+      // Update with new values (only refreshToken is unchanged)
+      if (_refreshAnswer.fault.statusCode == 200) {
+        saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope, tokenStored.refreshToken);
+      } else {
+        globals.displayInfo('Problem doing the refresh process');
+        isAuthOk = false;
+      }
+
+    }
+
+
     // Check if the scope has changed
-    if ((tokenStored.scope != scope) || (_token == "null") || isExpired) {
+    if ((tokenStored.scope != scope) || (_token == "null")) {
       // Ask for a new authorization
       globals.displayInfo('Doing a new authorization');
       isAuthOk = await newAuthorization(clientID, secret, scope, prompt);
@@ -174,13 +197,43 @@ abstract class Auth {
 
       // Save the token information
       if (answer.accessToken != null && answer.expiresAt != null) {
-        await saveToken(answer.accessToken, answer.expiresAt, scope);
+        await saveToken(answer.accessToken, answer.expiresAt, scope, answer.refreshToken);
         returnValue = true;
       }
     } else {
       globals.displayInfo('code is still null');
     }
     return returnValue;
+  }
+
+
+  Future<RefreshAnswer> getNewAccessToken(String clientID, String secret, String refreshToken) async {
+
+    RefreshAnswer returnToken = RefreshAnswer();
+
+    var urlRefresh = 'https://www.strava.com/oauth/token' +
+       '?client_id=' + clientID +
+        '&client_secret=' + secret + // Put your own secret in secret.dart
+         '&grant_type=refresh_token' +
+         '&refresh_token=' + refreshToken;
+
+    globals.displayInfo('Entering getNewAccessToken');
+    globals.displayInfo('urlRefresh $urlRefresh');
+
+    var resp = await http.post(urlRefresh);
+
+    globals.displayInfo('body ${resp.body}');
+    if (resp.statusCode == 200) {
+      returnToken = RefreshAnswer.fromJson(json.decode(resp.body));
+
+    } else {
+      globals.displayInfo('Error while refreshing the token');
+    }
+
+    returnToken.fault =
+          globals.errorCheck(resp.statusCode, resp.reasonPhrase);
+    return returnToken;
+
   }
 
   Future<Token> getStravaToken(
@@ -202,7 +255,6 @@ abstract class Auth {
 
     var value = await http.post(urlToken);
 
-    // responseToken.then((value) {
     globals.displayInfo('body ${value.body}');
 
     if (value.body.contains('message')) {
@@ -211,7 +263,6 @@ abstract class Auth {
       // will return _answer null
     } else {
       var tokenBody = json.decode(value.body);
-      // Todo: handle error with message "Authorization Error" and errors != null
       var _body = Token.fromJson(tokenBody);
       var accessToken = _body.accessToken;
       var refreshToken = _body.refreshToken;
@@ -245,7 +296,7 @@ abstract class Auth {
       var rep = await http.post(reqDeAuthorize, headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo('DeAuthorize done');
-        await saveToken(null, null, null);
+        await saveToken(null, null, null, null);
         fault.statusCode = globals.statusOk;
       } else {
         globals.displayInfo('Problem in deAuthorize request');

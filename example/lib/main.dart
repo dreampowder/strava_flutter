@@ -71,7 +71,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     final strava = Strava(true, secret);
     final prompt = 'auto';
 
-    isAuthOk = await strava.Oauth(clientId,
+    isAuthOk = await strava.oauth(clientId,
         'activity:write,activity:read_all,profile:read_all,profile:write', secret, prompt);
 
     if (isAuthOk) {

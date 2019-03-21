@@ -12,7 +12,7 @@ import 'package:strava_flutter/API/constants.dart';
 // Used by uploadExample
 import 'package:strava_flutter/API/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/API/token.dart';
+import 'package:strava_flutter/Models/token.dart';
 
 // Used by segment
 import 'package:strava_flutter/Models/segment.dart';
@@ -39,7 +39,7 @@ Future<Fault> exampleUpload(String secret) async {
 
   bool isAuthOk = false;
 
-  isAuthOk = await strava.Oauth(clientId, 'activity:write', secret, 'auto');
+  isAuthOk = await strava.oauth(clientId, 'activity:write', secret, 'auto');
 
   print('---> Authentication result: $isAuthOk');
 
@@ -72,7 +72,7 @@ Future<Fault> exampleSegment(String secret) async {
 
   bool isAuthOk = false;
 
-  isAuthOk = await strava.Oauth(
+  isAuthOk = await strava.oauth(
       clientId, 'profile:write,profile:read_all', secret, 'auto');
 
   print('---> Authentication result: $isAuthOk');

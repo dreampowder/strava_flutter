@@ -1,4 +1,5 @@
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'fault.dart';
 
 class Token {
   String accessToken;
@@ -35,26 +36,26 @@ class Token {
     model.expiresAt = map['expires_at'];
     return model;
   }
+}
 
-  // NOT used for the moment
-  //-------------------------
-  Future<Token> getStoredToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    var localToken = Token();
-    try {
-      localToken.accessToken = prefs.getString('token').toString();
-      localToken.expiresAt = prefs.getInt('expire');
-      localToken.scope = prefs.getString('scope');
 
-      //  the header
-      // header is global to change TODO:
-      // header = {'Authorization': 'Bearer ${localToken.accessToken}'};
-    } catch (error) {
-      print('Error getting the key');
-      localToken.accessToken = null;
-      localToken.expiresAt = null;
-      localToken.scope = null;
-    }
-    return localToken;
+class RefreshAnswer {
+  Fault fault;
+  String accessToken;
+  int expiresAt;
+
+  RefreshAnswer();
+
+  factory RefreshAnswer.fromJson(Map<String, dynamic> json) => RefreshAnswer.fromMap(json);
+
+
+  static RefreshAnswer fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+    RefreshAnswer model = RefreshAnswer();
+    model.accessToken = map['access_token'];
+    model.expiresAt = map['expires_at'];
+    return model;
   }
+
+
 }
