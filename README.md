@@ -14,20 +14,22 @@ https://developers.strava.com/docs/authentication/
 - deauthorize
 
 
-
+### Athlete related APIs
 - getLoggedInAthlete
 - updateLoggedInAthlete (scope profile:write)
 - getGearById
 - getStats
+### Club related APIs
 - getClubById
 - getClubActivitiesById (need to be member of the club)
 - getClubMembersById (no need to be member of the club)
-* Race related APIs
+### Race related APIs
 - getRunningRaces
 - getRunningRaceById
-* Activity related APIs
-- uploadActivity (including getUploadById)
-* Segments related APIs
+### Activity related APIs
+- createActivity
+- uploadActivity (including getUploadById
+### Segments related APIs
 - getSegmentById
 - getLoggedInAthleteStarredSegments
 - getLeaderboardBySegmentId
