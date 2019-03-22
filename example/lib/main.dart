@@ -6,10 +6,9 @@ import 'secret.dart'; // Where Strava app secret is stored
 
 import 'package:strava_flutter/API/strava.dart';
 import 'package:strava_flutter/API/constants.dart';
-import 'package:strava_flutter/API/globals.dart' as globals;
+
 
 // Used by example
-
 import 'package:strava_flutter/Models/detailedActivity.dart';
 import 'package:strava_flutter/Models/club.dart';
 import 'package:strava_flutter/Models/detailedAthlete.dart';
@@ -75,7 +74,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         'activity:write,activity:read_all,profile:read_all,profile:write', secret, prompt);
 
     if (isAuthOk) {
-      // NOT working yet!!
       // Create an new activity
       String _startDate = '2019-02-18 10:02:13';
       DetailedActivity _newActivity =
@@ -131,7 +129,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       }
 
       // Change weight of the loggedAthlete in profile (in kg)
-      DetailedAthlete _athlete2 = await strava.updateLoggedInAthlete(84);
+      DetailedAthlete _athlete2 = await strava.updateLoggedInAthlete(80);
       if (_athlete2.fault.statusCode != 200) {
         print(
             'Error in updateLoggedInAthlete ${_athlete2.fault.statusCode}  ${_athlete2.fault.message}');

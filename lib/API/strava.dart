@@ -215,9 +215,8 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
     var _header = globals.createHeader();
 
     if (_header != null) {
-      // final reqAthlete = "https://www.strava.com/api/v3/athlete/&weight=" + weight.toString();
-      final reqAthlete = 'https://www.strava.com/api/v3/athlete?weight=84.0';
-      print('update $reqAthlete');
+      final reqAthlete = "https://www.strava.com/api/v3/athlete?weight=" + weight.toString();
+      globals.displayInfo('update $reqAthlete');
       var rep = await http.put(reqAthlete, headers: _header);
 
       if (rep.statusCode == 200) {
@@ -225,12 +224,12 @@ class Strava with Upload, Activities, Auth, Clubs, Segments {
         final jsonResponse = json.decode(rep.body);
 
         DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
-        print(' athlete ${_athlete.firstname}, ${_athlete.weight}');
+        globals.displayInfo(' athlete ${_athlete.firstname}, ${_athlete.weight}');
 
         returnAthlete = _athlete;
       } else {
         globals.displayInfo(
-            'problem in updateLoggedInAthleteequest , ${returnAthlete.fault.statusCode}  ${rep.body}');
+            'problem in updateLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
       }
 
       returnAthlete.fault =

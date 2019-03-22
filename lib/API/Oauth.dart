@@ -48,7 +48,7 @@ abstract class Auth {
 
     try {
       localToken.accessToken = prefs.getString('accessToken').toString();
-      localToken.expiresAt = prefs.getInt('expire');
+      localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms 
       localToken.scope = prefs.getString('scope');
       localToken.refreshToken = prefs.getString('refreshToken');
 
@@ -75,7 +75,7 @@ abstract class Auth {
           'hours';
 
       globals.displayInfo(
-          'stored token ${localToken.accessToken}  expires: $_disp ');
+          'stored token ${localToken.accessToken} ${localToken.expiresAt} expires: $_disp ');
     }
 
     return (localToken);
@@ -149,7 +149,7 @@ abstract class Auth {
     // Check if the token is not expired
     if (_token != "null") {
       globals.displayInfo(
-          'token has been stored before! ${tokenStored.accessToken}');
+          'token has been stored before! ${tokenStored.accessToken}  exp. ${tokenStored.expiresAt}');
 
       isExpired = isTokenExpired(tokenStored);
       globals.displayInfo('isExpired $isExpired');
@@ -167,7 +167,6 @@ abstract class Auth {
       }
 
     }
-
 
     // Check if the scope has changed
     if ((tokenStored.scope != scope) || (_token == "null")) {
@@ -225,6 +224,7 @@ abstract class Auth {
     globals.displayInfo('body ${resp.body}');
     if (resp.statusCode == 200) {
       returnToken = RefreshAnswer.fromJson(json.decode(resp.body));
+      globals.displayInfo('new exp. date: ${returnToken.expiresAt}');
 
     } else {
       globals.displayInfo('Error while refreshing the token');
@@ -266,7 +266,7 @@ abstract class Auth {
       var _body = Token.fromJson(tokenBody);
       var accessToken = _body.accessToken;
       var refreshToken = _body.refreshToken;
-      var expiresAt = _body.expiresAt * 1000;
+      var expiresAt = _body.expiresAt * 1000;  // To get the exp. date in ms 
 
       _answer.accessToken = accessToken;
       _answer.refreshToken = refreshToken;
@@ -279,6 +279,7 @@ abstract class Auth {
   bool isTokenExpired(Token token) {
     final DateTime _expiryDate =
         DateTime.fromMillisecondsSinceEpoch(token.expiresAt);
+       print(' current time in ms ${DateTime.now().millisecondsSinceEpoch}');
     return (_expiryDate.isBefore(DateTime.now()));
   }
 

@@ -1,6 +1,6 @@
 name: strava_flutter
 description:  Flutter/Dart code to access Strava v3 API including new authentication process (with expired date)
-version: 1.0.6+14
+version: 1.0.6+15
 author: Patrick FINK <patrick@rosemarine.com>
 homepage: https://github.com/BirdyF/strava_flutter
 
@@ -25,6 +25,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: ^1.5.3  # To launch some tests in /test
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
