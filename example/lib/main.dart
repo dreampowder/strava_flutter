@@ -7,7 +7,6 @@ import 'secret.dart'; // Where Strava app secret is stored
 import 'package:strava_flutter/API/strava.dart';
 import 'package:strava_flutter/API/constants.dart';
 
-
 // Used by example
 import 'package:strava_flutter/Models/detailedActivity.dart';
 import 'package:strava_flutter/Models/club.dart';
@@ -17,6 +16,7 @@ import 'package:strava_flutter/Models/runningRace.dart';
 import 'package:strava_flutter/Models/stats.dart';
 import 'package:strava_flutter/Models/summaryAthlete.dart';
 import 'package:strava_flutter/Models/summaryActivity.dart';
+import 'package:strava_flutter/Models/zone.dart';
 
 Strava strava;
 
@@ -70,14 +70,27 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     final strava = Strava(true, secret);
     final prompt = 'auto';
 
-    isAuthOk = await strava.oauth(clientId,
-        'activity:write,activity:read_all,profile:read_all,profile:write', secret, prompt);
+    isAuthOk = await strava.oauth(
+        clientId,
+        'activity:write,activity:read_all,profile:read_all,profile:write',
+        secret,
+        prompt);
 
     if (isAuthOk) {
+      // Get the zones related to the logged athlete
+      Zone _zone = await strava.getLoggedInAthleteZones();
+      if (_zone.fault.statusCode != 200) {
+        print(
+            'Error in getLoggedInAthleteZones  ${_zone.fault.statusCode}  ${_zone.fault.message}');
+      } else {
+        _zone.infoZones.zones.forEach((zone) => print('getLoggedInAthleteZones ${zone.min} ${zone.max}'));
+      }
+
       // Create an new activity
       String _startDate = '2019-02-18 10:02:13';
-      DetailedActivity _newActivity =
-          await strava.createActivity('Test668', 'ride', _startDate, 3600, distance: 1555);
+      DetailedActivity _newActivity = await strava.createActivity(
+          'Test_Strava_Flutter', 'ride', _startDate, 3600,
+          distance: 1555, description: 'This is a strava_flutter test');
       if (_newActivity.fault.statusCode != 201) {
         print(
             'Error in createActivity ${_newActivity.fault.statusCode}  ${_newActivity.fault.message}');

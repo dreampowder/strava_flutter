@@ -19,8 +19,9 @@ import '../Models/fault.dart';
 abstract class Auth {
   StreamController<String> onCodeReceived = StreamController();
 
-/// Save the token and the expiry date
-  Future<void> saveToken(String token, int expire, String scope, String refreshToken) async {
+  /// Save the token and the expiry date
+  Future<void> saveToken(
+      String token, int expire, String scope, String refreshToken) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('accessToken', token);
     prefs.setInt('expire', expire); // Stored in seconds
@@ -36,11 +37,10 @@ abstract class Auth {
     globals.displayInfo('token saved!!!');
   }
 
-
-/// Get the stored token and expiry date
-/// 
-/// And refreshToken as well
-/// 
+  /// Get the stored token and expiry date
+  ///
+  /// And refreshToken as well
+  ///
   Future<Token> getStoredToken() async {
     final prefs = await SharedPreferences.getInstance();
     var localToken = Token();
@@ -48,7 +48,7 @@ abstract class Auth {
 
     try {
       localToken.accessToken = prefs.getString('accessToken').toString();
-      localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms 
+      localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms
       localToken.scope = prefs.getString('scope');
       localToken.refreshToken = prefs.getString('refreshToken');
 
@@ -56,7 +56,7 @@ abstract class Auth {
       globals.token.accessToken = localToken.accessToken;
       globals.token.expiresAt = localToken.expiresAt;
       globals.token.scope = localToken.scope;
-      globals.token.refreshToken =localToken.refreshToken;
+      globals.token.refreshToken = localToken.refreshToken;
     } catch (error) {
       globals.displayInfo('Error getting the key');
       localToken.accessToken = null;
@@ -134,7 +134,7 @@ abstract class Auth {
   ///
   /// Do not do/show the Strava login if a token has been stored previously
   /// and is not expired
-  /// 
+  ///
   /// Do/show the Strava login if the scope has been changed since last storage of the token
   /// return true if no problem in authentication has been found
   Future<bool> oauth(
@@ -157,15 +157,16 @@ abstract class Auth {
 
     // Use the refresh token to get a new access token
     if (isExpired && (_token != "null")) {
-      RefreshAnswer _refreshAnswer = await getNewAccessToken(clientID, secret, tokenStored.refreshToken);
+      RefreshAnswer _refreshAnswer =
+          await getNewAccessToken(clientID, secret, tokenStored.refreshToken);
       // Update with new values (only refreshToken is unchanged)
       if (_refreshAnswer.fault.statusCode == 200) {
-        saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope, tokenStored.refreshToken);
+        saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope,
+            tokenStored.refreshToken);
       } else {
         globals.displayInfo('Problem doing the refresh process');
         isAuthOk = false;
       }
-
     }
 
     // Check if the scope has changed
@@ -196,7 +197,8 @@ abstract class Auth {
 
       // Save the token information
       if (answer.accessToken != null && answer.expiresAt != null) {
-        await saveToken(answer.accessToken, answer.expiresAt, scope, answer.refreshToken);
+        await saveToken(
+            answer.accessToken, answer.expiresAt, scope, answer.refreshToken);
         returnValue = true;
       }
     } else {
@@ -205,16 +207,18 @@ abstract class Auth {
     return returnValue;
   }
 
-
-  Future<RefreshAnswer> getNewAccessToken(String clientID, String secret, String refreshToken) async {
-
+  Future<RefreshAnswer> getNewAccessToken(
+      String clientID, String secret, String refreshToken) async {
     RefreshAnswer returnToken = RefreshAnswer();
 
     var urlRefresh = 'https://www.strava.com/oauth/token' +
-       '?client_id=' + clientID +
-        '&client_secret=' + secret + // Put your own secret in secret.dart
-         '&grant_type=refresh_token' +
-         '&refresh_token=' + refreshToken;
+        '?client_id=' +
+        clientID +
+        '&client_secret=' +
+        secret + // Put your own secret in secret.dart
+        '&grant_type=refresh_token' +
+        '&refresh_token=' +
+        refreshToken;
 
     globals.displayInfo('Entering getNewAccessToken');
     globals.displayInfo('urlRefresh $urlRefresh');
@@ -225,15 +229,12 @@ abstract class Auth {
     if (resp.statusCode == 200) {
       returnToken = RefreshAnswer.fromJson(json.decode(resp.body));
       globals.displayInfo('new exp. date: ${returnToken.expiresAt}');
-
     } else {
       globals.displayInfo('Error while refreshing the token');
     }
 
-    returnToken.fault =
-          globals.errorCheck(resp.statusCode, resp.reasonPhrase);
+    returnToken.fault = globals.errorCheck(resp.statusCode, resp.reasonPhrase);
     return returnToken;
-
   }
 
   Future<Token> getStravaToken(
@@ -266,7 +267,7 @@ abstract class Auth {
       var _body = Token.fromJson(tokenBody);
       var accessToken = _body.accessToken;
       var refreshToken = _body.refreshToken;
-      var expiresAt = _body.expiresAt * 1000;  // To get the exp. date in ms 
+      var expiresAt = _body.expiresAt * 1000; // To get the exp. date in ms
 
       _answer.accessToken = accessToken;
       _answer.refreshToken = refreshToken;
@@ -277,10 +278,15 @@ abstract class Auth {
   }
 
   bool isTokenExpired(Token token) {
-    final DateTime _expiryDate =
+    // final DateTime _expiryDate =
         DateTime.fromMillisecondsSinceEpoch(token.expiresAt);
-       print(' current time in ms ${DateTime.now().millisecondsSinceEpoch}');
-    return (_expiryDate.isBefore(DateTime.now()));
+    print(' current time in ms ${DateTime.now().millisecondsSinceEpoch}   exp. time: ${token.expiresAt}');
+    if (token.expiresAt < DateTime.now().millisecondsSinceEpoch) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   /// To revoke the current token

@@ -17,6 +17,7 @@ https://developers.strava.com/docs/authentication/
 ### Athlete related APIs
 - getLoggedInAthlete
 - updateLoggedInAthlete (scope profile:write)
+- getLoggedInAthleteZones
 - getGearById
 - getStats
 ### Club related APIs
