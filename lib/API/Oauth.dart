@@ -147,7 +147,7 @@ abstract class Auth {
     final String _token = tokenStored.accessToken;
 
     // Check if the token is not expired
-    if (_token != "null") {
+    if (_token != null) {
       globals.displayInfo(
           'token has been stored before! ${tokenStored.accessToken}  exp. ${tokenStored.expiresAt}');
 
@@ -211,14 +211,9 @@ abstract class Auth {
       String clientID, String secret, String refreshToken) async {
     RefreshAnswer returnToken = RefreshAnswer();
 
-    var urlRefresh = 'https://www.strava.com/oauth/token' +
-        '?client_id=' +
-        clientID +
-        '&client_secret=' +
-        secret + // Put your own secret in secret.dart
-        '&grant_type=refresh_token' +
-        '&refresh_token=' +
-        refreshToken;
+        var urlRefresh =
+        'https://www.strava.com/oauth/token?client_id=${clientID}&client_secret=${secret}&grant_type=refresh_token&refresh_token=${refreshToken}';
+
 
     globals.displayInfo('Entering getNewAccessToken');
     globals.displayInfo('urlRefresh $urlRefresh');
