@@ -2,18 +2,18 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-import '../Models/fault.dart';
-import '../Models/gear.dart';
+import 'Models/fault.dart';
+import 'Models/gear.dart';
 
 import 'globals.dart' as globals;
 
-import 'oauth.dart';
-import 'upload.dart';
-import 'clubs.dart';
-import 'activities.dart';
-import 'segments.dart';
-import 'athletes.dart';
-import 'races.dart';
+import 'API/Oauth.dart';
+import 'API/upload.dart';
+import 'API/clubs.dart';
+import 'API/activities.dart';
+import 'API/segments.dart';
+import 'API/athletes.dart';
+import 'API/races.dart';
 
 /// Initialize the Strava API
 ///  clientID: ID of your Strava app

@@ -2,7 +2,7 @@
 
 import 'gear.dart';
 import 'fault.dart';
-import '../API/globals.dart' as globals;
+import '../globals.dart' as globals;
 
 class DetailedActivity {
   Fault fault;

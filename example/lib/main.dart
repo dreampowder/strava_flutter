@@ -4,7 +4,8 @@ import 'examples.dart';
 
 import 'secret.dart'; // Where Strava app secret is stored
 
-import 'package:strava_flutter/API/strava.dart';
+// Until it is updated on github
+// import 'package:strava_flutter/strava.dart';
 import 'package:strava_flutter/API/constants.dart';
 
 // Used by example
@@ -17,6 +18,8 @@ import 'package:strava_flutter/Models/stats.dart';
 import 'package:strava_flutter/Models/summaryAthlete.dart';
 import 'package:strava_flutter/Models/summaryActivity.dart';
 import 'package:strava_flutter/Models/zone.dart';
+
+
 
 Strava strava;
 
@@ -257,6 +260,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             Text('Authentication'),
             Text('with segments Apis'),
             RaisedButton(
+              key : Key('SegmentsButton'),
               child: Text('Segments'),
               // onPressed: exampleStrava,
               onPressed: exampleSeg,
@@ -265,6 +269,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             Text('Authentication'),
             Text('with other Apis'),
             RaisedButton(
+              key: Key('OthersButton'),
               child: Text('strava_flutter'),
               onPressed: exampleStrava,
             ),
@@ -272,6 +277,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             Text(''),
             Text('Upload with authentication'),
             RaisedButton(
+              key: Key('Uploadbutton'),
               child: Text('upload'),
               onPressed: upload,
             ),
@@ -283,6 +289,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
               'to revoke/DeAuthorize Strava user',
             ),
             RaisedButton(
+              key: Key('DeAuthorizeButton'),
               child: Text('DeAuthorize'),
               onPressed: deAuthorize,
             ),

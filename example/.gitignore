@@ -1,6 +1,12 @@
 # strava_flutter specific
 secret.dart
 todo.txt
+NOTWORKING_*
+NORWORKING_*.dart
+
+# test not working for the moment
+test_driver/app.dart
+test_driver/main_test.dart
 
 # Miscellaneous
 *.class

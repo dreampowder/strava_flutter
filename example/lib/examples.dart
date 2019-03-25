@@ -10,7 +10,7 @@ import 'dart:typed_data'; // Needed when declaring ByteData
 import 'package:strava_flutter/API/constants.dart';
 
 // Used by uploadExample
-import 'package:strava_flutter/API/strava.dart';
+import 'package:strava_flutter/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
 import 'package:strava_flutter/Models/token.dart';
 

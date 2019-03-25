@@ -9,7 +9,7 @@ import '../Models/detailedAthlete.dart';
 import '../Models/zone.dart';
 import '../Models/fault.dart';
 
-import 'globals.dart' as globals;
+import '../globals.dart' as globals;
 
 abstract class Athletes {
   Future<DetailedAthlete> updateLoggedInAthlete(double weight) async {

@@ -8,8 +8,6 @@ class Zone {
 
   Zone({this.fault, this.infoZones});
 
-
-
   factory Zone.fromJson(Map<String, dynamic> firstJson) {
     if (firstJson['heart_rate'] != null) {
       var parsedJson = firstJson['heart_rate'];
@@ -22,6 +20,10 @@ class Zone {
       _infoZones.zones = _distributionBucket;
 
       return Zone(fault: fault, infoZones: _infoZones,);
+    }
+    else { 
+      Fault _fault = Fault(99, '');
+      return Zone(fault: _fault, infoZones: null);
     }
   }
 }

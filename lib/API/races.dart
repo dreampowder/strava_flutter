@@ -6,7 +6,7 @@ import 'dart:async';
 
 import '../Models/runningRace.dart';
 
-import 'globals.dart' as globals;
+import '../globals.dart' as globals;
 
 abstract class Races {
   /// getRunningRacebyId

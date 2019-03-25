@@ -1,8 +1,8 @@
 // globals.dart
 
 import 'package:flutter/foundation.dart';
-import '../Models/fault.dart';
-import '../Models/token.dart';
+import 'Models/fault.dart';
+import 'Models/token.dart';
 
 bool isInDebug = true; // set to true to see debug message in API
 

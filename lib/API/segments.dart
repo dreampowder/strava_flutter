@@ -9,7 +9,7 @@ import 'dart:async';
 
 import '../Models/segment.dart';
 
-import 'globals.dart' as globals;
+import '../globals.dart' as globals;
 
 abstract class Segments {
   ///

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-import 'globals.dart' as globals;
+import '../globals.dart' as globals;
 
 import 'package:strava_flutter/Models/detailedActivity.dart';
 

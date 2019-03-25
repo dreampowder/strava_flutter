@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'globals.dart' as globals;
+import '../globals.dart' as globals;
 import 'constants.dart';
 import '../Models/token.dart';
 import '../Models/fault.dart';
@@ -147,7 +147,8 @@ abstract class Auth {
     final String _token = tokenStored.accessToken;
 
     // Check if the token is not expired
-    if (_token != null) {
+    // if (_token != null) {
+    if ((_token != null) || (_token == "null")) {
       globals.displayInfo(
           'token has been stored before! ${tokenStored.accessToken}  exp. ${tokenStored.expiresAt}');
 
@@ -156,7 +157,7 @@ abstract class Auth {
     }
 
     // Use the refresh token to get a new access token
-    if (isExpired && (_token != "null")) {
+    if (isExpired && ((_token != "null") || (_token != null))) {
       RefreshAnswer _refreshAnswer =
           await getNewAccessToken(clientID, secret, tokenStored.refreshToken);
       // Update with new values (only refreshToken is unchanged)
