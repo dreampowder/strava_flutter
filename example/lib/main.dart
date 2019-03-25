@@ -4,9 +4,7 @@ import 'examples.dart';
 
 import 'secret.dart'; // Where Strava app secret is stored
 
-// Until it is updated on github
-// import 'package:strava_flutter/strava.dart';
-import 'package:strava_flutter/API/constants.dart';
+import 'package:strava_flutter/strava.dart';
 
 // Used by example
 import 'package:strava_flutter/Models/detailedActivity.dart';
