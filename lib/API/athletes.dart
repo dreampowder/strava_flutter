@@ -75,7 +75,6 @@ abstract class Athletes {
   /// 
   /// scope needed: profile:read_all
   /// 
-  /// Only for Summit members
   /// 
   Future<Zone> getLoggedInAthleteZones() async {
     Zone returnZone = Zone();

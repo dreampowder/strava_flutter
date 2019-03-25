@@ -1,7 +1,6 @@
 // zones
 import 'fault.dart';
 
-
 class Zone {
   Fault fault;
   InfoZones infoZones;
@@ -12,16 +11,19 @@ class Zone {
     if (firstJson['heart_rate'] != null) {
       var parsedJson = firstJson['heart_rate'];
       var _customZones = parsedJson['custom_zones'];
-      var _infoZones =InfoZones();
+      var _infoZones = InfoZones();
       var list = parsedJson['zones'] as List;
       var fault = Fault(99, '');
-      List<DistributionBucket> _distributionBucket = list.map((i) =>DistributionBucket.fromJson(i)).toList();
+      List<DistributionBucket> _distributionBucket =
+          list.map((i) => DistributionBucket.fromJson(i)).toList();
       _infoZones.customZones = _customZones;
       _infoZones.zones = _distributionBucket;
 
-      return Zone(fault: fault, infoZones: _infoZones,);
-    }
-    else { 
+      return Zone(
+        fault: fault,
+        infoZones: _infoZones,
+      );
+    } else {
       Fault _fault = Fault(99, '');
       return Zone(fault: _fault, infoZones: null);
     }
@@ -33,11 +35,9 @@ class InfoZones {
   List<DistributionBucket> zones;
 }
 
-
 class DistributionBucket {
   int max;
   int min;
-  
 
   DistributionBucket({this.max, this.min});
 
@@ -53,4 +53,3 @@ class DistributionBucket {
     return data;
   }
 }
-

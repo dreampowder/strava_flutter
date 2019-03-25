@@ -213,7 +213,7 @@ abstract class Auth {
     RefreshAnswer returnToken = RefreshAnswer();
 
         var urlRefresh =
-        'https://www.strava.com/oauth/token?client_id=${clientID}&client_secret=${secret}&grant_type=refresh_token&refresh_token=${refreshToken}';
+        'https://www.strava.com/oauth/token?client_id=$clientID&client_secret=$secret&grant_type=refresh_token&refresh_token=$refreshToken';
 
 
     globals.displayInfo('Entering getNewAccessToken');
