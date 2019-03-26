@@ -12,9 +12,20 @@ import '../Models/uploadActivity.dart';
 import '../globals.dart' as globals;
 
 abstract class Upload {
+
+
+  /// Tested with gpx
+  /// For the moment the parameters
+  /// 
+  /// trainer and commute are set to false
+  /// 
+  /// statusCode:
+  /// 201 activity created
+  /// 400 problem could be that activity already uploaded
+  /// 
   Future<Fault> uploadActivity(
       String name, String description, String fileUrl, String fileType) async {
-    print('Starting to upload activity');
+    globals.displayInfo('Starting to upload activity');
 
     // To check if the activity has been uploaded successfully
     // No numeric error code for the moment given by Strava
@@ -41,24 +52,27 @@ abstract class Upload {
     request.headers.addAll(_header);
 
     request.files.add(await http.MultipartFile.fromPath('file', fileUrl));
+    globals.displayInfo(request.toString());
 
     var response = await request.send();
 
-    print('Response: ${response.statusCode} ${response.reasonPhrase}');
+    globals.displayInfo('Response: ${response.statusCode} ${response.reasonPhrase}');
 
     fault.statusCode = response.statusCode;
     fault.message = response.reasonPhrase;
 
     if (response.statusCode != 201) {
-      print('Error while uploading the activity');
-      print('---> ${response.statusCode} - ${response.reasonPhrase}');
+      globals.displayInfo('Error while uploading the activity');
+      globals.displayInfo('${response.statusCode} - ${response.reasonPhrase}');
     }
 
     int idUpload;
 
     // Upload is processed by the server
+    // now wait for the upload to be finished
+    //----------------------------------------
     if (response.statusCode == 201) {
-      print('---> Created');
+      globals.displayInfo('Activity successfully created');
       response.stream.transform(utf8.decoder).listen((value) {
         print(value);
         var _body = json.decode(value);

@@ -40,8 +40,9 @@ abstract class Auth {
   /// Get the stored token and expiry date
   ///
   /// And refreshToken as well
+  /// Stored them in globals.token
   ///
-  Future<Token> _getStoredToken() async {
+  Future<Token> getStoredToken() async {
     final prefs = await SharedPreferences.getInstance();
     var localToken = Token();
     globals.displayInfo('Entering getStoredToken');
@@ -58,7 +59,7 @@ abstract class Auth {
       globals.token.scope = localToken.scope;
       globals.token.refreshToken = localToken.refreshToken;
     } catch (error) {
-      globals.displayInfo('Error getting the key');
+      globals.displayInfo('Error while retrieving the token');
       localToken.accessToken = null;
       localToken.expiresAt = null;
       localToken.scope = null;
@@ -72,7 +73,7 @@ abstract class Auth {
           dateExpired.month.toString() +
           ' ' +
           dateExpired.hour.toString() +
-          'hours';
+          ' hours';
 
       globals.displayInfo(
           'stored token ${localToken.accessToken} ${localToken.expiresAt} expires: $_disp ');
@@ -141,19 +142,19 @@ abstract class Auth {
       String clientID, String scope, String secret, String prompt) async {
     globals.displayInfo('Welcome to Oauth');
     bool isAuthOk = false;
-    bool isExpired = true;
+    bool isExpired;
 
-    final Token tokenStored = await _getStoredToken();
+    final Token tokenStored = await getStoredToken();
     final String _token = tokenStored.accessToken;
+
+    isExpired = _isTokenExpired(tokenStored);
+    globals.displayInfo('is token expired? $isExpired');
 
     // Check if the token is not expired
     // if (_token != null) {
     if ((_token != null) || (_token == "null")) {
       globals.displayInfo(
           'token has been stored before! ${tokenStored.accessToken}  exp. ${tokenStored.expiresAt}');
-
-      isExpired = _isTokenExpired(tokenStored);
-      globals.displayInfo('isExpired $isExpired');
     }
 
     // Use the refresh token to get a new access token
@@ -171,7 +172,7 @@ abstract class Auth {
     }
 
     // Check if the scope has changed
-    if ((tokenStored.scope != scope) || (_token == "null")) {
+    if ((tokenStored.scope != scope) || (_token == "null")  || (_token == null)) {
       // Ask for a new authorization
       globals.displayInfo('Doing a new authorization');
       isAuthOk = await _newAuthorization(clientID, secret, scope, prompt);
@@ -272,11 +273,20 @@ abstract class Auth {
 
     return (_answer);
   }
-
+  /// Return true the expiry date is passed
+  /// 
+  /// Otherwise return false
+  /// 
+  /// including when there is no token yet 
   bool _isTokenExpired(Token token) {
-    // final DateTime _expiryDate =
-        DateTime.fromMillisecondsSinceEpoch(token.expiresAt);
-    print(' current time in ms ${DateTime.now().millisecondsSinceEpoch}   exp. time: ${token.expiresAt}');
+    
+    globals.displayInfo(' current time in ms ${DateTime.now().millisecondsSinceEpoch}   exp. time: ${token.expiresAt}');
+    
+    // when it is the first run or after a deAuthotrize
+    if (token.expiresAt == null) {
+      return false;
+    }
+
     if (token.expiresAt < DateTime.now().millisecondsSinceEpoch) {
       return true;
     } else {
@@ -290,22 +300,40 @@ abstract class Auth {
   ///
   /// scope needed: none
   ///
+  ///return codes:
+  /// statusOK or statusNoAuthenticationYet
   Future<Fault> deAuthorize() async {
     Fault fault = Fault(globals.statusUnknownError, '');
 
+    if (globals.token.accessToken == null) {
+      // Token has not been yet stored in memory
+       await getStoredToken();
+    } 
+
     var _header = globals.createHeader();
-    if (_header != null) {
+
+    // If header is not "empty"
+    if (_header.containsKey(null) == false) {
       final reqDeAuthorize = "https://www.strava.com/oauth/deauthorize";
+      globals.displayInfo('request $reqDeAuthorize');
       var rep = await http.post(reqDeAuthorize, headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo('DeAuthorize done');
+        globals.displayInfo('response ${rep.body}');
         await _saveToken(null, null, null, null);
         fault.statusCode = globals.statusOk;
+        fault.message = 'DeAuthorize done';
       } else {
         globals.displayInfo('Problem in deAuthorize request');
         fault.statusCode = globals.statusOk;
       }
+    } else {
+      // No authorization has been done before
+      globals.displayInfo('No Authentication has been done yet');
+      fault.statusCode = globals.statusNoAuthenticationYet;
+      fault.message = 'No Authentication has been done yet';
     }
+
     return fault;
   }
 }

@@ -7,6 +7,7 @@ import 'secret.dart'; // Where Strava app secret is stored
 import 'package:strava_flutter/strava.dart';
 
 // Used by example
+
 import 'package:strava_flutter/Models/detailedActivity.dart';
 import 'package:strava_flutter/Models/club.dart';
 import 'package:strava_flutter/Models/detailedAthlete.dart';

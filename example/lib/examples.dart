@@ -43,19 +43,17 @@ Future<Fault> exampleUpload(String secret) async {
 
   print('---> Authentication result: $isAuthOk');
 
-  Token tokenStored = await strava.getStoredToken();
-
   // Use the asset file to test without having to create internally a ride
   //----------------------------------------------------------------------
   String dir = (await getApplicationDocumentsDirectory()).path;
 
   var data = await rootBundle.load('assets/Bormes.gpx');
-  // Save the data loaded from the assert into a file
+  // Save the data loaded from the asset into a file
   // Transfer the data into a real file
   await writeToFile(data, '$dir/myActivity.gpx');
 
   Fault fault = await strava.uploadActivity(
-      'Bormes3', 'It is working!', '$dir/myActivity.gpx', 'gpx');
+      'Bormes26', 'It is working!', '$dir/myActivity.gpx', 'gpx');
 
   return fault;
 }

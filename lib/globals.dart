@@ -16,6 +16,7 @@ final statusInvalidToken = 1;
 final statusUnknownError = 2;
 final statusHeaderIsEmpty = 3;
 final statusNotFound = 4;
+final statusNoAuthenticationYet = 5;
 
 // Default location
 // used when an activity has null
@@ -31,9 +32,14 @@ void displayInfo(String message) {
   }
 }
 
+
+/// Generate the header to use with http requests
+/// 
+/// return {null, null} if there is not token yet
+/// stored in globals
 Map<String, String> createHeader() {
   var _token = token;
-  if (_token != null) {
+  if (_token.accessToken != null) {
     return {'Authorization': 'Bearer ${_token.accessToken}'};
   } else {
     return {null: null};

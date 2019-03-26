@@ -16,8 +16,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  strava_flutter: ^1.0.6+17
-  #  path: ../
+
+  # strava_flutter: ^1.0.6+17
+  # To test locally
+  strava_flutter: 
+    path: ../   
+
 
   path_provider: ^0.5.0+1   # To access to the gpx file used to upload
 
