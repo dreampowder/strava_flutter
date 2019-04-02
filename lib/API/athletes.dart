@@ -7,6 +7,7 @@ import 'dart:async';
 import '../Models/stats.dart';
 import '../Models/detailedAthlete.dart';
 import '../Models/zone.dart';
+import '../Models/activity.dart';
 import '../Models/fault.dart';
 
 import '../globals.dart' as globals;
@@ -142,4 +143,65 @@ abstract class Athletes {
 
     return returnAthlete;
   }
+
+
+
+
+  ///
+  /// scope needed: profile: activity:read_all 
+  /// parameters:
+  /// before: since time epoch in seconds
+  /// after: since time epoch in seconsd
+  ///
+  /// return: a list of activities related to the logged athlete
+  /// 
+  /// Only the first 30 activities for the moment
+  Future<List<SummaryActivity>> getLoggedInAthleteActivities(int before, int after) async {
+    List<SummaryActivity> returnActivities = List<SummaryActivity>();
+
+    var _header = globals.createHeader();
+
+    if (_header != null) {
+      final reqActivities = 
+        "https://www.strava.com/api/v3/athlete/activities" +
+        '?before=$before&after=$after&page1=&per_page=30';
+
+      var rep = await http.get(reqActivities, headers: _header);
+
+      if (rep.statusCode == 200) {
+        globals.displayInfo(rep.statusCode.toString());
+        globals.displayInfo('Activities info ${rep.body}');
+        final jsonResponse = json.decode(rep.body);
+
+
+        if (jsonResponse != null) {
+          List<SummaryActivity> _listSummary = List<SummaryActivity>();
+
+          jsonResponse.forEach((summ) {
+            var activity = SummaryActivity.fromJson(summ);
+            globals.displayInfo(
+                '${activity.name} ,  ${activity.distance},  ${activity.id}');
+            _listSummary.add(activity);
+          });
+
+        globals.displayInfo(_listSummary.toString());
+        returnActivities = _listSummary;
+      } else {
+        globals.displayInfo(
+            // 'problem in getLoggedInAthleteActivities , ${returnActivities[Ø].fault.statusCode}  ${rep.body}');
+            'problem in getLoggedInAthleteActivities ,  ${rep.body}');
+      }
+
+      // returnActivities[0].fault =
+          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    }
+
+    return returnActivities;
+    }
+  }
+
+
+
+
+
 }

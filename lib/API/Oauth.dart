@@ -49,7 +49,8 @@ abstract class Auth {
 
     try {
       localToken.accessToken = prefs.getString('accessToken').toString();
-      localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms
+      // localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms
+      localToken.expiresAt = prefs.getInt('expire');
       localToken.scope = prefs.getString('scope');
       localToken.refreshToken = prefs.getString('refreshToken');
 
@@ -105,7 +106,7 @@ abstract class Auth {
 
     closeWebView();
     launch(reqAuth,
-        forceWebView: true, forceSafariVC: true, enableJavaScript: true);
+      forceWebView: true, forceSafariVC: true, enableJavaScript: true);
 
     // Launch small http server to collect the answer from Strava
     //------------------------------------------------------------
@@ -264,7 +265,8 @@ abstract class Auth {
       var _body = Token.fromJson(tokenBody);
       var accessToken = _body.accessToken;
       var refreshToken = _body.refreshToken;
-      var expiresAt = _body.expiresAt * 1000; // To get the exp. date in ms
+      // var expiresAt = _body.expiresAt * 1000; // To get the exp. date in ms
+      var expiresAt = _body.expiresAt; // To get the exp. date in ms
 
       _answer.accessToken = accessToken;
       _answer.refreshToken = refreshToken;
@@ -280,14 +282,14 @@ abstract class Auth {
   /// including when there is no token yet 
   bool _isTokenExpired(Token token) {
     
-    globals.displayInfo(' current time in ms ${DateTime.now().millisecondsSinceEpoch}   exp. time: ${token.expiresAt}');
+    globals.displayInfo(' current time in ms ${DateTime.now().millisecondsSinceEpoch/1000}   exp. time: ${token.expiresAt}');
     
     // when it is the first run or after a deAuthotrize
     if (token.expiresAt == null) {
       return false;
     }
 
-    if (token.expiresAt < DateTime.now().millisecondsSinceEpoch) {
+    if (token.expiresAt < DateTime.now().millisecondsSinceEpoch/1000) {
       return true;
     } else {
       return false;

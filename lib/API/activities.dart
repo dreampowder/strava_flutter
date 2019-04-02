@@ -5,7 +5,7 @@ import 'dart:async';
 
 import '../globals.dart' as globals;
 
-import 'package:strava_flutter/Models/detailedActivity.dart';
+import '../Models/activity.dart';
 
 abstract class Activities {
   /// scope: activity:read
@@ -40,6 +40,7 @@ abstract class Activities {
     }
 
     return returnActivity;
+
   }
 
   ///

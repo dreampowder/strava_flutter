@@ -12,10 +12,13 @@ import 'package:strava_flutter/API/constants.dart';
 // Used by uploadExample
 import 'package:strava_flutter/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/Models/token.dart';
 
 // Used by segment
 import 'package:strava_flutter/Models/segment.dart';
+
+// To test getLoggedInAtletheActivities
+import 'package:strava_flutter/API/athletes.dart';
+import 'package:strava_flutter/Models/activity.dart';
 
 /// Example showing how to upload an activity on Strava
 ///
@@ -71,9 +74,14 @@ Future<Fault> exampleSegment(String secret) async {
   bool isAuthOk = false;
 
   isAuthOk = await strava.oauth(
-      clientId, 'profile:write,profile:read_all', secret, 'auto');
+      // clientId, 'profile:write,profile:read_all', secret, 'auto');
+       clientId, 'profile:write,profile:read_all,activity:read_all', secret, 'auto');
 
   print('---> Authentication result: $isAuthOk');
+
+
+  List<SummaryActivity> _listSummaries = await strava.getLoggedInAthleteActivities(1554209575, 1500);
+
 
   // Expected answer should start like:
   //  {"id":229781,"resource_state":3,"name":"Hawk Hill","activity_type":"Ride","distance":2684.82,"average_grade":5.7,"maximum_grade":14.2,

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import '../Models/summaryAthlete.dart';
-import '../Models/summaryActivity.dart';
+import '../Models/activity.dart';
 import '../Models/club.dart';
 
 import '../globals.dart' as globals;

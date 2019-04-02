@@ -24,7 +24,7 @@ final statusNoAuthenticationYet = 5;
 final defaultStartLatlng = 0.0;
 final defaultEndlatlng = 0.0;
 
-// To display debug info in Strava API
+/// To display debug info in Strava API
 void displayInfo(String message) {
   if (isInDebug) {
     var msgToDisplay = '--> Strava_flutter: ' + message;
