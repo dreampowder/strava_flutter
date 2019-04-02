@@ -92,7 +92,7 @@ abstract class Segments {
   ///
   /// date_range value : this_year, this_month, this_week, today
   ///
-  /// Limited for the moment to the first 50 atheletes
+  /// Limited for the moment to the first 50 athletes
   /// Not clear what is the purpose of context entries
   ///
   Future<SegmentLeaderboard> getLeaderboardBySegmentId(int id,
@@ -117,8 +117,6 @@ abstract class Segments {
     var clubIdStr = (clubId != null) ? clubId.toString() : '';
     dateRange = dateRange ?? '';
 
-
-
     if (_header != null) {
       String reqLeaderboard = 'https://www.strava.com/api/v3/segments/' +
           id.toString() +
@@ -139,12 +137,10 @@ abstract class Segments {
 
       var rep = await http.get(reqLeaderboard, headers: _header);
       if (rep.statusCode == 200) {
-        SegmentLeaderboard _tempLeaderboard;
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Leaderboard info ${rep.body}');
         // var parsedJson = json.decode(rep.body);
         returnLeaderboard = SegmentLeaderboard.fromJson(json.decode(rep.body));
-        // _tempLeaderboard = SegmentLeaderboard.fromJson(json.decode(rep.body));
         // returnLeaderboard.entries = _tempLeaderboard.entries.toList();
       } else {
         globals.displayInfo('problem in getLeaderboardBySegmentId request');

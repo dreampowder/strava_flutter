@@ -12,17 +12,15 @@ import '../Models/uploadActivity.dart';
 import '../globals.dart' as globals;
 
 abstract class Upload {
-
-
   /// Tested with gpx
   /// For the moment the parameters
-  /// 
+  ///
   /// trainer and commute are set to false
-  /// 
+  ///
   /// statusCode:
   /// 201 activity created
   /// 400 problem could be that activity already uploaded
-  /// 
+  ///
   Future<Fault> uploadActivity(
       String name, String description, String fileUrl, String fileType) async {
     globals.displayInfo('Starting to upload activity');
@@ -56,7 +54,8 @@ abstract class Upload {
 
     var response = await request.send();
 
-    globals.displayInfo('Response: ${response.statusCode} ${response.reasonPhrase}');
+    globals.displayInfo(
+        'Response: ${response.statusCode} ${response.reasonPhrase}');
 
     fault.statusCode = response.statusCode;
     fault.message = response.reasonPhrase;

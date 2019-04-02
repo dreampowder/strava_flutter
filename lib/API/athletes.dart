@@ -73,10 +73,10 @@ abstract class Athletes {
   }
 
   /// Provide zones heart rate or power for the logged athlete
-  /// 
+  ///
   /// scope needed: profile:read_all
-  /// 
-  /// 
+  ///
+  ///
   Future<Zone> getLoggedInAthleteZones() async {
     Zone returnZone = Zone();
 
@@ -101,8 +101,7 @@ abstract class Athletes {
         globals.displayInfo(
             'problem in getLoggedInAthlete request ,   ${rep.body}');
       }
-      returnZone.fault =
-          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+      returnZone.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
 
     return returnZone;
@@ -144,64 +143,69 @@ abstract class Athletes {
     return returnAthlete;
   }
 
-
-
-
   ///
-  /// scope needed: profile: activity:read_all 
+  /// scope needed: profile: activity:read_all
   /// parameters:
   /// before: since time epoch in seconds
   /// after: since time epoch in seconsd
   ///
   /// return: a list of activities related to the logged athlete
+  ///
   /// 
-  /// Only the first 30 activities for the moment
-  Future<List<SummaryActivity>> getLoggedInAthleteActivities(int before, int after) async {
+  Future<List<SummaryActivity>> getLoggedInAthleteActivities(
+      int before, int after) async {
     List<SummaryActivity> returnActivities = List<SummaryActivity>();
 
     var _header = globals.createHeader();
+    int _pageNumber = 1;
+    int _perPage = 20;    // Number of activities retrieved per http request 
+    bool isRetrieveDone = false;
+    List<SummaryActivity> _listSummary = List<SummaryActivity>();
 
     if (_header != null) {
-      final reqActivities = 
-        "https://www.strava.com/api/v3/athlete/activities" +
-        '?before=$before&after=$after&page1=&per_page=30';
+      do {
+        String reqActivities =
+            "https://www.strava.com/api/v3/athlete/activities" +
+                '?before=$before&after=$after&page=$_pageNumber&per_page=$_perPage';
 
-      var rep = await http.get(reqActivities, headers: _header);
+        var rep = await http.get(reqActivities, headers: _header);
+        int _nbActvity = 0;
 
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo('Activities info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        if (rep.statusCode == 200) {
+          globals.displayInfo(rep.statusCode.toString());
+          globals.displayInfo('Activities info ${rep.body}');
+          final jsonResponse = json.decode(rep.body);
 
+          if (jsonResponse != null) {
+            jsonResponse.forEach((summ) {
+              var activity = SummaryActivity.fromJson(summ);
+              globals.displayInfo(
+                  '${activity.name} ,  ${activity.distance},  ${activity.id}');
+              _listSummary.add(activity);
+              _nbActvity++;
+            });
 
-        if (jsonResponse != null) {
-          List<SummaryActivity> _listSummary = List<SummaryActivity>();
+            // Check if it is the last page
+            globals.displayInfo(_nbActvity.toString());
+            if (_nbActvity < _perPage) {
+              isRetrieveDone = true;
+            } else {
+              // Move to the next page
+              _pageNumber++;
+            }
 
-          jsonResponse.forEach((summ) {
-            var activity = SummaryActivity.fromJson(summ);
+            globals.displayInfo(_listSummary.toString());
+            returnActivities = _listSummary;
+          } else {
             globals.displayInfo(
-                '${activity.name} ,  ${activity.distance},  ${activity.id}');
-            _listSummary.add(activity);
-          });
+                // 'problem in getLoggedInAthleteActivities , ${returnActivities[Ø].fault.statusCode}  ${rep.body}');
+                'problem in getLoggedInAthleteActivities ,  ${rep.body}');
+          }
 
-        globals.displayInfo(_listSummary.toString());
-        returnActivities = _listSummary;
-      } else {
-        globals.displayInfo(
-            // 'problem in getLoggedInAthleteActivities , ${returnActivities[Ø].fault.statusCode}  ${rep.body}');
-            'problem in getLoggedInAthleteActivities ,  ${rep.body}');
-      }
-
-      // returnActivities[0].fault =
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+        }
+      } while (!isRetrieveDone);
     }
-
     return returnActivities;
-    }
   }
-
-
-
-
-
 }

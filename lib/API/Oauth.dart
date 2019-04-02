@@ -106,7 +106,7 @@ abstract class Auth {
 
     closeWebView();
     launch(reqAuth,
-      forceWebView: true, forceSafariVC: true, enableJavaScript: true);
+        forceWebView: true, forceSafariVC: true, enableJavaScript: true);
 
     // Launch small http server to collect the answer from Strava
     //------------------------------------------------------------
@@ -173,7 +173,9 @@ abstract class Auth {
     }
 
     // Check if the scope has changed
-    if ((tokenStored.scope != scope) || (_token == "null")  || (_token == null)) {
+    if ((tokenStored.scope != scope) ||
+        (_token == "null") ||
+        (_token == null)) {
       // Ask for a new authorization
       globals.displayInfo('Doing a new authorization');
       isAuthOk = await _newAuthorization(clientID, secret, scope, prompt);
@@ -214,9 +216,8 @@ abstract class Auth {
       String clientID, String secret, String refreshToken) async {
     RefreshAnswer returnToken = RefreshAnswer();
 
-        var urlRefresh =
+    var urlRefresh =
         'https://www.strava.com/oauth/token?client_id=$clientID&client_secret=$secret&grant_type=refresh_token&refresh_token=$refreshToken';
-
 
     globals.displayInfo('Entering getNewAccessToken');
     globals.displayInfo('urlRefresh $urlRefresh');
@@ -275,26 +276,26 @@ abstract class Auth {
 
     return (_answer);
   }
+
   /// Return true the expiry date is passed
-  /// 
+  ///
   /// Otherwise return false
-  /// 
-  /// including when there is no token yet 
+  ///
+  /// including when there is no token yet
   bool _isTokenExpired(Token token) {
-    
-    globals.displayInfo(' current time in ms ${DateTime.now().millisecondsSinceEpoch/1000}   exp. time: ${token.expiresAt}');
-    
+    globals.displayInfo(
+        ' current time in ms ${DateTime.now().millisecondsSinceEpoch / 1000}   exp. time: ${token.expiresAt}');
+
     // when it is the first run or after a deAuthotrize
     if (token.expiresAt == null) {
       return false;
     }
 
-    if (token.expiresAt < DateTime.now().millisecondsSinceEpoch/1000) {
+    if (token.expiresAt < DateTime.now().millisecondsSinceEpoch / 1000) {
       return true;
     } else {
       return false;
     }
-
   }
 
   /// To revoke the current token
@@ -309,8 +310,8 @@ abstract class Auth {
 
     if (globals.token.accessToken == null) {
       // Token has not been yet stored in memory
-       await getStoredToken();
-    } 
+      await getStoredToken();
+    }
 
     var _header = globals.createHeader();
 

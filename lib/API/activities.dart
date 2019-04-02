@@ -40,7 +40,6 @@ abstract class Activities {
     }
 
     return returnActivity;
-
   }
 
   ///
