@@ -45,30 +45,49 @@ abstract class Athletes {
     return returnAthlete;
   }
 
-  /// For the moment, only 1 page is handled
-  /// 50 activities max
+  ///
   ///
   /// Give activiy stats of the loggedInAthlete
   ///
   Future<Stats> getStats(int id) async {
     Stats returnStats = Stats();
+    int _pageNumber = 1;
+    int _perPage = 50;
 
     var _header = globals.createHeader();
 
     if (_header != null) {
-      final reqStats = "https://www.strava.com/api/v3/athletes/" +
+      String reqStats = "https://www.strava.com/api/v3/athletes/" +
           id.toString() +
-          "/stats?page=1&per_page=50;";
+          // "/stats?page=1&per_page=50;";
+          "/stats?page=$_pageNumber&per_page=$_perPage;";
+
       var rep = await http.get(reqStats, headers: _header);
 
       if (rep.statusCode == 200) {
-        globals.displayInfo('getStats ${rep.body}');
-      } else {
-        globals.displayInfo('problem in getStats request, ${rep.statusCode}');
-      }
+        // globals.displayInfo('getStats ${rep.body}');
+        final jsonResponse = json.decode(rep.body);
 
-      returnStats.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+        if (jsonResponse != null) {
+          returnStats = Stats.fromJson(jsonResponse);
+
+          globals.displayInfo(
+              '${returnStats.ytdRideTotals.distance} ,  ${returnStats.recentRideTotals.elapsedTime}');
+          returnStats.fault =
+              globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+        } else {
+          String msg = 'json answer is empty';
+          returnStats.fault =
+              globals.errorCheck(globals.statusJsonIsEmpty, msg);
+          globals.displayInfo(msg);
+        }
+      }
+    } else {
+      String msg = 'problem in getStats request, header is empty';
+      returnStats.fault = globals.errorCheck(globals.statusHeaderIsEmpty, msg);
+      globals.displayInfo(msg);
     }
+
     return returnStats;
   }
 
@@ -151,22 +170,23 @@ abstract class Athletes {
   ///
   /// return: a list of activities related to the logged athlete
   ///
-  /// 
+  ///
   Future<List<SummaryActivity>> getLoggedInAthleteActivities(
       int before, int after) async {
     List<SummaryActivity> returnActivities = List<SummaryActivity>();
 
     var _header = globals.createHeader();
     int _pageNumber = 1;
-    int _perPage = 20;    // Number of activities retrieved per http request 
+    int _perPage = 20; // Number of activities retrieved per http request
     bool isRetrieveDone = false;
     List<SummaryActivity> _listSummary = List<SummaryActivity>();
 
+    globals.displayInfo('Entering getLoggedInAthleteActivities');
+
     if (_header != null) {
       do {
-        String reqActivities =
-            "https://www.strava.com/api/v3/athlete/activities" +
-                '?before=$before&after=$after&page=$_pageNumber&per_page=$_perPage';
+        String reqActivities = "https://www.strava.com/api/v3/athlete/activities" +
+            '?before=$before&after=$after&page=$_pageNumber&per_page=$_perPage';
 
         var rep = await http.get(reqActivities, headers: _header);
         int _nbActvity = 0;

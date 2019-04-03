@@ -20,17 +20,17 @@ https://developers.strava.com/docs/authentication/
 - getLoggedInAthleteActivities (not limited)
 - getLoggedInAthleteZones
 - getGearById
-- getStats (only 50 activities for the moment)
+- getStats 
 ### Club related APIs
 - getClubById
-- getClubActivitiesById (only 50 activities for the moment)
-- getClubMembersById (only 200 members for the moment)
+- getClubActivitiesById 
+- getClubMembersById 
 ### Race related APIs
 - getRunningRaces
 - getRunningRaceById
 ### Activity related APIs
 - createActivity
-- uploadActivity (including getUploadById)
+- uploadActivity (includes getUploadById)
 ### Segments related APIs
 - getSegmentById
 - getLoggedInAthleteStarredSegments

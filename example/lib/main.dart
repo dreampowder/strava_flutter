@@ -119,7 +119,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         print(
             'Error in getStats ${_stats.fault.statusCode}    ${_stats.fault.message}');
       } else {
-        print('getStats ${_stats.ytdRideTotals}   ${_stats.ytdRunTotals}');
+        print('getStats ${_stats.ytdRideTotals.distance} ${_stats.ytdRideTotals.elevationGain}   ${ _stats.allSwimTotals.distance}');
       }
 
       // A long list of races per city

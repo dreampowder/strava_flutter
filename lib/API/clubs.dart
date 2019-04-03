@@ -15,46 +15,64 @@ abstract class Clubs {
   /// No need to be member of the club
   Future<List<SummaryAthlete>> getClubMembersById(String id) async {
     List<SummaryAthlete> returnListMembers = List<SummaryAthlete>();
+    int _pageNumber = 1;
+    int _perPage = 30; // Number of activities retrieved per http request
+    bool isRetrieveDone = false;
+    List<SummaryAthlete> _listSummary = List<SummaryAthlete>();
 
     globals.displayInfo('Entering getClubMembersById');
 
     var _header = globals.createHeader();
 
     if (_header != null) {
-      final reqList = "https://www.strava.com/api/v3/clubs/" +
-          id +
-          '/members?page=1&per_page=200';
+      do {
+        String reqList = "https://www.strava.com/api/v3/clubs/" +
+            id +
+            '/members?page=$_pageNumber&per_page=$_perPage';
 
-      var rep = await http.get(reqList, headers: _header);
+        var rep = await http.get(reqList, headers: _header);
+        int _nbMembers = 0;
 
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo('List members info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        if (rep.statusCode == 200) {
+          globals.displayInfo(rep.statusCode.toString());
+          globals.displayInfo('List members info ${rep.body}');
+          final jsonResponse = json.decode(rep.body);
 
-        if (jsonResponse != null) {
-          List<SummaryAthlete> _listMembers = List<SummaryAthlete>();
+          if (jsonResponse != null) {
+            jsonResponse.forEach((summ) {
+              var member = SummaryAthlete.fromJson(summ);
+              globals.displayInfo(
+                  '${member.lastname} ,  ${member.firstname},  admin:${member.admin}');
+              _listSummary.add(member);
+              _nbMembers++;
+            });
 
-          jsonResponse.forEach((summ) {
-            var member = SummaryAthlete.fromJson(summ);
-            globals.displayInfo(
-                '${member.lastname} ,  ${member.firstname},  admin:${member.admin}');
-            _listMembers.add(member);
-          });
+            // Check if it is the last page
+            globals.displayInfo(_nbMembers.toString());
+            if (_nbMembers < _perPage) {
+              isRetrieveDone = true;
+            } else {
+              // Move to the next page
+              _pageNumber++;
+            }
 
-          returnListMembers = _listMembers;
+            globals.displayInfo(_listSummary.toString());
+            returnListMembers = _listSummary;
+          }
+        } else {
+          globals.displayInfo('Problem in getClubMembersById request');
         }
-      } else {
-        globals.displayInfo('Problem in getClubMembersById request');
-      }
 
-      returnListMembers[0].fault =
-          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+        returnListMembers[0].fault =
+            globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+      } while (!isRetrieveDone);
     }
+
     return returnListMembers;
   }
+
   /// scope
-  /// 
+  ///
   Future<Club> getClubById(String id) async {
     Club returnClub;
 
@@ -83,45 +101,61 @@ abstract class Clubs {
     return returnClub;
   }
 
-
-  /// Need to be mmeber of the club
-  /// 
+  /// Need to be member of the club
+  ///
   Future<List<SummaryActivity>> getClubActivitiesById(String id) async {
-    List<SummaryActivity> returnSummary;
+    List<SummaryActivity> returnSummary = List<SummaryActivity>();
 
     var _header = globals.createHeader();
+    int _pageNumber = 1;
+    int _perPage = 20; // Number of activities retrieved per http request
+    bool isRetrieveDone = false;
+    List<SummaryActivity> _listSummary = List<SummaryActivity>();
 
     if (_header != null) {
-      final reqClub = 'https://www.strava.com/api/v3/clubs/' +
-          id +
-          "/activities?page=1&per_page=50";
-      var rep = await http.get(reqClub, headers: _header);
+      do {
+        String reqClub = 'https://www.strava.com/api/v3/clubs/' +
+            id +
+            "/activities?page=$_pageNumber&per_page=$_perPage";
+        var rep = await http.get(reqClub, headers: _header);
+        int _nbActvity = 0;
 
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo('Club activity ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        if (rep.statusCode == 200) {
+          globals.displayInfo(rep.statusCode.toString());
+          globals.displayInfo('Club activity ${rep.body}');
+          final jsonResponse = json.decode(rep.body);
 
-        if (jsonResponse != null) {
-          List<SummaryActivity> _listSummary = List<SummaryActivity>();
+          if (jsonResponse != null) {
+            jsonResponse.forEach((summ) {
+              var activity = SummaryActivity.fromJson(summ);
+              globals.displayInfo(
+                  '${activity.name} ,  ${activity.distance},  ${activity.id}');
+              _listSummary.add(activity);
+              _nbActvity++;
+            });
 
-          jsonResponse.forEach((summ) {
-            var activity = SummaryActivity.fromJson(summ);
-            globals.displayInfo(
-                '${activity.name} ,  ${activity.distance},  ${activity.id}');
-            _listSummary.add(activity);
-          });
+            // Check if it is the last page
+            globals.displayInfo(_nbActvity.toString());
+            if (_nbActvity < _perPage) {
+              isRetrieveDone = true;
+            } else {
+              // Move to the next page
+              _pageNumber++;
+            }
 
-          globals.displayInfo(_listSummary.toString());
-          returnSummary = _listSummary;
+            globals.displayInfo(_listSummary.toString());
+            returnSummary = _listSummary;
+          }
+        } else {
+          globals.displayInfo('problem in getClubActivitiesById request');
+          globals.displayInfo('answer ${rep.body}');
+          returnSummary[0].fault =
+              globals.errorCheck(rep.statusCode, rep.reasonPhrase);
         }
-      } else {
-        globals.displayInfo('problem in getClubActivitiesById request');
-        globals.displayInfo('answer ${rep.body}');
-      }
 
-      returnSummary[0].fault =
-          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+        returnSummary[0].fault =
+            globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+      } while (!isRetrieveDone);
     }
     return returnSummary;
   }

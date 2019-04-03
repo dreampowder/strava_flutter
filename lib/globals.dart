@@ -8,15 +8,17 @@ bool isInDebug = true; // set to true to see debug message in API
 
 Token token = Token(); // Where the token info is stored when executing APIs
 
-/// Not used anymore
+
 /// List of statuscode used by Fault
 /// used by Strava API
+/// To transform in enum
 final statusOk = 0;
 final statusInvalidToken = 1;
 final statusUnknownError = 2;
 final statusHeaderIsEmpty = 3;
 final statusNotFound = 4;
 final statusNoAuthenticationYet = 5;
+final statusJsonIsEmpty = 6;
 
 // Default location
 // used when an activity has null
