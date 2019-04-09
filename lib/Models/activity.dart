@@ -833,7 +833,6 @@ class HighlightedKudosers {
   }
 }
 
-
 //------------------
 // Summary activity
 //------------------
@@ -895,7 +894,6 @@ class SummaryActivity {
   }
 }
 
-
 /****
 class Athlete {
   int resourceState;
@@ -919,4 +917,3 @@ class Athlete {
   }
 }
 ***/
-

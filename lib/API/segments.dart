@@ -169,14 +169,12 @@ abstract class Segments {
     globals.displayInfo('Entering starSegment');
 
     if (_header != null) {
-      final path = '/api/v3/segments/' + id.toString() + '/starred';
+      final reqStar = 'https://www.strava.com/api/v3/segments/' + id.toString() + '/starred?starred=' + star.toString();
+      var rep = await http.put(reqStar, headers: _header);
 
-      var uri = Uri.https('www.strava.com', path);
+      // var uri = Uri.https('www.strava.com', path);
 
-      var rep = await http.put(
-        uri,
-        headers: _header,
-      );
+      // var rep = await http.put(    uri,   headers: _header,  );
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Star segment  info ${rep.body}');

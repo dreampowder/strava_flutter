@@ -35,6 +35,7 @@ https://developers.strava.com/docs/authentication/
 - getSegmentById
 - getLoggedInAthleteStarredSegments
 - getLeaderboardBySegmentId (only 50 athletes for the moment)
+- starSegment
 
 
 
@@ -66,7 +67,7 @@ If you have any problem or need an API not yet implemented please post a new iss
 ## Contributors welcome!
 If you spot a problem/bug or if you consider that the code could be better please post an issue.
 I am not planning to implement all the Strava APIs, because I dont need all of them in my dev.
-But let me know if you need some APIs that are in the current list and I will add it.
+But let me know if you need some APIs that are not in the current list and I will add it.
 Alternatively, you can easily implement additional API and I will add it to strava_futter.
 
 

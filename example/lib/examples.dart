@@ -116,10 +116,7 @@ Future<Fault> exampleSegment(String secret) async {
 
   /// Star (or unstar) a segment for the loggedInAthlete
   ///
+   DetailedSegment _segmentStarred = await strava.starSegment(8186850, true);
 
-//   NOT working for the moment
-  // DetailedSegment _segmentStarred = await strava.starSegment(8186850, true);
-  // DetailedSegment _segmentStarred = await strava.starSegment(8186850, true);
-
-  // print('new starred segment ${_segmentStarred.id}  ${_segmentStarred.name}  starred: ${_segmentStarred.starred}');
+  print('new starred segment ${_segmentStarred.id}  ${_segmentStarred.name}  starred: ${_segmentStarred.starred}');
 }
