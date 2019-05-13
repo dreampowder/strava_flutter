@@ -38,7 +38,9 @@ https://developers.strava.com/docs/authentication/
 - starSegment
 
 
-
+## How to install
+Check on pub.dev/packages to see how to install this package
+https://pub.dev/packages/strava_flutter#-installing-tab-
 
 ## How to use it
 
