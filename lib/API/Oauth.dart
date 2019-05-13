@@ -23,10 +23,10 @@ abstract class Auth {
   Future<void> _saveToken(
       String token, int expire, String scope, String refreshToken) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('accessToken', token);
-    prefs.setInt('expire', expire); // Stored in seconds
-    prefs.setString('scope', scope);
-    prefs.setString('refreshToken', refreshToken);
+    prefs.setString('strava_accessToken', token);
+    prefs.setInt('strava_expire', expire); // Stored in seconds
+    prefs.setString('strava_scope', scope);
+    prefs.setString('strava_refreshToken', refreshToken);
 
     // Save also in globals to get direct access
     globals.token.accessToken = token;
@@ -48,11 +48,11 @@ abstract class Auth {
     globals.displayInfo('Entering getStoredToken');
 
     try {
-      localToken.accessToken = prefs.getString('accessToken').toString();
+      localToken.accessToken = prefs.getString('strava_accessToken').toString();
       // localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms
-      localToken.expiresAt = prefs.getInt('expire');
-      localToken.scope = prefs.getString('scope');
-      localToken.refreshToken = prefs.getString('refreshToken');
+      localToken.expiresAt = prefs.getInt('strava_expire');
+      localToken.scope = prefs.getString('strava_scope');
+      localToken.refreshToken = prefs.getString('strava_refreshToken');
 
       // load the data in globals
       globals.token.accessToken = localToken.accessToken;
