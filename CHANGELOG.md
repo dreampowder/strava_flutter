@@ -1,3 +1,4 @@
 ## [0.0.1] - TODO: Add release date.
 
-* TODO: Describe initial release.
+* 1.0.10 added strava_prefix to preferences key
+* 1.0.11 removed lines in test
