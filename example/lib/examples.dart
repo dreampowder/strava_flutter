@@ -109,8 +109,28 @@ Future<Fault> exampleSegment(String secret) async {
   // Leaderboard entry David D.  668
   // Leaderboard entry David D.  668
   // Leaderboard entry David P.  669
+
+
+  // Get the leaderboard for a specific segment 2628520
+  // Less than 100 entries
+// I/flutter (30397): Leaderboard entry Red  M.  706
+// I/flutter (30397): Leaderboard entry Kyle M.  783
+// I/flutter (30397): Leaderboard entry Mike H.  797
+// I/flutter (30397): Leaderboard entry J Darcy K.  815
+// I/flutter (30397): Leaderboard entry A P.  873
+// I/flutter (30397): Leaderboard entry Tj C.  919
+// I/flutter (30397): Leaderboard entry Tom P.  922
+// I/flutter (30397): Leaderboard entry Rick I.  939
+// I/flutter (30397): Leaderboard entry Trevar B.  961
+// I/flutter (30397): Leaderboard entry Brian L.  974
+// I/flutter (30397): Leaderboard entry Duke N.  983
+// I/flutter (30397): Leaderboard entry Stephanie  W.  1008
+
+
   SegmentLeaderboard _leaderboard =
-      await strava.getLeaderboardBySegmentId(8186850);
+  
+     await strava.getLeaderboardBySegmentId(8186850, nbMaxEntries: 10);
+      // await strava.getLeaderboardBySegmentId(2628520);
   _leaderboard.entries.forEach(
       (f) => print('Leaderboard entry ${f.athleteName}  ${f.elapsedTime}'));
 

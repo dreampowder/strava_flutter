@@ -34,12 +34,13 @@ https://developers.strava.com/docs/authentication/
 ### Segments related APIs
 - getSegmentById
 - getLoggedInAthleteStarredSegments
-- getLeaderboardBySegmentId (only 50 athletes for the moment)
+- getLeaderboardBySegmentId (not limited)
 - starSegment
 
 
 ## How to install
 Check on pub.dev/packages to see how to install this package
+
 https://pub.dev/packages/strava_flutter#-installing-tab-
 
 ## How to use it

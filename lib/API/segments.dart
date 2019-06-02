@@ -79,6 +79,9 @@ abstract class Segments {
 
   /// scoped needed: ?
   ///
+  /// nbEntries: to limit the number of entries to retrieve.
+  /// 0 means full list
+  ///
   /// No check is done on the parameters
   ///
   /// gender value : M of F
@@ -92,11 +95,11 @@ abstract class Segments {
   ///
   /// date_range value : this_year, this_month, this_week, today
   ///
-  /// Limited for the moment to the first 50 athletes
   /// Not clear what is the purpose of context entries
   ///
   Future<SegmentLeaderboard> getLeaderboardBySegmentId(int id,
-      {String gender,
+      {int nbMaxEntries,
+      String gender,
       String ageGroup,
       String weightclass,
       bool following,
@@ -106,10 +109,16 @@ abstract class Segments {
 
     returnLeaderboard = SegmentLeaderboard();
     var _header = globals.createHeader();
+    int _pageNumber = 1;
+    int _perPage = 50; // Number of activities retrieved per http request
+    bool isRetrieveDone = false;
+    int _nbEntries = 0;
+    List<Entries> _listEntries = List<Entries>();
 
     globals.displayInfo('Entering getLeaderboardBySegmentId');
 
     // fix optional parameters when their value is null
+    nbMaxEntries = nbMaxEntries ?? 2 ^ 63;
     gender = gender ?? 'M';
     ageGroup = ageGroup ?? '';
     weightclass = weightclass ?? '';
@@ -118,36 +127,62 @@ abstract class Segments {
     dateRange = dateRange ?? '';
 
     if (_header != null) {
-      String reqLeaderboard = 'https://www.strava.com/api/v3/segments/' +
-          id.toString() +
-          '/leaderboard?=gender' +
-          gender +
-          '&age_group=' +
-          ageGroup +
-          '&weight_class=' +
-          weightclass +
-          '&following=' +
-          following.toString() +
-          '&club_id=' +
-          clubIdStr +
-          '&date_range=' +
-          dateRange +
-          '&context_entries=' +
-          '&page1=&per_page=50';
+      do {
+        String reqLeaderboard = 'https://www.strava.com/api/v3/segments/' +
+            id.toString() +
+            '/leaderboard?=gender' +
+            gender +
+            '&age_group=' +
+            ageGroup +
+            '&weight_class=' +
+            weightclass +
+            '&following=' +
+            following.toString() +
+            '&club_id=' +
+            clubIdStr +
+            '&date_range=' +
+            dateRange +
+            '&context_entries=' +
+            '&page=$_pageNumber&per_page=$_perPage';
 
-      var rep = await http.get(reqLeaderboard, headers: _header);
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo('Leaderboard info ${rep.body}');
-        // var parsedJson = json.decode(rep.body);
-        returnLeaderboard = SegmentLeaderboard.fromJson(json.decode(rep.body));
-        // returnLeaderboard.entries = _tempLeaderboard.entries.toList();
-      } else {
-        globals.displayInfo('problem in getLeaderboardBySegmentId request');
-      }
+        var rep = await http.get(reqLeaderboard, headers: _header);
 
-      returnLeaderboard.fault =
-          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+        if (rep.statusCode == 200) {
+          globals.displayInfo(rep.statusCode.toString());
+          globals.displayInfo('Leaderboard info ${rep.body}');
+
+          final jsonResponse = json.decode(rep.body);
+          if (jsonResponse != null) {
+            returnLeaderboard =
+                SegmentLeaderboard.fromJson(json.decode(rep.body));
+
+            // Add entries to the list
+            returnLeaderboard.entries.forEach((ent) {
+              if (_nbEntries < nbMaxEntries) {
+                _listEntries.add(ent);
+                _nbEntries++;
+              }
+            });
+
+            globals.displayInfo('Entries ${_listEntries.length}');
+
+            if ((_listEntries.length >= returnLeaderboard.entryCount) ||
+                (_listEntries.length >= nbMaxEntries)) {
+              globals.displayInfo(
+                  '----> End of leaderboard   ${returnLeaderboard.entryCount}');
+              isRetrieveDone = true;
+              returnLeaderboard.entries = _listEntries;
+            } else {
+              _pageNumber++;
+            }
+          } else {
+            globals.displayInfo('problem in getLeaderboardBySegmentId request');
+          }
+
+          returnLeaderboard.fault =
+              globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+        }
+      } while (!isRetrieveDone);
     }
     return returnLeaderboard;
   }
@@ -169,7 +204,10 @@ abstract class Segments {
     globals.displayInfo('Entering starSegment');
 
     if (_header != null) {
-      final reqStar = 'https://www.strava.com/api/v3/segments/' + id.toString() + '/starred?starred=' + star.toString();
+      final reqStar = 'https://www.strava.com/api/v3/segments/' +
+          id.toString() +
+          '/starred?starred=' +
+          star.toString();
       var rep = await http.put(reqStar, headers: _header);
 
       // var uri = Uri.https('www.strava.com', path);
