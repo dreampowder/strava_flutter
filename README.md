@@ -46,7 +46,7 @@ https://pub.dev/packages/strava_flutter#-installing-tab-
 ## How to use it
 
 1 - Create a file secret.dart to put the secret shown on  Strava settings related to your app
-https://www.strava.com/settings/api
+https://www.strava.com/settings/api with "Authorization Callback Domain" set to "127.0.0.1"
 
 2 - In constants.dart put your appID in clientID
 
