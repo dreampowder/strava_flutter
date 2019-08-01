@@ -216,7 +216,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     }
   }
 
-  void upload() {
+  void upload()  {
     print('Trying to upload');
 
     showDialog(
@@ -227,7 +227,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
           );
         });
 
-    var fault = exampleUpload(secret);
+    var fault =  exampleUpload(secret);
   }
 
   void deAuthorize() async {
