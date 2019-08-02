@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data'; // Needed when declaring ByteData
 
 import 'package:strava_flutter/API/constants.dart';
+import 'secret.dart';
 
 // Used by uploadExample
 import 'package:strava_flutter/strava.dart';
@@ -41,6 +42,7 @@ Future<Fault> exampleUpload(String secret) async {
       secret);
 
   bool isAuthOk = false;
+
 
   isAuthOk = await strava.oauth(clientId, 'activity:write', secret, 'auto');
 

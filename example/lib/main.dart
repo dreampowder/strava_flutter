@@ -16,8 +16,6 @@ import 'package:strava_flutter/Models/runningRace.dart';
 import 'package:strava_flutter/Models/stats.dart';
 import 'package:strava_flutter/Models/summaryAthlete.dart';
 import 'package:strava_flutter/Models/zone.dart';
-import 'package:strava_flutter/API/constants.dart';
-
 
 
 Strava strava;
@@ -71,6 +69,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
     final strava = Strava(true, secret);
     final prompt = 'auto';
+    final clientId = '32212';
 
     isAuthOk = await strava.oauth(
         clientId,
