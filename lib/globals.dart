@@ -8,7 +8,6 @@ bool isInDebug = true; // set to true to see debug message in API
 
 Token token = Token(); // Where the token info is stored when executing APIs
 
-
 /// List of statuscode used by Fault
 /// used by Strava API
 /// To transform in enum
@@ -34,9 +33,8 @@ void displayInfo(String message) {
   }
 }
 
-
 /// Generate the header to use with http requests
-/// 
+///
 /// return {null, null} if there is not token yet
 /// stored in globals
 Map<String, String> createHeader() {

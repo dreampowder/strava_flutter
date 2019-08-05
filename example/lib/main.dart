@@ -16,7 +16,7 @@ import 'package:strava_flutter/Models/runningRace.dart';
 import 'package:strava_flutter/Models/stats.dart';
 import 'package:strava_flutter/Models/summaryAthlete.dart';
 import 'package:strava_flutter/Models/zone.dart';
-
+import 'package:strava_flutter/Models/fault.dart';
 
 Strava strava;
 
@@ -84,7 +84,8 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         print(
             'Error in getLoggedInAthleteZones  ${_zone.fault.statusCode}  ${_zone.fault.message}');
       } else {
-        _zone.infoZones.zones.forEach((zone) => print('getLoggedInAthleteZones ${zone.min} ${zone.max}'));
+        _zone.infoZones.zones.forEach(
+            (zone) => print('getLoggedInAthleteZones ${zone.min} ${zone.max}'));
       }
 
       // Create an new activity
@@ -118,7 +119,8 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         print(
             'Error in getStats ${_stats.fault.statusCode}    ${_stats.fault.message}');
       } else {
-        print('getStats ${_stats.ytdRideTotals.distance} ${_stats.ytdRideTotals.elevationGain}   ${ _stats.allSwimTotals.distance}');
+        print(
+            'getStats ${_stats.ytdRideTotals.distance} ${_stats.ytdRideTotals.elevationGain}   ${_stats.allSwimTotals.distance}');
       }
 
       // A long list of races per city
@@ -215,7 +217,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     }
   }
 
-  void upload()  {
+  void upload() async {
     print('Trying to upload');
 
     showDialog(
@@ -226,7 +228,8 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
           );
         });
 
-    var fault =  exampleUpload(secret);
+    Fault fault =  await exampleUpload(secret);
+    Navigator.pop(context);
   }
 
   void deAuthorize() async {
@@ -258,7 +261,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             Text('Authentication'),
             Text('with segments Apis'),
             RaisedButton(
-              key : Key('SegmentsButton'),
+              key: Key('SegmentsButton'),
               child: Text('Segments'),
               // onPressed: exampleStrava,
               onPressed: exampleSeg,

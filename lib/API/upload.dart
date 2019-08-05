@@ -28,6 +28,7 @@ abstract class Upload {
     // To check if the activity has been uploaded successfully
     // No numeric error code for the moment given by Strava
     final String ready = "Your activity is ready.";
+    final String ok = "OK";
     final String deleted = "The created activity has been deleted.";
     final String error = "There was an error processing your activity.";
     final String processed = "Your activity is still being processed.";
@@ -87,28 +88,43 @@ abstract class Upload {
       onUploadPending.stream.listen((id) async {
         reqCheckUpgrade = reqCheckUpgrade + id.toString();
         var resp = await http.get(reqCheckUpgrade, headers: _header);
-        print('check status ${resp.reasonPhrase}');
+        print('check status ${resp.reasonPhrase}  ${resp.statusCode}');
 
-        if (resp.reasonPhrase == ready) {
+        // Everything is fine the file has been loaded
+        if (resp.statusCode == 200) {
+          print('200 ${resp.reasonPhrase}');
+        }
+
+        // 404 the temp id does not exist anymore
+        // Activity has been probably already loaded
+        if (resp.statusCode == 404) {
+          print('---> 404 actvity already loaded  ${resp.reasonPhrase}');
+        }
+
+        if (resp.reasonPhrase.compareTo(ready) == 0) {
           print('---> Activity succesfully uploaded');
           onUploadPending.close();
         }
 
-        if ((resp.reasonPhrase == notFound) || (resp.reasonPhrase == error)) {
+        if ((resp.reasonPhrase.compareTo(notFound) == 0) ||
+            (resp.reasonPhrase.compareTo(error) == 0)) {
           print('---> Error while checking status upload');
           onUploadPending.close();
         }
 
-        if (resp.reasonPhrase == deleted) {
+        if (resp.reasonPhrase.compareTo(deleted) == 0) {
           print('---> Activity deleted');
           onUploadPending.close();
         }
 
-        if (resp.reasonPhrase == processed) {
+        if (resp.reasonPhrase.compareTo(processed) == 0) {
           print('---> try another time');
           // wait 2 sec before checking again status
           Timer(Duration(seconds: 2), () => onUploadPending.add(id));
         }
+
+     
+
       });
     }
 

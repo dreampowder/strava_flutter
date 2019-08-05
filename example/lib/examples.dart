@@ -25,11 +25,13 @@ import 'package:strava_flutter/Models/activity.dart';
 ///
 /// Use file Bormes.gpx in assets
 ///
-/// Should appear on your activities 6 Feb. 2018
+/// Should appear on your activities 6 Feb. 2019
 ///
 /// Under the title Bormes3
 ///
 Future<Fault> exampleUpload(String secret) async {
+
+
   Future<void> writeToFile(ByteData data, String path) {
     final buffer = data.buffer;
     return File(path).writeAsBytes(
@@ -42,7 +44,6 @@ Future<Fault> exampleUpload(String secret) async {
       secret);
 
   bool isAuthOk = false;
-
 
   isAuthOk = await strava.oauth(clientId, 'activity:write', secret, 'auto');
 
@@ -59,6 +60,7 @@ Future<Fault> exampleUpload(String secret) async {
 
   Fault fault = await strava.uploadActivity(
       'Bormes26', 'It is working!', '$dir/myActivity.gpx', 'gpx');
+
 
   return fault;
 }
@@ -77,13 +79,15 @@ Future<Fault> exampleSegment(String secret) async {
 
   isAuthOk = await strava.oauth(
       // clientId, 'profile:write,profile:read_all', secret, 'auto');
-       clientId, 'profile:write,profile:read_all,activity:read_all', secret, 'auto');
+      clientId,
+      'profile:write,profile:read_all,activity:read_all',
+      secret,
+      'auto');
 
   print('---> Authentication result: $isAuthOk');
 
-
-  List<SummaryActivity> _listSummaries = await strava.getLoggedInAthleteActivities(1554209575, 1500);
-
+  List<SummaryActivity> _listSummaries =
+      await strava.getLoggedInAthleteActivities(1554209575, 1500);
 
   // Expected answer should start like:
   //  {"id":229781,"resource_state":3,"name":"Hawk Hill","activity_type":"Ride","distance":2684.82,"average_grade":5.7,"maximum_grade":14.2,
@@ -112,7 +116,6 @@ Future<Fault> exampleSegment(String secret) async {
   // Leaderboard entry David D.  668
   // Leaderboard entry David P.  669
 
-
   // Get the leaderboard for a specific segment 2628520
   // Less than 100 entries
 // I/flutter (30397): Leaderboard entry Red  M.  706
@@ -128,17 +131,16 @@ Future<Fault> exampleSegment(String secret) async {
 // I/flutter (30397): Leaderboard entry Duke N.  983
 // I/flutter (30397): Leaderboard entry Stephanie  W.  1008
 
-
   SegmentLeaderboard _leaderboard =
-  
-     await strava.getLeaderboardBySegmentId(8186850, nbMaxEntries: 10);
-      // await strava.getLeaderboardBySegmentId(2628520);
+      await strava.getLeaderboardBySegmentId(8186850, nbMaxEntries: 10);
+  // await strava.getLeaderboardBySegmentId(2628520);
   _leaderboard.entries.forEach(
       (f) => print('Leaderboard entry ${f.athleteName}  ${f.elapsedTime}'));
 
   /// Star (or unstar) a segment for the loggedInAthlete
   ///
-   DetailedSegment _segmentStarred = await strava.starSegment(8186850, true);
+  DetailedSegment _segmentStarred = await strava.starSegment(8186850, true);
 
-  print('new starred segment ${_segmentStarred.id}  ${_segmentStarred.name}  starred: ${_segmentStarred.starred}');
+  print(
+      'new starred segment ${_segmentStarred.id}  ${_segmentStarred.name}  starred: ${_segmentStarred.starred}');
 }
