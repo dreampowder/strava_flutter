@@ -190,7 +190,7 @@ class Shoes {
   bool primary;
   String name;
   int resourceState;
-  int distance;
+  double distance;
 
   Shoes({this.id, this.primary, this.name, this.resourceState, this.distance});
 
