@@ -64,9 +64,16 @@ https://github.com/BirdyF/strava_flutter/blob/master/example/lib/examples.dart
 
 If you have any problem or need an API not yet implemented please post a new issue
 
+## When running on Android Pie 9.0 (API level 28)
+When running on Android Pie 9.0 to avoid to have the following error 
+[ERROR CLEARTEXT_NOT_PERMITTED](https://github.com/BirdyF/strava_flutter/issues/8) when doing Strava Auth you have to add the following line in AndroidManifest.xml:
+android:usesCleartextTraffic="true"
+
+See [medium](https://medium.com/@imstudio/android-8-cleartext-http-traffic-not-permitted-73c1c9e3b803) for more details
+
 
 ## Tested on:
-- Android 4.4.2 , 4.4.23
+- Android 4.4.2 , 4.4.23, 8.0.0
 - iOS 12.1, 12.1.2, 12.1.4
 
 
