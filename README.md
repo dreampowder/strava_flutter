@@ -45,7 +45,7 @@ https://pub.dev/packages/strava_flutter#-installing-tab-
 
 ### Additional steps
 
-The webview returned by the auth process may throw `net::ERR_CLEARTEXT_NOT_PERMITTED`. In this case add `android:usersCleartextTraffic="true"` to the AndroidManifest.xml like bellow:
+The webview returned by the auth process may throw `net::ERR_CLEARTEXT_NOT_PERMITTED`. In this case add `android:usersCleartextTraffic="true"` to `the AndroidManifest.xml` like bellow:
 
 ```
 <application
