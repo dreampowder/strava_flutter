@@ -43,6 +43,18 @@ Check on pub.dev/packages to see how to install this package
 
 https://pub.dev/packages/strava_flutter#-installing-tab-
 
+### Additional steps
+
+The webview returned by the auth process may throw `net::ERR_CLEARTEXT_NOT_PERMITTED`. In this case add `android:usersCleartextTraffic="true"` to `the AndroidManifest.xml` like bellow:
+
+```
+<application
+    ....
+    android:usesCleartextTraffic="true"
+    ....>
+ ```
+
+
 ## How to use it
 
 1 -Get the client secret in your Strava settings related to your app https://www.strava.com/settings/api with "Authorization Callback Domain" set to "127.0.0.1"
