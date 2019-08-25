@@ -28,7 +28,6 @@ abstract class Upload {
     // To check if the activity has been uploaded successfully
     // No numeric error code for the moment given by Strava
     final String ready = "Your activity is ready.";
-    final String ok = "OK";
     final String deleted = "The created activity has been deleted.";
     final String error = "There was an error processing your activity.";
     final String processed = "Your activity is still being processed.";
