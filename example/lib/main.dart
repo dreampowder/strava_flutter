@@ -69,7 +69,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
     final strava = Strava(true, secret);
     final prompt = 'auto';
-    final clientId = '32212';
+    // final clientId = '32212';
 
     isAuthOk = await strava.oauth(
         clientId,
