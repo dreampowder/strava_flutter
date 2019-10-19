@@ -30,7 +30,11 @@ https://developers.strava.com/docs/authentication/
 - getRunningRaceById
 ### Activity related APIs
 - createActivity
-- uploadActivity (includes getUploadById)
+- uploadActivity (includes getUploadById) 
+Tested on TCX and GPX
+To generate TCX you can use the following package
+https://pub.dev/packages/rw_tcx
+
 ### Segments related APIs
 - getSegmentById
 - getLoggedInAthleteStarredSegments

@@ -40,6 +40,7 @@ class Token {
 class RefreshAnswer {
   Fault fault;
   String accessToken;
+  String refreshToken;
   int expiresAt;
 
   RefreshAnswer();
@@ -51,6 +52,7 @@ class RefreshAnswer {
     if (map == null) return null;
     RefreshAnswer model = RefreshAnswer();
     model.accessToken = map['access_token'];
+    model.refreshToken = map['refresh_token'];
     model.expiresAt = map['expires_at'];
     return model;
   }

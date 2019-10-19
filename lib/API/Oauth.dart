@@ -162,10 +162,10 @@ abstract class Auth {
     if (isExpired && ((_token != "null") || (_token != null))) {
       RefreshAnswer _refreshAnswer =
           await _getNewAccessToken(clientID, secret, tokenStored.refreshToken);
-      // Update with new values (only refreshToken is unchanged)
+      // Update with new values 
       if (_refreshAnswer.fault.statusCode == 200) {
         _saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope,
-            tokenStored.refreshToken);
+            _refreshAnswer.refreshToken);
       } else {
         globals.displayInfo('Problem doing the refresh process');
         isAuthOk = false;
@@ -212,6 +212,11 @@ abstract class Auth {
     return returnValue;
   }
 
+  /// _getNewAccessToken
+  /// Ask to Strava a new access token
+  /// Return 
+  ///   accessToken 
+  ///   refreshToken (because Strava can change it when asking for new access token)
   Future<RefreshAnswer> _getNewAccessToken(
       String clientID, String secret, String refreshToken) async {
     RefreshAnswer returnToken = RefreshAnswer();
@@ -227,6 +232,7 @@ abstract class Auth {
     globals.displayInfo('body ${resp.body}');
     if (resp.statusCode == 200) {
       returnToken = RefreshAnswer.fromJson(json.decode(resp.body));
+
       globals.displayInfo('new exp. date: ${returnToken.expiresAt}');
     } else {
       globals.displayInfo('Error while refreshing the token');

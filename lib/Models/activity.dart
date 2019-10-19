@@ -871,7 +871,9 @@ class SummaryActivity {
     distance = json['distance'];
     movingTime = json['moving_time'];
     elapsedTime = json['elapsed_time'];
-    totalElevationGain = json['total_elevation_gain'];
+    var _elevationGain  = json['total_elevation_gain'];
+    if (_elevationGain == 0) _elevationGain = 0.0; 
+    totalElevationGain = _elevationGain;
     type = json['type'];
     workoutType = json['workout_type'];
   }

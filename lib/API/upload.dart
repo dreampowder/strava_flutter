@@ -12,7 +12,7 @@ import '../Models/uploadActivity.dart';
 import '../globals.dart' as globals;
 
 abstract class Upload {
-  /// Tested with gpx
+  /// Tested with gpx and tcx
   /// For the moment the parameters
   ///
   /// trainer and commute are set to false
@@ -121,9 +121,6 @@ abstract class Upload {
           // wait 2 sec before checking again status
           Timer(Duration(seconds: 2), () => onUploadPending.add(id));
         }
-
-     
-
       });
     }
 
