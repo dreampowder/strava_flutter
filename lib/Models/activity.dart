@@ -15,7 +15,7 @@ class DetailedActivity {
   double distance;
   int movingTime;
   int elapsedTime;
-  double totalElevationGain;
+  int totalElevationGain;
   String type;
   String startDate;
   String startDateLocal;
