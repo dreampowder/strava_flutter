@@ -82,7 +82,7 @@ If you have any problem or need an API not yet implemented please post a new iss
 
 
 ## Tested on:
-- Android 4.4.2 , 4.4.23, 8.0.0
+- Android 4.4.2 , 4.4.23, 8.0.0, 9.0
 - iOS 12.1, 12.1.2, 12.1.4
 
 
