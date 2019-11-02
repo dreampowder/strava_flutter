@@ -106,8 +106,8 @@ abstract class Auth {
 
     closeWebView();
     launch(reqAuth,
-        // forceWebView: true, forceSafariVC: true, enableJavaScript: true);
-        forceWebView: false, forceSafariVC: true, enableJavaScript: true);
+        forceWebView: true, forceSafariVC: true, enableJavaScript: true);
+        // forceWebView: false, forceSafariVC: true, enableJavaScript: true);
 
     // Launch small http server to collect the answer from Strava
     //------------------------------------------------------------
