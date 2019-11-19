@@ -180,7 +180,7 @@ class Bikes {
     data['primary'] = this.primary;
     data['name'] = this.name;
     data['resource_state'] = this.resourceState;
-    data['distance'] = this.distance.toDouble();
+    data['distance'] = this.distance;
     return data;
   }
 }
