@@ -171,7 +171,7 @@ class Bikes {
     primary = json['primary'];
     name = json['name'];
     resourceState = json['resource_state'];
-    distance = json['distance'];
+    distance = json['distance'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -180,7 +180,7 @@ class Bikes {
     data['primary'] = this.primary;
     data['name'] = this.name;
     data['resource_state'] = this.resourceState;
-    data['distance'] = this.distance;
+    data['distance'] = this.distance.toDouble();
     return data;
   }
 }
@@ -199,7 +199,7 @@ class Shoes {
     primary = json['primary'];
     name = json['name'];
     resourceState = json['resource_state'];
-    distance = json['distance'];
+    distance = json['distance'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
