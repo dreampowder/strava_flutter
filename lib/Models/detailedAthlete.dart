@@ -171,7 +171,7 @@ class Bikes {
     primary = json['primary'];
     name = json['name'];
     resourceState = json['resource_state'];
-    distance = json['distance'];
+    distance = json['distance'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -199,7 +199,7 @@ class Shoes {
     primary = json['primary'];
     name = json['name'];
     resourceState = json['resource_state'];
-    distance = json['distance'];
+    distance = json['distance'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
