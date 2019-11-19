@@ -3,6 +3,7 @@
 import 'gear.dart';
 import 'fault.dart';
 import '../globals.dart' as globals;
+import 'package:intl/intl.dart';
 
 class DetailedActivity {
   Fault fault;
@@ -849,6 +850,8 @@ class SummaryActivity {
   double totalElevationGain;
   String type;
   int workoutType;
+  DateTime startDate;
+  DateTime startDateLocal;
 
   SummaryActivity(
       {this.id,
@@ -860,7 +863,9 @@ class SummaryActivity {
       this.elapsedTime,
       this.totalElevationGain,
       this.type,
-      this.workoutType});
+      this.workoutType,
+      this.startDate,
+      this.startDateLocal});
 
   SummaryActivity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -876,6 +881,8 @@ class SummaryActivity {
     totalElevationGain = _elevationGain;
     type = json['type'];
     workoutType = json['workout_type'];
+    startDate = _parseDate(json['start_date']);
+    startDateLocal = _parseDate(json['start_date_local']);
   }
 
   Map<String, dynamic> toJson() {
@@ -894,6 +901,18 @@ class SummaryActivity {
     data['workout_type'] = this.workoutType;
     return data;
   }
+}
+
+DateTime _parseDate(String dateTimeToParse){
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+  DateFormat timeFormat = DateFormat.Hms();
+
+  List<String> dateTimeSplit = dateTimeToParse.split("T");
+  List<String> timeSplit = dateTimeSplit[1].split("Z");
+  DateTime date = dateFormat.parse(dateTimeSplit[0]);
+  DateTime time = timeFormat.parse(timeSplit[0]);
+  return DateTime(
+      date.year, date.month, date.day, time.hour, time.minute, time.second);
 }
 
 /****
