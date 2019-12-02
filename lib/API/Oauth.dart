@@ -8,10 +8,19 @@ import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../globals.dart' as globals;
-import 'constants.dart';
-import '../Models/token.dart';
-import '../Models/fault.dart';
+// To handle browser return after auth is done
+import 'package:android_intent/android_intent.dart';
+import 'package:uni_links/uni_links.dart';
+import 'package:flutter/services.dart' show PlatformException;
+
+// import '../globals.dart' as globals;
+import 'package:strava_flutter/globals.dart' as globals;
+// import 'constants.dart';
+import 'package:strava_flutter/API/constants.dart';
+// import '../Models/token.dart';
+import 'package:strava_flutter/Models/token.dart';
+// import '../Models/fault.dart';
+import 'package:strava_flutter/Models/fault.dart';
 
 ///===========================================
 /// Class related to Authorization processs
@@ -89,6 +98,7 @@ abstract class Auth {
       String clientID, String scope, String prompt) async {
     globals.displayInfo('Entering getStravaCode');
     var code = "";
+
     var params = '?' +
         'client_id=' +
         clientID +
@@ -101,36 +111,81 @@ abstract class Auth {
         '&scope=' +
         scope;
 
+/**** To use with Spotify  Authentication 
+    var params = '?' +
+        'client_id=' +
+        clientID +
+        '&redirect_uri=' +
+        redirectUrl +
+        '&response_type=' +
+        'code' +
+        '&show_dialog=true' +
+        '&scope=' + 'user-read-private user-read-email'; 
+ *****/
+
     var reqAuth = authorizationEndpoint + params;
     globals.displayInfo('$reqAuth');
+    StreamSubscription _sub;
 
     closeWebView();
     launch(reqAuth,
-        forceWebView: true, forceSafariVC: true, enableJavaScript: true);
-        // forceWebView: false, forceSafariVC: true, enableJavaScript: true);
+        // forceWebView: true, forceSafariVC: true, enableJavaScript: true);
+        forceWebView: false,
+        forceSafariVC: true,
+        enableJavaScript: true);
 
-    // Launch small http server to collect the answer from Strava
-    //------------------------------------------------------------
-    final server =
-        await HttpServer.bind(InternetAddress.loopbackIPv4, 8080, shared: true);
-    // server.listen((HttpRequest request) async {
-    await for (HttpRequest request in server) {
-      // Get the answer from Strava
-      final uri = request.uri;
-
+    // Attach a listener to the stream
+    _sub = getUriLinksStream().listen((Uri uri) {
+      // Parse the link and warn the user, if it is not correct
+      globals.displayInfo('Get a link!! $uri');
+      if (uri.scheme.compareTo('strava') != 0) {
+        globals.displayInfo('This is not the good scheme ${uri.scheme}');
+      }
       code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];
-      request.response.close();
+      ;
       globals.displayInfo('code $code, error $error');
 
       closeWebView();
-      server.close(force: true);
-
       onCodeReceived.add(code);
 
       globals.displayInfo('Got the new code: $code');
+
+      _sub.cancel();
+    }, onError: (err) {
+      // Handle exception by warning the user their action did not succeed
+      globals.displayInfo('Found an error $err');
+      _sub.cancel();
+    });
+
+/****
+    if (Platform.isIOS) {
+      // Launch small http server to collect the answer from Strava
+      //------------------------------------------------------------
+      final server =
+          // await HttpServer.bind(InternetAddress.loopbackIPv4, 8080, shared: true);
+          await HttpServer.bind(InternetAddress.loopbackIPv4, 8080,
+              shared: true);
+      // server.listen((HttpRequest request) async {
+      await for (HttpRequest request in server) {
+        // Get the answer from Strava
+        final uri = request.uri;
+
+        code = uri.queryParameters["code"];
+        final error = uri.queryParameters["error"];
+        request.response.close();
+        globals.displayInfo('code $code, error $error');
+
+        closeWebView();
+        server.close(force: true);
+
+        onCodeReceived.add(code);
+
+        globals.displayInfo('iOS Got the new code: $code');
+      }
     }
     // });
+***/
   }
 
   /// Do Strava Authentication.
@@ -163,7 +218,7 @@ abstract class Auth {
     if (isExpired && ((_token != "null") || (_token != null))) {
       RefreshAnswer _refreshAnswer =
           await _getNewAccessToken(clientID, secret, tokenStored.refreshToken);
-      // Update with new values 
+      // Update with new values
       if (_refreshAnswer.fault.statusCode == 200) {
         _saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope,
             _refreshAnswer.refreshToken);
@@ -215,8 +270,8 @@ abstract class Auth {
 
   /// _getNewAccessToken
   /// Ask to Strava a new access token
-  /// Return 
-  ///   accessToken 
+  /// Return
+  ///   accessToken
   ///   refreshToken (because Strava can change it when asking for new access token)
   Future<RefreshAnswer> _getNewAccessToken(
       String clientID, String secret, String refreshToken) async {
@@ -225,8 +280,13 @@ abstract class Auth {
     var urlRefresh =
         'https://www.strava.com/oauth/token?client_id=$clientID&client_secret=$secret&grant_type=refresh_token&refresh_token=$refreshToken';
 
+// To test with Spotify Authentication
+    //  var urlRefresh =
+    // 'https://accounts.spotify.com/authorize' + '?response_type=code' + '&redirect_uri=' + redirectUrl + '&client_id=' + clientID +
+    // '&scope=' + 'user-read-private user-read-email' + '&show_dialog=true' + '&state=ght6688';
+
     globals.displayInfo('Entering getNewAccessToken');
-    globals.displayInfo('urlRefresh $urlRefresh');
+    // globals.displayInfo('urlRefresh $urlRefresh');
 
     var resp = await http.post(urlRefresh);
 

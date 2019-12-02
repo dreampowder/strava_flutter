@@ -7,7 +7,7 @@ class Gear {
   String id;
   bool primary;
   int resourceState;
-  double distance;
+  int distance;
   String brandName;
   String modelName;
   int frameType;

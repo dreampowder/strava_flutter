@@ -61,17 +61,54 @@ The webview returned by the auth process may throw `net::ERR_CLEARTEXT_NOT_PERMI
 
 ## How to use it
 
-1 -Get the client secret in your Strava settings related to your app https://www.strava.com/settings/api with "Authorization Callback Domain" set to "127.0.0.1"
+1 -Get the client secret in your Strava settings related to your app https://www.strava.com/settings/api with "Authorization Callback Domain" set to "redirect"
 
-2  - Create a file secret.dart and put in this file:
+
+2 - Settings of the url scheme for Strava Authentication redirect url
+a) For Android 
+Add the following lines in your AndroidManifest.xml (in android/app/src/)
+```
+ <!-- To get redirect url when using url_launcher   -->
+ <intent-filter>
+    <action android:name="android.intent.action.VIEW" />  
+    <category android:name="android.intent.category.DEFAULT" /> 
+    <category android:name="android.intent.category.BROWSABLE" /> 
+    <data android:scheme="strava" android:host="redirect" />    
+    <data android:pathPattern="/.*" />   
+</intent-filter>
+```
+
+
+b) for iOS 
+Add the following lines in your info.plist (in ios/Flutter/Runner/)
+```
+<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>strava</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>strava</string>
+			</array>
+		</dict>
+	</array>
+```
+
+
+
+3  - Create a file secret.dart and put in this file:
 final String secret = "[Your client secret]";
 final String clientId = "[Your appID]";
 
-3 - import 'secret.dart' when you need secret and clientId in Strava API
+4 - import 'secret.dart' when you need secret and clientId in Strava API
 
-4 - To see debug info in Strava API, set isInDebug to true in Strava() init
 
-5 - Please check examples.dart for the moment
+5 - To see debug info in Strava API, set isInDebug to true in Strava() init
+
+6 - Please check examples.dart for the moment
 
 https://github.com/BirdyF/strava_flutter/blob/master/example/lib/main.dart
 
@@ -82,8 +119,8 @@ If you have any problem or need an API not yet implemented please post a new iss
 
 
 ## Tested on:
-- Android 4.4.2 , 4.4.23, 8.0.0, 9.0
-- iOS 12.1, 12.1.2, 12.1.4
+- Android 8.0.0, 9.0
+- New version NOT tested yet on iOS
 
 
 ## Contributors welcome!

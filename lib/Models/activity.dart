@@ -3,6 +3,7 @@
 import 'gear.dart';
 import 'fault.dart';
 import '../globals.dart' as globals;
+
 import 'package:intl/intl.dart';
 
 class DetailedActivity {
@@ -876,8 +877,12 @@ class SummaryActivity {
     distance = json['distance'];
     movingTime = json['moving_time'];
     elapsedTime = json['elapsed_time'];
-    var _elevationGain  = json['total_elevation_gain'];
-    if (_elevationGain == 0) _elevationGain = 0.0; 
+    var _elevationGain = json['total_elevation_gain'];
+    // To convert the dynamic var in double when it is an int
+    if ((_elevationGain % 1) == 0) {
+      _elevationGain = _elevationGain + 0.0;
+    }
+    // if (_elevationGain == 0) _elevationGain = 0.0;
     totalElevationGain = _elevationGain;
     type = json['type'];
     workoutType = json['workout_type'];
@@ -903,7 +908,7 @@ class SummaryActivity {
   }
 }
 
-DateTime _parseDate(String dateTimeToParse){
+DateTime _parseDate(String dateTimeToParse) {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
   DateFormat timeFormat = DateFormat.Hms();
 

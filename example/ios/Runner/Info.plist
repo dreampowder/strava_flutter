@@ -41,5 +41,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>strava</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>strava</string>
+			</array>
+		</dict>
+	</array>
+
 </dict>
 </plist>

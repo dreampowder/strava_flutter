@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'examples.dart';
+import 'package:example/examples.dart';
 
-import 'secret.dart'; // Where Strava app secret is stored
+import 'package:example/secret.dart'; 
 
 import 'package:strava_flutter/strava.dart';
+
 
 // Used by example
 
@@ -69,7 +70,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
     final strava = Strava(true, secret);
     final prompt = 'auto';
-    // final clientId = '32212';
 
     isAuthOk = await strava.oauth(
         clientId,

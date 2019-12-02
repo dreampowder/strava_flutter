@@ -22,7 +22,6 @@ dependencies:
   strava_flutter: 
     path: ../   
 
-
   path_provider: ^1.2.0   # To access to the gpx file used to upload
 
   # The following adds the Cupertino Icons font to your application.

@@ -129,7 +129,7 @@ abstract class Clubs {
             jsonResponse.forEach((summ) {
               var activity = SummaryActivity.fromJson(summ);
               globals.displayInfo(
-                  '${activity.name} ,  ${activity.distance},  ${activity.id}');
+                  '------ ${activity.name} ,  ${activity.distance},  ${activity.id}');
               _listSummary.add(activity);
               _nbActvity++;
             });
