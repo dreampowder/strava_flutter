@@ -137,10 +137,10 @@ abstract class Auth {
       globals.displayInfo('Get a link!! $uri');
       if (uri.scheme.compareTo('strava') != 0) {
         globals.displayInfo('This is not the good scheme ${uri.scheme}');
-      }
+      } 
       code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];
-      ;
+      
       globals.displayInfo('code $code, error $error');
 
       closeWebView();
