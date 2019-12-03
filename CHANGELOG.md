@@ -1,4 +1,4 @@
-## [1.1.0] 
+## [1.1.0+37] 
 Fix user agent disallowed when selecting Google in Strava Auth page
 
 ## [1.0.12] 

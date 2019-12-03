@@ -32,6 +32,7 @@ https://developers.strava.com/docs/authentication/
 - createActivity
 - uploadActivity (includes getUploadById) 
 Tested on TCX and GPX
+
 To generate TCX you can use the following package
 https://pub.dev/packages/rw_tcx
 
@@ -120,7 +121,7 @@ If you have any problem or need an API not yet implemented please post a new iss
 
 ## Tested on:
 - Android 8.0.0, 9.0
-- New version NOT tested yet on iOS
+- iOS 12.1
 
 
 ## Contributors welcome!
