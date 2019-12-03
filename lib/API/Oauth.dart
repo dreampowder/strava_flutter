@@ -2,16 +2,13 @@
 
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // To handle browser return after auth is done
-import 'package:android_intent/android_intent.dart';
 import 'package:uni_links/uni_links.dart';
-import 'package:flutter/services.dart' show PlatformException;
 
 // import '../globals.dart' as globals;
 import 'package:strava_flutter/globals.dart' as globals;
@@ -131,7 +128,7 @@ abstract class Auth {
     launch(reqAuth,
         // forceWebView: true, forceSafariVC: true, enableJavaScript: true);
         forceWebView: false,
-        forceSafariVC: true,
+        forceSafariVC: false,
         enableJavaScript: true);
 
     // Attach a listener to the stream
