@@ -120,7 +120,7 @@ If you have any problem or need an API not yet implemented please post a new iss
 
 
 ## Tested on:
-- Android 8.0.0, 9.0
+- Android 7, 8.0.0, 9.0, 10
 - iOS 12.1
 
 
