@@ -10,4 +10,6 @@ final authorizationEndpoint = "https://www.strava.com/oauth/authorize";
 
 // final String redirectUrl = "http://localhost:8080";
 // final String redirectUrl = "myapp://redirect/";
-final String redirectUrl = "strava://redirect/";
+// final String redirectUrl = "strava://redirect/";  // To use with iOS or Android
+final String redirectUrlWeb = "http://tombolo.fr/webby/";
+final String redirectUrlMobile = "strava://redirect/";  // To use with iOS or Android

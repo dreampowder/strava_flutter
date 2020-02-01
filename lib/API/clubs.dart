@@ -36,7 +36,7 @@ abstract class Clubs {
         if (rep.statusCode == 200) {
           globals.displayInfo(rep.statusCode.toString());
           globals.displayInfo('List members info ${rep.body}');
-          final jsonResponse = json.decode(rep.body);
+          var jsonResponse = json.decode(rep.body);
 
           if (jsonResponse != null) {
             jsonResponse.forEach((summ) {
@@ -85,7 +85,7 @@ abstract class Clubs {
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Club info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
         Club _club = Club.fromJson(jsonResponse);
         globals.displayInfo(_club.name);
@@ -104,7 +104,7 @@ abstract class Clubs {
   /// Need to be member of the club
   ///
   Future<List<SummaryActivity>> getClubActivitiesById(String id) async {
-    List<SummaryActivity> returnSummary = List<SummaryActivity>();
+    List<SummaryActivity> returnSummary = <SummaryActivity>[];
 
     var _header = globals.createHeader();
     int _pageNumber = 1;
@@ -116,14 +116,14 @@ abstract class Clubs {
       do {
         String reqClub = 'https://www.strava.com/api/v3/clubs/' +
             id +
-            "/activities?page=$_pageNumber&per_page=$_perPage";
+            '/activities?page=$_pageNumber&per_page=$_perPage';
         var rep = await http.get(reqClub, headers: _header);
         int _nbActvity = 0;
 
         if (rep.statusCode == 200) {
           globals.displayInfo(rep.statusCode.toString());
           globals.displayInfo('Club activity ${rep.body}');
-          final jsonResponse = json.decode(rep.body);
+          var jsonResponse = json.decode(rep.body);
 
           if (jsonResponse != null) {
             jsonResponse.forEach((summ) {

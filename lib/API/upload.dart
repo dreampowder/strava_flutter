@@ -74,7 +74,7 @@ abstract class Upload {
       globals.displayInfo('Activity successfully created');
       response.stream.transform(utf8.decoder).listen((value) {
         print(value);
-        var _body = json.decode(value);
+        final Map<String, dynamic> _body = json.decode(value);
         ResponseUploadActivity _response =
             ResponseUploadActivity.fromJson(_body);
 

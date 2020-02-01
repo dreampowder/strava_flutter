@@ -30,8 +30,6 @@ import 'package:strava_flutter/Models/activity.dart';
 /// Under the title Bormes3
 ///
 Future<Fault> exampleUpload(String secret) async {
-
-
   Future<void> writeToFile(ByteData data, String path) {
     final buffer = data.buffer;
     return File(path).writeAsBytes(
@@ -60,7 +58,6 @@ Future<Fault> exampleUpload(String secret) async {
 
   Fault fault = await strava.uploadActivity(
       'Bormes26', 'It is working!', '$dir/myActivity.gpx', 'gpx');
-
 
   return fault;
 }

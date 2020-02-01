@@ -26,7 +26,7 @@ abstract class Athletes {
 
       if (rep.statusCode == 200) {
         globals.displayInfo('Athlete info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
         DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
         globals
@@ -57,16 +57,16 @@ abstract class Athletes {
     var _header = globals.createHeader();
 
     if (_header != null) {
-      String reqStats = "https://www.strava.com/api/v3/athletes/" +
+      final String reqStats = 'https://www.strava.com/api/v3/athletes/' +
           id.toString() +
           // "/stats?page=1&per_page=50;";
-          "/stats?page=$_pageNumber&per_page=$_perPage;";
+          '/stats?page=$_pageNumber&per_page=$_perPage;';
 
       var rep = await http.get(reqStats, headers: _header);
 
       if (rep.statusCode == 200) {
         // globals.displayInfo('getStats ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
           returnStats = Stats.fromJson(jsonResponse);
@@ -83,7 +83,7 @@ abstract class Athletes {
         }
       }
     } else {
-      String msg = 'problem in getStats request, header is empty';
+      const String msg = 'problem in getStats request, header is empty';
       returnStats.fault = globals.errorCheck(globals.statusHeaderIsEmpty, msg);
       globals.displayInfo(msg);
     }
@@ -104,12 +104,12 @@ abstract class Athletes {
     var _header = globals.createHeader();
 
     if (_header != null) {
-      final reqAthlete = "https://www.strava.com/api/v3/athlete/zones";
+      const String reqAthlete = 'https://www.strava.com/api/v3/athlete/zones';
       var rep = await http.get(reqAthlete, headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo('Zone info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
           Zone _zone = Zone();
@@ -137,15 +137,15 @@ abstract class Athletes {
     var _header = globals.createHeader();
 
     if (_header != null) {
-      final reqAthlete = "https://www.strava.com/api/v3/athlete";
+      const String reqAthlete = 'https://www.strava.com/api/v3/athlete';
       var rep = await http.get(reqAthlete, headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Athlete info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
-        DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
+        final DetailedAthlete _athlete = DetailedAthlete.fromJson(jsonResponse);
         globals.displayInfo(
             ' athlete ${_athlete.firstname}, ${_athlete.lastname}');
 
@@ -185,8 +185,9 @@ abstract class Athletes {
 
     if (_header != null) {
       do {
-        String reqActivities = "https://www.strava.com/api/v3/athlete/activities" +
-            '?before=$before&after=$after&page=$_pageNumber&per_page=$_perPage';
+        final String reqActivities =
+            'https://www.strava.com/api/v3/athlete/activities' +
+                '?before=$before&after=$after&page=$_pageNumber&per_page=$_perPage';
 
         var rep = await http.get(reqActivities, headers: _header);
         int _nbActvity = 0;
@@ -194,7 +195,8 @@ abstract class Athletes {
         if (rep.statusCode == 200) {
           globals.displayInfo(rep.statusCode.toString());
           globals.displayInfo('Activities info ${rep.body}');
-          final jsonResponse = json.decode(rep.body);
+          // final Map<String, dynamic> jsonResponse = json.decode(rep.body);
+          var jsonResponse = json.decode(rep.body);
 
           if (jsonResponse != null) {
             jsonResponse.forEach((summ) {

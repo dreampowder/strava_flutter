@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:example/examples.dart';
 
-import 'package:example/secret.dart'; 
+import 'package:example/secret.dart';
 
 import 'package:strava_flutter/strava.dart';
-
 
 // Used by example
 
@@ -67,6 +66,10 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
   /// set isInDebug to true in strava init to see the debug info
   void example(String secret) async {
     bool isAuthOk = false;
+
+
+    // Check first if there is an internet connection
+    
 
     final strava = Strava(true, secret);
     final prompt = 'auto';
@@ -217,19 +220,20 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     }
   }
 
-  void upload() async {
+  Future<Fault> upload() async {
     print('Trying to upload');
 
-    showDialog(
+    showDialog<String>(
         context: context,
         builder: (BuildContext context) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         });
 
-    Fault fault =  await exampleUpload(secret);
+    final Fault fault = await exampleUpload(secret);
     Navigator.pop(context);
+    return fault;
   }
 
   void deAuthorize() async {

@@ -1,6 +1,8 @@
 // oauth.dart
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'dart:io';  // Use in web mode only
 import 'dart:async';
 import 'dart:convert';
 
@@ -96,11 +98,20 @@ abstract class Auth {
     globals.displayInfo('Entering getStravaCode');
     var code = "";
 
+    String redirectUrl;
+
+    if (kIsWeb == true) {
+      redirectUrl = redirectUrlWeb;
+    } else {
+
+      redirectUrl = redirectUrlMobile;
+    }
+
     var params = '?' +
         'client_id=' +
         clientID +
         '&redirect_uri=' +
-        redirectUrl +
+        redirectUrl  +
         '&response_type=' +
         'code' +
         '&approval_prompt=' +
@@ -124,36 +135,54 @@ abstract class Auth {
     globals.displayInfo('$reqAuth');
     StreamSubscription _sub;
 
-    closeWebView();
+    // closeWebView();
     launch(reqAuth,
-        // forceWebView: true, forceSafariVC: true, enableJavaScript: true);
         forceWebView: false,
+        // forceWebView: true,
         forceSafariVC: false,
         enableJavaScript: true);
 
-    // Attach a listener to the stream
-    _sub = getUriLinksStream().listen((Uri uri) {
-      // Parse the link and warn the user, if it is not correct
-      globals.displayInfo('Get a link!! $uri');
-      if (uri.scheme.compareTo('strava') != 0) {
-        globals.displayInfo('This is not the good scheme ${uri.scheme}');
-      } 
-      code = uri.queryParameters["code"];
-      final error = uri.queryParameters["error"];
-      
-      globals.displayInfo('code $code, error $error');
+    //--------
+    if (kIsWeb) {
+      globals.displayInfo('Running in web ');
 
-      closeWebView();
-      onCodeReceived.add(code);
+      // listening on http the answer from Strava
+      final server =
+        await HttpServer.bind(InternetAddress.anyIPv4, 8080, shared: true);
+    await for (HttpRequest request in server) {
+      // Get the answer from Strava
+      final uri = request.uri;
+      globals.displayInfo('Get the answer from Strava to authenticate!');
 
-      globals.displayInfo('Got the new code: $code');
+    }
 
-      _sub.cancel();
-    }, onError: (err) {
-      // Handle exception by warning the user their action did not succeed
-      globals.displayInfo('Found an error $err');
-      _sub.cancel();
-    });
+    } else {
+      globals.displayInfo('Running on iOS or Android');
+
+      // Attach a listener to the stream
+      _sub = getUriLinksStream().listen((Uri uri) {
+        // Parse the link and warn the user, if it is not correct
+        globals.displayInfo('Get a link!! $uri');
+        if (uri.scheme.compareTo('strava') != 0) {
+          globals.displayInfo('This is not the good scheme ${uri.scheme}');
+        }
+        code = uri.queryParameters["code"];
+        final error = uri.queryParameters["error"];
+
+        globals.displayInfo('code $code, error $error');
+
+        closeWebView();
+        onCodeReceived.add(code);
+
+        globals.displayInfo('Got the new code: $code');
+
+        _sub.cancel();
+      }, onError: (err) {
+        // Handle exception by warning the user their action did not succeed
+        globals.displayInfo('Found an error $err');
+        _sub.cancel();
+      });
+    }
 
 /****
     if (Platform.isIOS) {
@@ -326,8 +355,8 @@ abstract class Auth {
       globals.displayInfo('Error in getStravaToken');
       // will return _answer null
     } else {
-      var tokenBody = json.decode(value.body);
-      var _body = Token.fromJson(tokenBody);
+      final Map<String, dynamic> tokenBody = json.decode(value.body);
+      final Token _body = Token.fromJson(tokenBody);
       var accessToken = _body.accessToken;
       var refreshToken = _body.refreshToken;
       // var expiresAt = _body.expiresAt * 1000; // To get the exp. date in ms

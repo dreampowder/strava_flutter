@@ -28,7 +28,7 @@ abstract class Segments {
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Segment info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
         DetailedSegment _seg = DetailedSegment.fromJson(jsonResponse);
         globals.displayInfo(_seg.name);
@@ -151,7 +151,7 @@ abstract class Segments {
           globals.displayInfo(rep.statusCode.toString());
           globals.displayInfo('Leaderboard info ${rep.body}');
 
-          final jsonResponse = json.decode(rep.body);
+          final Map<String, dynamic> jsonResponse = json.decode(rep.body);
           if (jsonResponse != null) {
             returnLeaderboard =
                 SegmentLeaderboard.fromJson(json.decode(rep.body));

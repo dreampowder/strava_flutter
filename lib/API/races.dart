@@ -27,7 +27,7 @@ abstract class Races {
       var rep = await http.get(reqRace, headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo('Race info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
           returnRace = RunningRace.fromJson(jsonResponse);
@@ -56,7 +56,7 @@ abstract class Races {
       var rep = await http.get(reqList, headers: _header);
       if (rep.statusCode == 200) {
         // globals.displayInfo('List races info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        var jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
           List<RunningRace> _listRaces = List<RunningRace>();

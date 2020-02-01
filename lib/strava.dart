@@ -50,7 +50,7 @@ class Strava with Upload, Activities, Auth, Clubs, Segments, Athletes, Races {
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo(' ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
 
         Gear _gear = Gear.fromJson(jsonResponse);
         _gear.fault = Fault(88, '');

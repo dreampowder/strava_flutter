@@ -19,7 +19,7 @@ abstract class Activities {
     globals.displayInfo('Entering getActivityById');
 
     if (_header != null) {
-      final reqActivity = "https://www.strava.com/api/v3/activities/" +
+      final String reqActivity = 'https://www.strava.com/api/v3/activities/' +
           id +
           '?include_all_efforts=true';
       var rep = await http.get(reqActivity, headers: _header);
@@ -27,8 +27,9 @@ abstract class Activities {
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Activity info ${rep.body}');
-        final jsonResponse = json.decode(rep.body);
-        DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
+        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
+        final DetailedActivity _activity =
+            DetailedActivity.fromJson(jsonResponse);
         globals.displayInfo(_activity.name);
 
         returnActivity = _activity;
@@ -81,9 +82,10 @@ abstract class Activities {
       if (resp.statusCode == 201) {
         globals.displayInfo(resp.statusCode.toString());
         globals.displayInfo('Activity info ${resp.body}');
-        final jsonResponse = json.decode(resp.body);
+        final Map<String, dynamic> jsonResponse = json.decode(resp.body);
 
-        DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
+        final DetailedActivity _activity =
+            DetailedActivity.fromJson(jsonResponse);
         globals.displayInfo(_activity.name);
 
         returnActivity = _activity;
