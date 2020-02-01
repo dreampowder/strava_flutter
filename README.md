@@ -121,7 +121,8 @@ If you have any problem or need an API not yet implemented please post a new iss
 
 ## Tested on:
 - Android 7, 8.0.0, 9.0, 10
-- iOS 12.1
+- iOS 12.1, 13.2
+- NOT working yet on web (Auth problem, not coming back to initial page)
 
 
 ## Contributors welcome!
