@@ -72,6 +72,11 @@ Future<Fault> exampleSegment(String secret) async {
       true, // To get display info in API
       secret);
 
+
+  // Test to get fault error when not authorize yet
+    final result = await strava.getStats(int.parse(clientId));
+    print(result);    
+
   bool isAuthOk = false;
 
   isAuthOk = await strava.oauth(

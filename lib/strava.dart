@@ -43,7 +43,7 @@ class Strava with Upload, Activities, Auth, Clubs, Segments, Athletes, Races {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       final reqGear = 'https://www.strava.com/api/v3/gear/' + id;
       var rep = await http.get(reqGear, headers: _header);
 

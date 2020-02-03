@@ -18,7 +18,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       final reqAthlete =
           "https://www.strava.com/api/v3/athlete?weight=" + weight.toString();
       globals.displayInfo('update $reqAthlete');
@@ -56,7 +56,8 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    
+    if (_header[0] != null) {
       final String reqStats = 'https://www.strava.com/api/v3/athletes/' +
           id.toString() +
           // "/stats?page=1&per_page=50;";
@@ -103,7 +104,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete/zones';
       var rep = await http.get(reqAthlete, headers: _header);
 
@@ -136,7 +137,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+  if (_header[0] != null) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete';
       var rep = await http.get(reqAthlete, headers: _header);
 
@@ -183,7 +184,7 @@ abstract class Athletes {
 
     globals.displayInfo('Entering getLoggedInAthleteActivities');
 
-    if (_header != null) {
+  if (_header[0] != null) {
       do {
         final String reqActivities =
             'https://www.strava.com/api/v3/athlete/activities' +

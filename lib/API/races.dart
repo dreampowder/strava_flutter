@@ -21,7 +21,7 @@ abstract class Races {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       final reqRace = 'https://www.strava.com/api/v3/running_races/' + id;
 
       var rep = await http.get(reqRace, headers: _header);
@@ -49,7 +49,7 @@ abstract class Races {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       final reqList =
           'https://www.strava.com/api/v3/running_races?year=' + year;
 

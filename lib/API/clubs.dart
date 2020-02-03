@@ -24,7 +24,7 @@ abstract class Clubs {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       do {
         String reqList = "https://www.strava.com/api/v3/clubs/" +
             id +
@@ -78,7 +78,7 @@ abstract class Clubs {
 
     var _header = globals.createHeader();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       final reqClub = 'https://www.strava.com/api/v3/clubs/' + id;
       var rep = await http.get(reqClub, headers: _header);
 
@@ -112,7 +112,7 @@ abstract class Clubs {
     bool isRetrieveDone = false;
     List<SummaryActivity> _listSummary = List<SummaryActivity>();
 
-    if (_header != null) {
+    if (_header[0] != null) {
       do {
         String reqClub = 'https://www.strava.com/api/v3/clubs/' +
             id +
