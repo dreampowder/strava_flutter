@@ -327,13 +327,14 @@ class DetailedSegment {
 }
 
 class SegmentsList {
+  Fault fault;
   final List<SummarySegment> segments;
 
   SegmentsList({this.segments});
 
   factory SegmentsList.fromJson(List<dynamic> parsedJson) {
     List<SummarySegment> segments = List<SummarySegment>();
-    segments = parsedJson.map( (i) => SummarySegment.fromJson(i)).toList();
+    segments = parsedJson.map((i) => SummarySegment.fromJson(i)).toList();
 
     return SegmentsList(segments: segments);
   }

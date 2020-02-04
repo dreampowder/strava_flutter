@@ -7,7 +7,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data'; // Needed when declaring ByteData
 
-import 'package:strava_flutter/API/constants.dart';
+// import 'package:strava_flutter/API/constants.dart';
+import 'package:strava_flutter/errorCodes.dart' as error;
 import 'secret.dart';
 
 // Used by uploadExample
@@ -18,7 +19,7 @@ import 'package:strava_flutter/Models/fault.dart';
 import 'package:strava_flutter/Models/segment.dart';
 
 // To test getLoggedInAtletheActivities
-import 'package:strava_flutter/API/athletes.dart';
+// import 'package:strava_flutter/API/athletes.dart';
 import 'package:strava_flutter/Models/activity.dart';
 
 /// Example showing how to upload an activity on Strava
@@ -30,6 +31,7 @@ import 'package:strava_flutter/Models/activity.dart';
 /// Under the title Bormes3
 ///
 Future<Fault> exampleUpload(String secret) async {
+
   Future<void> writeToFile(ByteData data, String path) {
     final buffer = data.buffer;
     return File(path).writeAsBytes(
@@ -40,12 +42,19 @@ Future<Fault> exampleUpload(String secret) async {
   final strava = Strava(
       true, // To get display info in API
       secret);
+  Fault _fault = Fault(error.statusOk, '');
 
   bool isAuthOk = false;
 
   isAuthOk = await strava.oauth(clientId, 'activity:write', secret, 'auto');
 
   print('---> Authentication result: $isAuthOk');
+
+  if (isAuthOk == false) {
+    _fault.statusCode = error.statusAuthError;
+    _fault.message = 'Authentication has not been succesful';
+    return _fault;
+  }
 
   // Use the asset file to test without having to create internally a ride
   //----------------------------------------------------------------------
@@ -72,10 +81,7 @@ Future<Fault> exampleSegment(String secret) async {
       true, // To get display info in API
       secret);
 
-
-  // Test to get fault error when not authorize yet
-    final result = await strava.getStats(int.parse(clientId));
-    print(result);    
+  Fault _fault = Fault(error.statusOk, '');
 
   bool isAuthOk = false;
 
@@ -145,4 +151,6 @@ Future<Fault> exampleSegment(String secret) async {
 
   print(
       'new starred segment ${_segmentStarred.id}  ${_segmentStarred.name}  starred: ${_segmentStarred.starred}');
+
+  return _fault;
 }

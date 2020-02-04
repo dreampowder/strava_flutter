@@ -11,6 +11,7 @@ import '../Models/activity.dart';
 import '../Models/fault.dart';
 
 import '../globals.dart' as globals;
+import '../errorCodes.dart' as error;
 
 abstract class Athletes {
   Future<DetailedAthlete> updateLoggedInAthlete(double weight) async {
@@ -18,7 +19,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqAthlete =
           "https://www.strava.com/api/v3/athlete?weight=" + weight.toString();
       globals.displayInfo('update $reqAthlete');
@@ -56,8 +57,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final String reqStats = 'https://www.strava.com/api/v3/athletes/' +
           id.toString() +
           // "/stats?page=1&per_page=50;";
@@ -78,14 +78,13 @@ abstract class Athletes {
               globals.errorCheck(rep.statusCode, rep.reasonPhrase);
         } else {
           String msg = 'json answer is empty';
-          returnStats.fault =
-              globals.errorCheck(globals.statusJsonIsEmpty, msg);
+          returnStats.fault = globals.errorCheck(error.statusJsonIsEmpty, msg);
           globals.displayInfo(msg);
         }
       }
     } else {
       const String msg = 'problem in getStats request, header is empty';
-      returnStats.fault = globals.errorCheck(globals.statusHeaderIsEmpty, msg);
+      returnStats.fault = globals.errorCheck(error.statusTokenNotKnownYet, msg);
       globals.displayInfo(msg);
     }
 
@@ -104,7 +103,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete/zones';
       var rep = await http.get(reqAthlete, headers: _header);
 
@@ -137,7 +136,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-  if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete';
       var rep = await http.get(reqAthlete, headers: _header);
 
@@ -158,6 +157,10 @@ abstract class Athletes {
 
       returnAthlete.fault =
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnAthlete.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
 
     return returnAthlete;
@@ -170,7 +173,7 @@ abstract class Athletes {
   /// after: since time epoch in seconsd
   ///
   /// return: a list of activities related to the logged athlete
-  ///
+  ///  null if the authentication has not been done before
   ///
   Future<List<SummaryActivity>> getLoggedInAthleteActivities(
       int before, int after) async {
@@ -184,7 +187,7 @@ abstract class Athletes {
 
     globals.displayInfo('Entering getLoggedInAthleteActivities');
 
-  if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       do {
         final String reqActivities =
             'https://www.strava.com/api/v3/athlete/activities' +
@@ -228,7 +231,11 @@ abstract class Athletes {
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
         }
       } while (!isRetrieveDone);
+    } else {
+      globals.displayInfo('Token not yet known');
+      return null;
     }
+
     return returnActivities;
   }
 }

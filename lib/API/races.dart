@@ -5,8 +5,10 @@ import 'dart:convert';
 import 'dart:async';
 
 import '../Models/runningRace.dart';
+import '../Models/fault.dart';
 
 import '../globals.dart' as globals;
+import '../errorCodes.dart' as error;
 
 abstract class Races {
   /// getRunningRacebyId
@@ -21,7 +23,7 @@ abstract class Races {
 
     var _header = globals.createHeader();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqRace = 'https://www.strava.com/api/v3/running_races/' + id;
 
       var rep = await http.get(reqRace, headers: _header);
@@ -36,7 +38,12 @@ abstract class Races {
         }
       }
       returnRace.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnRace.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
+
     return returnRace;
   }
 
@@ -49,7 +56,7 @@ abstract class Races {
 
     var _header = globals.createHeader();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqList =
           'https://www.strava.com/api/v3/running_races?year=' + year;
 
@@ -75,6 +82,10 @@ abstract class Races {
       }
       returnListRaces[0].fault =
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnListRaces[0].fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnListRaces;
   }

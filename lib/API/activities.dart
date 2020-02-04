@@ -1,9 +1,11 @@
 // activities.dart
 import 'package:http/http.dart' as http;
+import 'package:strava_flutter/Models/fault.dart';
 import 'dart:convert';
 import 'dart:async';
 
 import '../globals.dart' as globals;
+import '../errorCodes.dart' as error;
 
 import '../Models/activity.dart';
 
@@ -18,7 +20,7 @@ abstract class Activities {
 
     globals.displayInfo('Entering getActivityById');
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final String reqActivity = 'https://www.strava.com/api/v3/activities/' +
           id +
           '?include_all_efforts=true';
@@ -38,6 +40,10 @@ abstract class Activities {
       }
       returnActivity.fault =
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnActivity.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
 
     return returnActivity;
@@ -74,7 +80,7 @@ abstract class Activities {
       'commute': (isCommute != null) ? isCommute.toString() : '0',
     };
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       var uri = Uri.https('www.strava.com', '/api/v3/activities', _queryParams);
 
       var resp = await http.post(uri, headers: _header);
@@ -94,7 +100,12 @@ abstract class Activities {
       }
       returnActivity.fault =
           globals.errorCheck(resp.statusCode, resp.reasonPhrase);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnActivity.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
+
     return returnActivity;
   }
 }

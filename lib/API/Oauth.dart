@@ -2,7 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'dart:io';  // Use in web mode only
+import 'dart:io'; // Use in web mode only
 import 'dart:async';
 import 'dart:convert';
 
@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // To handle browser return after auth is done
 import 'package:uni_links/uni_links.dart';
 
-// import '../globals.dart' as globals;
+import 'package:strava_flutter/errorCodes.dart' as error;
 import 'package:strava_flutter/globals.dart' as globals;
 // import 'constants.dart';
 import 'package:strava_flutter/API/constants.dart';
@@ -103,7 +103,6 @@ abstract class Auth {
     if (kIsWeb == true) {
       redirectUrl = redirectUrlWeb;
     } else {
-
       redirectUrl = redirectUrlMobile;
     }
 
@@ -111,7 +110,7 @@ abstract class Auth {
         'client_id=' +
         clientID +
         '&redirect_uri=' +
-        redirectUrl  +
+        redirectUrl +
         '&response_type=' +
         'code' +
         '&approval_prompt=' +
@@ -148,14 +147,12 @@ abstract class Auth {
 
       // listening on http the answer from Strava
       final server =
-        await HttpServer.bind(InternetAddress.anyIPv4, 8080, shared: true);
-    await for (HttpRequest request in server) {
-      // Get the answer from Strava
-      final uri = request.uri;
-      globals.displayInfo('Get the answer from Strava to authenticate!');
-
-    }
-
+          await HttpServer.bind(InternetAddress.anyIPv4, 8080, shared: true);
+      await for (HttpRequest request in server) {
+        // Get the answer from Strava
+        final uri = request.uri;
+        globals.displayInfo('Get the answer from Strava to authenticate!');
+      }
     } else {
       globals.displayInfo('Running on iOS or Android');
 
@@ -399,7 +396,7 @@ abstract class Auth {
   ///return codes:
   /// statusOK or statusNoAuthenticationYet
   Future<Fault> deAuthorize() async {
-    Fault fault = Fault(globals.statusUnknownError, '');
+    Fault fault = Fault(error.statusUnknownError, '');
 
     if (globals.token.accessToken == null) {
       // Token has not been yet stored in memory
@@ -417,16 +414,16 @@ abstract class Auth {
         globals.displayInfo('DeAuthorize done');
         globals.displayInfo('response ${rep.body}');
         await _saveToken(null, null, null, null);
-        fault.statusCode = globals.statusOk;
+        fault.statusCode = error.statusOk;
         fault.message = 'DeAuthorize done';
       } else {
         globals.displayInfo('Problem in deAuthorize request');
-        fault.statusCode = globals.statusOk;
+        fault.statusCode = error.statusOk;
       }
     } else {
       // No authorization has been done before
       globals.displayInfo('No Authentication has been done yet');
-      fault.statusCode = globals.statusNoAuthenticationYet;
+      fault.statusCode = error.statusNoAuthenticationYet;
       fault.message = 'No Authentication has been done yet';
     }
 

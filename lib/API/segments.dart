@@ -8,21 +8,23 @@ import 'dart:convert';
 import 'dart:async';
 
 import '../Models/segment.dart';
+import '../Models/fault.dart';
 
 import '../globals.dart' as globals;
+import '../errorCodes.dart' as error;
 
 abstract class Segments {
   ///
   /// scope needed: read_all
   ///
   Future<DetailedSegment> getSegmentById(String id) async {
-    DetailedSegment returnSeg;
+    DetailedSegment returnSeg = DetailedSegment();
 
     var _header = globals.createHeader();
 
     globals.displayInfo('Entering getSegById');
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqSeg = 'https://www.strava.com/api/v3/segments/' + id;
       var rep = await http.get(reqSeg, headers: _header);
       if (rep.statusCode == 200) {
@@ -39,6 +41,10 @@ abstract class Segments {
 
         // 404 : segment not found
       }
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnSeg.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnSeg;
   }
@@ -57,8 +63,9 @@ abstract class Segments {
     var _header = globals.createHeader();
 
     globals.displayInfo('Entering getLoggedInAthleteStarredSegments');
+    print('_header: ${_header[0]}');
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqSeg =
           'https://www.strava.com/api/v3/segments/starred?page=1&per_page=50';
       var rep = await http.get(reqSeg, headers: _header);
@@ -73,6 +80,10 @@ abstract class Segments {
         // Add a fault
         returnList = null;
       }
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnList.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnList;
   }
@@ -126,7 +137,7 @@ abstract class Segments {
     var clubIdStr = (clubId != null) ? clubId.toString() : '';
     dateRange = dateRange ?? '';
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       do {
         String reqLeaderboard = 'https://www.strava.com/api/v3/segments/' +
             id.toString() +
@@ -183,6 +194,10 @@ abstract class Segments {
               globals.errorCheck(rep.statusCode, rep.reasonPhrase);
         }
       } while (!isRetrieveDone);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnLeaderboard.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnLeaderboard;
   }
@@ -203,7 +218,7 @@ abstract class Segments {
 
     globals.displayInfo('Entering starSegment');
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqStar = 'https://www.strava.com/api/v3/segments/' +
           id.toString() +
           '/starred?starred=' +
@@ -222,6 +237,10 @@ abstract class Segments {
       }
       returnSegment.fault =
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnSegment.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnSegment;
   }

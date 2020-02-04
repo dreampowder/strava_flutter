@@ -10,6 +10,7 @@ import '../Models/fault.dart';
 import '../Models/uploadActivity.dart';
 
 import '../globals.dart' as globals;
+import '../errorCodes.dart' as error;
 
 abstract class Upload {
   /// Tested with gpx and tcx
@@ -29,7 +30,7 @@ abstract class Upload {
     // No numeric error code for the moment given by Strava
     final String ready = "Your activity is ready.";
     final String deleted = "The created activity has been deleted.";
-    final String error = "There was an error processing your activity.";
+    final String errorMsg = "There was an error processing your activity.";
     final String processed = "Your activity is still being processed.";
     final String notFound = 'Not Found';
 
@@ -47,6 +48,13 @@ abstract class Upload {
     request.fields['description'] = description;
 
     var _header = globals.createHeader();
+
+    if (_header.isNotEmpty) {
+      globals.displayInfo('Token not yet known');
+      fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      return fault;
+    }
+
     request.headers.addAll(_header);
 
     request.files.add(await http.MultipartFile.fromPath('file', fileUrl));
@@ -106,7 +114,7 @@ abstract class Upload {
         }
 
         if ((resp.reasonPhrase.compareTo(notFound) == 0) ||
-            (resp.reasonPhrase.compareTo(error) == 0)) {
+            (resp.reasonPhrase.compareTo(errorMsg) == 0)) {
           print('---> Error while checking status upload');
           onUploadPending.close();
         }

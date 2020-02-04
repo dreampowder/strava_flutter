@@ -6,6 +6,7 @@ import 'Models/fault.dart';
 import 'Models/gear.dart';
 
 import 'globals.dart' as globals;
+import 'errorCodes.dart' as error;
 
 import 'API/Oauth.dart';
 import 'API/upload.dart';
@@ -43,7 +44,7 @@ class Strava with Upload, Activities, Auth, Clubs, Segments, Athletes, Races {
 
     var _header = globals.createHeader();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqGear = 'https://www.strava.com/api/v3/gear/' + id;
       var rep = await http.get(reqGear, headers: _header);
 
@@ -55,7 +56,7 @@ class Strava with Upload, Activities, Auth, Clubs, Segments, Athletes, Races {
         Gear _gear = Gear.fromJson(jsonResponse);
         _gear.fault = Fault(88, '');
         globals.displayInfo(_gear.description);
-        _gear.fault.statusCode = globals.statusOk;
+        _gear.fault.statusCode = error.statusOk;
         returnGear = _gear;
       } else {
         globals.displayInfo('Problem in getGearById');

@@ -6,8 +6,10 @@ import 'dart:async';
 import '../Models/summaryAthlete.dart';
 import '../Models/activity.dart';
 import '../Models/club.dart';
+import '../Models/fault.dart';
 
 import '../globals.dart' as globals;
+import '../errorCodes.dart' as error;
 
 abstract class Clubs {
   ///  Scope needed:
@@ -24,7 +26,7 @@ abstract class Clubs {
 
     var _header = globals.createHeader();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       do {
         String reqList = "https://www.strava.com/api/v3/clubs/" +
             id +
@@ -66,6 +68,10 @@ abstract class Clubs {
         returnListMembers[0].fault =
             globals.errorCheck(rep.statusCode, rep.reasonPhrase);
       } while (!isRetrieveDone);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnListMembers[0].fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
 
     return returnListMembers;
@@ -78,7 +84,7 @@ abstract class Clubs {
 
     var _header = globals.createHeader();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       final reqClub = 'https://www.strava.com/api/v3/clubs/' + id;
       var rep = await http.get(reqClub, headers: _header);
 
@@ -96,6 +102,10 @@ abstract class Clubs {
         // Todo add an error code
       }
       returnClub.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnClub.fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
 
     return returnClub;
@@ -112,7 +122,7 @@ abstract class Clubs {
     bool isRetrieveDone = false;
     List<SummaryActivity> _listSummary = List<SummaryActivity>();
 
-    if (_header[0] != null) {
+    if (_header.isNotEmpty) {
       do {
         String reqClub = 'https://www.strava.com/api/v3/clubs/' +
             id +
@@ -156,7 +166,12 @@ abstract class Clubs {
         returnSummary[0].fault =
             globals.errorCheck(rep.statusCode, rep.reasonPhrase);
       } while (!isRetrieveDone);
+    } else {
+      globals.displayInfo('Token not yet known');
+      returnSummary[0].fault =
+          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
+
     return returnSummary;
   }
 }
