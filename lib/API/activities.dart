@@ -20,7 +20,7 @@ abstract class Activities {
 
     globals.displayInfo('Entering getActivityById');
 
-    if (_header.isNotEmpty) {
+      if (_header.containsKey('88') == false)  {
       final String reqActivity = 'https://www.strava.com/api/v3/activities/' +
           id +
           '?include_all_efforts=true';
@@ -80,7 +80,7 @@ abstract class Activities {
       'commute': (isCommute != null) ? isCommute.toString() : '0',
     };
 
-    if (_header.isNotEmpty) {
+      if (_header.containsKey('88') == false)  {
       var uri = Uri.https('www.strava.com', '/api/v3/activities', _queryParams);
 
       var resp = await http.post(uri, headers: _header);

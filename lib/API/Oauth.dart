@@ -1,5 +1,6 @@
 // oauth.dart
 
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io'; // Use in web mode only
@@ -406,7 +407,7 @@ abstract class Auth {
     var _header = globals.createHeader();
 
     // If header is not "empty"
-    if (_header.containsKey(null) == false) {
+    if (_header.containsKey('88') == false) {
       final reqDeAuthorize = "https://www.strava.com/oauth/deauthorize";
       globals.displayInfo('request $reqDeAuthorize');
       var rep = await http.post(reqDeAuthorize, headers: _header);

@@ -49,7 +49,7 @@ abstract class Upload {
 
     var _header = globals.createHeader();
 
-    if (_header.isNotEmpty) {
+      if (_header.containsKey('88') == false) {
       globals.displayInfo('Token not yet known');
       fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
       return fault;
@@ -105,7 +105,7 @@ abstract class Upload {
         // 404 the temp id does not exist anymore
         // Activity has been probably already loaded
         if (resp.statusCode == 404) {
-          print('---> 404 actvity already loaded  ${resp.reasonPhrase}');
+          print('---> 404 activity already loaded  ${resp.reasonPhrase}');
         }
 
         if (resp.reasonPhrase.compareTo(ready) == 0) {

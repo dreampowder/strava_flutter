@@ -1,8 +1,8 @@
 // globals.dart
 
 import 'package:flutter/foundation.dart';
-import 'Models/fault.dart';
-import 'Models/token.dart';
+import 'package:strava_flutter/Models/fault.dart';
+import 'package:strava_flutter/Models/token.dart';
 
 bool isInDebug = true; // set to true to see debug message in API
 
@@ -31,7 +31,7 @@ Map<String, String> createHeader() {
   if (_token.accessToken != null) {
     return {'Authorization': 'Bearer ${_token.accessToken}'};
   } else {
-    return {null: null};
+    return {'88': '00'};
   }
 }
 

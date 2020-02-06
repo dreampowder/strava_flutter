@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+// To remove # at the end of redirect url when in web mode (not mobile)
+// This is a web only package
+// import 'dart:html' as html;
 
 import 'package:example/examples.dart';
 
@@ -48,7 +51,9 @@ class StravaFlutterPage extends StatefulWidget {
 class _StravaFlutterPageState extends State<StravaFlutterPage> {
   @override
   void initState() {
-    setState(() {});
+    setState(() {
+      // html.window.history.pushState(null, "home", '/');
+    });
     super.initState();
   }
 
@@ -67,12 +72,10 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
   void example(String secret) async {
     bool isAuthOk = false;
 
-
-    // Check first if there is an internet connection
-    
-
     final strava = Strava(true, secret);
     final prompt = 'auto';
+
+
 
     isAuthOk = await strava.oauth(
         clientId,

@@ -24,7 +24,7 @@ abstract class Segments {
 
     globals.displayInfo('Entering getSegById');
 
-    if (_header.isNotEmpty) {
+      if (_header.containsKey('88') == false) {
       final reqSeg = 'https://www.strava.com/api/v3/segments/' + id;
       var rep = await http.get(reqSeg, headers: _header);
       if (rep.statusCode == 200) {
@@ -65,7 +65,7 @@ abstract class Segments {
     globals.displayInfo('Entering getLoggedInAthleteStarredSegments');
     print('_header: ${_header[0]}');
 
-    if (_header.isNotEmpty) {
+    if (_header.containsKey('88') == false)  {
       final reqSeg =
           'https://www.strava.com/api/v3/segments/starred?page=1&per_page=50';
       var rep = await http.get(reqSeg, headers: _header);
@@ -137,7 +137,7 @@ abstract class Segments {
     var clubIdStr = (clubId != null) ? clubId.toString() : '';
     dateRange = dateRange ?? '';
 
-    if (_header.isNotEmpty) {
+      if (_header.containsKey('88') == false)  {
       do {
         String reqLeaderboard = 'https://www.strava.com/api/v3/segments/' +
             id.toString() +
@@ -218,7 +218,7 @@ abstract class Segments {
 
     globals.displayInfo('Entering starSegment');
 
-    if (_header.isNotEmpty) {
+      if (_header.containsKey('88') == false) {
       final reqStar = 'https://www.strava.com/api/v3/segments/' +
           id.toString() +
           '/starred?starred=' +

@@ -14,6 +14,9 @@ import 'secret.dart';
 // Used by uploadExample
 import 'package:strava_flutter/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
+import 'package:strava_flutter/Models/stats.dart';  // Test
+import 'package:strava_flutter/errorCodes.dart';
+
 
 // Used by segment
 import 'package:strava_flutter/Models/segment.dart';
@@ -84,6 +87,12 @@ Future<Fault> exampleSegment(String secret) async {
   Fault _fault = Fault(error.statusOk, '');
 
   bool isAuthOk = false;
+
+  Stats _stats = await strava.getStats(32212);
+  if (_stats.fault.statusCode == error.statusTokenNotKnownYet) { 
+    print ('status code ${ _stats.fault.message}');
+  }
+
 
   isAuthOk = await strava.oauth(
       // clientId, 'profile:write,profile:read_all', secret, 'auto');
