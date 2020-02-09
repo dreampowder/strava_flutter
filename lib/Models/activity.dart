@@ -917,7 +917,6 @@ DateTime _parseDate(String dateTimeToParse) {
   List<String> timeSplit = dateTimeSplit[1].split("Z");
   DateTime date = dateFormat.parse(dateTimeSplit[0]);
   DateTime time = timeFormat.parse(timeSplit[0]);
-  Activit
   return DateTime(
       date.year, date.month, date.day, time.hour, time.minute, time.second);
 }
