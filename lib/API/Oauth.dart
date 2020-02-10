@@ -244,7 +244,7 @@ abstract class Auth {
           await _getNewAccessToken(clientID, secret, tokenStored.refreshToken);
       // Update with new values
       if (_refreshAnswer.fault.statusCode == 200) {
-        _saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope,
+        await _saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope,
             _refreshAnswer.refreshToken);
       } else {
         globals.displayInfo('Problem doing the refresh process');

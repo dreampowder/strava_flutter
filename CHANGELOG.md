@@ -1,3 +1,7 @@
+## [1.2.0+45] 
+Fix bug in _saveToken 
+
+
 ## [1.1.0+37] 
 Fix user agent disallowed when selecting Google in Strava Auth page
 
