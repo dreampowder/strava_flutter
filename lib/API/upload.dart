@@ -49,7 +49,7 @@ abstract class Upload {
 
     var _header = globals.createHeader();
 
-      if (_header.containsKey('88') == false) {
+      if (_header.containsKey('88') == true) {
       globals.displayInfo('Token not yet known');
       fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
       return fault;
