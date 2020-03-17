@@ -851,8 +851,8 @@ class SummaryActivity {
   double totalElevationGain;
   String type;
   int workoutType;
-  // DateTime startDate;
-  // DateTime startDateLocal;
+  DateTime startDate;
+  DateTime startDateLocal;
 
   SummaryActivity({
     this.id,
@@ -887,8 +887,8 @@ class SummaryActivity {
     totalElevationGain = _elevationGain;
     type = json['type'];
     workoutType = json['workout_type'];
-    // startDate = _parseDate(json['start_date']);
-    // startDateLocal = _parseDate(json['start_date_local']);
+    startDate = json['start_date'] != null ? _parseDate(json['start_date']) : null;
+    startDateLocal = json['start_date_local'] != null ? _parseDate(json['start_date_local']) : null;
   }
 
   Map<String, dynamic> toJson() {

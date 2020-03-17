@@ -132,7 +132,7 @@ abstract class Clubs {
 
         if (rep.statusCode == 200) {
           globals.displayInfo(rep.statusCode.toString());
-          globals.displayInfo('Club activity ${rep.body}');
+          // globals.displayInfo('Club activity ${rep.body}');
           var jsonResponse = json.decode(rep.body);
 
           if (jsonResponse != null) {

@@ -95,7 +95,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       }
 
       // Create an new activity
-      String _startDate = '2019-02-18 10:02:13';
+      String _startDate = '2020-02-18 10:02:13';
       DetailedActivity _newActivity = await strava.createActivity(
           'Test_Strava_Flutter', 'ride', _startDate, 3600,
           distance: 1555, description: 'This is a strava_flutter test');

@@ -142,7 +142,7 @@ abstract class Auth {
         forceSafariVC: false,
         enableJavaScript: true);
 
-    //--------
+    //--------  NOT working yet on web
     if (kIsWeb) {
       globals.displayInfo('Running in web ');
 
@@ -151,8 +151,8 @@ abstract class Auth {
           await HttpServer.bind(InternetAddress.anyIPv4, 8080, shared: true);
       await for (HttpRequest request in server) {
         // Get the answer from Strava
-        final uri = request.uri;
-        globals.displayInfo('Get the answer from Strava to authenticate!');
+        // final uri = request.uri;
+        globals.displayInfo('Get the answer from Strava to authenticate! ${request.uri}');
       }
     } else {
       globals.displayInfo('Running on iOS or Android');
