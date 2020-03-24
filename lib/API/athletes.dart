@@ -170,7 +170,7 @@ abstract class Athletes {
   /// scope needed: profile: activity:read_all
   /// parameters:
   /// before: since time epoch in seconds
-  /// after: since time epoch in seconsd
+  /// after: since time epoch in seconds
   ///
   /// return: a list of activities related to the logged athlete
   ///  null if the authentication has not been done before
