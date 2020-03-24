@@ -7,6 +7,9 @@ import 'package:example/examples.dart';
 
 import 'package:example/secret.dart';
 
+import 'package:example/permissions.dart';
+
+
 import 'package:strava_flutter/strava.dart';
 
 // Used by example
@@ -63,6 +66,10 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
   void exampleSeg() {
     exampleSegment(secret);
+  }
+
+  void permissions() {
+    testPermissions(secret);
   }
 
   ///
@@ -288,6 +295,14 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
               key: Key('Uploadbutton'),
               child: Text('upload'),
               onPressed: upload,
+            ),
+            Text(''),
+            Text(''),
+            Text('Test insufficient permissions'),
+            RaisedButton(
+              key: Key('Permissionsbutton'),
+              child: Text('permissions'),
+              onPressed: permissions,
             ),
             Text(' '),
             Text(''),

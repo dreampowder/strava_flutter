@@ -15,7 +15,7 @@ import 'secret.dart';
 import 'package:strava_flutter/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
 import 'package:strava_flutter/Models/stats.dart';  // Test
-import 'package:strava_flutter/errorCodes.dart';
+
 
 
 // Used by segment

@@ -230,6 +230,13 @@ abstract class Athletes {
 
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
         }
+        else {   // Answer is not correct 
+          globals.displayInfo('return code is NOT 200');
+          globals.displayInfo(rep.statusCode.toString());
+          return null;
+        }
+
+
       } while (!isRetrieveDone);
     } else {
       globals.displayInfo('Token not yet known');
