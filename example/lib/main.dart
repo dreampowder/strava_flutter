@@ -197,14 +197,17 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       /// Expected answer (should start like this):
       ///  [{"resource_state":2,"firstname":"Adam","lastname":"Š.","membership":"member",
       /// "admin":false,"owner":false},{"resource_state":2,"firstname":"Alex","lastname":"M.","membership"
+    
       List<SummaryAthlete> _listMembers = await strava.getClubMembersById('1');
+      // List<SummaryAthlete> _listMembers = await strava.getClubMembersById(_club.id.toString());
+
       if (_listMembers[0].fault.statusCode != 200) {
         print(
             'error code getClubById  ${_club.fault.statusCode}  ${_club.fault.message}');
       } else {
         print('getClubMembersById ');
         _listMembers.forEach((member) => print(
-            '${member.firstname}   ${member.lastname}  ${member.membership}'));
+            '${member.firstname}   ${member.lastname}  ${member.id} ${member.membership}'));
       }
 
       List<SummaryActivity> _listSumm =

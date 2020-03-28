@@ -10,6 +10,7 @@ class SummaryAthlete {
   String membership;
   bool admin;
   bool owner;
+  int id;
 
   SummaryAthlete(
       {this.fault,
@@ -18,7 +19,8 @@ class SummaryAthlete {
       this.lastname,
       this.membership,
       this.admin,
-      this.owner});
+      this.owner,
+      this.id});
 
   SummaryAthlete.fromJson(Map<String, dynamic> json) {
     resourceState = json['resource_state'];
@@ -27,6 +29,7 @@ class SummaryAthlete {
     membership = json['membership'];
     admin = json['admin'];
     owner = json['owner'];
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +40,7 @@ class SummaryAthlete {
     data['membership'] = this.membership;
     data['admin'] = this.admin;
     data['owner'] = this.owner;
+    data['id'] = this.id;
     return data;
   }
 }
