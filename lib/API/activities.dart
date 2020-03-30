@@ -52,7 +52,7 @@ abstract class Activities {
   ///
   /// scope: activity:write
   ///
-  /// Retrieve a detailed activity from its id
+  /// Create a very simple activity
   ///
   /// NO photo can be added for the moment
   /// No check is done on parameters for the moment

@@ -222,13 +222,20 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       }
 
       /// You have to put an id of one activity of the logged Athlete
-      /// You can find the id of one activity looking at your web page
-      /// https://www.strava.com/activities/2130215349
-      DetailedActivity _activity = await strava.getActivityById('2130215349');
+      /// You can find the id of one activity looking at your web
+      ///  like https://www.strava.com/activities/2130215349
+      
+
+      // Activity 3226262796 with totalElevationGain to 0
+      DetailedActivity _activity = await strava.getActivityById('3234043107');
+    
+      
+      // Activity 2704301316 totalElevationGain 1360.1
+      // DetailedActivity _activity = await strava.getActivityById('3234026164');
       if (_activity.fault.statusCode != 200) {
-        print('Error in getActivityById: ${_activity.fault.statusCode}');
+        print('Error in getActivityById: ${_activity.fault.statusCode} - ${_activity.fault.message}');
       } else {
-        print('getActivityById ${_activity.name}');
+        print('getActivityById ${_activity.name}  Total Elevation Gain ${_activity.totalElevationGain}');
       }
     }
   }

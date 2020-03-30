@@ -148,7 +148,7 @@ class DetailedActivity {
     distance = json['distance'];
     movingTime = json['moving_time'];
     elapsedTime = json['elapsed_time'];
-    totalElevationGain = json['total_elevation_gain'];
+    totalElevationGain = json['total_elevation_gain'].toDouble();
     type = json['type'];
     startDate = json['start_date'];
     startDateLocal = json['start_date_local'];
