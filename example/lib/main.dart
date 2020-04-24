@@ -15,6 +15,7 @@ import 'package:strava_flutter/strava.dart';
 // Used by example
 
 import 'package:strava_flutter/Models/activity.dart';
+import 'package:strava_flutter/API/activities.dart';
 import 'package:strava_flutter/Models/club.dart';
 import 'package:strava_flutter/Models/detailedAthlete.dart';
 import 'package:strava_flutter/Models/gear.dart';
@@ -100,6 +101,15 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         _zone.infoZones.zones.forEach(
             (zone) => print('getLoggedInAthleteZones ${zone.min} ${zone.max}'));
       }
+
+
+
+      // Activity 3226262796 with totalElevationGain to 0
+      DetailedActivity _activityPhoto = await strava.getActivityById('3288393232');
+
+
+      // Get the photo of an activity 
+      PhotoActivity _photo = await strava.getPhotosFromActivityById('3288393232');
 
       // Create an new activity
       String _startDate = '2020-02-18 10:02:13';

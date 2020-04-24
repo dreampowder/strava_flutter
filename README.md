@@ -74,7 +74,7 @@ Add the following lines in your AndroidManifest.xml (in android/app/src/)
     <action android:name="android.intent.action.VIEW" />  
     <category android:name="android.intent.category.DEFAULT" /> 
     <category android:name="android.intent.category.BROWSABLE" /> 
-    <data android:scheme="strava" android:host="redirect" />    
+    <data android:scheme="stravaflutter" android:host="redirect" />    
     <data android:pathPattern="/.*" />   
 </intent-filter>
 ```
@@ -89,7 +89,7 @@ Add the following lines in your info.plist (in ios/Flutter/Runner/)
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>strava</string>
+			<string>stravaflutter</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>strava</string>
@@ -121,7 +121,7 @@ If you have any problem or need an API not yet implemented please post a new iss
 
 ## Tested on:
 - Android 7, 8.0.0, 9.0, 10
-- iOS 12.1, 13.2
+- iOS 12.1, 13.2, 13.3.1
 - NOT working yet on web (Auth problem, not coming back to initial page)
 
 
@@ -141,4 +141,4 @@ And Javier for https://javiercbk.github.io/json_to_dart/
 
 
 ## License:
-strava_flutter is provided under a MIT License. Copyright (c) 2019 Patrick FINKELSTEIN
+strava_flutter is provided under a MIT License. Copyright (c) 2019-2020 Patrick FINKELSTEIN

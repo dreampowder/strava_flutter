@@ -984,3 +984,56 @@ class Athlete {
   }
 }
 ***/
+
+class PhotoActivity {
+  Fault fault;
+  int id;
+  String uniqueId;
+  String urls;
+  String source;
+  String athleteId;
+  String activityId;
+  String activityName;
+  String resourceState;
+  String caption;
+  String createdAt;
+  String createdAtLocal;
+  String uploadedAt;
+  String sizes;
+  bool defaultPhoto;
+  
+  PhotoActivity({
+    this.id,
+    this.uniqueId,
+    this.urls,
+    this.source,
+    this.athleteId,
+    this.activityId,
+    this.activityName,
+    this.resourceState,
+    this.caption,
+    this.createdAt,
+    this.createdAtLocal,
+    this.uploadedAt,
+    this.sizes,
+    this.defaultPhoto,
+  });
+
+  PhotoActivity.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    uniqueId = json['unique_id'];
+    urls = json['urls'];
+    source = json['source'];
+    athleteId = json['athlete_id'];
+    activityId = json['activity_id'];
+    activityName = json['activity_name'];
+    resourceState = json['resource_state'];
+    caption =  json['caption'];
+    createdAt = json['created_at'];
+    createdAtLocal = json['created_at_local'];
+    uploadedAt =  json['uploaded_at'];
+    sizes =  json['sizes'];
+    defaultPhoto = json['default_photo'];
+  }
+
+}
