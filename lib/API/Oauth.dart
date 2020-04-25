@@ -418,6 +418,7 @@ abstract class Auth {
         fault.statusCode = error.statusOk;
         fault.message = 'DeAuthorize done';
       } else {
+        await _saveToken(null, null, null, null);
         globals.displayInfo('Problem in deAuthorize request');
         fault.statusCode = error.statusOk;
       }
