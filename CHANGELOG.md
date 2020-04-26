@@ -1,4 +1,4 @@
-## [1.2.1+50] 
+## [1.2.1+51] 
 Changed urlScheme from strava to stravaflutter used in url redirect to avoid conflict with strava app when installed in the mobile
 
 ## [1.2.0+45] 

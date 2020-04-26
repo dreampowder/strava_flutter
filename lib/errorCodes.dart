@@ -10,3 +10,4 @@ final statusNotFound = 4;
 final statusNoAuthenticationYet = 5;
 final statusJsonIsEmpty = 6;
 final statusAuthError = 7;
+final statusDeAuthorizeError = 8;

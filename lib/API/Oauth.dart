@@ -420,7 +420,7 @@ abstract class Auth {
       } else {
         await _saveToken(null, null, null, null);
         globals.displayInfo('Problem in deAuthorize request');
-        fault.statusCode = error.statusOk;
+        fault.statusCode = error.statusDeAuthorizeError;
       }
     } else {
       // No authorization has been done before
