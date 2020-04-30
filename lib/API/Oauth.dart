@@ -1,6 +1,5 @@
 // oauth.dart
 
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io'; // Use in web mode only
@@ -152,7 +151,8 @@ abstract class Auth {
       await for (HttpRequest request in server) {
         // Get the answer from Strava
         // final uri = request.uri;
-        globals.displayInfo('Get the answer from Strava to authenticate! ${request.uri}');
+        globals.displayInfo(
+            'Get the answer from Strava to authenticate! ${request.uri}');
       }
     } else {
       globals.displayInfo('Running on iOS or Android');
@@ -244,8 +244,8 @@ abstract class Auth {
           await _getNewAccessToken(clientID, secret, tokenStored.refreshToken);
       // Update with new values
       if (_refreshAnswer.fault.statusCode == 200) {
-        await _saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt, scope,
-            _refreshAnswer.refreshToken);
+        await _saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt,
+            scope, _refreshAnswer.refreshToken);
       } else {
         globals.displayInfo('Problem doing the refresh process');
         isAuthOk = false;

@@ -887,8 +887,11 @@ class SummaryActivity {
     totalElevationGain = _elevationGain;
     type = json['type'];
     workoutType = json['workout_type'];
-    startDate = json['start_date'] != null ? _parseDate(json['start_date']) : null;
-    startDateLocal = json['start_date_local'] != null ? _parseDate(json['start_date_local']) : null;
+    startDate =
+        json['start_date'] != null ? _parseDate(json['start_date']) : null;
+    startDateLocal = json['start_date_local'] != null
+        ? _parseDate(json['start_date_local'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -961,30 +964,6 @@ class ActivityType {
   static const String Yoga = "Yoga";
 }
 
-/****
-class Athlete {
-  int resourceState;
-  String firstname;
-  String lastname;
-
-  Athlete({this.resourceState, this.firstname, this.lastname});
-
-  Athlete.fromJson(Map<String, dynamic> json) {
-    resourceState = json['resource_state'];
-    firstname = json['firstname'];
-    lastname = json['lastname'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['resource_state'] = this.resourceState;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    return data;
-  }
-}
-***/
-
 class PhotoActivity {
   Fault fault;
   int id;
@@ -1001,7 +980,7 @@ class PhotoActivity {
   String uploadedAt;
   String sizes;
   bool defaultPhoto;
-  
+
   PhotoActivity({
     this.id,
     this.uniqueId,
@@ -1028,12 +1007,11 @@ class PhotoActivity {
     activityId = json['activity_id'];
     activityName = json['activity_name'];
     resourceState = json['resource_state'];
-    caption =  json['caption'];
+    caption = json['caption'];
     createdAt = json['created_at'];
     createdAtLocal = json['created_at_local'];
-    uploadedAt =  json['uploaded_at'];
-    sizes =  json['sizes'];
+    uploadedAt = json['uploaded_at'];
+    sizes = json['sizes'];
     defaultPhoto = json['default_photo'];
   }
-
 }

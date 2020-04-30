@@ -19,7 +19,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-      if (_header.containsKey('88') == false)  {
+    if (_header.containsKey('88') == false) {
       final reqAthlete =
           "https://www.strava.com/api/v3/athlete?weight=" + weight.toString();
       globals.displayInfo('update $reqAthlete');
@@ -57,7 +57,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-    if (_header.containsKey('88') == false)  {
+    if (_header.containsKey('88') == false) {
       final String reqStats = 'https://www.strava.com/api/v3/athletes/' +
           id.toString() +
           // "/stats?page=1&per_page=50;";
@@ -103,7 +103,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-      if (_header.containsKey('88') == false)  {
+    if (_header.containsKey('88') == false) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete/zones';
       var rep = await http.get(reqAthlete, headers: _header);
 
@@ -136,7 +136,7 @@ abstract class Athletes {
 
     var _header = globals.createHeader();
 
-      if (_header.containsKey('88') == false) {
+    if (_header.containsKey('88') == false) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete';
       var rep = await http.get(reqAthlete, headers: _header);
 
@@ -187,7 +187,7 @@ abstract class Athletes {
 
     globals.displayInfo('Entering getLoggedInAthleteActivities');
 
-      if (_header.containsKey('88') == false)  {
+    if (_header.containsKey('88') == false) {
       do {
         final String reqActivities =
             'https://www.strava.com/api/v3/athlete/activities' +
@@ -229,14 +229,12 @@ abstract class Athletes {
           }
 
           globals.errorCheck(rep.statusCode, rep.reasonPhrase);
-        }
-        else {   // Answer is not correct 
+        } else {
+          // Answer is not correct
           globals.displayInfo('return code is NOT 200');
           globals.displayInfo(rep.statusCode.toString());
           return null;
         }
-
-
       } while (!isRetrieveDone);
     } else {
       globals.displayInfo('Token not yet known');
