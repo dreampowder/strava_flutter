@@ -91,7 +91,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         secret,
         prompt);
 
-    if (isAuthOk) {
+    if (isAuthOk) { 
       // Get the zones related to the logged athlete
       Zone _zone = await strava.getLoggedInAthleteZones();
       if (_zone.fault.statusCode != 200) {
@@ -109,7 +109,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
 
       // Get the photo of an activity 
-      PhotoActivity _photo = await strava.getPhotosFromActivityById('3288393232');
+      // PhotoActivity _photo = await strava.getPhotosFromActivityById('3288393232');
 
       // Create an new activity
       String _startDate = '2020-02-18 10:02:13';
