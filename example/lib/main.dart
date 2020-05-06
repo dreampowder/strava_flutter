@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: StravaFlutterPage(title: 'strava_flutter demo'),
+      home: StravaFlutterPage(title: 'Strava Flutter Demo'),
     );
   }
 }

@@ -92,7 +92,7 @@ Add the following lines in your info.plist (in ios/Flutter/Runner/)
 			<string>stravaflutter</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>strava</string>
+				<string>stravaflutter</string>
 			</array>
 		</dict>
 	</array>
