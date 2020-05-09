@@ -230,7 +230,7 @@ packages:
       name: uni_links
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.4.0"
   url_launcher:
     dependency: "direct main"
     description:

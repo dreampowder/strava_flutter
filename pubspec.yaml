@@ -18,7 +18,7 @@ dependencies:
   # path_provider: ^1.4.5
   # path_provider: ^1.5.1
  
-  uni_links: ^0.2.0
+  uni_links: ^0.4.0
 
   #intl: ^0.15.8
   intl: ^0.16.0
