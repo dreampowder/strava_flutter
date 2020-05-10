@@ -56,7 +56,7 @@ class DetailedActivity {
   int totalPhotoCount;
   bool hasKudoed;
   int workoutType;
-  int sufferScore;
+  double sufferScore;
   String description;
   double calories;
   List<SegmentEfforts> segmentEfforts;
