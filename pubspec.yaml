@@ -1,10 +1,11 @@
 name: strava_flutter
 description:  Fluytter/Dart code to access Strava v3 API including new authentication process (with expired date and refresh token)
-version: 1.2.1+59
+version: 1.2.1+60
 homepage: https://github.com/BirdyF/strava_flutter
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  #sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
   
 dependencies:
   flutter:
@@ -13,10 +14,6 @@ dependencies:
   http: ^0.12.0+1 
   url_launcher: ^5.4.5  
   shared_preferences: ^0.5.0
-   
-   
-  # path_provider: ^1.4.5
-  # path_provider: ^1.5.1
  
   uni_links: ^0.4.0
 
