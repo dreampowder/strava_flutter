@@ -1,3 +1,7 @@
+## [1.2.2+61]
+Added getSegmentEffortById
+Modification in AdroidManifest.xml to have authentication working with Firefox (not only Chrome)
+
 ## [1.2.1+51] 
 Changed urlScheme from strava to stravaflutter used in url redirect to avoid conflict with strava app when installed in the mobile
 

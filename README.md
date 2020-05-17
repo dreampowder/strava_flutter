@@ -79,6 +79,9 @@ Add the following lines in your AndroidManifest.xml (in android/app/src/)
 </intent-filter>
 ```
 
+Change android:launchMode="singleTop" to android:launchMode="singleInstance"
+It is needed to have authentication working with firefox
+
 
 b) for iOS 
 Add the following lines in your info.plist (in ios/Flutter/Runner/)

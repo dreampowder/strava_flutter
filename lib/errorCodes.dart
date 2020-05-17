@@ -11,3 +11,4 @@ final statusNoAuthenticationYet = 5;
 final statusJsonIsEmpty = 6;
 final statusAuthError = 7;
 final statusDeAuthorizeError = 8;
+final statusSegmentNotRidden = 9;

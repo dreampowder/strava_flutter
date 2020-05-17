@@ -3,6 +3,8 @@
 import 'gear.dart';
 import 'fault.dart';
 import '../globals.dart' as globals;
+import 'package:strava_flutter/Models/segmentEffort.dart';
+import 'package:strava_flutter/Models/athlete.dart';
 
 import 'package:intl/intl.dart';
 
@@ -59,7 +61,7 @@ class DetailedActivity {
   double sufferScore;
   String description;
   double calories;
-  List<SegmentEfforts> segmentEfforts;
+  List<SegmentEffort> segmentEfforts;
   List<SplitsMetric> splitsMetric;
   List<Laps> laps;
   Gear gear;
@@ -143,7 +145,7 @@ class DetailedActivity {
     externalId = json['external_id'];
     uploadId = json['upload_id'];
     athlete =
-        json['athlete'] != null ? new Athlete.fromJson(json['athlete']) : null;
+        json['athlete'] != null ? Athlete.fromJson(json['athlete']) : null;
     name = json['name'];
     distance = json['distance'];
     movingTime = json['moving_time'];
@@ -199,9 +201,9 @@ class DetailedActivity {
     description = json['description'];
     calories = (json['calories']).toDouble();
     if (json['segment_efforts'] != null) {
-      segmentEfforts = new List<SegmentEfforts>();
+      segmentEfforts = List<SegmentEffort>();
       json['segment_efforts'].forEach((v) {
-        segmentEfforts.add(new SegmentEfforts.fromJson(v));
+        segmentEfforts.add(SegmentEffort.fromJson(v));
       });
     }
     if (json['splits_metric'] != null) {
@@ -318,24 +320,7 @@ class DetailedActivity {
   }
 }
 
-class Athlete {
-  int id;
-  int resourceState;
 
-  Athlete({this.id, this.resourceState});
-
-  Athlete.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['resource_state'] = this.resourceState;
-    return data;
-  }
-}
 
 class Carte {
   String id;
@@ -362,6 +347,8 @@ class Carte {
   }
 }
 
+
+/**** 
 class SegmentEfforts {
   int id;
   int resourceState;
@@ -430,14 +417,14 @@ class SegmentEfforts {
         json['segment'] != null ? new Segment.fromJson(json['segment']) : null;
     komRank = json['kom_rank'];
     prRank = json['pr_rank'];
-    /****
-    if (json['achievements'] != null) {
-      achievements = new List<Null>();
-      json['achievements'].forEach((v) {
-        achievements.add(new Null.fromJson(v));
-      });
-    }
-  ****/
+ 
+    // if (json['achievements'] != null) {
+      // achievements = new List<Null>();
+      // json['achievements'].forEach((v) {
+        // achievements.add(new Null.fromJson(v));
+      // });
+    // }
+ 
     hidden = json['hidden'];
   }
 
@@ -476,6 +463,8 @@ class SegmentEfforts {
     return data;
   }
 }
+
+*****/
 
 class Activity {
   int id;
@@ -643,7 +632,7 @@ class Laps {
   int resourceState;
   String name;
   Activity activity;
-  Athlete athlete;
+  AthleteEffort athlete;
   int elapsedTime;
   int movingTime;
   String startDate;
@@ -690,7 +679,7 @@ class Laps {
         ? new Activity.fromJson(json['activity'])
         : null;
     athlete =
-        json['athlete'] != null ? new Athlete.fromJson(json['athlete']) : null;
+        json['athlete'] != null ? AthleteEffort.fromJson(json['athlete']) : null;
     elapsedTime = json['elapsed_time'];
     movingTime = json['moving_time'];
     startDate = json['start_date'];
@@ -843,7 +832,7 @@ class SummaryActivity {
   Fault fault;
   int id;
   int resourceState;
-  Athlete athlete;
+  AthleteEffort athlete;
   String name;
   double distance;
   int movingTime;
@@ -873,7 +862,7 @@ class SummaryActivity {
     id = json['id'];
     resourceState = json['resource_state'];
     athlete =
-        json['athlete'] != null ? Athlete.fromJson(json['athlete']) : null;
+        json['athlete'] != null ? AthleteEffort.fromJson(json['athlete']) : null;
     name = json['name'];
     distance = json['distance'];
     movingTime = json['moving_time'];

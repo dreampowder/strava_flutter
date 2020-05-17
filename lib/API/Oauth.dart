@@ -161,7 +161,7 @@ abstract class Auth {
       _sub = getUriLinksStream().listen((Uri uri) {
         // Parse the link and warn the user, if it is not correct
         globals.displayInfo('Get a link!! $uri');
-        if (uri.scheme.compareTo('strava') != 0) {
+        if (uri.scheme.compareTo('stravaflutter') != 0) {
           globals.displayInfo('This is not the good scheme ${uri.scheme}');
         }
         code = uri.queryParameters["code"];
