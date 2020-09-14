@@ -76,8 +76,8 @@ class SummarySegment {
     maximumGrade = json['maximum_grade'];
     elevationHigh = json['elevation_high'];
     elevationLow = json['elevation_low'];
-    startLatlng = json['start_latlng'].cast<double>();
-    endLatlng = json['end_latlng'].cast<double>();
+    startLatlng = json['start_latlng']?.cast<double>();
+    endLatlng = json['end_latlng']?.cast<double>();
     startLatitude = json['start_latitude'];
     startLongitude = json['start_longitude'];
     endLatitude = json['end_latitude'];
