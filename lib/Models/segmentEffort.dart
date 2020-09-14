@@ -7,16 +7,16 @@ class DetailedSegmentEffort {
   int resourceState;
   String name;
   ActivityEffort activity;
-  Athlete athlete; 
-  int elapsedTime; 
-  String startDate; 
-  String startDateLocal; 
-  double distance; 
-  int movingTime; 
-  int startIndex; 
+  Athlete athlete;
+  int elapsedTime;
+  String startDate;
+  String startDateLocal;
+  double distance;
+  int movingTime;
+  int startIndex;
   int endIndex;
   bool deviceWatts;
-  double averageWatts; 
+  double averageWatts;
   SegmentEffort segment;
 
   int komRank;
@@ -152,8 +152,8 @@ class SegmentEffort {
     maximumGrade = json['maximum_grade'];
     elevationHigh = json['elevation_high'];
     elevationLow = json['elevation_low'];
-    startLatlng = json['start_latlng'].cast<double>();
-    endLatlng = json['end_latlng'].cast<double>();
+    startLatlng = json['start_latlng']?.cast<double>();
+    endLatlng = json['end_latlng']?.cast<double>();
     startLatitude = json['start_latitude'];
     startLongitude = json['start_longitude'];
     endLatitude = json['end_latitude'];
@@ -219,8 +219,6 @@ class ActivityEffort {
   }
 }
 
-
-
 class AthleteEffort {
   int id;
   int resourceState;
@@ -243,6 +241,3 @@ class AthleteEffort {
     return data;
   }
 }
-
-
-
