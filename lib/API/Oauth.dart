@@ -75,15 +75,10 @@ abstract class Auth {
     }
 
     if (localToken.expiresAt != null) {
-      var dateExpired =
+      final dateExpired =
           DateTime.fromMillisecondsSinceEpoch(localToken.expiresAt);
-      var _disp = dateExpired.day.toString() +
-          '/' +
-          dateExpired.month.toString() +
-          ' ' +
-          dateExpired.hour.toString() +
-          ' hours';
-
+      final _disp =
+          '${dateExpired.day.toString()}/${dateExpired.month.toString()} ${dateExpired.hour.toString()} hours';
       globals.displayInfo(
           'stored token ${localToken.accessToken} ${localToken.expiresAt} expires: $_disp ');
     }
@@ -106,32 +101,11 @@ abstract class Auth {
       redirectUrl = redirectUrlMobile;
     }
 
-    var params = '?' +
-        'client_id=' +
-        clientID +
-        '&redirect_uri=' +
-        redirectUrl +
-        '&response_type=' +
-        'code' +
-        '&approval_prompt=' +
-        prompt +
-        '&scope=' +
-        scope;
+    final params =
+        '?client_id=$clientID&redirect_uri=$redirectUrl&response_type=code&approval_prompt=$prompt&scope=$scope';
 
-/**** To use with Spotify  Authentication 
-    var params = '?' +
-        'client_id=' +
-        clientID +
-        '&redirect_uri=' +
-        redirectUrl +
-        '&response_type=' +
-        'code' +
-        '&show_dialog=true' +
-        '&scope=' + 'user-read-private user-read-email'; 
- *****/
-
-    var reqAuth = authorizationEndpoint + params;
-    globals.displayInfo('$reqAuth');
+    final reqAuth = authorizationEndpoint + params;
+    globals.displayInfo(reqAuth);
     StreamSubscription _sub;
 
     // closeWebView();
@@ -233,13 +207,13 @@ abstract class Auth {
 
     // Check if the token is not expired
     // if (_token != null) {
-    if ((_token != null) || (_token == "null")) {
+    if (_token != null && _token != "null") {
       globals.displayInfo(
           'token has been stored before! ${tokenStored.accessToken}  exp. ${tokenStored.expiresAt}');
     }
 
     // Use the refresh token to get a new access token
-    if (isExpired && ((_token != "null") || (_token != null))) {
+    if (isExpired && _token != null && _token != "null") {
       RefreshAnswer _refreshAnswer =
           await _getNewAccessToken(clientID, secret, tokenStored.refreshToken);
       // Update with new values
@@ -253,9 +227,7 @@ abstract class Auth {
     }
 
     // Check if the scope has changed
-    if ((tokenStored.scope != scope) ||
-        (_token == "null") ||
-        (_token == null)) {
+    if (tokenStored.scope != scope || _token == "null" || _token == null) {
       // Ask for a new authorization
       globals.displayInfo('Doing a new authorization');
       isAuthOk = await _newAuthorization(clientID, secret, scope, prompt);
@@ -272,13 +244,12 @@ abstract class Auth {
 
     await _getStravaCode(clientID, scope, prompt);
 
-    var stravaCode = await onCodeReceived.stream.first;
+    final stravaCode = await onCodeReceived.stream.first;
 
     if (stravaCode != null) {
-      var answer = await _getStravaToken(clientID, secret, stravaCode);
+      final answer = await _getStravaToken(clientID, secret, stravaCode);
 
-      globals
-          .displayInfo('answer ${answer.expiresAt}  , ${answer.accessToken}');
+      globals.displayInfo('answer ${answer.expiresAt}, ${answer.accessToken}');
 
       // Save the token information
       if (answer.accessToken != null && answer.expiresAt != null) {
@@ -301,18 +272,13 @@ abstract class Auth {
       String clientID, String secret, String refreshToken) async {
     RefreshAnswer returnToken = RefreshAnswer();
 
-    var urlRefresh =
+    final urlRefresh =
         'https://www.strava.com/oauth/token?client_id=$clientID&client_secret=$secret&grant_type=refresh_token&refresh_token=$refreshToken';
-
-// To test with Spotify Authentication
-    //  var urlRefresh =
-    // 'https://accounts.spotify.com/authorize' + '?response_type=code' + '&redirect_uri=' + redirectUrl + '&client_id=' + clientID +
-    // '&scope=' + 'user-read-private user-read-email' + '&show_dialog=true' + '&state=ght6688';
 
     globals.displayInfo('Entering getNewAccessToken');
     // globals.displayInfo('urlRefresh $urlRefresh');
 
-    var resp = await http.post(urlRefresh);
+    final resp = await http.post(urlRefresh);
 
     globals.displayInfo('body ${resp.body}');
     if (resp.statusCode == 200) {
@@ -332,19 +298,13 @@ abstract class Auth {
     Token _answer = Token();
 
     globals.displayInfo('Entering getStravaToken!!');
-    var urlToken = tokenEndpoint +
-        '?client_id=' +
-        clientID +
-        '&client_secret=' +
-        secret + // Put your own secret in secret.dart
-        '&code=' +
-        code +
-        '&grant_type=' +
-        'authorization_code';
+    // Put your own secret in secret.dart
+    final urlToken =
+        '$tokenEndpoint?client_id=$clientID&client_secret=$secret&code=$code&grant_type=authorization_code';
 
     globals.displayInfo('urlToken $urlToken');
 
-    var value = await http.post(urlToken);
+    final value = await http.post(urlToken);
 
     globals.displayInfo('body ${value.body}');
 
@@ -404,13 +364,13 @@ abstract class Auth {
       await getStoredToken();
     }
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     // If header is not "empty"
     if (_header.containsKey('88') == false) {
       final reqDeAuthorize = "https://www.strava.com/oauth/deauthorize";
       globals.displayInfo('request $reqDeAuthorize');
-      var rep = await http.post(reqDeAuthorize, headers: _header);
+      final rep = await http.post(reqDeAuthorize, headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo('DeAuthorize done');
         globals.displayInfo('response ${rep.body}');
