@@ -9,7 +9,6 @@ import 'package:example/secret.dart';
 
 import 'package:example/permissions.dart';
 
-
 import 'package:strava_flutter/strava.dart';
 
 // Used by example
@@ -83,15 +82,13 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     final strava = Strava(true, secret);
     final prompt = 'auto';
 
-
-
     isAuthOk = await strava.oauth(
         clientId,
         'activity:write,activity:read_all,profile:read_all,profile:write',
         secret,
         prompt);
 
-    if (isAuthOk) { 
+    if (isAuthOk) {
       // Get the zones related to the logged athlete
       Zone _zone = await strava.getLoggedInAthleteZones();
       if (_zone.fault.statusCode != 200) {
@@ -102,13 +99,11 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             (zone) => print('getLoggedInAthleteZones ${zone.min} ${zone.max}'));
       }
 
-
-
       // Activity 3226262796 with totalElevationGain to 0
-      DetailedActivity _activityPhoto = await strava.getActivityById('3288393232');
+      DetailedActivity _activityPhoto =
+          await strava.getActivityById('3288393232');
 
-
-      // Get the photo of an activity 
+      // Get the photo of an activity
       // PhotoActivity _photo = await strava.getPhotosFromActivityById('3288393232');
 
       // Create an new activity
@@ -207,7 +202,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       /// Expected answer (should start like this):
       ///  [{"resource_state":2,"firstname":"Adam","lastname":"Š.","membership":"member",
       /// "admin":false,"owner":false},{"resource_state":2,"firstname":"Alex","lastname":"M.","membership"
-    
+
       List<SummaryAthlete> _listMembers = await strava.getClubMembersById('1');
       // List<SummaryAthlete> _listMembers = await strava.getClubMembersById(_club.id.toString());
 
@@ -234,18 +229,18 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       /// You have to put an id of one activity of the logged Athlete
       /// You can find the id of one activity looking at your web
       ///  like https://www.strava.com/activities/2130215349
-      
 
       // Activity 3226262796 with totalElevationGain to 0
       DetailedActivity _activity = await strava.getActivityById('3234043107');
-    
-      
+
       // Activity 2704301316 totalElevationGain 1360.1
       // DetailedActivity _activity = await strava.getActivityById('3234026164');
       if (_activity.fault.statusCode != 200) {
-        print('Error in getActivityById: ${_activity.fault.statusCode} - ${_activity.fault.message}');
+        print(
+            'Error in getActivityById: ${_activity.fault.statusCode} - ${_activity.fault.message}');
       } else {
-        print('getActivityById ${_activity.name}  Total Elevation Gain ${_activity.totalElevationGain}');
+        print(
+            'getActivityById ${_activity.name}  Total Elevation Gain ${_activity.totalElevationGain}');
       }
     }
   }

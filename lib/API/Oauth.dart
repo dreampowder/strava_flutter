@@ -28,18 +28,21 @@ abstract class Auth {
   StreamController<String> onCodeReceived = StreamController();
 
   /// Save the token and the expiry date
-  Future<void> _saveToken(
-      String token, int expire, String scope, String refreshToken) async {
+  Future<void> _saveToken(String token, int expiresAt, int expiresIn,
+      String scope, String refreshToken) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('strava_accessToken', token);
-    prefs.setInt('strava_expire', expire); // Stored in seconds
+    prefs.setInt('strava_expiresAt', expiresAt); // Stored in seconds
+    prefs.setInt('strava_expiresIn',
+        expiresIn); // Value is valid at the time the token has been issued
     prefs.setString('strava_scope', scope);
     prefs.setString('strava_refreshToken', refreshToken);
 
     // Save also in globals to get direct access
     globals.token.accessToken = token;
     globals.token.scope = scope;
-    globals.token.expiresAt = expire;
+    globals.token.expiresAt = expiresAt;
+    globals.token.expiresIn = expiresIn;
     globals.token.refreshToken = refreshToken;
 
     globals.displayInfo('token saved!!!');
@@ -58,19 +61,23 @@ abstract class Auth {
     try {
       localToken.accessToken = prefs.getString('strava_accessToken').toString();
       // localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms
-      localToken.expiresAt = prefs.getInt('strava_expire');
+      localToken.expiresAt = prefs.getInt('strava_expiresAt');
+      localToken.expiresIn = prefs.getInt(('strava_expiresIn'));
       localToken.scope = prefs.getString('strava_scope');
       localToken.refreshToken = prefs.getString('strava_refreshToken');
 
       // load the data in globals
       globals.token.accessToken = localToken.accessToken;
       globals.token.expiresAt = localToken.expiresAt;
+      globals.token.expiresIn = localToken
+          .expiresIn; // Value was validwhen the server sent info about the token
       globals.token.scope = localToken.scope;
       globals.token.refreshToken = localToken.refreshToken;
     } catch (error) {
       globals.displayInfo('Error while retrieving the token');
       localToken.accessToken = null;
       localToken.expiresAt = null;
+      localToken.expiresIn = null;
       localToken.scope = null;
     }
 
@@ -219,7 +226,7 @@ abstract class Auth {
       // Update with new values
       if (_refreshAnswer.fault.statusCode == 200) {
         await _saveToken(_refreshAnswer.accessToken, _refreshAnswer.expiresAt,
-            scope, _refreshAnswer.refreshToken);
+            _refreshAnswer.expiresIn, scope, _refreshAnswer.refreshToken);
       } else {
         globals.displayInfo('Problem doing the refresh process');
         isAuthOk = false;
@@ -253,8 +260,8 @@ abstract class Auth {
 
       // Save the token information
       if (answer.accessToken != null && answer.expiresAt != null) {
-        await _saveToken(
-            answer.accessToken, answer.expiresAt, scope, answer.refreshToken);
+        await _saveToken(answer.accessToken, answer.expiresAt, answer.expiresIn,
+            scope, answer.refreshToken);
         returnValue = true;
       }
     } else {
@@ -374,11 +381,11 @@ abstract class Auth {
       if (rep.statusCode == 200) {
         globals.displayInfo('DeAuthorize done');
         globals.displayInfo('response ${rep.body}');
-        await _saveToken(null, null, null, null);
+        await _saveToken(null, null, null, null, null);
         fault.statusCode = error.statusOk;
         fault.message = 'DeAuthorize done';
       } else {
-        await _saveToken(null, null, null, null);
+        await _saveToken(null, null, null, null, null);
         globals.displayInfo('Problem in deAuthorize request');
         fault.statusCode = error.statusDeAuthorizeError;
       }

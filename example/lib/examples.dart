@@ -14,9 +14,7 @@ import 'secret.dart';
 // Used by uploadExample
 import 'package:strava_flutter/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/Models/stats.dart';  // Test
-
-
+import 'package:strava_flutter/Models/stats.dart'; // Test
 
 // Used by segment and segmentEffort
 import 'package:strava_flutter/Models/segment.dart';
@@ -35,7 +33,6 @@ import 'package:strava_flutter/Models/activity.dart';
 /// Under the title Bormes3
 ///
 Future<Fault> exampleUpload(String secret) async {
-
   Future<void> writeToFile(ByteData data, String path) {
     final buffer = data.buffer;
     return File(path).writeAsBytes(
@@ -60,7 +57,6 @@ Future<Fault> exampleUpload(String secret) async {
     return _fault;
   }
 
-
   // Use the asset file to test without having to create internally a ride
   //----------------------------------------------------------------------
   String dir = (await getApplicationDocumentsDirectory()).path;
@@ -71,7 +67,7 @@ Future<Fault> exampleUpload(String secret) async {
   await writeToFile(data, '$dir/myActivity.gpx');
 
   Fault fault = await strava.uploadActivity(
-      'Bormes26', 'It is working!', '$dir/myActivity.gpx', 'gpx');
+      'Bormes16', 'It is working!', '$dir/myActivity.gpx', 'gpx');
 
   return fault;
 }
@@ -90,43 +86,37 @@ Future<Fault> exampleSegment(String secret) async {
 
   bool isAuthOk = false;
 
-  isAuthOk = await strava.oauth(
-      clientId,
-      'profile:write,profile:read_all,activity:read_all',
-      secret,
-      'auto');
+  isAuthOk = await strava.oauth(clientId,
+      'profile:write,profile:read_all,activity:read_all', secret, 'auto');
 
   print('---> Authentication result: $isAuthOk');
 
-  DetailedAthlete _detailedAthlete =  await strava.getLoggedInAthlete();
-
+  DetailedAthlete _detailedAthlete = await strava.getLoggedInAthlete();
 
   // Stats _stats = await strava.getStats(32212);
   Stats _stats = await strava.getStats(_detailedAthlete.id);
 
-  if (_stats.fault.statusCode == error.statusTokenNotKnownYet) { 
-    print ('status code ${ _stats.fault.message}');
+  if (_stats.fault.statusCode == error.statusTokenNotKnownYet) {
+    print('status code ${_stats.fault.message}');
   }
 
-
   print('Test getEffortById');
-  // It is the segment id that you can find in an activity 
-  // Like what is after segment in url like 
+  // It is the segment id that you can find in an activity
+  // Like what is after segment in url like
   // https://www.strava.com/activities/3234026164/segments/81425019085
-  DetailedSegmentEffort _segEffort = await strava.getSegmentEffortById(81425019085);
-
+  DetailedSegmentEffort _segEffort =
+      await strava.getSegmentEffortById(81425019085);
 
   print('Test getEffortsbySegmentId');
   // The loggedInAthlete should have ridden the segment
   // if not _segEfforts.statusCode == error.statusSegmentNotRidden
-  // To get the id it is after segments in url like 
+  // To get the id it is after segments in url like
   // https://www.strava.com/segments/3915689?filter=overall
   DetailedSegmentEffort _segEfforts = await strava.getEffortsbySegmentId(
-      2709373,
-      '2018-09-15T08:15:29Z', 
-      '2020-05-16T08:15:29Z',);
-
-
+    2709373,
+    '2018-09-15T08:15:29Z',
+    '2020-05-16T08:15:29Z',
+  );
 
   List<SummaryActivity> _listSummaries =
       await strava.getLoggedInAthleteActivities(1554209575, 1500);

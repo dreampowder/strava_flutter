@@ -2,26 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/examples.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/examples.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/generated_plugin_registrant.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/secret-sample.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/Oauth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/Oauth.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/activities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/activities.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/athletes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/athletes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/clubs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/clubs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/races.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/races.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/segments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/segments.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/upload.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/upload.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Models/segment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/segment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/permissions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/permissions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/segmentEfforts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/segmentEfforts.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/strava.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strava.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/strava_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/strava_flutter.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -56,13 +44,13 @@
     <option name="width" value="1260" />
     <option name="height" value="673" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -90,6 +78,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
