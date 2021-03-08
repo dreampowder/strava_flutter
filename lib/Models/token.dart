@@ -58,7 +58,7 @@ class RefreshAnswer {
     model.accessToken = map['access_token'];
     model.refreshToken = map['refresh_token'];
     model.expiresAt = map['expires_at'];
-    model.expiresAt = map['expires_in'];
+    model.expiresIn = map['expires_in'];
     return model;
   }
 }
