@@ -94,7 +94,7 @@ abstract class Upload {
       String reqCheckUpgrade = 'https://www.strava.com/api/v3/uploads/';
       onUploadPending.stream.listen((id) async {
         reqCheckUpgrade = reqCheckUpgrade + id.toString();
-        var resp = await http.get(reqCheckUpgrade, headers: _header);
+        var resp = await http.get(Uri.parse(reqCheckUpgrade), headers: _header);
         print('check status ${resp.reasonPhrase}  ${resp.statusCode}');
 
         // Everything is fine the file has been loaded

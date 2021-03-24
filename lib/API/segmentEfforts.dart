@@ -18,7 +18,7 @@ abstract class SegmentEfforts {
       final reqSeg =
           'https://www.strava.com/api/v3/segment_efforts/' + segId.toString();
 
-      var rep = await http.get(reqSeg, headers: _header);
+      var rep = await http.get(Uri.parse(reqSeg), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
@@ -71,7 +71,7 @@ abstract class SegmentEfforts {
                 '&per_page=' +
                 _perPage.toString();
 
-        var rep = await http.get(reqSeg, headers: _header);
+        var rep = await http.get(Uri.parse(reqSeg), headers: _header);
         int _nbSegments = 0;
 
         if (rep.statusCode == 200) {

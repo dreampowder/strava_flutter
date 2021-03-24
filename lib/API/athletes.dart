@@ -23,7 +23,7 @@ abstract class Athletes {
       final reqAthlete =
           "https://www.strava.com/api/v3/athlete?weight=" + weight.toString();
       globals.displayInfo('update $reqAthlete');
-      var rep = await http.put(reqAthlete, headers: _header);
+      var rep = await http.put(Uri.parse(reqAthlete), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo('Athlete info ${rep.body}');
@@ -63,7 +63,7 @@ abstract class Athletes {
           // "/stats?page=1&per_page=50;";
           '/stats?page=$_pageNumber&per_page=$_perPage;';
 
-      var rep = await http.get(reqStats, headers: _header);
+      var rep = await http.get(Uri.parse(reqStats), headers: _header);
 
       if (rep.statusCode == 200) {
         // globals.displayInfo('getStats ${rep.body}');
@@ -105,7 +105,7 @@ abstract class Athletes {
 
     if (_header.containsKey('88') == false) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete/zones';
-      var rep = await http.get(reqAthlete, headers: _header);
+      var rep = await http.get(Uri.parse(reqAthlete), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo('Zone info ${rep.body}');
@@ -138,7 +138,7 @@ abstract class Athletes {
 
     if (_header.containsKey('88') == false) {
       const String reqAthlete = 'https://www.strava.com/api/v3/athlete';
-      var rep = await http.get(reqAthlete, headers: _header);
+      var rep = await http.get(Uri.parse(reqAthlete), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
@@ -193,7 +193,7 @@ abstract class Athletes {
             'https://www.strava.com/api/v3/athlete/activities' +
                 '?before=$before&after=$after&page=$_pageNumber&per_page=$_perPage';
 
-        var rep = await http.get(reqActivities, headers: _header);
+        var rep = await http.get(Uri.parse(reqActivities), headers: _header);
         int _nbActvity = 0;
 
         if (rep.statusCode == 200) {

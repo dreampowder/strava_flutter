@@ -56,7 +56,7 @@ class Strava
 
     if (_header.containsKey('88') == false) {
       final reqGear = 'https://www.strava.com/api/v3/gear/' + id;
-      var rep = await http.get(reqGear, headers: _header);
+      var rep = await http.get(Uri.parse(reqGear), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());

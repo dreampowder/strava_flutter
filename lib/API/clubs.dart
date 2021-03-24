@@ -32,7 +32,7 @@ abstract class Clubs {
             id +
             '/members?page=$_pageNumber&per_page=$_perPage';
 
-        var rep = await http.get(reqList, headers: _header);
+        var rep = await http.get(Uri.parse(reqList), headers: _header);
         int _nbMembers = 0;
 
         if (rep.statusCode == 200) {
@@ -86,7 +86,7 @@ abstract class Clubs {
 
     if (_header.containsKey('88') == false) {
       final reqClub = 'https://www.strava.com/api/v3/clubs/' + id;
-      var rep = await http.get(reqClub, headers: _header);
+      var rep = await http.get(Uri.parse(reqClub), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
@@ -127,7 +127,7 @@ abstract class Clubs {
         String reqClub = 'https://www.strava.com/api/v3/clubs/' +
             id +
             '/activities?page=$_pageNumber&per_page=$_perPage';
-        var rep = await http.get(reqClub, headers: _header);
+        var rep = await http.get(Uri.parse(reqClub), headers: _header);
         int _nbActvity = 0;
 
         if (rep.statusCode == 200) {

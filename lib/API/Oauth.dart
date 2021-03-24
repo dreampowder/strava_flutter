@@ -285,7 +285,7 @@ abstract class Auth {
     globals.displayInfo('Entering getNewAccessToken');
     // globals.displayInfo('urlRefresh $urlRefresh');
 
-    final resp = await http.post(urlRefresh);
+    final resp = await http.post(Uri.parse(urlRefresh));
 
     globals.displayInfo('body ${resp.body}');
     if (resp.statusCode == 200) {
@@ -311,7 +311,7 @@ abstract class Auth {
 
     globals.displayInfo('urlToken $urlToken');
 
-    final value = await http.post(urlToken);
+    final value = await http.post(Uri.parse(urlToken));
 
     globals.displayInfo('body ${value.body}');
 
@@ -377,7 +377,7 @@ abstract class Auth {
     if (_header.containsKey('88') == false) {
       final reqDeAuthorize = "https://www.strava.com/oauth/deauthorize";
       globals.displayInfo('request $reqDeAuthorize');
-      final rep = await http.post(reqDeAuthorize, headers: _header);
+      final rep = await http.post(Uri.parse(reqDeAuthorize), headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo('DeAuthorize done');
         globals.displayInfo('response ${rep.body}');

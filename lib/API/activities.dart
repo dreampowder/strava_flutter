@@ -24,7 +24,7 @@ abstract class Activities {
       final String reqActivity = 'https://www.strava.com/api/v3/activities/' +
           id +
           '?include_all_efforts=true';
-      var rep = await http.get(reqActivity, headers: _header);
+      var rep = await http.get(Uri.parse(reqActivity), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
@@ -127,7 +127,7 @@ abstract class Activities {
     if (_header.containsKey('88') == false) {
       final String reqActivity =
           'https://www.strava.com/api/v3/activities/' + id + '/photos';
-      var rep = await http.get(reqActivity, headers: _header);
+      var rep = await http.get(Uri.parse(reqActivity), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
