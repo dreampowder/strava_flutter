@@ -201,19 +201,19 @@ class DetailedActivity {
     description = json['description'];
     calories = (json['calories']).toDouble();
     if (json['segment_efforts'] != null) {
-      segmentEfforts = List<SegmentEffort>();
+      segmentEfforts = <SegmentEffort>[];
       json['segment_efforts'].forEach((v) {
         segmentEfforts.add(SegmentEffort.fromJson(v));
       });
     }
     if (json['splits_metric'] != null) {
-      splitsMetric = new List<SplitsMetric>();
+      splitsMetric = <SplitsMetric>[];
       json['splits_metric'].forEach((v) {
         splitsMetric.add(new SplitsMetric.fromJson(v));
       });
     }
     if (json['laps'] != null) {
-      laps = new List<Laps>();
+      laps = <Laps>[];
       json['laps'].forEach((v) {
         laps.add(new Laps.fromJson(v));
       });
@@ -223,7 +223,7 @@ class DetailedActivity {
     photos =
         json['photos'] != null ? new Photos.fromJson(json['photos']) : null;
     if (json['highlighted_kudosers'] != null) {
-      highlightedKudosers = new List<HighlightedKudosers>();
+      highlightedKudosers = <HighlightedKudosers>[];
       json['highlighted_kudosers'].forEach((v) {
         highlightedKudosers.add(new HighlightedKudosers.fromJson(v));
       });
@@ -346,125 +346,6 @@ class Carte {
     return data;
   }
 }
-
-
-/**** 
-class SegmentEfforts {
-  int id;
-  int resourceState;
-  String name;
-  Activity activity;
-  Athlete athlete;
-  int elapsedTime;
-  int movingTime;
-  String startDate;
-  String startDateLocal;
-  double distance;
-  int startIndex;
-  int endIndex;
-  double averageCadence;
-  bool deviceWatts;
-  double averageWatts;
-  Segment segment;
-  int komRank;
-  int prRank;
-
-  List<String> achievements;
-  bool hidden;
-
-  SegmentEfforts(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.activity,
-      this.athlete,
-      this.elapsedTime,
-      this.movingTime,
-      this.startDate,
-      this.startDateLocal,
-      this.distance,
-      this.startIndex,
-      this.endIndex,
-      this.averageCadence,
-      this.deviceWatts,
-      this.averageWatts,
-      this.segment,
-      this.komRank,
-      this.prRank,
-      this.achievements,
-      this.hidden});
-
-  SegmentEfforts.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    activity = json['activity'] != null
-        ? new Activity.fromJson(json['activity'])
-        : null;
-    athlete =
-        json['athlete'] != null ? new Athlete.fromJson(json['athlete']) : null;
-    elapsedTime = json['elapsed_time'];
-    movingTime = json['moving_time'];
-    startDate = json['start_date'];
-    startDateLocal = json['start_date_local'];
-    distance = json['distance'];
-    startIndex = json['start_index'];
-    endIndex = json['end_index'];
-    averageCadence = json['average_cadence'];
-    deviceWatts = json['device_watts'];
-    averageWatts = json['average_watts'];
-    segment =
-        json['segment'] != null ? new Segment.fromJson(json['segment']) : null;
-    komRank = json['kom_rank'];
-    prRank = json['pr_rank'];
- 
-    // if (json['achievements'] != null) {
-      // achievements = new List<Null>();
-      // json['achievements'].forEach((v) {
-        // achievements.add(new Null.fromJson(v));
-      // });
-    // }
- 
-    hidden = json['hidden'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['resource_state'] = this.resourceState;
-    data['name'] = this.name;
-    if (this.activity != null) {
-      data['activity'] = this.activity.toJson();
-    }
-    if (this.athlete != null) {
-      data['athlete'] = this.athlete.toJson();
-    }
-    data['elapsed_time'] = this.elapsedTime;
-    data['moving_time'] = this.movingTime;
-    data['start_date'] = this.startDate;
-    data['start_date_local'] = this.startDateLocal;
-    data['distance'] = this.distance;
-    data['start_index'] = this.startIndex;
-    data['end_index'] = this.endIndex;
-    data['average_cadence'] = this.averageCadence;
-    data['device_watts'] = this.deviceWatts;
-    data['average_watts'] = this.averageWatts;
-    if (this.segment != null) {
-      data['segment'] = this.segment.toJson();
-    }
-    data['kom_rank'] = this.komRank;
-    data['pr_rank'] = this.prRank;
-    /***
-    if (this.achievements != null) {
-      data['achievements'] = this.achievements.map((v) => v.toJson()).toList();
-    }
-  ****/
-    data['hidden'] = this.hidden;
-    return data;
-  }
-}
-
-*****/
 
 class Activity {
   int id;

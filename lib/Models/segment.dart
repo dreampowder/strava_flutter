@@ -333,7 +333,7 @@ class SegmentsList {
   SegmentsList({this.segments});
 
   factory SegmentsList.fromJson(List<dynamic> parsedJson) {
-    List<SummarySegment> segments = List<SummarySegment>();
+    List<SummarySegment> segments = <SummarySegment>[];
     segments = parsedJson.map((i) => SummarySegment.fromJson(i)).toList();
 
     return SegmentsList(segments: segments);
@@ -359,7 +359,7 @@ class SegmentLeaderboard {
     entryCount = json['entry_count'];
     komType = json['kom_type'];
     if (json['entries'] != null) {
-      entries = new List<Entries>();
+      entries = <Entries>[];
       json['entries'].forEach((v) {
         entries.add(new Entries.fromJson(v));
       });

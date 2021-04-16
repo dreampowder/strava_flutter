@@ -102,13 +102,13 @@ class DetailedAthlete {
     ftp = json['ftp'];
     weight = json['weight'];
     if (json['bikes'] != null) {
-      bikes = List<Bikes>();
+      bikes = <Bikes>[];
       json['bikes'].forEach((v) {
         bikes.add(Bikes.fromJson(v));
       });
     }
     if (json['shoes'] != null) {
-      shoes = List<Shoes>();
+      shoes = <Shoes>[];
       json['shoes'].forEach((v) {
         shoes.add(Shoes.fromJson(v));
       });
