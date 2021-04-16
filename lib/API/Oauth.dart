@@ -33,8 +33,8 @@ abstract class Auth {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('strava_accessToken', token);
     prefs.setInt('strava_expiresAt', expiresAt); // Stored in seconds
-    prefs.setInt('strava_expiresIn',
-        expiresIn); // Value is valid at the time the token has been issued
+    // prefs.setInt('strava_expiresIn',
+    //     expiresIn); // Value is valid at the time the token has been issued
     prefs.setString('strava_scope', scope);
     prefs.setString('strava_refreshToken', refreshToken);
 
@@ -42,7 +42,7 @@ abstract class Auth {
     globals.token.accessToken = token;
     globals.token.scope = scope;
     globals.token.expiresAt = expiresAt;
-    globals.token.expiresIn = expiresIn;
+    // globals.token.expiresIn = expiresIn;
     globals.token.refreshToken = refreshToken;
 
     globals.displayInfo('token saved!!!');
@@ -62,22 +62,22 @@ abstract class Auth {
       localToken.accessToken = prefs.getString('strava_accessToken').toString();
       // localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms
       localToken.expiresAt = prefs.getInt('strava_expiresAt');
-      localToken.expiresIn = prefs.getInt(('strava_expiresIn'));
+      // localToken.expiresIn = prefs.getInt(('strava_expiresIn'));
       localToken.scope = prefs.getString('strava_scope');
       localToken.refreshToken = prefs.getString('strava_refreshToken');
 
       // load the data in globals
       globals.token.accessToken = localToken.accessToken;
       globals.token.expiresAt = localToken.expiresAt;
-      globals.token.expiresIn = localToken
-          .expiresIn; // Value was validwhen the server sent info about the token
+      // globals.token.expiresIn = localToken
+      //     .expiresIn; // Value was validwhen the server sent info about the token
       globals.token.scope = localToken.scope;
       globals.token.refreshToken = localToken.refreshToken;
     } catch (error) {
       globals.displayInfo('Error while retrieving the token');
       localToken.accessToken = null;
       localToken.expiresAt = null;
-      localToken.expiresIn = null;
+      // localToken.expiresIn = null;
       localToken.scope = null;
     }
 
