@@ -320,8 +320,6 @@ class DetailedActivity {
   }
 }
 
-
-
 class Carte {
   String id;
   String polyline;
@@ -346,7 +344,6 @@ class Carte {
     return data;
   }
 }
-
 
 /**** 
 class SegmentEfforts {
@@ -678,8 +675,9 @@ class Laps {
     activity = json['activity'] != null
         ? new Activity.fromJson(json['activity'])
         : null;
-    athlete =
-        json['athlete'] != null ? AthleteEffort.fromJson(json['athlete']) : null;
+    athlete = json['athlete'] != null
+        ? AthleteEffort.fromJson(json['athlete'])
+        : null;
     elapsedTime = json['elapsed_time'];
     movingTime = json['moving_time'];
     startDate = json['start_date'];
@@ -842,7 +840,7 @@ class SummaryActivity {
   int workoutType;
   DateTime startDate;
   DateTime startDateLocal;
-
+  String polyline;
   SummaryActivity({
     this.id,
     this.resourceState,
@@ -861,8 +859,9 @@ class SummaryActivity {
   SummaryActivity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     resourceState = json['resource_state'];
-    athlete =
-        json['athlete'] != null ? AthleteEffort.fromJson(json['athlete']) : null;
+    athlete = json['athlete'] != null
+        ? AthleteEffort.fromJson(json['athlete'])
+        : null;
     name = json['name'];
     distance = json['distance'];
     movingTime = json['moving_time'];
@@ -881,6 +880,7 @@ class SummaryActivity {
     startDateLocal = json['start_date_local'] != null
         ? _parseDate(json['start_date_local'])
         : null;
+    polyline = json['map']['summary_polyline'];
   }
 
   Map<String, dynamic> toJson() {
