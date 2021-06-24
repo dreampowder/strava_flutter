@@ -11,7 +11,7 @@ import '../Models/segment.dart';
 import '../Models/fault.dart';
 
 import '../globals.dart' as globals;
-import '../errorCodes.dart' as error;
+import '../error_codes.dart' as error;
 
 abstract class Segments {
   ///
@@ -20,13 +20,13 @@ abstract class Segments {
   Future<DetailedSegment> getSegmentById(String id) async {
     DetailedSegment returnSeg = DetailedSegment();
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     globals.displayInfo('Entering getSegById');
 
     if (_header.containsKey('88') == false) {
       final reqSeg = 'https://www.strava.com/api/v3/segments/' + id;
-      var rep = await http.get(Uri.parse(reqSeg), headers: _header);
+      final rep = await http.get(Uri.parse(reqSeg), headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Segment info ${rep.body}');
@@ -43,8 +43,7 @@ abstract class Segments {
       }
     } else {
       globals.displayInfo('Token not yet known');
-      returnSeg.fault =
-          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      returnSeg.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnSeg;
   }
@@ -56,34 +55,31 @@ abstract class Segments {
   ///
   /// Limited for the moment to the first 50 starred segments
   ///
-  Future<SegmentsList> getLoggedInAthleteStarredSegments() async {
-    SegmentsList returnList;
+  Future<SegmentsList?> getLoggedInAthleteStarredSegments() async {
+    SegmentsList? returnList;
 
     returnList = SegmentsList();
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     globals.displayInfo('Entering getLoggedInAthleteStarredSegments');
-    print('_header: ${_header[0]}');
+    print('_header: ${_header[0 as String]}');
 
     if (_header.containsKey('88') == false) {
-      final reqSeg =
-          'https://www.strava.com/api/v3/segments/starred?page=1&per_page=50';
-      var rep = await http.get(Uri.parse(reqSeg), headers: _header);
+      final reqSeg = 'https://www.strava.com/api/v3/segments/starred?page=1&per_page=50';
+      final rep = await http.get(Uri.parse(reqSeg), headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('List starred segments  info ${rep.body}');
-        // var parsedJson = json.decode(rep.body);
+        // final parsedJson = json.decode(rep.body);
         returnList = SegmentsList.fromJson(json.decode(rep.body));
       } else {
-        globals.displayInfo(
-            'problem in getLoggedInAthleteStarredSegments request');
+        globals.displayInfo('problem in getLoggedInAthleteStarredSegments request');
         // Add a fault
         returnList = null;
       }
     } else {
       globals.displayInfo('Token not yet known');
-      returnList.fault =
-          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      returnList.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnList;
   }
@@ -108,23 +104,25 @@ abstract class Segments {
   ///
   /// Not clear what is the purpose of context entries
   ///
-  Future<SegmentLeaderboard> getLeaderboardBySegmentId(int id,
-      {int nbMaxEntries,
-      String gender,
-      String ageGroup,
-      String weightclass,
-      bool following,
-      int clubId,
-      String dateRange}) async {
+  Future<SegmentLeaderboard> getLeaderboardBySegmentId(
+    int? id, {
+    int? nbMaxEntries,
+    String? gender,
+    String? ageGroup,
+    String? weightclass,
+    bool? following,
+    int? clubId,
+    String? dateRange,
+  }) async {
     SegmentLeaderboard returnLeaderboard;
 
     returnLeaderboard = SegmentLeaderboard();
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
     int _pageNumber = 1;
     int _perPage = 50; // Number of activities retrieved per http request
     bool isRetrieveDone = false;
     int _nbEntries = 0;
-    List<Entries> _listEntries = List<Entries>();
+    List<Entries> _listEntries = <Entries>[];
 
     globals.displayInfo('Entering getLeaderboardBySegmentId');
 
@@ -134,7 +132,7 @@ abstract class Segments {
     ageGroup = ageGroup ?? '';
     weightclass = weightclass ?? '';
     following = following ?? false;
-    var clubIdStr = (clubId != null) ? clubId.toString() : '';
+    final clubIdStr = (clubId != null) ? clubId.toString() : '';
     dateRange = dateRange ?? '';
 
     if (_header.containsKey('88') == false) {
@@ -156,20 +154,19 @@ abstract class Segments {
             '&context_entries=' +
             '&page=$_pageNumber&per_page=$_perPage';
 
-        var rep = await http.get(Uri.parse(reqLeaderboard), headers: _header);
+        final rep = await http.get(Uri.parse(reqLeaderboard), headers: _header);
 
         if (rep.statusCode == 200) {
           globals.displayInfo(rep.statusCode.toString());
           globals.displayInfo('Leaderboard info ${rep.body}');
 
-          final Map<String, dynamic> jsonResponse = json.decode(rep.body);
+          final Map<String, dynamic>? jsonResponse = json.decode(rep.body);
           if (jsonResponse != null) {
-            returnLeaderboard =
-                SegmentLeaderboard.fromJson(json.decode(rep.body));
+            returnLeaderboard = SegmentLeaderboard.fromJson(json.decode(rep.body));
 
             // Add entries to the list
-            returnLeaderboard.entries.forEach((ent) {
-              if (_nbEntries < nbMaxEntries) {
+            returnLeaderboard.entries?.forEach((ent) {
+              if (_nbEntries < nbMaxEntries!) {
                 _listEntries.add(ent);
                 _nbEntries++;
               }
@@ -177,7 +174,7 @@ abstract class Segments {
 
             globals.displayInfo('Entries ${_listEntries.length}');
 
-            if ((_listEntries.length >= returnLeaderboard.entryCount) ||
+            if ((_listEntries.length >= returnLeaderboard.entryCount!) ||
                 (_listEntries.length >= nbMaxEntries)) {
               globals.displayInfo(
                   '----> End of leaderboard   ${returnLeaderboard.entryCount}');
@@ -190,8 +187,7 @@ abstract class Segments {
             globals.displayInfo('problem in getLeaderboardBySegmentId request');
           }
 
-          returnLeaderboard.fault =
-              globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+          returnLeaderboard.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
         }
       } while (!isRetrieveDone);
     } else {
@@ -208,13 +204,13 @@ abstract class Segments {
   ///
   /// star : true to star false to unstar
   ///
-  Future<DetailedSegment> starSegment(int id, bool star) async {
+  Future<DetailedSegment> starSegment(int? id, bool star) async {
     DetailedSegment returnSegment;
 
     returnSegment = DetailedSegment();
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
     // String toStarred = star ? 'true' : 'false';
-    // var _queryParams = {'starred': toStarred};
+    // final _queryParams = {'starred': toStarred};
 
     globals.displayInfo('Entering starSegment');
 
@@ -223,11 +219,11 @@ abstract class Segments {
           id.toString() +
           '/starred?starred=' +
           star.toString();
-      var rep = await http.put(Uri.parse(reqStar), headers: _header);
+      final rep = await http.put(Uri.parse(reqStar), headers: _header);
 
-      // var uri = Uri.https('www.strava.com', path);
+      // final uri = Uri.https('www.strava.com', path);
 
-      // var rep = await http.put(    uri,   headers: _header,  );
+      // final rep = await http.put(    uri,   headers: _header,  );
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Star segment  info ${rep.body}');
@@ -235,12 +231,10 @@ abstract class Segments {
       } else {
         globals.displayInfo('Problem in starSegment request');
       }
-      returnSegment.fault =
-          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+      returnSegment.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     } else {
       globals.displayInfo('Token not yet known');
-      returnSegment.fault =
-          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      returnSegment.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return returnSegment;
   }

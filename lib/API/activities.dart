@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import '../globals.dart' as globals;
-import '../errorCodes.dart' as error;
+import '../error_codes.dart' as error;
 
 import '../Models/activity.dart';
 
@@ -16,34 +16,30 @@ abstract class Activities {
   Future<DetailedActivity> getActivityById(String id) async {
     DetailedActivity returnActivity = DetailedActivity();
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     globals.displayInfo('Entering getActivityById');
 
     if (_header.containsKey('88') == false) {
-      final String reqActivity = 'https://www.strava.com/api/v3/activities/' +
-          id +
-          '?include_all_efforts=true';
-      var rep = await http.get(Uri.parse(reqActivity), headers: _header);
+      final String reqActivity =
+          'https://www.strava.com/api/v3/activities/' + id + '?include_all_efforts=true';
+      final rep = await http.get(Uri.parse(reqActivity), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Activity info ${rep.body}');
         final Map<String, dynamic> jsonResponse = json.decode(rep.body);
-        final DetailedActivity _activity =
-            DetailedActivity.fromJson(jsonResponse);
+        final DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
         globals.displayInfo(_activity.name);
 
         returnActivity = _activity;
       } else {
         globals.displayInfo('Activity not found');
       }
-      returnActivity.fault =
-          globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+      returnActivity.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     } else {
       globals.displayInfo('Token not yet known');
-      returnActivity.fault =
-          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      returnActivity.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
 
     return returnActivity;
@@ -61,15 +57,22 @@ abstract class Activities {
   /// like 2019-02-18 10:02:13'
   ///
   Future<DetailedActivity> createActivity(
-      String name, String type, String startDate, int elapsedTime,
-      {String description, int distance, int isTrainer, int isCommute}) async {
+    String? name,
+    String? type,
+    String? startDate,
+    int? elapsedTime, {
+    String? description,
+    int? distance,
+    int? isTrainer,
+    int? isCommute,
+  }) async {
     DetailedActivity returnActivity = DetailedActivity();
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     globals.displayInfo('Entering createActivity');
 
-    var _queryParams = {
+    final _queryParams = {
       'name': name,
       'type': type,
       'start_date_local': startDate,
@@ -81,29 +84,26 @@ abstract class Activities {
     };
 
     if (_header.containsKey('88') == false) {
-      var uri = Uri.https('www.strava.com', '/api/v3/activities', _queryParams);
+      final uri = Uri.https('www.strava.com', '/api/v3/activities', _queryParams);
 
-      var resp = await http.post(uri, headers: _header);
+      final resp = await http.post(uri, headers: _header);
 
       if (resp.statusCode == 201) {
         globals.displayInfo(resp.statusCode.toString());
         globals.displayInfo('Activity info ${resp.body}');
         final Map<String, dynamic> jsonResponse = json.decode(resp.body);
 
-        final DetailedActivity _activity =
-            DetailedActivity.fromJson(jsonResponse);
+        final DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
         globals.displayInfo(_activity.name);
 
         returnActivity = _activity;
       } else {
         globals.displayInfo('Activity not found');
       }
-      returnActivity.fault =
-          globals.errorCheck(resp.statusCode, resp.reasonPhrase);
+      returnActivity.fault = globals.errorCheck(resp.statusCode, resp.reasonPhrase);
     } else {
       globals.displayInfo('Token not yet known');
-      returnActivity.fault =
-          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      returnActivity.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
 
     return returnActivity;
@@ -118,23 +118,22 @@ abstract class Activities {
   /// NOT WORKING yet
   ///
   Future<PhotoActivity> getPhotosFromActivityById(String id) async {
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
-    var returnPhoto = PhotoActivity();
+    final returnPhoto = PhotoActivity();
 
     globals.displayInfo('Entering getPhotosFromActivityById');
 
     if (_header.containsKey('88') == false) {
       final String reqActivity =
           'https://www.strava.com/api/v3/activities/' + id + '/photos';
-      var rep = await http.get(Uri.parse(reqActivity), headers: _header);
+      final rep = await http.get(Uri.parse(reqActivity), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         globals.displayInfo('Photos of activity${rep.body}');
         final Map<String, dynamic> jsonResponse = json.decode(rep.body);
-        final DetailedActivity _activity =
-            DetailedActivity.fromJson(jsonResponse);
+        final DetailedActivity _activity = DetailedActivity.fromJson(jsonResponse);
         globals.displayInfo(_activity.name);
 
         // returnPhoto = _activity;

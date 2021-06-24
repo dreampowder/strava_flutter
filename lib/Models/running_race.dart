@@ -4,22 +4,22 @@ import 'fault.dart';
 // It seems that routeIds is missing
 
 class RunningRace {
-  Fault fault;
-  String country;
+  Fault? fault;
+  String? country;
   // List<int> routeIds;
-  int runningRaceType;
-  double distance;
-  String websiteUrl;
-  String city;
-  String startDateLocal;
-  String name;
-  String measurementPreference;
-  int id;
-  String state;
-  String url;
+  int? runningRaceType;
+  double? distance;
+  String? websiteUrl;
+  String? city;
+  String? startDateLocal;
+  String? name;
+  String? measurementPreference;
+  int? id;
+  String? state;
+  String? url;
 
   RunningRace(
-      {Fault fault,
+      {Fault? fault,
       this.country,
       // this.routeIds,
       this.runningRaceType,

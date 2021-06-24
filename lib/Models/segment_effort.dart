@@ -2,29 +2,29 @@ import 'fault.dart';
 import 'package:strava_flutter/Models/athlete.dart';
 
 class DetailedSegmentEffort {
-  Fault fault;
-  int id;
-  int resourceState;
-  String name;
-  ActivityEffort activity;
-  Athlete athlete;
-  int elapsedTime;
-  String startDate;
-  String startDateLocal;
-  double distance;
-  int movingTime;
-  int startIndex;
-  int endIndex;
-  bool deviceWatts;
-  double averageWatts;
-  SegmentEffort segment;
+  Fault? fault;
+  int? id;
+  int? resourceState;
+  String? name;
+  ActivityEffort? activity;
+  Athlete? athlete;
+  int? elapsedTime;
+  String? startDate;
+  String? startDateLocal;
+  double? distance;
+  int? movingTime;
+  int? startIndex;
+  int? endIndex;
+  bool? deviceWatts;
+  double? averageWatts;
+  SegmentEffort? segment;
 
-  int komRank;
-  int prRank;
-  List<dynamic> achievements; // could be a list of something
+  int? komRank;
+  int? prRank;
+  List<dynamic>? achievements; // could be a list of something
 
   DetailedSegmentEffort({
-    Fault fault,
+    Fault? fault,
     this.id,
     this.resourceState,
     this.name,
@@ -63,11 +63,11 @@ class DetailedSegmentEffort {
     segment = SegmentEffort.fromJson(json['segment']);
     komRank = json['kom_rank'];
     prRank = json['pr_rank'];
-    achievements = json['achievements'] ?? '0';
+    achievements = json['achievements'] ?? '0' as List<dynamic>?;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     data['name'] = this.name;
@@ -92,32 +92,32 @@ class DetailedSegmentEffort {
 }
 
 class SegmentEffort {
-  Fault fault;
-  int id;
-  int resourceState;
-  String name;
-  String activityType;
-  double distance;
-  double averageGrade;
-  double maximumGrade;
-  double elevationHigh;
-  double elevationLow;
-  List<double> startLatlng;
-  List<double> endLatlng;
-  double startLatitude;
-  double startLongitude;
-  double endLatitude;
-  double endLongitude;
-  int climbCategory;
-  String city;
-  String state;
-  String country;
-  bool private;
-  bool hazardous;
-  bool starred;
+  Fault? fault;
+  int? id;
+  int? resourceState;
+  String? name;
+  String? activityType;
+  double? distance;
+  double? averageGrade;
+  double? maximumGrade;
+  double? elevationHigh;
+  double? elevationLow;
+  List<double>? startLatlng;
+  List<double>? endLatlng;
+  double? startLatitude;
+  double? startLongitude;
+  double? endLatitude;
+  double? endLongitude;
+  int? climbCategory;
+  String? city;
+  String? state;
+  String? country;
+  bool? private;
+  bool? hazardous;
+  bool? starred;
 
   SegmentEffort({
-    Fault fault,
+    Fault? fault,
     this.id,
     this.resourceState,
     this.name,
@@ -168,7 +168,7 @@ class SegmentEffort {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     data['name'] = this.name;
@@ -197,8 +197,8 @@ class SegmentEffort {
 }
 
 class ActivityEffort {
-  int id;
-  int resourceState;
+  int? id;
+  int? resourceState;
 
   ActivityEffort({
     this.id,
@@ -211,7 +211,7 @@ class ActivityEffort {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
 
@@ -220,8 +220,8 @@ class ActivityEffort {
 }
 
 class AthleteEffort {
-  int id;
-  int resourceState;
+  int? id;
+  int? resourceState;
 
   AthleteEffort({
     this.id,
@@ -234,7 +234,7 @@ class AthleteEffort {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
 

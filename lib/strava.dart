@@ -6,16 +6,16 @@ import 'Models/fault.dart';
 import 'Models/gear.dart';
 
 import 'globals.dart' as globals;
-import 'errorCodes.dart' as error;
+import 'error_codes.dart' as error;
 
-import 'API/Oauth.dart';
+import 'API/o_auth.dart';
 import 'API/upload.dart';
 import 'API/clubs.dart';
 import 'API/activities.dart';
 import 'API/segments.dart';
 import 'API/athletes.dart';
 import 'API/races.dart';
-import 'API/segmentEfforts.dart';
+import 'API/segment_efforts.dart';
 
 /// Initialize the Strava API
 ///  clientID: ID of your Strava app
@@ -32,14 +32,14 @@ class Strava
         SegmentEfforts,
         Athletes,
         Races {
-  String secret;
+  String? secret;
 
   /// Initialize the Strava class
   /// Needed to call Strava API
   ///
   /// secretKey is the key found in strava settings my Application (secret key)
   /// Set isIndebug to true to get debug print in strava API
-  Strava(bool isInDebug, String secretKey) {
+  Strava(bool isInDebug, String? secretKey) {
     globals.isInDebug = isInDebug;
     secret = secretKey;
   }
@@ -47,16 +47,16 @@ class Strava
   /// Scope needed: any
   /// Give answer only if id is related to logged athlete
   ///
-  Future<Gear> getGearById(String id) async {
+  Future<Gear> getGearById(String? id) async {
     Gear returnGear = Gear();
 
     globals.displayInfo('Entering getGearById');
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     if (_header.containsKey('88') == false) {
-      final reqGear = 'https://www.strava.com/api/v3/gear/' + id;
-      var rep = await http.get(Uri.parse(reqGear), headers: _header);
+      final reqGear = 'https://www.strava.com/api/v3/gear/$id';
+      final rep = await http.get(Uri.parse(reqGear), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());

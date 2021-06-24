@@ -14,13 +14,12 @@ import 'package:strava_flutter/strava.dart';
 // Used by example
 
 import 'package:strava_flutter/Models/activity.dart';
-import 'package:strava_flutter/API/activities.dart';
 import 'package:strava_flutter/Models/club.dart';
-import 'package:strava_flutter/Models/detailedAthlete.dart';
+import 'package:strava_flutter/Models/detailed_athlete.dart';
 import 'package:strava_flutter/Models/gear.dart';
-import 'package:strava_flutter/Models/runningRace.dart';
+import 'package:strava_flutter/Models/running_race.dart';
 import 'package:strava_flutter/Models/stats.dart';
-import 'package:strava_flutter/Models/summaryAthlete.dart';
+import 'package:strava_flutter/Models/summary_athlete.dart';
 import 'package:strava_flutter/Models/zone.dart';
 import 'package:strava_flutter/Models/fault.dart';
 
@@ -267,7 +266,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       true, // to get disply info in API
       secret, // Put your secret key in secret.dart file
     );
-    var fault = await strava.deAuthorize();
+    final fault = await strava.deAuthorize();
   }
 
   @override

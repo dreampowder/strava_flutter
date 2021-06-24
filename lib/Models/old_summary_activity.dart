@@ -3,17 +3,17 @@
 import 'fault.dart';
 
 class SummaryActivity {
-  Fault fault;
-  int id;
-  int resourceState;
-  Athlete athlete;
-  String name;
-  double distance;
-  int movingTime;
-  int elapsedTime;
-  double totalElevationGain;
-  String type;
-  int workoutType;
+  Fault? fault;
+  int? id;
+  int? resourceState;
+  Athlete? athlete;
+  String? name;
+  double? distance;
+  int? movingTime;
+  int? elapsedTime;
+  double? totalElevationGain;
+  String? type;
+  int? workoutType;
 
   SummaryActivity(
       {this.id,
@@ -46,7 +46,7 @@ class SummaryActivity {
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     if (this.athlete != null) {
-      data['athlete'] = this.athlete.toJson();
+      data['athlete'] = this.athlete?.toJson();
     }
     data['name'] = this.name;
     data['distance'] = this.distance;
@@ -60,9 +60,9 @@ class SummaryActivity {
 }
 
 class Athlete {
-  int resourceState;
-  String firstname;
-  String lastname;
+  int? resourceState;
+  String? firstname;
+  String? lastname;
 
   Athlete({this.resourceState, this.firstname, this.lastname});
 

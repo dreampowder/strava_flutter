@@ -1,40 +1,40 @@
 import 'fault.dart';
 
 class SummarySegment {
-  Fault fault;
-  int id;
-  int resourceState;
-  String name;
-  String activityType;
-  double distance;
-  double averageGrade;
-  double maximumGrade;
-  double elevationHigh;
-  double elevationLow;
-  List<double> startLatlng;
-  List<double> endLatlng;
-  double startLatitude;
-  double startLongitude;
-  double endLatitude;
-  double endLongitude;
-  int climbCategory;
-  String city;
-  String state;
-  String country;
-  bool private;
-  bool hazardous;
-  bool starred;
-  String createdAt;
-  String updatedAt;
-  double totalElevationGain;
-  Carte map;
-  int effortCount;
-  int athleteCount;
-  int starCount;
-  AthleteSegmentStats athleteSegmentStats;
+  Fault? fault;
+  int? id;
+  int? resourceState;
+  String? name;
+  String? activityType;
+  double? distance;
+  double? averageGrade;
+  double? maximumGrade;
+  double? elevationHigh;
+  double? elevationLow;
+  List<double>? startLatlng;
+  List<double>? endLatlng;
+  double? startLatitude;
+  double? startLongitude;
+  double? endLatitude;
+  double? endLongitude;
+  int? climbCategory;
+  String? city;
+  String? state;
+  String? country;
+  bool? private;
+  bool? hazardous;
+  bool? starred;
+  String? createdAt;
+  String? updatedAt;
+  double? totalElevationGain;
+  Carte? map;
+  int? effortCount;
+  int? athleteCount;
+  int? starCount;
+  AthleteSegmentStats? athleteSegmentStats;
 
   SummarySegment(
-      {Fault fault,
+      {Fault? fault,
       this.id,
       this.resourceState,
       this.name,
@@ -92,17 +92,17 @@ class SummarySegment {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     totalElevationGain = json['total_elevation_gain'];
-    map = json['map'] != null ? new Carte.fromJson(json['map']) : null;
+    map = json['map'] != null ? Carte.fromJson(json['map']) : null;
     effortCount = json['effort_count'];
     athleteCount = json['athlete_count'];
     starCount = json['star_count'];
     athleteSegmentStats = json['athlete_segment_stats'] != null
-        ? new AthleteSegmentStats.fromJson(json['athlete_segment_stats'])
+        ? AthleteSegmentStats.fromJson(json['athlete_segment_stats'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     data['name'] = this.name;
@@ -129,22 +129,22 @@ class SummarySegment {
     data['updated_at'] = this.updatedAt;
     data['total_elevation_gain'] = this.totalElevationGain;
     if (this.map != null) {
-      data['map'] = this.map.toJson();
+      data['map'] = this.map?.toJson();
     }
     data['effort_count'] = this.effortCount;
     data['athlete_count'] = this.athleteCount;
     data['star_count'] = this.starCount;
     if (this.athleteSegmentStats != null) {
-      data['athlete_segment_stats'] = this.athleteSegmentStats.toJson();
+      data['athlete_segment_stats'] = this.athleteSegmentStats?.toJson();
     }
     return data;
   }
 }
 
 class Carte {
-  String id;
-  String polyline;
-  int resourceState;
+  String? id;
+  String? polyline;
+  int? resourceState;
 
   Carte({this.id, this.polyline, this.resourceState});
 
@@ -155,7 +155,7 @@ class Carte {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['polyline'] = this.polyline;
     data['resource_state'] = this.resourceState;
@@ -164,9 +164,9 @@ class Carte {
 }
 
 class AthleteSegmentStats {
-  int prElapsedTime;
-  String prDate;
-  int effortCount;
+  int? prElapsedTime;
+  String? prDate;
+  int? effortCount;
 
   AthleteSegmentStats({this.prElapsedTime, this.prDate, this.effortCount});
 
@@ -177,7 +177,7 @@ class AthleteSegmentStats {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['pr_elapsed_time'] = this.prElapsedTime;
     data['pr_date'] = this.prDate;
     data['effort_count'] = this.effortCount;
@@ -186,40 +186,40 @@ class AthleteSegmentStats {
 }
 
 class DetailedSegment {
-  Fault fault;
-  int id;
-  int resourceState;
-  String name;
-  String activityType;
-  double distance;
-  double averageGrade;
-  double maximumGrade;
-  double elevationHigh;
-  double elevationLow;
-  List<double> startLatlng;
-  List<double> endLatlng;
-  double startLatitude;
-  double startLongitude;
-  double endLatitude;
-  double endLongitude;
-  int climbCategory;
-  String city;
-  String state;
-  String country;
-  bool private;
-  bool hazardous;
-  bool starred;
-  String createdAt;
-  String updatedAt;
-  double totalElevationGain;
-  Carte map;
-  int effortCount;
-  int athleteCount;
-  int starCount;
-  AthleteSegmentStats athleteSegmentStats;
+  Fault? fault;
+  int? id;
+  int? resourceState;
+  String? name;
+  String? activityType;
+  double? distance;
+  double? averageGrade;
+  double? maximumGrade;
+  double? elevationHigh;
+  double? elevationLow;
+  List<double>? startLatlng;
+  List<double>? endLatlng;
+  double? startLatitude;
+  double? startLongitude;
+  double? endLatitude;
+  double? endLongitude;
+  int? climbCategory;
+  String? city;
+  String? state;
+  String? country;
+  bool? private;
+  bool? hazardous;
+  bool? starred;
+  String? createdAt;
+  String? updatedAt;
+  double? totalElevationGain;
+  Carte? map;
+  int? effortCount;
+  int? athleteCount;
+  int? starCount;
+  AthleteSegmentStats? athleteSegmentStats;
 
   DetailedSegment(
-      {Fault fault,
+      {Fault? fault,
       this.id,
       this.resourceState,
       this.name,
@@ -277,17 +277,17 @@ class DetailedSegment {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     totalElevationGain = json['total_elevation_gain'];
-    map = json['map'] != null ? new Carte.fromJson(json['map']) : null;
+    map = json['map'] != null ? Carte.fromJson(json['map']) : null;
     effortCount = json['effort_count'];
     athleteCount = json['athlete_count'];
     starCount = json['star_count'];
     athleteSegmentStats = json['athlete_segment_stats'] != null
-        ? new AthleteSegmentStats.fromJson(json['athlete_segment_stats'])
+        ? AthleteSegmentStats.fromJson(json['athlete_segment_stats'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     data['name'] = this.name;
@@ -314,21 +314,21 @@ class DetailedSegment {
     data['updated_at'] = this.updatedAt;
     data['total_elevation_gain'] = this.totalElevationGain;
     if (this.map != null) {
-      data['map'] = this.map.toJson();
+      data['map'] = this.map?.toJson();
     }
     data['effort_count'] = this.effortCount;
     data['athlete_count'] = this.athleteCount;
     data['star_count'] = this.starCount;
     if (this.athleteSegmentStats != null) {
-      data['athlete_segment_stats'] = this.athleteSegmentStats.toJson();
+      data['athlete_segment_stats'] = this.athleteSegmentStats?.toJson();
     }
     return data;
   }
 }
 
 class SegmentsList {
-  Fault fault;
-  final List<SummarySegment> segments;
+  Fault? fault;
+  final List<SummarySegment>? segments;
 
   SegmentsList({this.segments});
 
@@ -341,11 +341,11 @@ class SegmentsList {
 }
 
 class SegmentLeaderboard {
-  Fault fault;
-  int effortCount;
-  int entryCount;
-  String komType;
-  List<Entries> entries;
+  Fault? fault;
+  int? effortCount;
+  int? entryCount;
+  String? komType;
+  List<Entries>? entries;
 
   SegmentLeaderboard(
       {this.fault,
@@ -361,30 +361,30 @@ class SegmentLeaderboard {
     if (json['entries'] != null) {
       entries = <Entries>[];
       json['entries'].forEach((v) {
-        entries.add(new Entries.fromJson(v));
+        entries?.add(Entries.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['effort_count'] = this.effortCount;
     data['entry_count'] = this.entryCount;
     data['kom_type'] = this.komType;
     if (this.entries != null) {
-      data['entries'] = this.entries.map((v) => v.toJson()).toList();
+      data['entries'] = this.entries?.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Entries {
-  String athleteName;
-  int elapsedTime;
-  int movingTime;
-  String startDate;
-  String startDateLocal;
-  int rank;
+  String? athleteName;
+  int? elapsedTime;
+  int? movingTime;
+  String? startDate;
+  String? startDateLocal;
+  int? rank;
 
   Entries(
       {this.athleteName,
@@ -404,7 +404,7 @@ class Entries {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['athlete_name'] = this.athleteName;
     data['elapsed_time'] = this.elapsedTime;
     data['moving_time'] = this.movingTime;

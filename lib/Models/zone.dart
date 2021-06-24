@@ -2,18 +2,18 @@
 import 'fault.dart';
 
 class Zone {
-  Fault fault;
-  InfoZones infoZones;
+  Fault? fault;
+  InfoZones? infoZones;
 
   Zone({this.fault, this.infoZones});
 
   factory Zone.fromJson(Map<String, dynamic> firstJson) {
     if (firstJson['heart_rate'] != null) {
-      var parsedJson = firstJson['heart_rate'];
-      var _customZones = parsedJson['custom_zones'];
-      var _infoZones = InfoZones();
-      var list = parsedJson['zones'] as List;
-      var fault = Fault(99, '');
+      final parsedJson = firstJson['heart_rate'];
+      final _customZones = parsedJson['custom_zones'];
+      final _infoZones = InfoZones();
+      final list = parsedJson['zones'] as List;
+      final fault = Fault(99, '');
       List<DistributionBucket> _distributionBucket =
           list.map((i) => DistributionBucket.fromJson(i)).toList();
       _infoZones.customZones = _customZones;
@@ -31,13 +31,13 @@ class Zone {
 }
 
 class InfoZones {
-  bool customZones;
-  List<DistributionBucket> zones;
+  bool? customZones;
+  List<DistributionBucket>? zones;
 }
 
 class DistributionBucket {
-  int max;
-  int min;
+  int? max;
+  int? min;
 
   DistributionBucket({this.max, this.min});
 
@@ -48,8 +48,8 @@ class DistributionBucket {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['max'] = this.max;
-    data['min'] = this.min;
+    data['max'] = max;
+    data['min'] = min;
     return data;
   }
 }

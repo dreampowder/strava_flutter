@@ -7,10 +7,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../Models/fault.dart';
-import '../Models/uploadActivity.dart';
+import '../Models/upload_activity.dart';
 
 import '../globals.dart' as globals;
-import '../errorCodes.dart' as error;
+import '../error_codes.dart' as error;
 
 abstract class Upload {
   /// Tested with gpx and tcx
@@ -23,7 +23,11 @@ abstract class Upload {
   /// 400 problem could be that activity already uploaded
   ///
   Future<Fault> uploadActivity(
-      String name, String description, String fileUrl, String fileType) async {
+    String? name,
+    String? description,
+    String? fileUrl,
+    String? fileType,
+  ) async {
     globals.displayInfo('Starting to upload activity');
 
     // To check if the activity has been uploaded successfully
@@ -35,19 +39,19 @@ abstract class Upload {
     final String notFound = 'Not Found';
 
     final postUri = Uri.parse('https://www.strava.com/api/v3/uploads');
-    StreamController<int> onUploadPending = StreamController();
+    StreamController<int?> onUploadPending = StreamController();
 
-    var fault = Fault(888, '');
+    Fault fault = Fault(888, '');
 
-    var request = http.MultipartRequest("POST", postUri);
-    request.fields['data_type'] = fileType; // tested with gpx
+    final request = http.MultipartRequest("POST", postUri);
+    if (fileType != null) request.fields['data_type'] = fileType; // tested with gpx
     request.fields['trainer'] = 'false';
     request.fields['commute'] = 'false';
-    request.fields['name'] = name;
+    if (name != null) request.fields['name'] = name;
     request.fields['external_id'] = 'strava_flutter';
-    request.fields['description'] = description;
+    if (description != null) request.fields['description'] = description;
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     if (_header.containsKey('88') == true) {
       globals.displayInfo('Token not yet known');
@@ -57,13 +61,15 @@ abstract class Upload {
 
     request.headers.addAll(_header);
 
-    request.files.add(await http.MultipartFile.fromPath('file', fileUrl));
+    if (fileUrl != null)
+      request.files.add(
+        await http.MultipartFile.fromPath('file', fileUrl),
+      );
     globals.displayInfo(request.toString());
 
-    var response = await request.send();
+    final response = await request.send();
 
-    globals.displayInfo(
-        'Response: ${response.statusCode} ${response.reasonPhrase}');
+    globals.displayInfo('Response: ${response.statusCode} ${response.reasonPhrase}');
 
     fault.statusCode = response.statusCode;
     fault.message = response.reasonPhrase;
@@ -73,7 +79,7 @@ abstract class Upload {
       globals.displayInfo('${response.statusCode} - ${response.reasonPhrase}');
     }
 
-    int idUpload;
+    int? idUpload;
 
     // Upload is processed by the server
     // now wait for the upload to be finished
@@ -83,8 +89,7 @@ abstract class Upload {
       response.stream.transform(utf8.decoder).listen((value) {
         print(value);
         final Map<String, dynamic> _body = json.decode(value);
-        ResponseUploadActivity _response =
-            ResponseUploadActivity.fromJson(_body);
+        ResponseUploadActivity _response = ResponseUploadActivity.fromJson(_body);
 
         print('id ${_response.id}');
         idUpload = _response.id;
@@ -94,7 +99,7 @@ abstract class Upload {
       String reqCheckUpgrade = 'https://www.strava.com/api/v3/uploads/';
       onUploadPending.stream.listen((id) async {
         reqCheckUpgrade = reqCheckUpgrade + id.toString();
-        var resp = await http.get(Uri.parse(reqCheckUpgrade), headers: _header);
+        final resp = await http.get(Uri.parse(reqCheckUpgrade), headers: _header);
         print('check status ${resp.reasonPhrase}  ${resp.statusCode}');
 
         // Everything is fine the file has been loaded
@@ -108,23 +113,23 @@ abstract class Upload {
           print('---> 404 activity already loaded  ${resp.reasonPhrase}');
         }
 
-        if (resp.reasonPhrase.compareTo(ready) == 0) {
+        if (resp.reasonPhrase?.compareTo(ready) == 0) {
           print('---> Activity succesfully uploaded');
           onUploadPending.close();
         }
 
-        if ((resp.reasonPhrase.compareTo(notFound) == 0) ||
-            (resp.reasonPhrase.compareTo(errorMsg) == 0)) {
+        if ((resp.reasonPhrase?.compareTo(notFound) == 0) ||
+            (resp.reasonPhrase?.compareTo(errorMsg) == 0)) {
           print('---> Error while checking status upload');
           onUploadPending.close();
         }
 
-        if (resp.reasonPhrase.compareTo(deleted) == 0) {
+        if (resp.reasonPhrase?.compareTo(deleted) == 0) {
           print('---> Activity deleted');
           onUploadPending.close();
         }
 
-        if (resp.reasonPhrase.compareTo(processed) == 0) {
+        if (resp.reasonPhrase?.compareTo(processed) == 0) {
           print('---> try another time');
           // wait 2 sec before checking again status
           Timer(Duration(seconds: 2), () => onUploadPending.add(id));

@@ -15,9 +15,9 @@ final defaultStartLatlng = 0.0;
 final defaultEndlatlng = 0.0;
 
 /// To display debug info in Strava API
-void displayInfo(String message) {
+void displayInfo(String? message) {
   if (isInDebug) {
-    var msgToDisplay = '--> Strava_flutter: ' + message;
+    final msgToDisplay = '--> Strava_flutter: ' + message!;
     debugPrint(msgToDisplay);
   }
 }
@@ -27,7 +27,7 @@ void displayInfo(String message) {
 /// return {null, null} if there is not token yet
 /// stored in globals
 Map<String, String> createHeader() {
-  var _token = token;
+  final _token = token;
   if (_token.accessToken != null) {
     return {'Authorization': 'Bearer ${_token.accessToken}'};
   } else {
@@ -39,7 +39,7 @@ Map<String, String> createHeader() {
 /// Feed the Fault with statusCode and reasonPhrase
 /// Coming from http request
 ///
-Fault errorCheck(int statusCode, String reason) {
+Fault errorCheck(int statusCode, String? reason) {
   Fault returnFault = Fault(statusCode, reason);
 
   return returnFault;
