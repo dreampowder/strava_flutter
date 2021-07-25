@@ -3,18 +3,18 @@
 import 'fault.dart';
 
 class Gear {
-  Fault fault;
-  String id;
-  bool primary;
-  int resourceState;
-  int distance;
-  String brandName;
-  String modelName;
-  int frameType;
-  String description;
+  late Fault fault;
+  String? id;
+  bool? primary;
+  int? resourceState;
+  int? distance;
+  String? brandName;
+  String? modelName;
+  int? frameType;
+  String? description;
 
   Gear(
-      {Fault fault,
+      {Fault? fault,
       this.id,
       this.primary,
       this.resourceState,
@@ -37,7 +37,7 @@ class Gear {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['primary'] = this.primary;
     data['resource_state'] = this.resourceState;

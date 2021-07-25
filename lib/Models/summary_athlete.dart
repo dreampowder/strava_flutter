@@ -3,14 +3,14 @@
 import 'fault.dart';
 
 class SummaryAthlete {
-  Fault fault;
-  int resourceState;
-  String firstname;
-  String lastname;
-  String membership;
-  bool admin;
-  bool owner;
-  int id;
+  Fault? fault;
+  int? resourceState;
+  String? firstname;
+  String? lastname;
+  String? membership;
+  bool? admin;
+  bool? owner;
+  int? id;
 
   SummaryAthlete(
       {this.fault,
@@ -33,7 +33,7 @@ class SummaryAthlete {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['resource_state'] = this.resourceState;
     data['firstname'] = this.firstname;
     data['lastname'] = this.lastname;

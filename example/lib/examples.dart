@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data'; // Needed when declaring ByteData
 
 // import 'package:strava_flutter/API/constants.dart';
-import 'package:strava_flutter/errorCodes.dart' as error;
+import 'package:strava_flutter/error_codes.dart' as error;
 import 'secret.dart';
 
 // Used by uploadExample
@@ -18,10 +18,10 @@ import 'package:strava_flutter/Models/stats.dart'; // Test
 
 // Used by segment and segmentEffort
 import 'package:strava_flutter/Models/segment.dart';
-import 'package:strava_flutter/Models/segmentEffort.dart';
+import 'package:strava_flutter/Models/segment_effort.dart';
 
 // To test getLoggedInAtletheActivities
-import 'package:strava_flutter/Models/detailedAthlete.dart';
+import 'package:strava_flutter/Models/detailed_athlete.dart';
 import 'package:strava_flutter/Models/activity.dart';
 
 /// Example showing how to upload an activity on Strava
@@ -61,7 +61,7 @@ Future<Fault> exampleUpload(String secret) async {
   //----------------------------------------------------------------------
   String dir = (await getApplicationDocumentsDirectory()).path;
 
-  var data = await rootBundle.load('assets/Bormes.gpx');
+  final data = await rootBundle.load('assets/Bormes.gpx');
   // Save the data loaded from the asset into a file
   // Transfer the data into a real file
   await writeToFile(data, '$dir/myActivity.gpx');

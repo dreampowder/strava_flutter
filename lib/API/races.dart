@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-import '../Models/runningRace.dart';
+import '../Models/running_race.dart';
 import '../Models/fault.dart';
 
 import '../globals.dart' as globals;
-import '../errorCodes.dart' as error;
+import '../error_codes.dart' as error;
 
 abstract class Races {
   /// getRunningRacebyId
@@ -21,15 +21,15 @@ abstract class Races {
 
     globals.displayInfo('Entering getRunningRaceById');
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     if (_header.containsKey('88') == false) {
       final reqRace = 'https://www.strava.com/api/v3/running_races/' + id;
 
-      var rep = await http.get(reqRace, headers: _header);
+      final rep = await http.get(Uri.parse(reqRace), headers: _header);
       if (rep.statusCode == 200) {
         globals.displayInfo('Race info ${rep.body}');
-        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
+        final Map<String, dynamic>? jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
           returnRace = RunningRace.fromJson(jsonResponse);
@@ -50,26 +50,26 @@ abstract class Races {
   /// Scope needed: none
   /// Answer has NO route_ids for the moment
   Future<List<RunningRace>> getRunningRaces(String year) async {
-    List<RunningRace> returnListRaces = List<RunningRace>();
+    List<RunningRace> returnListRaces = <RunningRace>[];
 
     globals.displayInfo('Entering getRunningRaces');
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     if (_header.containsKey('88') == false) {
       final reqList =
           'https://www.strava.com/api/v3/running_races?year=' + year;
 
-      var rep = await http.get(reqList, headers: _header);
+      final rep = await http.get(Uri.parse(reqList), headers: _header);
       if (rep.statusCode == 200) {
         // globals.displayInfo('List races info ${rep.body}');
-        var jsonResponse = json.decode(rep.body);
+        final jsonResponse = json.decode(rep.body);
 
         if (jsonResponse != null) {
-          List<RunningRace> _listRaces = List<RunningRace>();
+          List<RunningRace> _listRaces = <RunningRace>[];
 
           jsonResponse.forEach((element) {
-            var _race = RunningRace.fromJson(element);
+            final _race = RunningRace.fromJson(element);
             globals.displayInfo(
                 '${_race.name} ,  ${_race.startDateLocal}    ${_race.id}');
             _listRaces.add(_race);

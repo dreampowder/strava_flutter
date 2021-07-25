@@ -3,78 +3,78 @@
 import 'gear.dart';
 import 'fault.dart';
 import '../globals.dart' as globals;
-import 'package:strava_flutter/Models/segmentEffort.dart';
+import 'package:strava_flutter/Models/segment_effort.dart';
 import 'package:strava_flutter/Models/athlete.dart';
 
 import 'package:intl/intl.dart';
 
 class DetailedActivity {
-  Fault fault;
-  int id;
-  int resourceState;
-  String externalId;
-  int uploadId;
-  Athlete athlete;
-  String name;
-  double distance;
-  int movingTime;
-  int elapsedTime;
-  double totalElevationGain;
-  String type;
-  String startDate;
-  String startDateLocal;
-  String timezone;
-  double utcOffset;
-  List<double> startLatlng;
-  List<double> endLatlng;
-  double startLatitude;
-  double startLongitude;
-  int achievementCount;
-  int kudosCount;
-  int commentCount;
-  int athleteCount;
-  int photoCount;
-  Carte map;
-  bool trainer;
-  bool commute;
-  bool manual;
-  bool private;
-  bool flagged;
-  String gearId;
-  bool fromAcceptedTag;
-  double averageSpeed;
-  double maxSpeed;
-  double averageCadence;
-  int averageTemp;
-  double averageWatts;
-  int weightedAverageWatts;
-  double kilojoules;
-  bool deviceWatts;
-  bool hasHeartrate;
-  int maxWatts;
-  double elevHigh;
-  double elevLow;
-  int prCount;
-  int totalPhotoCount;
-  bool hasKudoed;
-  int workoutType;
-  double sufferScore;
-  String description;
-  double calories;
-  List<SegmentEffort> segmentEfforts;
-  List<SplitsMetric> splitsMetric;
-  List<Laps> laps;
-  Gear gear;
-  String partnerBrandTag;
-  Photos photos;
-  List<HighlightedKudosers> highlightedKudosers;
-  String deviceName;
-  String embedToken;
-  bool segmentLeaderboardOptOut;
-  bool leaderboardOptOut;
+  Fault? fault;
+  int? id;
+  int? resourceState;
+  String? externalId;
+  int? uploadId;
+  Athlete? athlete;
+  String? name;
+  double? distance;
+  int? movingTime;
+  int? elapsedTime;
+  double? totalElevationGain;
+  String? type;
+  String? startDate;
+  String? startDateLocal;
+  String? timezone;
+  double? utcOffset;
+  List<double>? startLatlng;
+  List<double>? endLatlng;
+  double? startLatitude;
+  double? startLongitude;
+  int? achievementCount;
+  int? kudosCount;
+  int? commentCount;
+  int? athleteCount;
+  int? photoCount;
+  Carte? map;
+  bool? trainer;
+  bool? commute;
+  bool? manual;
+  bool? private;
+  bool? flagged;
+  String? gearId;
+  bool? fromAcceptedTag;
+  double? averageSpeed;
+  double? maxSpeed;
+  double? averageCadence;
+  int? averageTemp;
+  double? averageWatts;
+  int? weightedAverageWatts;
+  double? kilojoules;
+  bool? deviceWatts;
+  bool? hasHeartrate;
+  int? maxWatts;
+  double? elevHigh;
+  double? elevLow;
+  int? prCount;
+  int? totalPhotoCount;
+  bool? hasKudoed;
+  int? workoutType;
+  double? sufferScore;
+  String? description;
+  double? calories;
+  List<SegmentEffort>? segmentEfforts;
+  List<SplitsMetric>? splitsMetric;
+  List<Laps>? laps;
+  Gear? gear;
+  String? partnerBrandTag;
+  Photos? photos;
+  List<HighlightedKudosers>? highlightedKudosers;
+  String? deviceName;
+  String? embedToken;
+  bool? segmentLeaderboardOptOut;
+  bool? leaderboardOptOut;
 
   DetailedActivity(
-      {Fault fault,
+      {Fault? fault,
       this.id,
       this.resourceState,
       this.externalId,
@@ -201,31 +201,31 @@ class DetailedActivity {
     description = json['description'];
     calories = (json['calories']).toDouble();
     if (json['segment_efforts'] != null) {
-      segmentEfforts = List<SegmentEffort>();
+      segmentEfforts = <SegmentEffort>[];
       json['segment_efforts'].forEach((v) {
-        segmentEfforts.add(SegmentEffort.fromJson(v));
+        segmentEfforts?.add(SegmentEffort.fromJson(v));
       });
     }
     if (json['splits_metric'] != null) {
-      splitsMetric = new List<SplitsMetric>();
+      splitsMetric = <SplitsMetric>[];
       json['splits_metric'].forEach((v) {
-        splitsMetric.add(new SplitsMetric.fromJson(v));
+        splitsMetric?.add(SplitsMetric.fromJson(v));
       });
     }
     if (json['laps'] != null) {
-      laps = new List<Laps>();
+      laps = <Laps>[];
       json['laps'].forEach((v) {
-        laps.add(new Laps.fromJson(v));
+        laps?.add(Laps.fromJson(v));
       });
     }
-    gear = json['gear'] != null ? new Gear.fromJson(json['gear']) : null;
+    gear = json['gear'] != null ? Gear.fromJson(json['gear']) : null;
     partnerBrandTag = json['partner_brand_tag'];
     photos =
-        json['photos'] != null ? new Photos.fromJson(json['photos']) : null;
+        json['photos'] != null ? Photos.fromJson(json['photos']) : null;
     if (json['highlighted_kudosers'] != null) {
-      highlightedKudosers = new List<HighlightedKudosers>();
+      highlightedKudosers = <HighlightedKudosers>[];
       json['highlighted_kudosers'].forEach((v) {
-        highlightedKudosers.add(new HighlightedKudosers.fromJson(v));
+        highlightedKudosers?.add(HighlightedKudosers.fromJson(v));
       });
     }
     deviceName = json['device_name'];
@@ -235,13 +235,13 @@ class DetailedActivity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     data['external_id'] = this.externalId;
     data['upload_id'] = this.uploadId;
     if (this.athlete != null) {
-      data['athlete'] = this.athlete.toJson();
+      data['athlete'] = this.athlete?.toJson();
     }
     data['name'] = this.name;
     data['distance'] = this.distance;
@@ -263,7 +263,7 @@ class DetailedActivity {
     data['athlete_count'] = this.athleteCount;
     data['photo_count'] = this.photoCount;
     if (this.map != null) {
-      data['map'] = this.map.toJson();
+      data['map'] = this.map?.toJson();
     }
     data['trainer'] = this.trainer;
     data['commute'] = this.commute;
@@ -293,24 +293,24 @@ class DetailedActivity {
     data['calories'] = this.calories;
     if (this.segmentEfforts != null) {
       data['segment_efforts'] =
-          this.segmentEfforts.map((v) => v.toJson()).toList();
+          this.segmentEfforts?.map((v) => v.toJson()).toList();
     }
     if (this.splitsMetric != null) {
-      data['splits_metric'] = this.splitsMetric.map((v) => v.toJson()).toList();
+      data['splits_metric'] = this.splitsMetric?.map((v) => v.toJson()).toList();
     }
     if (this.laps != null) {
-      data['laps'] = this.laps.map((v) => v.toJson()).toList();
+      data['laps'] = this.laps?.map((v) => v.toJson()).toList();
     }
     if (this.gear != null) {
-      data['gear'] = this.gear.toJson();
+      data['gear'] = this.gear?.toJson();
     }
     data['partner_brand_tag'] = this.partnerBrandTag;
     if (this.photos != null) {
-      data['photos'] = this.photos.toJson();
+      data['photos'] = this.photos?.toJson();
     }
     if (this.highlightedKudosers != null) {
       data['highlighted_kudosers'] =
-          this.highlightedKudosers.map((v) => v.toJson()).toList();
+          this.highlightedKudosers?.map((v) => v.toJson()).toList();
     }
     data['device_name'] = this.deviceName;
     data['embed_token'] = this.embedToken;
@@ -323,10 +323,10 @@ class DetailedActivity {
 
 
 class Carte {
-  String id;
-  String polyline;
-  int resourceState;
-  String summaryPolyline;
+  String? id;
+  String? polyline;
+  int? resourceState;
+  String? summaryPolyline;
 
   Carte({this.id, this.polyline, this.resourceState, this.summaryPolyline});
 
@@ -338,7 +338,7 @@ class Carte {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['polyline'] = this.polyline;
     data['resource_state'] = this.resourceState;
@@ -347,128 +347,9 @@ class Carte {
   }
 }
 
-
-/**** 
-class SegmentEfforts {
-  int id;
-  int resourceState;
-  String name;
-  Activity activity;
-  Athlete athlete;
-  int elapsedTime;
-  int movingTime;
-  String startDate;
-  String startDateLocal;
-  double distance;
-  int startIndex;
-  int endIndex;
-  double averageCadence;
-  bool deviceWatts;
-  double averageWatts;
-  Segment segment;
-  int komRank;
-  int prRank;
-
-  List<String> achievements;
-  bool hidden;
-
-  SegmentEfforts(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.activity,
-      this.athlete,
-      this.elapsedTime,
-      this.movingTime,
-      this.startDate,
-      this.startDateLocal,
-      this.distance,
-      this.startIndex,
-      this.endIndex,
-      this.averageCadence,
-      this.deviceWatts,
-      this.averageWatts,
-      this.segment,
-      this.komRank,
-      this.prRank,
-      this.achievements,
-      this.hidden});
-
-  SegmentEfforts.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    activity = json['activity'] != null
-        ? new Activity.fromJson(json['activity'])
-        : null;
-    athlete =
-        json['athlete'] != null ? new Athlete.fromJson(json['athlete']) : null;
-    elapsedTime = json['elapsed_time'];
-    movingTime = json['moving_time'];
-    startDate = json['start_date'];
-    startDateLocal = json['start_date_local'];
-    distance = json['distance'];
-    startIndex = json['start_index'];
-    endIndex = json['end_index'];
-    averageCadence = json['average_cadence'];
-    deviceWatts = json['device_watts'];
-    averageWatts = json['average_watts'];
-    segment =
-        json['segment'] != null ? new Segment.fromJson(json['segment']) : null;
-    komRank = json['kom_rank'];
-    prRank = json['pr_rank'];
- 
-    // if (json['achievements'] != null) {
-      // achievements = new List<Null>();
-      // json['achievements'].forEach((v) {
-        // achievements.add(new Null.fromJson(v));
-      // });
-    // }
- 
-    hidden = json['hidden'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['resource_state'] = this.resourceState;
-    data['name'] = this.name;
-    if (this.activity != null) {
-      data['activity'] = this.activity.toJson();
-    }
-    if (this.athlete != null) {
-      data['athlete'] = this.athlete.toJson();
-    }
-    data['elapsed_time'] = this.elapsedTime;
-    data['moving_time'] = this.movingTime;
-    data['start_date'] = this.startDate;
-    data['start_date_local'] = this.startDateLocal;
-    data['distance'] = this.distance;
-    data['start_index'] = this.startIndex;
-    data['end_index'] = this.endIndex;
-    data['average_cadence'] = this.averageCadence;
-    data['device_watts'] = this.deviceWatts;
-    data['average_watts'] = this.averageWatts;
-    if (this.segment != null) {
-      data['segment'] = this.segment.toJson();
-    }
-    data['kom_rank'] = this.komRank;
-    data['pr_rank'] = this.prRank;
-    /***
-    if (this.achievements != null) {
-      data['achievements'] = this.achievements.map((v) => v.toJson()).toList();
-    }
-  ****/
-    data['hidden'] = this.hidden;
-    return data;
-  }
-}
-
-*****/
-
 class Activity {
-  int id;
-  int resourceState;
+  int? id;
+  int? resourceState;
 
   Activity({this.id, this.resourceState});
 
@@ -478,7 +359,7 @@ class Activity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     return data;
@@ -486,28 +367,28 @@ class Activity {
 }
 
 class Segment {
-  int id;
-  int resourceState;
-  String name;
-  String activityType;
-  double distance;
-  double averageGrade;
-  double maximumGrade;
-  double elevationHigh;
-  double elevationLow;
-  List<double> startLatlng;
-  List<double> endLatlng;
-  double startLatitude;
-  double startLongitude;
-  double endLatitude;
-  double endLongitude;
-  int climbCategory;
-  String city;
-  String state;
-  String country;
-  bool private;
-  bool hazardous;
-  bool starred;
+  int? id;
+  int? resourceState;
+  String? name;
+  String? activityType;
+  double? distance;
+  double? averageGrade;
+  double? maximumGrade;
+  double? elevationHigh;
+  double? elevationLow;
+  List<double>? startLatlng;
+  List<double>? endLatlng;
+  double? startLatitude;
+  double? startLongitude;
+  double? endLatitude;
+  double? endLongitude;
+  int? climbCategory;
+  String? city;
+  String? state;
+  String? country;
+  bool? private;
+  bool? hazardous;
+  bool? starred;
 
   Segment(
       {this.id,
@@ -559,7 +440,7 @@ class Segment {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     data['name'] = this.name;
@@ -587,13 +468,13 @@ class Segment {
 }
 
 class SplitsMetric {
-  double distance;
-  int elapsedTime;
-  double elevationDifference;
-  int movingTime;
-  int split;
-  double averageSpeed;
-  int paceZone;
+  double? distance;
+  int? elapsedTime;
+  double? elevationDifference;
+  int? movingTime;
+  int? split;
+  double? averageSpeed;
+  int? paceZone;
 
   SplitsMetric(
       {this.distance,
@@ -615,7 +496,7 @@ class SplitsMetric {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['distance'] = this.distance;
     data['elapsed_time'] = this.elapsedTime;
     data['elevation_difference'] = this.elevationDifference;
@@ -628,26 +509,26 @@ class SplitsMetric {
 }
 
 class Laps {
-  int id;
-  int resourceState;
-  String name;
-  Activity activity;
-  AthleteEffort athlete;
-  int elapsedTime;
-  int movingTime;
-  String startDate;
-  String startDateLocal;
-  double distance;
-  int startIndex;
-  int endIndex;
-  double totalElevationGain;
-  double averageSpeed;
-  double maxSpeed;
-  double averageCadence;
-  bool deviceWatts;
-  double averageWatts;
-  int lapIndex;
-  int split;
+  int? id;
+  int? resourceState;
+  String? name;
+  Activity? activity;
+  AthleteEffort? athlete;
+  int? elapsedTime;
+  int? movingTime;
+  String? startDate;
+  String? startDateLocal;
+  double? distance;
+  int? startIndex;
+  int? endIndex;
+  double? totalElevationGain;
+  double? averageSpeed;
+  double? maxSpeed;
+  double? averageCadence;
+  bool? deviceWatts;
+  double? averageWatts;
+  int? lapIndex;
+  int? split;
 
   Laps(
       {this.id,
@@ -676,7 +557,7 @@ class Laps {
     resourceState = json['resource_state'];
     name = json['name'];
     activity = json['activity'] != null
-        ? new Activity.fromJson(json['activity'])
+        ? Activity.fromJson(json['activity'])
         : null;
     athlete =
         json['athlete'] != null ? AthleteEffort.fromJson(json['athlete']) : null;
@@ -698,15 +579,15 @@ class Laps {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     data['name'] = this.name;
     if (this.activity != null) {
-      data['activity'] = this.activity.toJson();
+      data['activity'] = this.activity?.toJson();
     }
     if (this.athlete != null) {
-      data['athlete'] = this.athlete.toJson();
+      data['athlete'] = this.athlete?.toJson();
     }
     data['elapsed_time'] = this.elapsedTime;
     data['moving_time'] = this.movingTime;
@@ -728,23 +609,23 @@ class Laps {
 }
 
 class Photos {
-  Primary primary;
-  bool usePrimaryPhoto;
-  int count;
+  Primary? primary;
+  bool? usePrimaryPhoto;
+  int? count;
 
   Photos({this.primary, this.usePrimaryPhoto, this.count});
 
   Photos.fromJson(Map<String, dynamic> json) {
     primary =
-        json['primary'] != null ? new Primary.fromJson(json['primary']) : null;
+        json['primary'] != null ? Primary.fromJson(json['primary']) : null;
     usePrimaryPhoto = json['use_primary_photo'];
     count = json['count'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.primary != null) {
-      data['primary'] = this.primary.toJson();
+      data['primary'] = this.primary?.toJson();
     }
     data['use_primary_photo'] = this.usePrimaryPhoto;
     data['count'] = this.count;
@@ -754,25 +635,25 @@ class Photos {
 
 class Primary {
   Null id;
-  String uniqueId;
-  Urls urls;
-  int source;
+  String? uniqueId;
+  Urls? urls;
+  int? source;
 
   Primary({this.id, this.uniqueId, this.urls, this.source});
 
   Primary.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     uniqueId = json['unique_id'];
-    urls = json['urls'] != null ? new Urls.fromJson(json['urls']) : null;
+    urls = json['urls'] != null ? Urls.fromJson(json['urls']) : null;
     source = json['source'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['unique_id'] = this.uniqueId;
     if (this.urls != null) {
-      data['urls'] = this.urls.toJson();
+      data['urls'] = this.urls?.toJson();
     }
     data['source'] = this.source;
     return data;
@@ -780,8 +661,8 @@ class Primary {
 }
 
 class Urls {
-  String s100;
-  String s600;
+  String? s100;
+  String? s600;
 
   Urls({this.s100, this.s600});
 
@@ -791,7 +672,7 @@ class Urls {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['100'] = this.s100;
     data['600'] = this.s600;
     return data;
@@ -799,10 +680,10 @@ class Urls {
 }
 
 class HighlightedKudosers {
-  String destinationUrl;
-  String displayName;
-  String avatarUrl;
-  bool showName;
+  String? destinationUrl;
+  String? displayName;
+  String? avatarUrl;
+  bool? showName;
 
   HighlightedKudosers(
       {this.destinationUrl, this.displayName, this.avatarUrl, this.showName});
@@ -815,7 +696,7 @@ class HighlightedKudosers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['destination_url'] = this.destinationUrl;
     data['display_name'] = this.displayName;
     data['avatar_url'] = this.avatarUrl;
@@ -829,19 +710,19 @@ class HighlightedKudosers {
 //------------------
 
 class SummaryActivity {
-  Fault fault;
-  int id;
-  int resourceState;
-  AthleteEffort athlete;
-  String name;
-  double distance;
-  int movingTime;
-  int elapsedTime;
-  double totalElevationGain;
-  String type;
-  int workoutType;
-  DateTime startDate;
-  DateTime startDateLocal;
+  Fault? fault;
+  int? id;
+  int? resourceState;
+  AthleteEffort? athlete;
+  String? name;
+  double? distance;
+  int? movingTime;
+  int? elapsedTime;
+  double? totalElevationGain;
+  String? type;
+  int? workoutType;
+  DateTime? startDate;
+  DateTime? startDateLocal;
 
   SummaryActivity({
     this.id,
@@ -867,8 +748,8 @@ class SummaryActivity {
     distance = json['distance'];
     movingTime = json['moving_time'];
     elapsedTime = json['elapsed_time'];
-    var _elevationGain = json['total_elevation_gain'];
-    // To convert the dynamic var in double when it is an int
+    double _elevationGain = json['total_elevation_gain'];
+    // To convert the dynamic final in double when it is an int
     if ((_elevationGain % 1) == 0) {
       _elevationGain = _elevationGain + 0.0;
     }
@@ -888,7 +769,7 @@ class SummaryActivity {
     data['id'] = this.id;
     data['resource_state'] = this.resourceState;
     if (this.athlete != null) {
-      data['athlete'] = this.athlete.toJson();
+      data['athlete'] = this.athlete?.toJson();
     }
     data['name'] = this.name;
     data['distance'] = this.distance;
@@ -954,21 +835,21 @@ class ActivityType {
 }
 
 class PhotoActivity {
-  Fault fault;
-  int id;
-  String uniqueId;
-  String urls;
-  String source;
-  String athleteId;
-  String activityId;
-  String activityName;
-  String resourceState;
-  String caption;
-  String createdAt;
-  String createdAtLocal;
-  String uploadedAt;
-  String sizes;
-  bool defaultPhoto;
+  Fault? fault;
+  int? id;
+  String? uniqueId;
+  String? urls;
+  String? source;
+  String? athleteId;
+  String? activityId;
+  String? activityName;
+  String? resourceState;
+  String? caption;
+  String? createdAt;
+  String? createdAtLocal;
+  String? uploadedAt;
+  String? sizes;
+  bool? defaultPhoto;
 
   PhotoActivity({
     this.id,

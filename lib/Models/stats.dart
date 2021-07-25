@@ -3,21 +3,21 @@
 import 'fault.dart';
 
 class Stats {
-  Fault fault;
-  StatsTotals recentRunTotals;
-  ActivityTotals allRunTotals;
-  StatsTotals recentSwimTotals;
-  double biggestRideDistance;
-  ActivityTotals ytdSwimTotals;
-  ActivityTotals allSwimTotals;
-  StatsTotals recentRideTotals;
-  double biggestClimbElevationGain;
-  ActivityTotals ytdRideTotals;
-  ActivityTotals allRideTotals;
-  ActivityTotals ytdRunTotals;
+  Fault? fault;
+  StatsTotals? recentRunTotals;
+  ActivityTotals? allRunTotals;
+  StatsTotals? recentSwimTotals;
+  double? biggestRideDistance;
+  ActivityTotals? ytdSwimTotals;
+  ActivityTotals? allSwimTotals;
+  StatsTotals? recentRideTotals;
+  double? biggestClimbElevationGain;
+  ActivityTotals? ytdRideTotals;
+  ActivityTotals? allRideTotals;
+  ActivityTotals? ytdRunTotals;
 
   Stats(
-      {Fault fault,
+      {Fault? fault,
       this.recentRunTotals,
       this.allRunTotals,
       this.recentSwimTotals,
@@ -68,7 +68,7 @@ class Stats {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['recent_run_totals'] = this.recentRunTotals;
     data['all_run_totals'] = this.allRunTotals;
     data['recent_swim_totals'] = this.recentSwimTotals;
@@ -76,7 +76,7 @@ class Stats {
     data['ytd_swim_totals'] = this.ytdSwimTotals;
     data['all_swim_totals'] = this.allSwimTotals;
     if (this.recentRideTotals != null) {
-      data['recent_ride_totals'] = this.recentRideTotals.toJson();
+      data['recent_ride_totals'] = this.recentRideTotals?.toJson();
     }
     data['biggest_climb_elevation_gain'] = this.biggestClimbElevationGain;
     data['ytd_ride_totals'] = this.ytdRideTotals;
@@ -87,12 +87,12 @@ class Stats {
 }
 
 class StatsTotals {
-  double distance;
-  int achievementCount;
-  int count;
-  int elapsedTime;
-  double elevationGain;
-  int movingTime;
+  double? distance;
+  int? achievementCount;
+  int? count;
+  int? elapsedTime;
+  double? elevationGain;
+  int? movingTime;
 
   StatsTotals(
       {this.distance,
@@ -124,12 +124,12 @@ class StatsTotals {
 }
 
 class ActivityTotals {
-  int distance;
-  int achievementCount;
-  int count;
-  int elapsedTime;
-  int elevationGain;
-  int movingTime;
+  int? distance;
+  int? achievementCount;
+  int? count;
+  int? elapsedTime;
+  int? elevationGain;
+  int? movingTime;
 
   ActivityTotals(
       {this.distance,
@@ -149,7 +149,7 @@ class ActivityTotals {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['distance'] = this.distance;
     data['achievement_count'] = this.achievementCount;
     data['count'] = this.count;

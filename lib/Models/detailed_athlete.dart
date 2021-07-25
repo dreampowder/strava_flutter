@@ -5,38 +5,38 @@ import 'fault.dart';
 // import 'club.dart';
 
 class DetailedAthlete {
-  Fault fault;
-  int id;
-  String username;
-  int resourceState;
-  String firstname;
-  String lastname;
-  String city;
-  String state;
-  String country;
-  String sex;
-  bool premium;
-  String createdAt;
-  String updatedAt;
-  int badgeTypeId;
-  String profileMedium;
-  String profile;
-  String friend;
-  String follower;
-  int followerCount;
-  int friendCount;
-  int mutualFriendCount;
-  int athleteType;
-  String datePreference;
-  String measurementPreference;
+  late Fault fault;
+  int? id;
+  String? username;
+  int? resourceState;
+  String? firstname;
+  String? lastname;
+  String? city;
+  String? state;
+  String? country;
+  String? sex;
+  bool? premium;
+  String? createdAt;
+  String? updatedAt;
+  int? badgeTypeId;
+  String? profileMedium;
+  String? profile;
+  String? friend;
+  String? follower;
+  int? followerCount;
+  int? friendCount;
+  int? mutualFriendCount;
+  int? athleteType;
+  String? datePreference;
+  String? measurementPreference;
   // List<Null> clubs;
-  int ftp;
-  double weight;
-  List<Bikes> bikes;
-  List<Shoes> shoes;
+  int? ftp;
+  double? weight;
+  List<Bikes>? bikes;
+  List<Shoes>? shoes;
 
   DetailedAthlete(
-      {Fault fault,
+      {Fault? fault,
       this.id,
       this.username,
       this.resourceState,
@@ -102,21 +102,21 @@ class DetailedAthlete {
     ftp = json['ftp'];
     weight = json['weight'];
     if (json['bikes'] != null) {
-      bikes = List<Bikes>();
+      bikes = <Bikes>[];
       json['bikes'].forEach((v) {
-        bikes.add(Bikes.fromJson(v));
+        bikes?.add(Bikes.fromJson(v));
       });
     }
     if (json['shoes'] != null) {
-      shoes = List<Shoes>();
+      shoes = <Shoes>[];
       json['shoes'].forEach((v) {
-        shoes.add(Shoes.fromJson(v));
+        shoes?.add(Shoes.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['username'] = this.username;
     data['resource_state'] = this.resourceState;
@@ -148,21 +148,21 @@ class DetailedAthlete {
     data['ftp'] = this.ftp;
     data['weight'] = this.weight;
     if (this.bikes != null) {
-      data['bikes'] = this.bikes.map((v) => v.toJson()).toList();
+      data['bikes'] = this.bikes?.map((v) => v.toJson()).toList();
     }
     if (this.shoes != null) {
-      data['shoes'] = this.shoes.map((v) => v.toJson()).toList();
+      data['shoes'] = this.shoes?.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Bikes {
-  String id;
-  bool primary;
-  String name;
-  int resourceState;
-  double distance;
+  String? id;
+  bool? primary;
+  String? name;
+  int? resourceState;
+  double? distance;
 
   Bikes({this.id, this.primary, this.name, this.resourceState, this.distance});
 
@@ -175,7 +175,7 @@ class Bikes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['primary'] = this.primary;
     data['name'] = this.name;
@@ -186,11 +186,11 @@ class Bikes {
 }
 
 class Shoes {
-  String id;
-  bool primary;
-  String name;
-  int resourceState;
-  double distance;
+  String? id;
+  bool? primary;
+  String? name;
+  int? resourceState;
+  double? distance;
 
   Shoes({this.id, this.primary, this.name, this.resourceState, this.distance});
 
@@ -203,7 +203,7 @@ class Shoes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['primary'] = this.primary;
     data['name'] = this.name;

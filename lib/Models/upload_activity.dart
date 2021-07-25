@@ -1,11 +1,11 @@
 // upload.dart
 
 class UploadActivity {
-  int activityId;
-  String externalId;
-  int id;
-  String error;
-  String status;
+  int? activityId;
+  String? externalId;
+  int? id;
+  String? error;
+  String? status;
 
   UploadActivity(
       {this.activityId, this.externalId, this.id, this.error, this.status});
@@ -19,7 +19,7 @@ class UploadActivity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['activity_id'] = this.activityId;
     data['external_id'] = this.externalId;
     data['id'] = this.id;
@@ -30,11 +30,11 @@ class UploadActivity {
 }
 
 class ResponseUploadActivity {
-  int id;
-  String externalId;
-  String error;
-  String status;
-  int activityId;
+  int? id;
+  String? externalId;
+  String? error;
+  String? status;
+  int? activityId;
 
   ResponseUploadActivity(
       this.id, this.externalId, this.error, this.status, this.activityId);

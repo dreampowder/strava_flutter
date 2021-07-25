@@ -1,16 +1,16 @@
 import 'fault.dart';
 
 class Token {
-  String accessToken;
-  String refreshToken;
-  String tokenType;
-  int expiresAt;
-  int expiresIn; // in seconds
-  String scope;
+  String? accessToken;
+  String? refreshToken;
+  String? tokenType;
+  int? expiresAt;
+  int? expiresIn; // in seconds
+  String? scope;
 
   Token();
 
-  factory Token.fromJson(Map<String, dynamic> json) => Token.fromMap(json);
+  factory Token.fromJson(Map<String, dynamic>? json) => Token.fromMap(json)!;
 
   Map toMap() => Token.toJsonMap(this);
 
@@ -18,7 +18,7 @@ class Token {
   String toString() => Token.toJsonMap(this).toString();
 
   static Map toJsonMap(Token model) {
-    Map ret = new Map();
+    Map ret = {};
     ret['access_token'] = model.accessToken ?? 'Error';
     ret['token_type'] = model.tokenType ?? 'Error';
     ret['refresh_token'] = model.refreshToken ?? 'Error';
@@ -28,9 +28,9 @@ class Token {
     return ret;
   }
 
-  static Token fromMap(Map<String, dynamic> map) {
+  static Token? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
-    Token model = new Token();
+    Token model = Token();
     model.accessToken = map['access_token'];
     model.refreshToken = map['refresh_token'];
     model.tokenType = map['token_type'];
@@ -41,18 +41,18 @@ class Token {
 }
 
 class RefreshAnswer {
-  Fault fault;
-  String accessToken;
-  String refreshToken;
-  int expiresAt;
-  int expiresIn;
+  late Fault fault;
+  String? accessToken;
+  String? refreshToken;
+  int? expiresAt;
+  int? expiresIn;
 
   RefreshAnswer();
 
-  factory RefreshAnswer.fromJson(Map<String, dynamic> json) =>
-      RefreshAnswer.fromMap(json);
+  factory RefreshAnswer.fromJson(Map<String, dynamic>? json) =>
+      RefreshAnswer.fromMap(json)!;
 
-  static RefreshAnswer fromMap(Map<String, dynamic> map) {
+  static RefreshAnswer? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
     RefreshAnswer model = RefreshAnswer();
     model.accessToken = map['access_token'];

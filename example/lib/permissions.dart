@@ -3,9 +3,11 @@
 // For the moment only
 // getLoggedInAthleteActivities
 
+import 'dart:async';
+
 import 'package:strava_flutter/strava.dart';
 import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/errorCodes.dart' as error;
+import 'package:strava_flutter/error_codes.dart' as error;
 import 'secret.dart';
 
 import 'package:strava_flutter/Models/activity.dart';

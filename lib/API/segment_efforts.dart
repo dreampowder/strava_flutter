@@ -3,28 +3,27 @@ import 'dart:convert';
 
 import 'package:strava_flutter/globals.dart' as globals;
 import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/Models/segmentEffort.dart';
-import 'package:strava_flutter/errorCodes.dart' as error;
+import 'package:strava_flutter/Models/segment_effort.dart';
+import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class SegmentEfforts {
   Future<DetailedSegmentEffort> getSegmentEffortById(int segId) async {
     DetailedSegmentEffort _returnSeg = DetailedSegmentEffort();
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
 
     globals.displayInfo('Entering getSegmentEffortById');
 
     if (_header.containsKey('88') == false) {
-      final reqSeg =
-          'https://www.strava.com/api/v3/segment_efforts/' + segId.toString();
+      final reqSeg = 'https://www.strava.com/api/v3/segment_efforts/' + segId.toString();
 
-      var rep = await http.get(reqSeg, headers: _header);
+      final rep = await http.get(Uri.parse(reqSeg), headers: _header);
 
       if (rep.statusCode == 200) {
         globals.displayInfo(rep.statusCode.toString());
         if (rep.body != '[]') {
           globals.displayInfo('Segment info ${rep.body}');
-          var jsonResponse = json.decode(rep.body);
+          final jsonResponse = json.decode(rep.body);
 
           if (jsonResponse != null) {
             _returnSeg = DetailedSegmentEffort.fromJson(jsonResponse);
@@ -33,13 +32,11 @@ abstract class SegmentEfforts {
         }
       } else {
         // No proper answer to the request
-        _returnSeg.fault =
-            Fault(error.statusUnknownError, 'error ${rep.statusCode}');
+        _returnSeg.fault = Fault(error.statusUnknownError, 'error ${rep.statusCode}');
       }
     } else {
       globals.displayInfo('Token not yet known');
-      _returnSeg.fault =
-          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      _returnSeg.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return _returnSeg;
   }
@@ -50,10 +47,13 @@ abstract class SegmentEfforts {
   /// Multiple page request has not been tested yet
   ///
   Future<DetailedSegmentEffort> getEffortsbySegmentId(
-      int segId, String startDateLocal, String endDateLocal) async {
+    int? segId,
+    String startDateLocal,
+    String endDateLocal,
+  ) async {
     DetailedSegmentEffort _returnSeg = DetailedSegmentEffort();
 
-    var _header = globals.createHeader();
+    final _header = globals.createHeader();
     bool isRetrieveDone = false;
     int _perPage = 50; // Nombre of segments retrieved by request
 
@@ -61,29 +61,27 @@ abstract class SegmentEfforts {
 
     if (_header.containsKey('88') == false) {
       do {
-        final reqSeg =
-            'https://www.strava.com/api/v3/segment_efforts?segment_id=' +
-                segId.toString() +
-                '&start_date_local=' +
-                startDateLocal +
-                '&end_date_local=' +
-                endDateLocal +
-                '&per_page=' +
-                _perPage.toString();
+        final reqSeg = 'https://www.strava.com/api/v3/segment_efforts?segment_id=' +
+            segId.toString() +
+            '&start_date_local=' +
+            startDateLocal +
+            '&end_date_local=' +
+            endDateLocal +
+            '&per_page=' +
+            _perPage.toString();
 
-        var rep = await http.get(reqSeg, headers: _header);
+        final rep = await http.get(Uri.parse(reqSeg), headers: _header);
         int _nbSegments = 0;
 
         if (rep.statusCode == 200) {
           globals.displayInfo(rep.statusCode.toString());
           if (rep.body != '[]') {
             globals.displayInfo('Segment info ${rep.body}');
-            var jsonResponse = json.decode(rep.body);
+            final jsonResponse = json.decode(rep.body);
 
             if (jsonResponse != null) {
               jsonResponse.forEach((_seg) {
-                var _detailedSegmentEffort =
-                    DetailedSegmentEffort.fromJson(_seg);
+                final _detailedSegmentEffort = DetailedSegmentEffort.fromJson(_seg);
                 globals.displayInfo('${_detailedSegmentEffort.name}');
                 // _listSummary.add(member);
                 _nbSegments++;
@@ -105,22 +103,20 @@ abstract class SegmentEfforts {
               _returnSeg = _segEffort;
             } else {
               // The segment has been ridden by the athlete during the data range
-              globals.displayInfo(
-                  'Segment unknown to this athlete during date range');
-              _returnSeg.fault = Fault(error.statusSegmentNotRidden,
-                  'Segment unknown to the athlete');
+              globals.displayInfo('Segment unknown to this athlete during date range');
+              _returnSeg.fault =
+                  Fault(error.statusSegmentNotRidden, 'Segment unknown to the athlete');
             }
           } else {
             globals.displayInfo('problem in getEffortsBySegmentId request');
-            _returnSeg.fault = Fault(
-                error.statusUnknownError, 'Error in getEffortsbySegmentId');
+            _returnSeg.fault =
+                Fault(error.statusUnknownError, 'Error in getEffortsbySegmentId');
           }
         }
       } while (!isRetrieveDone);
     } else {
       globals.displayInfo('Token not yet known');
-      _returnSeg.fault =
-          Fault(error.statusTokenNotKnownYet, 'Token not yet known');
+      _returnSeg.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
     }
     return _returnSeg;
   }
