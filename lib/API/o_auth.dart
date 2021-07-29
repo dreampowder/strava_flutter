@@ -42,7 +42,8 @@ abstract class Auth {
     // prefs.setInt('strava_expiresIn',
     //     expiresIn); // Value is valid at the time the token has been issued
     if (scope != null) prefs.setString('strava_scope', scope);
-    if (refreshToken != null) prefs.setString('strava_refreshToken', refreshToken);
+    if (refreshToken != null)
+      prefs.setString('strava_refreshToken', refreshToken);
 
     // Save also in globals to get direct access
     globals.token.accessToken = token;
@@ -52,6 +53,19 @@ abstract class Auth {
     globals.token.refreshToken = refreshToken;
 
     globals.displayInfo('token saved!!!');
+  }
+
+  // remove token
+  Future<void> _removeToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('strava_accessToken');
+    prefs.remove('strava_expiresAt');
+    prefs.remove('strava_scope');
+    prefs.remove('strava_refreshToken');
+    globals.token.accessToken = null;
+    globals.token.scope = null;
+    globals.token.expiresAt = null;
+    globals.token.refreshToken = null;
   }
 
   /// Get the stored token and expiry date
@@ -88,7 +102,8 @@ abstract class Auth {
     }
 
     if (localToken.expiresAt != null) {
-      final dateExpired = DateTime.fromMillisecondsSinceEpoch(localToken.expiresAt!);
+      final dateExpired =
+          DateTime.fromMillisecondsSinceEpoch(localToken.expiresAt!);
       final _disp =
           '${dateExpired.day.toString()}/${dateExpired.month.toString()} ${dateExpired.hour.toString()} hours';
       globals.displayInfo(
@@ -135,11 +150,13 @@ abstract class Auth {
       globals.displayInfo('Running in web ');
 
       // listening on http the answer from Strava
-      final server = await HttpServer.bind(InternetAddress.anyIPv4, 8080, shared: true);
+      final server =
+          await HttpServer.bind(InternetAddress.anyIPv4, 8080, shared: true);
       await for (HttpRequest request in server) {
         // Get the answer from Strava
         // final uri = request.uri;
-        globals.displayInfo('Get the answer from Strava to authenticate! ${request.uri}');
+        globals.displayInfo(
+            'Get the answer from Strava to authenticate! ${request.uri}');
       }
     } else {
       globals.displayInfo('Running on iOS or Android');
@@ -274,8 +291,8 @@ abstract class Auth {
 
       // Save the token information
       if (answer.accessToken != null && answer.expiresAt != null) {
-        await _saveToken(answer.accessToken!, answer.expiresAt!, answer.expiresIn, scope,
-            answer.refreshToken!);
+        await _saveToken(answer.accessToken!, answer.expiresAt!,
+            answer.expiresIn, scope, answer.refreshToken!);
         returnValue = true;
       }
     } else {
@@ -401,11 +418,11 @@ abstract class Auth {
       if (rep.statusCode == 200) {
         globals.displayInfo('DeAuthorize done');
         globals.displayInfo('response ${rep.body}');
-        await _saveToken(null, null, null, null, null);
+        await _removeToken();
         fault.statusCode = error.statusOk;
         fault.message = 'DeAuthorize done';
       } else {
-        await _saveToken(null, null, null, null, null);
+        await _removeToken();
         globals.displayInfo('Problem in deAuthorize request');
         fault.statusCode = error.statusDeAuthorizeError;
       }
