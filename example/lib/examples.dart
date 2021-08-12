@@ -7,22 +7,22 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data'; // Needed when declaring ByteData
 
-// import 'package:strava_flutter/API/constants.dart';
+// import 'package:strava_flutter/api/constants.dart';
 import 'package:strava_flutter/error_codes.dart' as error;
 import 'secret.dart';
 
 // Used by uploadExample
 import 'package:strava_flutter/strava.dart';
-import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/Models/stats.dart'; // Test
+import 'package:strava_flutter/models/fault.dart';
+import 'package:strava_flutter/models/stats.dart'; // Test
 
 // Used by segment and segmentEffort
-import 'package:strava_flutter/Models/segment.dart';
-import 'package:strava_flutter/Models/segment_effort.dart';
+import 'package:strava_flutter/models/segment.dart';
+import 'package:strava_flutter/models/segment_effort.dart';
 
 // To test getLoggedInAtletheActivities
-import 'package:strava_flutter/Models/detailed_athlete.dart';
-import 'package:strava_flutter/Models/activity.dart';
+import 'package:strava_flutter/models/detailed_athlete.dart';
+import 'package:strava_flutter/models/activity.dart';
 
 /// Example showing how to upload an activity on Strava
 ///

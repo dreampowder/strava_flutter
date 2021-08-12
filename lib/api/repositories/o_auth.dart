@@ -15,11 +15,11 @@ import 'package:uni_links/uni_links.dart';
 import 'package:strava_flutter/error_codes.dart' as error;
 import 'package:strava_flutter/globals.dart' as globals;
 // import 'constants.dart';
-import 'package:strava_flutter/API/constants.dart';
-// import '../Models/token.dart';
-import 'package:strava_flutter/Models/token.dart';
-// import '../Models/fault.dart';
-import 'package:strava_flutter/Models/fault.dart';
+import 'package:strava_flutter/api/api_constants.dart';
+// import '../models/token.dart';
+import 'package:strava_flutter/models/token.dart';
+// import '../models/fault.dart';
+import 'package:strava_flutter/models/fault.dart';
 
 ///===========================================
 /// Class related to Authorization processs
@@ -62,10 +62,7 @@ abstract class Auth {
     prefs.remove('strava_expiresAt');
     prefs.remove('strava_scope');
     prefs.remove('strava_refreshToken');
-    globals.token.accessToken = null;
-    globals.token.scope = null;
-    globals.token.expiresAt = null;
-    globals.token.refreshToken = null;
+    globals.token = null;
   }
 
   /// Get the stored token and expiry date
@@ -75,10 +72,11 @@ abstract class Auth {
   ///
   Future<Token> getStoredToken() async {
     final prefs = await SharedPreferences.getInstance();
-    final localToken = Token();
+    var localToken = Token.empty();
     globals.displayInfo('Entering getStoredToken');
 
     try {
+
       localToken.accessToken = prefs.getString('strava_accessToken');
       // localToken.expiresAt = prefs.getInt('expire') * 1000; // To get in ms
       localToken.expiresAt = prefs.getInt('strava_expiresAt');

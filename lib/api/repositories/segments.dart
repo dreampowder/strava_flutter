@@ -7,11 +7,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-import '../Models/segment.dart';
-import '../Models/fault.dart';
+import 'package:strava_flutter/models/segment.dart';
+import 'package:strava_flutter/models/fault.dart';
 
-import '../globals.dart' as globals;
-import '../error_codes.dart' as error;
+import 'package:strava_flutter/globals.dart' as globals;
+import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class Segments {
   ///

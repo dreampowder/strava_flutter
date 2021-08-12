@@ -6,11 +6,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../Models/fault.dart';
-import '../Models/upload_activity.dart';
+import 'package:strava_flutter/models/fault.dart';
+import 'package:strava_flutter/models/upload_activity.dart';
 
-import '../globals.dart' as globals;
-import '../error_codes.dart' as error;
+import 'package:strava_flutter/globals.dart' as globals;
+import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class Upload {
   /// Tested with gpx and tcx

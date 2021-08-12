@@ -13,15 +13,15 @@ import 'package:strava_flutter/strava.dart';
 
 // Used by example
 
-import 'package:strava_flutter/Models/activity.dart';
-import 'package:strava_flutter/Models/club.dart';
-import 'package:strava_flutter/Models/detailed_athlete.dart';
-import 'package:strava_flutter/Models/gear.dart';
-import 'package:strava_flutter/Models/running_race.dart';
-import 'package:strava_flutter/Models/stats.dart';
-import 'package:strava_flutter/Models/summary_athlete.dart';
-import 'package:strava_flutter/Models/zone.dart';
-import 'package:strava_flutter/Models/fault.dart';
+import 'package:strava_flutter/models/activity.dart';
+import 'package:strava_flutter/models/club.dart';
+import 'package:strava_flutter/models/detailed_athlete.dart';
+import 'package:strava_flutter/models/gear.dart';
+import 'package:strava_flutter/models/running_race.dart';
+import 'package:strava_flutter/models/stats.dart';
+import 'package:strava_flutter/models/summary_athlete.dart';
+import 'package:strava_flutter/models/zone.dart';
+import 'package:strava_flutter/models/fault.dart';
 
 Strava strava;
 

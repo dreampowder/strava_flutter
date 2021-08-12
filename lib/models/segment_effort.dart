@@ -1,5 +1,5 @@
 import 'fault.dart';
-import 'package:strava_flutter/Models/athlete.dart';
+import 'package:strava_flutter/models/athlete.dart';
 
 class DetailedSegmentEffort {
   Fault? fault;

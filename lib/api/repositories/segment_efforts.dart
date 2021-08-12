@@ -2,8 +2,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:strava_flutter/globals.dart' as globals;
-import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/Models/segment_effort.dart';
+import 'package:strava_flutter/models/fault.dart';
+import 'package:strava_flutter/models/segment_effort.dart';
 import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class SegmentEfforts {

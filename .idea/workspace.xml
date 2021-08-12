@@ -1,42 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/client.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/strava_api.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/json_serializable_mixin.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/local_storage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/session_manager.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/strava_fault.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/examples.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/examples.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/generated_plugin_registrant.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/permissions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/permissions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/API/segmentEfforts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/segmentEfforts.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/activities.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/activities.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/athletes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/athletes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/clubs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/clubs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/api_constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/o_auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/o_auth.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/races.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/races.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/segment_efforts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/segment_efforts.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/segments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/segments.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/API/upload.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/upload.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/activity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/activity.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/athlete.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/athlete.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/club.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/club.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/detailed_athlete.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/detailed_athlete.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/fault.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/fault.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/gear.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/gear.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/old_summary_activity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/old_summary_activity.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/running_race.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/running_race.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/segment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/segment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/segment_effort.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/segment_effort.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/stats.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/stats.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/summary_athlete.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/summary_athlete.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/token.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/token.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/upload_activity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/upload_activity.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/zone.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/zone.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/globals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/globals.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/strava.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strava.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/.dart_tool/" />
-    <ignored path="$PROJECT_DIR$/.idea/" />
-    <ignored path="$PROJECT_DIR$/.pub/" />
-    <ignored path="$PROJECT_DIR$/build/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-strava-flutter.code-workspace">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/example/android/gradle.properties">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="169" />
@@ -44,7 +78,9 @@
     <option name="width" value="1260" />
     <option name="height" value="673" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -83,21 +119,20 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="dart.analysis.tool.window.force.activate" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/API" />
+      <recent name="$PROJECT_DIR$/lib/API/repositories" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />

@@ -8,14 +8,7 @@ import 'Models/gear.dart';
 import 'globals.dart' as globals;
 import 'error_codes.dart' as error;
 
-import 'API/o_auth.dart';
-import 'API/upload.dart';
-import 'API/clubs.dart';
-import 'API/activities.dart';
-import 'API/segments.dart';
-import 'API/athletes.dart';
-import 'API/races.dart';
-import 'API/segment_efforts.dart';
+import 'api/strava_api.dart';
 
 /// Initialize the Strava API
 ///  clientID: ID of your Strava app
@@ -73,7 +66,6 @@ class Strava
       }
       returnGear.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
     }
-
     return returnGear;
   }
 

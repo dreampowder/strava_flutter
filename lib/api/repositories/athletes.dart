@@ -4,14 +4,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-import '../Models/stats.dart';
-import '../Models/detailed_athlete.dart';
-import '../Models/zone.dart';
-import '../Models/activity.dart';
-import '../Models/fault.dart';
+import 'package:strava_flutter/models/stats.dart';
+import 'package:strava_flutter/models/detailed_athlete.dart';
+import 'package:strava_flutter/models/zone.dart';
+import 'package:strava_flutter/models/activity.dart';
+import 'package:strava_flutter/models/fault.dart';
 
-import '../globals.dart' as globals;
-import '../error_codes.dart' as error;
+import 'package:strava_flutter/globals.dart' as globals;
+import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class Athletes {
   Future<DetailedAthlete> updateLoggedInAthlete(double weight) async {
@@ -36,7 +36,7 @@ abstract class Athletes {
         returnAthlete = _athlete;
       } else {
         globals.displayInfo(
-            'problem in updateLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
+            'problem in updateLoggedInAthlete request , ${returnAthlete.fault?.statusCode}  ${rep.body}');
       }
 
       returnAthlete.fault =
@@ -152,7 +152,7 @@ abstract class Athletes {
         returnAthlete = _athlete;
       } else {
         globals.displayInfo(
-            'problem in getLoggedInAthlete request , ${returnAthlete.fault.statusCode}  ${rep.body}');
+            'problem in getLoggedInAthlete request , ${returnAthlete.fault?.statusCode}  ${rep.body}');
       }
 
       returnAthlete.fault =

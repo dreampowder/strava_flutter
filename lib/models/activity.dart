@@ -3,8 +3,8 @@
 import 'gear.dart';
 import 'fault.dart';
 import '../globals.dart' as globals;
-import 'package:strava_flutter/Models/segment_effort.dart';
-import 'package:strava_flutter/Models/athlete.dart';
+import 'package:strava_flutter/models/segment_effort.dart';
+import 'package:strava_flutter/models/athlete.dart';
 
 import 'package:intl/intl.dart';
 

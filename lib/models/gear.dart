@@ -3,7 +3,7 @@
 import 'fault.dart';
 
 class Gear {
-  late Fault fault;
+  Fault? fault;
   String? id;
   bool? primary;
   int? resourceState;

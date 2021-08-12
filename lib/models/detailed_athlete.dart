@@ -5,7 +5,7 @@ import 'fault.dart';
 // import 'club.dart';
 
 class DetailedAthlete {
-  late Fault fault;
+  Fault? fault;
   int? id;
   String? username;
   int? resourceState;
