@@ -174,13 +174,13 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       /// Type of expected answer:
       /// {"id":"b4366285","primary":true,"name":"Roubaix Specialized","resource_state":3,"distance":461692.0,
       /// "brand_name":"Specialized","model_name":"Roubaix Expert","frame_type":3,"description":"So comfortable!"}
-      Gear _gear = await strava.getGearById("b4366285");
-      if (_gear.fault.statusCode != 200) {
-        print(
-            'error code getGearById  ${_gear.fault.statusCode}  ${_gear.fault.message}');
-      } else {
-        print('getGearById $_gear');
-      }
+      // Gear _gear = await strava.getGearById("b4366285");
+      // if (_gear.fault.statusCode != 200) {
+      //   print(
+      //       'error code getGearById  ${_gear.fault.statusCode}  ${_gear.fault.message}');
+      // } else {
+      //   print('getGearById $_gear');
+      // }
 
       // IMPORTANT ------
       //  You have to join this club to do the test

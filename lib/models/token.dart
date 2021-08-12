@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:strava_flutter/common/json_serializable_mixin.dart';
 
-class Token extends JsonSerializable{
+class Token{
   Token({
     required this.tokenType,
     required this.expiresAt,
     required this.expiresIn,
     required this.refreshToken,
     required this.accessToken,
+    this.scopes
   });
 
   final String tokenType;
@@ -16,6 +16,7 @@ class Token extends JsonSerializable{
   final int expiresIn;
   final String refreshToken;
   final String accessToken;
+  String? scopes;
 
   factory Token.empty() => Token(tokenType: "", expiresAt: 0, expiresIn: 0, refreshToken: "", accessToken: "");
   factory Token.fromRawJson(String str) => Token.fromJson(json.decode(str));
@@ -28,6 +29,7 @@ class Token extends JsonSerializable{
     expiresIn: json["expires_in"],
     refreshToken: json["refresh_token"],
     accessToken: json["access_token"],
+    scopes: json["scopes"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -36,5 +38,6 @@ class Token extends JsonSerializable{
     "expires_in": expiresIn,
     "refresh_token": refreshToken,
     "access_token": accessToken,
+    "scoped":scopes
   };
 }
