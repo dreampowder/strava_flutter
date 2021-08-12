@@ -1,3 +1,4 @@
+import 'package:example/new_api_examples.dart';
 import 'package:flutter/material.dart';
 // To remove # at the end of redirect url when in web mode (not mobile)
 // This is a web only package
@@ -89,14 +90,14 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
     if (isAuthOk) {
       // Get the zones related to the logged athlete
-      Zone _zone = await strava.getLoggedInAthleteZones();
-      if (_zone.fault.statusCode != 200) {
-        print(
-            'Error in getLoggedInAthleteZones  ${_zone.fault.statusCode}  ${_zone.fault.message}');
-      } else {
-        _zone.infoZones.zones.forEach(
-            (zone) => print('getLoggedInAthleteZones ${zone.min} ${zone.max}'));
-      }
+      // Zone _zone = await strava.getLoggedInAthleteZones();
+      // if (_zone.fault.statusCode != 200) {
+      //   print(
+      //       'Error in getLoggedInAthleteZones  ${_zone.fault.statusCode}  ${_zone.fault.message}');
+      // } else {
+      //   _zone.infoZones.zones.forEach(
+      //       (zone) => print('getLoggedInAthleteZones ${zone.min} ${zone.max}'));
+      // }
 
       // Activity 3226262796 with totalElevationGain to 0
       DetailedActivity _activityPhoto =
@@ -269,6 +270,11 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     final fault = await strava.deAuthorize();
   }
 
+
+  void refactoredExample(){
+      NewApiExamples.testAuthentication();
+  }
+
   @override
   void dispose() {
     strava.dispose();
@@ -285,11 +291,20 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
+            Text(''),
+            Text('Authentication'),
+            Text('with refactored Apis'),
+            RaisedButton(
+              child: Text('Refactored'),
+              // onPressed: exampleStrava,
+              onPressed: refactoredExample,
+            ),
+
             Text(''),
             Text('Authentication'),
             Text('with segments Apis'),
             RaisedButton(
-              key: Key('SegmentsButton'),
               child: Text('Segments'),
               // onPressed: exampleStrava,
               onPressed: exampleSeg,
@@ -298,7 +313,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             Text('Authentication'),
             Text('with other Apis'),
             RaisedButton(
-              key: Key('OthersButton'),
               child: Text('strava_flutter'),
               onPressed: exampleStrava,
             ),
@@ -306,7 +320,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             Text(''),
             Text('Upload with authentication'),
             RaisedButton(
-              key: Key('Uploadbutton'),
               child: Text('upload'),
               onPressed: upload,
             ),
@@ -314,7 +327,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
             Text(''),
             Text('Test insufficient permissions'),
             RaisedButton(
-              key: Key('Permissionsbutton'),
               child: Text('permissions'),
               onPressed: permissions,
             ),
@@ -326,7 +338,6 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
               'to revoke/DeAuthorize Strava user',
             ),
             RaisedButton(
-              key: Key('DeAuthorizeButton'),
               child: Text('DeAuthorize'),
               onPressed: deAuthorize,
             ),

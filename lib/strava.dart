@@ -23,7 +23,7 @@ class Strava
         Clubs,
         Segments,
         SegmentEfforts,
-        Athletes,
+        AthletesRepository,
         Races {
   String? secret;
 

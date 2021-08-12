@@ -12,7 +12,12 @@ class SessionManager{
 
   SessionManager._();
 
-  static SessionManager get getInstance => _instance ??  SessionManager._();
+  static SessionManager get getInstance{
+    if (_instance == null) {
+      _instance = SessionManager._();
+    }
+    return _instance!;
+  }
 
   Token? _currentToken;
   List<StravaAuthScope>? _scopes;

@@ -1,214 +1,171 @@
-// Detailed athlete
-import 'fault.dart';
+// To parse this JSON data, do
+//
+//     final detailedAthlete = detailedAthleteFromJson(jsonString);
 
-// NOT working yet, problem with club
-// import 'club.dart';
+import 'dart:convert';
 
 class DetailedAthlete {
-  Fault? fault;
-  int? id;
-  String? username;
-  int? resourceState;
-  String? firstname;
-  String? lastname;
-  String? city;
-  String? state;
-  String? country;
-  String? sex;
-  bool? premium;
-  String? createdAt;
-  String? updatedAt;
-  int? badgeTypeId;
-  String? profileMedium;
-  String? profile;
-  String? friend;
-  String? follower;
-  int? followerCount;
-  int? friendCount;
-  int? mutualFriendCount;
-  int? athleteType;
-  String? datePreference;
-  String? measurementPreference;
-  // List<Null> clubs;
-  int? ftp;
-  double? weight;
-  List<Bikes>? bikes;
-  List<Shoes>? shoes;
+  DetailedAthlete({
+    this.fault,
+    required this.id,
+    required this.username,
+    required this.resourceState,
+    required this.firstname,
+    required this.lastname,
+    required this.city,
+    required this.state,
+    required this.country,
+    required this.sex,
+    required this.premium,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.badgeTypeId,
+    required this.profileMedium,
+    required this.profile,
+    required this.friend,
+    required this.follower,
+    required this.followerCount,
+    required this.friendCount,
+    required this.mutualFriendCount,
+    required this.athleteType,
+    required this.datePreference,
+    required this.measurementPreference,
+    required this.clubs,
+    required this.ftp,
+    required this.weight,
+    required this.bikes,
+    required this.shoes,
+  });
 
-  DetailedAthlete(
-      {Fault? fault,
-      this.id,
-      this.username,
-      this.resourceState,
-      this.firstname,
-      this.lastname,
-      this.city,
-      this.state,
-      this.country,
-      this.sex,
-      this.premium,
-      this.createdAt,
-      this.updatedAt,
-      this.badgeTypeId,
-      this.profileMedium,
-      this.profile,
-      this.friend,
-      this.follower,
-      this.followerCount,
-      this.friendCount,
-      this.mutualFriendCount,
-      this.athleteType,
-      this.datePreference,
-      this.measurementPreference,
-      // this.clubs,
-      this.ftp,
-      this.weight,
-      this.bikes,
-      this.shoes})
-      : fault = Fault(99, '');
+  dynamic fault;
+  final int id;
+  final String username;
+  final int resourceState;
+  final String firstname;
+  final String lastname;
+  final String city;
+  final String state;
+  final String country;
+  final String sex;
+  final bool premium;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int badgeTypeId;
+  final String profileMedium;
+  final String profile;
+  final dynamic friend;
+  final dynamic follower;
+  final int followerCount;
+  final int friendCount;
+  final int mutualFriendCount;
+  final int athleteType;
+  final String datePreference;
+  final String measurementPreference;
+  final List<dynamic> clubs;
+  final dynamic ftp;
+  final num weight;
+  final List<Bike> bikes;
+  final List<Bike> shoes;
 
-  DetailedAthlete.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    username = json['username'];
-    resourceState = json['resource_state'];
-    firstname = json['firstname'];
-    lastname = json['lastname'];
-    city = json['city'];
-    state = json['state'];
-    country = json['country'];
-    sex = json['sex'];
-    premium = json['premium'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    badgeTypeId = json['badge_type_id'];
-    profileMedium = json['profile_medium'];
-    profile = json['profile'];
-    friend = json['friend'];
-    follower = json['follower'];
-    followerCount = json['follower_count'];
-    friendCount = json['friend_count'];
-    mutualFriendCount = json['mutual_friend_count'];
-    athleteType = json['athlete_type'];
-    datePreference = json['date_preference'];
-    measurementPreference = json['measurement_preference'];
-    /**** 
-    if (json['clubs'] != null) {
-      clubs = List<Club>();
-      json['clubs'].forEach((v) {
-        clubs.add(Club.fromJson(v));
-      });
-    }
-  ***/
-    ftp = json['ftp'];
-    weight = json['weight'];
-    if (json['bikes'] != null) {
-      bikes = <Bikes>[];
-      json['bikes'].forEach((v) {
-        bikes?.add(Bikes.fromJson(v));
-      });
-    }
-    if (json['shoes'] != null) {
-      shoes = <Shoes>[];
-      json['shoes'].forEach((v) {
-        shoes?.add(Shoes.fromJson(v));
-      });
-    }
-  }
+  factory DetailedAthlete.fromRawJson(String str) => DetailedAthlete.fromJson(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['resource_state'] = this.resourceState;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['country'] = this.country;
-    data['sex'] = this.sex;
-    data['premium'] = this.premium;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['badge_type_id'] = this.badgeTypeId;
-    data['profile_medium'] = this.profileMedium;
-    data['profile'] = this.profile;
-    data['friend'] = this.friend;
-    data['follower'] = this.follower;
-    data['follower_count'] = this.followerCount;
-    data['friend_count'] = this.friendCount;
-    data['mutual_friend_count'] = this.mutualFriendCount;
-    data['athlete_type'] = this.athleteType;
-    data['date_preference'] = this.datePreference;
-    data['measurement_preference'] = this.measurementPreference;
-    /***
-    if (this.clubs != null) {
-      data['clubs'] = this.clubs.map((v) => v.toJson()).toList();
-    }
-  ***/
-    data['ftp'] = this.ftp;
-    data['weight'] = this.weight;
-    if (this.bikes != null) {
-      data['bikes'] = this.bikes?.map((v) => v.toJson()).toList();
-    }
-    if (this.shoes != null) {
-      data['shoes'] = this.shoes?.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  String toRawJson() => json.encode(toJson());
+
+  factory DetailedAthlete.fromJson(Map<String, dynamic> json) => DetailedAthlete(
+    id: json["id"],
+    username: json["username"],
+    resourceState: json["resource_state"],
+    firstname: json["firstname"],
+    lastname: json["lastname"],
+    city: json["city"],
+    state: json["state"],
+    country: json["country"],
+    sex: json["sex"],
+    premium: json["premium"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    badgeTypeId: json["badge_type_id"],
+    profileMedium: json["profile_medium"],
+    profile: json["profile"],
+    friend: json["friend"],
+    follower: json["follower"],
+    followerCount: json["follower_count"],
+    friendCount: json["friend_count"],
+    mutualFriendCount: json["mutual_friend_count"],
+    athleteType: json["athlete_type"],
+    datePreference: json["date_preference"],
+    measurementPreference: json["measurement_preference"],
+    clubs: List<dynamic>.from(json["clubs"].map((x) => x)),
+    ftp: json["ftp"],
+    weight: json["weight"],
+    bikes: List<Bike>.from(json["bikes"].map((x) => Bike.fromJson(x))),
+    shoes: List<Bike>.from(json["shoes"].map((x) => Bike.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "username": username,
+    "resource_state": resourceState,
+    "firstname": firstname,
+    "lastname": lastname,
+    "city": city,
+    "state": state,
+    "country": country,
+    "sex": sex,
+    "premium": premium,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "badge_type_id": badgeTypeId,
+    "profile_medium": profileMedium,
+    "profile": profile,
+    "friend": friend,
+    "follower": follower,
+    "follower_count": followerCount,
+    "friend_count": friendCount,
+    "mutual_friend_count": mutualFriendCount,
+    "athlete_type": athleteType,
+    "date_preference": datePreference,
+    "measurement_preference": measurementPreference,
+    "clubs": List<dynamic>.from(clubs.map((x) => x)),
+    "ftp": ftp,
+    "weight": weight,
+    "bikes": List<dynamic>.from(bikes.map((x) => x.toJson())),
+    "shoes": List<dynamic>.from(shoes.map((x) => x.toJson())),
+  };
 }
 
-class Bikes {
-  String? id;
-  bool? primary;
-  String? name;
-  int? resourceState;
-  double? distance;
+class Bike {
+  Bike({
+    required this.id,
+    required this.primary,
+    required this.name,
+    required this.resourceState,
+    required this.distance,
+  });
 
-  Bikes({this.id, this.primary, this.name, this.resourceState, this.distance});
+  final String id;
+  final bool primary;
+  final String name;
+  final int resourceState;
+  final int distance;
 
-  Bikes.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    primary = json['primary'];
-    name = json['name'];
-    resourceState = json['resource_state'];
-    distance = json['distance'].toDouble();
-  }
+  factory Bike.fromRawJson(String str) => Bike.fromJson(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['primary'] = this.primary;
-    data['name'] = this.name;
-    data['resource_state'] = this.resourceState;
-    data['distance'] = this.distance;
-    return data;
-  }
-}
+  String toRawJson() => json.encode(toJson());
 
-class Shoes {
-  String? id;
-  bool? primary;
-  String? name;
-  int? resourceState;
-  double? distance;
+  factory Bike.fromJson(Map<String, dynamic> json) => Bike(
+    id: json["id"],
+    primary: json["primary"],
+    name: json["name"],
+    resourceState: json["resource_state"],
+    distance: json["distance"],
+  );
 
-  Shoes({this.id, this.primary, this.name, this.resourceState, this.distance});
-
-  Shoes.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    primary = json['primary'];
-    name = json['name'];
-    resourceState = json['resource_state'];
-    distance = json['distance'].toDouble();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['primary'] = this.primary;
-    data['name'] = this.name;
-    data['resource_state'] = this.resourceState;
-    data['distance'] = this.distance;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "primary": primary,
+    "name": name,
+    "resource_state": resourceState,
+    "distance": distance,
+  };
 }

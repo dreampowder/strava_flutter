@@ -1,6 +1,7 @@
 
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:strava_flutter/common/session_manager.dart';
 import 'package:strava_flutter/models/strava_fault.dart';
 
@@ -14,10 +15,11 @@ class ApiClient{
       var token = await SessionManager.getInstance.getToken();
       var headers = Map<String,dynamic>();
       if (token != null) {
-        headers.putIfAbsent("Authorization", () => "Bearer $token");
+        headers.putIfAbsent("Authorization", () => "Bearer ${token.accessToken}");
       }
       dio.options = BaseOptions(headers: headers);
     }
+
     return Future.value(dio);
   }
 
@@ -28,7 +30,7 @@ class ApiClient{
     var completer = Completer<T>();
     _getDioClient()
         .then((client){
-          client.get(_baseUrl,queryParameters: queryParameters)
+          client.get("$_baseUrl$endPoint",queryParameters: queryParameters)
               .then((response)=>completer.complete(dataConstructor(response.data)))
               .catchError((error,stackTrace)=>handleError(completer, error, stackTrace));
     });
@@ -43,7 +45,22 @@ class ApiClient{
     var completer = Completer<T>();
     _getDioClient()
         .then((client){
-      client.post(_baseUrl,queryParameters: queryParameters,data: postBody)
+      client.post("$_baseUrl$endPoint",queryParameters: queryParameters,data: postBody)
+          .then((response)=>completer.complete(dataConstructor(response.data)))
+          .catchError((error,stackTrace)=>handleError(completer, error, stackTrace));
+    });
+    return completer.future;
+  }
+
+  static Future<T> putRequest<T>(
+      {required  String endPoint,
+        Map<String, dynamic>? queryParameters,
+        Map<String, dynamic>? postBody,
+        required T Function(dynamic) dataConstructor}) async{
+    var completer = Completer<T>();
+    _getDioClient()
+        .then((client){
+      client.put("$_baseUrl$endPoint",queryParameters: queryParameters,data: postBody)
           .then((response)=>completer.complete(dataConstructor(response.data)))
           .catchError((error,stackTrace)=>handleError(completer, error, stackTrace));
     });
@@ -59,6 +76,8 @@ class ApiClient{
         completer.completeError(error,stackTrace);
       }
     }else{
+      debugPrint("Unhandled error: $error");
+      debugPrint("Unhandled error: $stackTrace");
       completer.completeError(error,stackTrace);
     }
   }

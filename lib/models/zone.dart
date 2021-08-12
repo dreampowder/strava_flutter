@@ -1,55 +1,62 @@
 // zones
-import 'fault.dart';
+import 'dart:convert';
 
 class Zone {
-  Fault? fault;
-  InfoZones? infoZones;
+  Zone({
+    required this.distributionBuckets,
+    required this.type,
+    required this.resourceState,
+    required this.sensorBased,
+  });
 
-  Zone({this.fault, this.infoZones});
+  final List<DistributionBucket> distributionBuckets;
+  final String type;
+  final int resourceState;
+  final bool sensorBased;
 
-  factory Zone.fromJson(Map<String, dynamic> firstJson) {
-    if (firstJson['heart_rate'] != null) {
-      final parsedJson = firstJson['heart_rate'];
-      final _customZones = parsedJson['custom_zones'];
-      final _infoZones = InfoZones();
-      final list = parsedJson['zones'] as List;
-      final fault = Fault(99, '');
-      List<DistributionBucket> _distributionBucket =
-          list.map((i) => DistributionBucket.fromJson(i)).toList();
-      _infoZones.customZones = _customZones;
-      _infoZones.zones = _distributionBucket;
+  factory Zone.fromRawJson(String str) => Zone.fromJson(json.decode(str));
 
-      return Zone(
-        fault: fault,
-        infoZones: _infoZones,
-      );
-    } else {
-      Fault _fault = Fault(99, '');
-      return Zone(fault: _fault, infoZones: null);
-    }
-  }
-}
+  String toRawJson() => json.encode(toJson());
 
-class InfoZones {
-  bool? customZones;
-  List<DistributionBucket>? zones;
+  factory Zone.fromJson(Map<String, dynamic> json) => Zone(
+    distributionBuckets: List<DistributionBucket>.from(json["distribution_buckets"].map((x) => DistributionBucket.fromJson(x))),
+    type: json["type"],
+    resourceState: json["resource_state"],
+    sensorBased: json["sensor_based"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "distribution_buckets": List<dynamic>.from(distributionBuckets.map((x) => x.toJson())),
+    "type": type,
+    "resource_state": resourceState,
+    "sensor_based": sensorBased,
+  };
 }
 
 class DistributionBucket {
-  int? max;
-  int? min;
+  DistributionBucket({
+    required this.max,
+    required this.min,
+    required this.time,
+  });
 
-  DistributionBucket({this.max, this.min});
+  final int max;
+  final int min;
+  final int time;
 
-  DistributionBucket.fromJson(Map<String, dynamic> json) {
-    max = json['max'];
-    min = json['min'];
-  }
+  factory DistributionBucket.fromRawJson(String str) => DistributionBucket.fromJson(json.decode(str));
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['max'] = max;
-    data['min'] = min;
-    return data;
-  }
+  String toRawJson() => json.encode(toJson());
+
+  factory DistributionBucket.fromJson(Map<String, dynamic> json) => DistributionBucket(
+    max: json["max"],
+    min: json["min"],
+    time: json["time"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "max": max,
+    "min": min,
+    "time": time,
+  };
 }

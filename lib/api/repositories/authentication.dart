@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:strava_flutter/api/client.dart';
 import 'package:strava_flutter/common/session_manager.dart';
 import 'package:strava_flutter/models/refresh_token.dart';
@@ -10,11 +9,11 @@ import 'package:strava_flutter/models/token.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-abstract class StravaAuthentication{
+abstract class StravaAuthenticationRepository{
   Future<void> authenticate({
     required List<StravaAuthScope> scopes,
-    required bool forceShowingApproval,
-    required String redirectUrl
+    required String redirectUrl,
+    bool forceShowingApproval = false,
   }) async{
     var completer = Completer();
     var token = await SessionManager.getInstance.getToken();
@@ -23,6 +22,9 @@ abstract class StravaAuthentication{
     }else{
       List<StravaAuthScope> oldScopes = StravaAuthScopeHelper.generateScopes(token.scopes ?? "");
       var isScopesAreSame = _compareScopes(oldScopes, scopes);
+      print("Scoped: $scopes");
+      print("OldScopes: $oldScopes");
+      print("isOldScopesSame: $isScopesAreSame");
       if(isScopesAreSame){
         if(SessionManager.getInstance.isTokenExpired(token)){
           return _refreshAccessToken(SessionManager.getInstance.clientId,SessionManager.getInstance.secret,token.refreshToken)
@@ -36,7 +38,8 @@ abstract class StravaAuthentication{
                   accessToken: refreshResult.accessToken)
           ));
         }else{
-          completer.complete(_completeAuthentication(scopes: scopes, forceShowingApproval: forceShowingApproval, redirectUrl: redirectUrl));
+          print("Token is valid and can still be used");
+          completer.complete();
         }
       }else{
         ///Scopes have changed. we need a new token.
@@ -116,6 +119,9 @@ abstract class StravaAuthentication{
   }
 
   bool _compareScopes(List<StravaAuthScope> left, List<StravaAuthScope> right){
+    if (left.length != right.length) {
+      return false;
+    }
     return left.every((element) => right.contains(element));
   }
 }
