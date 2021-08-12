@@ -118,8 +118,8 @@ Future<Fault> exampleSegment(String secret) async {
     '2020-05-16T08:15:29Z',
   );
 
-  List<SummaryActivity> _listSummaries =
-      await strava.getLoggedInAthleteActivities(1554209575, 1500);
+  // List<SummaryActivity> _listSummaries =
+  //     await strava.getLoggedInAthleteActivities(1554209575, 1500);
 
   // Expected answer should start like:
   //  {"id":229781,"resource_state":3,"name":"Hawk Hill","activity_type":"Ride","distance":2684.82,"average_grade":5.7,"maximum_grade":14.2,

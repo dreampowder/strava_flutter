@@ -14,13 +14,14 @@ class NewApiExamples{
     ).catchError((error, stackTrace)=>print("Error authenticating: $error\n$stackTrace"))
       .then((value){
       print("Successfully authenticated strava");
-      getLoggedInAthleteActivities();
+      getClubActivities(898559);
     });
   }
 
   static void getLoggedInAthlete(){
     client.getLoggedInAthlete().then((athlete){
       print("Got response");
+      print("Club ID: ${athlete.clubs.first}");
       print("Athlete: ${athlete.toJson()}");
     }).catchError((error,stackTrace){
       if(error is StravaFault){
@@ -71,6 +72,34 @@ class NewApiExamples{
     client.getLoggedInAthleteActivities(1554209575, 1500)
         .then((activities){
           print("Activities: $activities");
+    }).catchError((error,stackTrace){
+      if(error is StravaFault){
+        print("Error: ${error.toJson()}");
+      }else{
+        print("Unhandled error: $error");
+        print("Stack: $stackTrace");
+      }
+    });
+  }
+
+  static void getClub(int clubId){
+    client.getClubById(clubId)
+        .then((club){
+          print("Got Club: ${club.toJson()}");
+    }).catchError((error,stackTrace){
+      if(error is StravaFault){
+        print("Error: ${error.toJson()}");
+      }else{
+        print("Unhandled error: $error");
+        print("Stack: $stackTrace");
+      }
+    });
+  }
+
+  static void getClubActivities(int clubId){
+    client.getClubActivitiesById(clubId)
+        .then((value){
+          print("Activities: $value");
     }).catchError((error,stackTrace){
       if(error is StravaFault){
         print("Error: ${error.toJson()}");

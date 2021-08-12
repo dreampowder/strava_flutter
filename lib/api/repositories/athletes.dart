@@ -7,6 +7,7 @@ import 'dart:async';
 
 import 'package:strava_flutter/models/stats.dart';
 import 'package:strava_flutter/models/detailed_athlete.dart';
+import 'package:strava_flutter/models/summary_activity.dart';
 import 'package:strava_flutter/models/zone.dart';
 import 'package:strava_flutter/models/activity.dart';
 import 'package:strava_flutter/models/fault.dart';
@@ -56,7 +57,10 @@ abstract class AthletesRepository {
   Future<DetailedAthlete> getLoggedInAthlete() async {
     return ApiClient.getRequest<DetailedAthlete>(
         endPoint: "/v3/athlete",
-        dataConstructor: (data)=>DetailedAthlete.fromJson(data));
+        dataConstructor: (data){
+          print("Athlete: $data");
+          return DetailedAthlete.fromJson(data);
+        });
   }
 
   /// scope needed: profile: activity:read_all

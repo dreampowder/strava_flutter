@@ -190,13 +190,13 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       /// Answer expected:
       /// {"id":226910,"resource_state":3,"name":"STRAVA Marseille ",
       /// "profile_medium":"https://dgalywyr863hv.cloudfront.net/pictures/clubs/226910/5003423/3/medium.jpg","profile":"https://dgalywyr863hv.cloudfront.net/pictures/clubs/226910/5003423/3/larg
-      Club _club = await strava.getClubById(clubStravaMarseille);
-      if (_club.fault.statusCode != 200) {
-        print(
-            'error code getClubById  ${_club.fault.statusCode}  ${_club.fault.message}');
-      } else {
-        print('getClubById $_club');
-      }
+      // Club _club = await strava.getClubById(clubStravaMarseille);
+      // if (_club.fault.statusCode != 200) {
+      //   print(
+      //       'error code getClubById  ${_club.fault.statusCode}  ${_club.fault.message}');
+      // } else {
+      //   print('getClubById $_club');
+      // }
 
       /// List the member of Strava club
       /// Expected answer (should start like this):
@@ -206,25 +206,25 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
       List<SummaryAthlete> _listMembers = await strava.getClubMembersById('1');
       // List<SummaryAthlete> _listMembers = await strava.getClubMembersById(_club.id.toString());
 
-      if (_listMembers[0].fault.statusCode != 200) {
-        print(
-            'error code getClubById  ${_club.fault.statusCode}  ${_club.fault.message}');
-      } else {
-        print('getClubMembersById ');
-        _listMembers.forEach((member) => print(
-            '${member.firstname}   ${member.lastname}  ${member.id} ${member.membership}'));
-      }
+      // if (_listMembers[0].fault.statusCode != 200) {
+      //   print(
+      //       'error code getClubById  ${_club.fault.statusCode}  ${_club.fault.message}');
+      // } else {
+      //   print('getClubMembersById ');
+      //   _listMembers.forEach((member) => print(
+      //       '${member.firstname}   ${member.lastname}  ${member.id} ${member.membership}'));
+      // }
 
-      List<SummaryActivity> _listSumm =
-          await strava.getClubActivitiesById(clubStravaMarseille);
-      if (_listSumm[0].fault.statusCode != 200) {
-        print(
-            'error code getClubById  ${_club.fault.statusCode}  ${_club.fault.message}');
-      } else {
-        print('getClubActivitiesById ');
-        _listSumm.forEach((activity) =>
-            print('${activity.name}   ${activity.totalElevationGain}'));
-      }
+      // List<SummaryActivity> _listSumm =
+      //     await strava.getClubActivitiesById(clubStravaMarseille);
+      // if (_listSumm[0].fault.statusCode != 200) {
+      //   print(
+      //       'error code getClubById  ${_club.fault.statusCode}  ${_club.fault.message}');
+      // } else {
+      //   print('getClubActivitiesById ');
+      //   _listSumm.forEach((activity) =>
+      //       print('${activity.name}   ${activity.totalElevationGain}'));
+      // }
 
       /// You have to put an id of one activity of the logged Athlete
       /// You can find the id of one activity looking at your web

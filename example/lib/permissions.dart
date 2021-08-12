@@ -34,8 +34,8 @@ Future<Fault> testPermissions(String secret) async {
 
   print('---> Authentication result: $isAuthOk');
 
-  List<SummaryActivity> _listSummaries =
-      await strava.getLoggedInAthleteActivities(1554209575, 1500);
+  // List<SummaryActivity> _listSummaries =
+  //     await strava.getLoggedInAthleteActivities(1554209575, 1500);
 
   return _fault;
 }

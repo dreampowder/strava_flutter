@@ -709,130 +709,130 @@ class HighlightedKudosers {
 // Summary activity
 //------------------
 
-class SummaryActivity {
-  Fault? fault;
-  int? id;
-  int? resourceState;
-  AthleteEffort? athlete;
-  String? name;
-  double? distance;
-  int? movingTime;
-  int? elapsedTime;
-  double? totalElevationGain;
-  String? type;
-  int? workoutType;
-  DateTime? startDate;
-  DateTime? startDateLocal;
+// class SummaryActivity {
+//   Fault? fault;
+//   int? id;
+//   int? resourceState;
+//   AthleteEffort? athlete;
+//   String? name;
+//   double? distance;
+//   int? movingTime;
+//   int? elapsedTime;
+//   double? totalElevationGain;
+//   String? type;
+//   int? workoutType;
+//   DateTime? startDate;
+//   DateTime? startDateLocal;
+//
+//   SummaryActivity({
+//     this.id,
+//     this.resourceState,
+//     this.athlete,
+//     this.name,
+//     this.distance,
+//     this.movingTime,
+//     this.elapsedTime,
+//     this.totalElevationGain,
+//     this.type,
+//     this.workoutType,
+//     // this.startDate,
+//     // this.startDateLocal
+//   });
+//
+//   SummaryActivity.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     resourceState = json['resource_state'];
+//     athlete =
+//         json['athlete'] != null ? AthleteEffort.fromJson(json['athlete']) : null;
+//     name = json['name'];
+//     distance = json['distance'];
+//     movingTime = json['moving_time'];
+//     elapsedTime = json['elapsed_time'];
+//     double _elevationGain = json['total_elevation_gain'];
+//     // To convert the dynamic final in double when it is an int
+//     if ((_elevationGain % 1) == 0) {
+//       _elevationGain = _elevationGain + 0.0;
+//     }
+//     // if (_elevationGain == 0) _elevationGain = 0.0;
+//     totalElevationGain = _elevationGain;
+//     type = json['type'];
+//     workoutType = json['workout_type'];
+//     startDate =
+//         json['start_date'] != null ? _parseDate(json['start_date']) : null;
+//     startDateLocal = json['start_date_local'] != null
+//         ? _parseDate(json['start_date_local'])
+//         : null;
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = Map<String, dynamic>();
+//     data['id'] = this.id;
+//     data['resource_state'] = this.resourceState;
+//     if (this.athlete != null) {
+//       data['athlete'] = this.athlete?.toJson();
+//     }
+//     data['name'] = this.name;
+//     data['distance'] = this.distance;
+//     data['moving_time'] = this.movingTime;
+//     data['elapsed_time'] = this.elapsedTime;
+//     data['total_elevation_gain'] = this.totalElevationGain;
+//     data['type'] = this.type;
+//     data['workout_type'] = this.workoutType;
+//     return data;
+//   }
+// }
 
-  SummaryActivity({
-    this.id,
-    this.resourceState,
-    this.athlete,
-    this.name,
-    this.distance,
-    this.movingTime,
-    this.elapsedTime,
-    this.totalElevationGain,
-    this.type,
-    this.workoutType,
-    // this.startDate,
-    // this.startDateLocal
-  });
+// DateTime _parseDate(String dateTimeToParse) {
+//   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+//   DateFormat timeFormat = DateFormat.Hms();
+//
+//   List<String> dateTimeSplit = dateTimeToParse.split("T");
+//   List<String> timeSplit = dateTimeSplit[1].split("Z");
+//   DateTime date = dateFormat.parse(dateTimeSplit[0]);
+//   DateTime time = timeFormat.parse(timeSplit[0]);
+//   return DateTime(
+//       date.year, date.month, date.day, time.hour, time.minute, time.second);
+// }
 
-  SummaryActivity.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    athlete =
-        json['athlete'] != null ? AthleteEffort.fromJson(json['athlete']) : null;
-    name = json['name'];
-    distance = json['distance'];
-    movingTime = json['moving_time'];
-    elapsedTime = json['elapsed_time'];
-    double _elevationGain = json['total_elevation_gain'];
-    // To convert the dynamic final in double when it is an int
-    if ((_elevationGain % 1) == 0) {
-      _elevationGain = _elevationGain + 0.0;
-    }
-    // if (_elevationGain == 0) _elevationGain = 0.0;
-    totalElevationGain = _elevationGain;
-    type = json['type'];
-    workoutType = json['workout_type'];
-    startDate =
-        json['start_date'] != null ? _parseDate(json['start_date']) : null;
-    startDateLocal = json['start_date_local'] != null
-        ? _parseDate(json['start_date_local'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['resource_state'] = this.resourceState;
-    if (this.athlete != null) {
-      data['athlete'] = this.athlete?.toJson();
-    }
-    data['name'] = this.name;
-    data['distance'] = this.distance;
-    data['moving_time'] = this.movingTime;
-    data['elapsed_time'] = this.elapsedTime;
-    data['total_elevation_gain'] = this.totalElevationGain;
-    data['type'] = this.type;
-    data['workout_type'] = this.workoutType;
-    return data;
-  }
-}
-
-DateTime _parseDate(String dateTimeToParse) {
-  DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-  DateFormat timeFormat = DateFormat.Hms();
-
-  List<String> dateTimeSplit = dateTimeToParse.split("T");
-  List<String> timeSplit = dateTimeSplit[1].split("Z");
-  DateTime date = dateFormat.parse(dateTimeSplit[0]);
-  DateTime time = timeFormat.parse(timeSplit[0]);
-  return DateTime(
-      date.year, date.month, date.day, time.hour, time.minute, time.second);
-}
-
-class ActivityType {
-  static const String AlpineSki = "AlpineSki";
-  static const String BackcountrySki = "BackcountrySki";
-  static const String Canoeing = "Canoeing";
-  static const String Crossfit = "Crossfit";
-  static const String EBikeRide = "EBikeRide";
-  static const String Elliptical = "Elliptical";
-  static const String Golf = "Golf";
-  static const String Handcycle = "Handcycle";
-  static const String Hike = "Hike";
-  static const String IceSkate = "IceSkate";
-  static const String InlineSkate = "InlineSkate";
-  static const String Kayaking = "Kayaking";
-  static const String Kitesurf = "Kitesurf";
-  static const String NordicSki = "NordicSki";
-  static const String Ride = "Ride";
-  static const String RockClimbing = "RockClimbing";
-  static const String RollerSki = "RollerSki";
-  static const String Rowing = "Rowing";
-  static const String Run = "Run";
-  static const String Sail = "Sail";
-  static const String Skateboard = "Skateboard";
-  static const String Snowboard = "Snowboard";
-  static const String Snowshoe = "Snowshoe";
-  static const String Soccer = "Soccer";
-  static const String StairStepper = "StairStepper";
-  static const String StandUpPaddling = "StandUpPaddling";
-  static const String Surfing = "Surfing";
-  static const String Swim = "Swim";
-  static const String Velomobile = "Velomobile";
-  static const String VirtualRide = "VirtualRide";
-  static const String VirtualRun = "VirtualRun";
-  static const String Walk = "Walk";
-  static const String WeightTraining = "WeightTraining";
-  static const String Wheelchair = "Wheelchair";
-  static const String Windsurf = "Windsurf";
-  static const String Workout = "Workout";
-  static const String Yoga = "Yoga";
-}
+// class ActivityType {
+//   static const String AlpineSki = "AlpineSki";
+//   static const String BackcountrySki = "BackcountrySki";
+//   static const String Canoeing = "Canoeing";
+//   static const String Crossfit = "Crossfit";
+//   static const String EBikeRide = "EBikeRide";
+//   static const String Elliptical = "Elliptical";
+//   static const String Golf = "Golf";
+//   static const String Handcycle = "Handcycle";
+//   static const String Hike = "Hike";
+//   static const String IceSkate = "IceSkate";
+//   static const String InlineSkate = "InlineSkate";
+//   static const String Kayaking = "Kayaking";
+//   static const String Kitesurf = "Kitesurf";
+//   static const String NordicSki = "NordicSki";
+//   static const String Ride = "Ride";
+//   static const String RockClimbing = "RockClimbing";
+//   static const String RollerSki = "RollerSki";
+//   static const String Rowing = "Rowing";
+//   static const String Run = "Run";
+//   static const String Sail = "Sail";
+//   static const String Skateboard = "Skateboard";
+//   static const String Snowboard = "Snowboard";
+//   static const String Snowshoe = "Snowshoe";
+//   static const String Soccer = "Soccer";
+//   static const String StairStepper = "StairStepper";
+//   static const String StandUpPaddling = "StandUpPaddling";
+//   static const String Surfing = "Surfing";
+//   static const String Swim = "Swim";
+//   static const String Velomobile = "Velomobile";
+//   static const String VirtualRide = "VirtualRide";
+//   static const String VirtualRun = "VirtualRun";
+//   static const String Walk = "Walk";
+//   static const String WeightTraining = "WeightTraining";
+//   static const String Wheelchair = "Wheelchair";
+//   static const String Windsurf = "Windsurf";
+//   static const String Workout = "Workout";
+//   static const String Yoga = "Yoga";
+// }
 
 class PhotoActivity {
   Fault? fault;

@@ -1,115 +1,119 @@
-// Club
+// To parse this JSON data, do
+//
+//     final club = clubFromJson(jsonString);
 
-import 'fault.dart';
+import 'package:meta/meta.dart';
+import 'dart:convert';
 
 class Club {
-  Fault? fault;
-  int? id;
-  int? resourceState;
-  String? name;
-  String? profileMedium;
-  String? profile;
-  String? coverPhoto;
-  String? coverPhotoSmall;
-  String? sportType;
-  String? city;
-  String? state;
-  String? country;
-  bool? private;
-  int? memberCount;
-  bool? featured;
-  bool? verified;
-  String? url;
-  String? membership;
-  bool? admin;
-  bool? owner;
-  String? description;
-  String? clubType;
-  int? postCount;
-  int? ownerId;
-  int? followingCount;
+  Club({
+    this.fault,
+    required this.id,
+    required this.resourceState,
+    required this.name,
+    required this.profileMedium,
+    required this.profile,
+    required this.coverPhoto,
+    required this.coverPhotoSmall,
+    required this.sportType,
+    required this.city,
+    required this.state,
+    required this.country,
+    required this.private,
+    required this.memberCount,
+    required this.featured,
+    required this.verified,
+    required this.url,
+    required this.membership,
+    required this.admin,
+    required this.owner,
+    required this.description,
+    required this.clubType,
+    required this.postCount,
+    required this.ownerId,
+    required this.followingCount,
+  });
+  dynamic fault;
+  final int id;
+  final int resourceState;
+  final String name;
+  final String profileMedium;
+  final String profile;
+  final String coverPhoto;
+  final String coverPhotoSmall;
+  final String sportType;
+  final String city;
+  final String state;
+  final String country;
+  final bool private;
+  final int memberCount;
+  final bool featured;
+  final bool verified;
+  final String url;
+  final String membership;
+  final bool admin;
+  final bool owner;
+  final String description;
+  final String clubType;
+  final int postCount;
+  final int ownerId;
+  final int followingCount;
 
-  Club(
-      {Fault? fault,
-      this.id,
-      this.resourceState,
-      this.name,
-      this.profileMedium,
-      this.profile,
-      this.coverPhoto,
-      this.coverPhotoSmall,
-      this.sportType,
-      this.city,
-      this.state,
-      this.country,
-      this.private,
-      this.memberCount,
-      this.featured,
-      this.verified,
-      this.url,
-      this.membership,
-      this.admin,
-      this.owner,
-      this.description,
-      this.clubType,
-      this.postCount,
-      this.ownerId,
-      this.followingCount})
-      : fault = Fault(88, '');
+  factory Club.fromRawJson(String str) => Club.fromJson(json.decode(str));
 
-  Club.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    profileMedium = json['profile_medium'];
-    profile = json['profile'];
-    coverPhoto = json['cover_photo'];
-    coverPhotoSmall = json['cover_photo_small'];
-    sportType = json['sport_type'];
-    city = json['city'];
-    state = json['state'];
-    country = json['country'];
-    private = json['private'];
-    memberCount = json['member_count'];
-    featured = json['featured'];
-    verified = json['verified'];
-    url = json['url'];
-    membership = json['membership'];
-    admin = json['admin'];
-    owner = json['owner'];
-    description = json['description'];
-    clubType = json['club_type'];
-    postCount = json['post_count'];
-    ownerId = json['owner_id'];
-    followingCount = json['following_count'];
-  }
+  String toRawJson() => json.encode(toJson());
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['resource_state'] = this.resourceState;
-    data['name'] = this.name;
-    data['profile_medium'] = this.profileMedium;
-    data['profile'] = this.profile;
-    data['cover_photo'] = this.coverPhoto;
-    data['cover_photo_small'] = this.coverPhotoSmall;
-    data['sport_type'] = this.sportType;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['country'] = this.country;
-    data['private'] = this.private;
-    data['member_count'] = this.memberCount;
-    data['featured'] = this.featured;
-    data['verified'] = this.verified;
-    data['url'] = this.url;
-    data['membership'] = this.membership;
-    data['admin'] = this.admin;
-    data['owner'] = this.owner;
-    data['description'] = this.description;
-    data['club_type'] = this.clubType;
-    data['post_count'] = this.postCount;
-    data['owner_id'] = this.ownerId;
-    data['following_count'] = this.followingCount;
-    return data;
-  }
+  factory Club.fromJson(Map<String, dynamic> json) => Club(
+    id: json["id"],
+    resourceState: json["resource_state"],
+    name: json["name"],
+    profileMedium: json["profile_medium"],
+    profile: json["profile"],
+    coverPhoto: json["cover_photo"],
+    coverPhotoSmall: json["cover_photo_small"],
+    sportType: json["sport_type"],
+    city: json["city"],
+    state: json["state"],
+    country: json["country"],
+    private: json["private"],
+    memberCount: json["member_count"],
+    featured: json["featured"],
+    verified: json["verified"],
+    url: json["url"],
+    membership: json["membership"],
+    admin: json["admin"],
+    owner: json["owner"],
+    description: json["description"],
+    clubType: json["club_type"],
+    postCount: json["post_count"],
+    ownerId: json["owner_id"],
+    followingCount: json["following_count"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "resource_state": resourceState,
+    "name": name,
+    "profile_medium": profileMedium,
+    "profile": profile,
+    "cover_photo": coverPhoto,
+    "cover_photo_small": coverPhotoSmall,
+    "sport_type": sportType,
+    "city": city,
+    "state": state,
+    "country": country,
+    "private": private,
+    "member_count": memberCount,
+    "featured": featured,
+    "verified": verified,
+    "url": url,
+    "membership": membership,
+    "admin": admin,
+    "owner": owner,
+    "description": description,
+    "club_type": clubType,
+    "post_count": postCount,
+    "owner_id": ownerId,
+    "following_count": followingCount,
+  };
 }

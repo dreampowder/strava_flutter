@@ -20,7 +20,7 @@ class Strava
         Upload,
         Activities,
         Auth,
-        Clubs,
+        ClubsRepository,
         Segments,
         SegmentEfforts,
         AthletesRepository,
