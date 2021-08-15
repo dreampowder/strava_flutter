@@ -7,22 +7,22 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data'; // Needed when declaring ByteData
 
-// import 'package:strava_flutter/API/constants.dart';
+// import 'package:strava_flutter/api/constants.dart';
 import 'package:strava_flutter/error_codes.dart' as error;
 import 'secret.dart';
 
 // Used by uploadExample
 import 'package:strava_flutter/strava.dart';
-import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/Models/stats.dart'; // Test
+import 'package:strava_flutter/models/fault.dart';
+import 'package:strava_flutter/models/stats.dart'; // Test
 
 // Used by segment and segmentEffort
-import 'package:strava_flutter/Models/segment.dart';
-import 'package:strava_flutter/Models/segment_effort.dart';
+import 'package:strava_flutter/models/segment.dart';
+import 'package:strava_flutter/models/segment_effort.dart';
 
 // To test getLoggedInAtletheActivities
-import 'package:strava_flutter/Models/detailed_athlete.dart';
-import 'package:strava_flutter/Models/activity.dart';
+import 'package:strava_flutter/models/detailed_athlete.dart';
+import 'package:strava_flutter/models/activity.dart';
 
 /// Example showing how to upload an activity on Strava
 ///
@@ -112,14 +112,14 @@ Future<Fault> exampleSegment(String secret) async {
   // if not _segEfforts.statusCode == error.statusSegmentNotRidden
   // To get the id it is after segments in url like
   // https://www.strava.com/segments/3915689?filter=overall
-  DetailedSegmentEffort _segEfforts = await strava.getEffortsbySegmentId(
+  DetailedSegmentEffort _segEfforts = await strava.getEffortsBySegmentId(
     2709373,
     '2018-09-15T08:15:29Z',
     '2020-05-16T08:15:29Z',
   );
 
-  List<SummaryActivity> _listSummaries =
-      await strava.getLoggedInAthleteActivities(1554209575, 1500);
+  // List<SummaryActivity> _listSummaries =
+  //     await strava.getLoggedInAthleteActivities(1554209575, 1500);
 
   // Expected answer should start like:
   //  {"id":229781,"resource_state":3,"name":"Hawk Hill","activity_type":"Ride","distance":2684.82,"average_grade":5.7,"maximum_grade":14.2,

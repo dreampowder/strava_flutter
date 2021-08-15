@@ -8,14 +8,7 @@ import 'Models/gear.dart';
 import 'globals.dart' as globals;
 import 'error_codes.dart' as error;
 
-import 'API/o_auth.dart';
-import 'API/upload.dart';
-import 'API/clubs.dart';
-import 'API/activities.dart';
-import 'API/segments.dart';
-import 'API/athletes.dart';
-import 'API/races.dart';
-import 'API/segment_efforts.dart';
+import 'api/strava_api.dart';
 
 /// Initialize the Strava API
 ///  clientID: ID of your Strava app
@@ -27,10 +20,10 @@ class Strava
         Upload,
         Activities,
         Auth,
-        Clubs,
+        ClubsRepository,
         Segments,
         SegmentEfforts,
-        Athletes,
+        AthletesRepository,
         Races {
   String? secret;
 
@@ -48,33 +41,33 @@ class Strava
   /// Give answer only if id is related to logged athlete
   ///
   Future<Gear> getGearById(String? id) async {
-    Gear returnGear = Gear();
-
-    globals.displayInfo('Entering getGearById');
-
-    final _header = globals.createHeader();
-
-    if (_header.containsKey('88') == false) {
-      final reqGear = 'https://www.strava.com/api/v3/gear/$id';
-      final rep = await http.get(Uri.parse(reqGear), headers: _header);
-
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo(' ${rep.body}');
-        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
-
-        Gear _gear = Gear.fromJson(jsonResponse);
-        _gear.fault = Fault(88, '');
-        globals.displayInfo(_gear.description);
-        _gear.fault.statusCode = error.statusOk;
-        returnGear = _gear;
-      } else {
-        globals.displayInfo('Problem in getGearById');
-      }
-      returnGear.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
-    }
-
-    return returnGear;
+    throw UnimplementedError();
+    // Gear returnGear = Gear();
+    //
+    // globals.displayInfo('Entering getGearById');
+    //
+    // final _header = globals.createHeader();
+    //
+    // if (_header.containsKey('88') == false) {
+    //   final reqGear = 'https://www.strava.com/api/v3/gear/$id';
+    //   final rep = await http.get(Uri.parse(reqGear), headers: _header);
+    //
+    //   if (rep.statusCode == 200) {
+    //     globals.displayInfo(rep.statusCode.toString());
+    //     globals.displayInfo(' ${rep.body}');
+    //     final Map<String, dynamic> jsonResponse = json.decode(rep.body);
+    //
+    //     Gear _gear = Gear.fromJson(jsonResponse);
+    //     _gear.fault = Fault(88, '');
+    //     globals.displayInfo(_gear.description);
+    //     _gear.fault.statusCode = error.statusOk;
+    //     returnGear = _gear;
+    //   } else {
+    //     globals.displayInfo('Problem in getGearById');
+    //   }
+    //   returnGear.fault = globals.errorCheck(rep.statusCode, rep.reasonPhrase);
+    // }
+    // return returnGear;
   }
 
   void dispose() {

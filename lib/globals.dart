@@ -1,12 +1,12 @@
 // globals.dart
 
 import 'package:flutter/foundation.dart';
-import 'package:strava_flutter/Models/fault.dart';
-import 'package:strava_flutter/Models/token.dart';
+import 'package:strava_flutter/models/fault.dart';
+import 'package:strava_flutter/models/token.dart';
 
 bool isInDebug = true; // set to true to see debug message in API
 
-Token token = Token(); // Where the token info is stored when executing APIs
+Token? token; // Where the token info is stored when executing APIs
 
 // Default location
 // used when an activity has null
@@ -28,8 +28,8 @@ void displayInfo(String? message) {
 /// stored in globals
 Map<String, String> createHeader() {
   final _token = token;
-  if (_token.accessToken != null) {
-    return {'Authorization': 'Bearer ${_token.accessToken}'};
+  if (_token?.accessToken != null) {
+    return {'Authorization': 'Bearer ${_token?.accessToken}'};
   } else {
     return {'88': '00'};
   }
@@ -39,7 +39,7 @@ Map<String, String> createHeader() {
 /// Feed the Fault with statusCode and reasonPhrase
 /// Coming from http request
 ///
-Fault errorCheck(int statusCode, String? reason) {
+Fault? errorCheck(int statusCode, String? reason) {
   Fault returnFault = Fault(statusCode, reason);
 
   return returnFault;
