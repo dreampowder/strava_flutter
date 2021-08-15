@@ -5,21 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/models/activity_type.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/models/summary_activity.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/examples.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/examples.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/new_api_examples.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/new_api_examples.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/permissions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/permissions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/athletes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/athletes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/clubs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/clubs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/activity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/activity.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/club.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/club.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/old_summary_activity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/old_summary_activity.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/strava.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strava.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/repositories/races.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/races.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/repositories/segment_efforts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/segment_efforts.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api/repositories/segments.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/repositories/segments.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/strava_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strava_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strava_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/strava_flutter.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,6 +137,7 @@
       <option name="presentableId" value="Default" />
       <updated>1578768359598</updated>
       <workItem from="1628774684100" duration="4068000" />
+      <workItem from="1629030564599" duration="1569000" />
     </task>
     <servers />
   </component>

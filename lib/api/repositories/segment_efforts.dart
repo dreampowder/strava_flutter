@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:strava_flutter/api/client.dart';
 import 'dart:convert';
 
 import 'package:strava_flutter/globals.dart' as globals;
@@ -8,37 +12,9 @@ import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class SegmentEfforts {
   Future<DetailedSegmentEffort> getSegmentEffortById(int segId) async {
-    DetailedSegmentEffort _returnSeg = DetailedSegmentEffort();
-
-    final _header = globals.createHeader();
-
-    globals.displayInfo('Entering getSegmentEffortById');
-
-    if (_header.containsKey('88') == false) {
-      final reqSeg = 'https://www.strava.com/api/v3/segment_efforts/' + segId.toString();
-
-      final rep = await http.get(Uri.parse(reqSeg), headers: _header);
-
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        if (rep.body != '[]') {
-          globals.displayInfo('Segment info ${rep.body}');
-          final jsonResponse = json.decode(rep.body);
-
-          if (jsonResponse != null) {
-            _returnSeg = DetailedSegmentEffort.fromJson(jsonResponse);
-            globals.displayInfo('${_returnSeg.name}');
-          }
-        }
-      } else {
-        // No proper answer to the request
-        _returnSeg.fault = Fault(error.statusUnknownError, 'error ${rep.statusCode}');
-      }
-    } else {
-      globals.displayInfo('Token not yet known');
-      _returnSeg.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
-    }
-    return _returnSeg;
+    return ApiClient.getRequest(
+        endPoint: "/v3/segment_efforts/$segId",
+        dataConstructor: (data)=>DetailedSegmentEffort.fromJson(Map<String,dynamic>.from(data)));
   }
 
   /// NOT YET WORKING
@@ -46,10 +22,11 @@ abstract class SegmentEfforts {
   /// scope needed:
   /// Multiple page request has not been tested yet
   ///
-  Future<DetailedSegmentEffort> getEffortsbySegmentId(
+  Future<DetailedSegmentEffort> getEffortsBySegmentId(
     int? segId,
     String startDateLocal,
     String endDateLocal,
+    {int pageSize = 30}
   ) async {
     DetailedSegmentEffort _returnSeg = DetailedSegmentEffort();
 

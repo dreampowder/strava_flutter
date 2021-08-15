@@ -112,7 +112,7 @@ Future<Fault> exampleSegment(String secret) async {
   // if not _segEfforts.statusCode == error.statusSegmentNotRidden
   // To get the id it is after segments in url like
   // https://www.strava.com/segments/3915689?filter=overall
-  DetailedSegmentEffort _segEfforts = await strava.getEffortsbySegmentId(
+  DetailedSegmentEffort _segEfforts = await strava.getEffortsBySegmentId(
     2709373,
     '2018-09-15T08:15:29Z',
     '2020-05-16T08:15:29Z',

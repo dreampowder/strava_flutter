@@ -4,6 +4,7 @@
 ///
 
 import 'package:http/http.dart' as http;
+import 'package:strava_flutter/api/client.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -18,34 +19,9 @@ abstract class Segments {
   /// scope needed: read_all
   ///
   Future<DetailedSegment> getSegmentById(String id) async {
-    DetailedSegment returnSeg = DetailedSegment();
-
-    final _header = globals.createHeader();
-
-    globals.displayInfo('Entering getSegById');
-
-    if (_header.containsKey('88') == false) {
-      final reqSeg = 'https://www.strava.com/api/v3/segments/' + id;
-      final rep = await http.get(Uri.parse(reqSeg), headers: _header);
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo('Segment info ${rep.body}');
-        final Map<String, dynamic> jsonResponse = json.decode(rep.body);
-
-        DetailedSegment _seg = DetailedSegment.fromJson(jsonResponse);
-        globals.displayInfo(_seg.name);
-
-        returnSeg = _seg;
-      } else {
-        globals.displayInfo('problem in getSegById request');
-
-        // 404 : segment not found
-      }
-    } else {
-      globals.displayInfo('Token not yet known');
-      returnSeg.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
-    }
-    return returnSeg;
+    return ApiClient.getRequest(
+        endPoint: "/v3/segments/$id",
+        dataConstructor: (data)=>DetailedSegment.fromJson(Map<String,dynamic>.from(data)));
   }
 
   ///
@@ -55,34 +31,51 @@ abstract class Segments {
   ///
   /// Limited for the moment to the first 50 starred segments
   ///
-  Future<SegmentsList?> getLoggedInAthleteStarredSegments() async {
-    SegmentsList? returnList;
-
-    returnList = SegmentsList();
-    final _header = globals.createHeader();
-
-    globals.displayInfo('Entering getLoggedInAthleteStarredSegments');
-    print('_header: ${_header[0 as String]}');
-
-    if (_header.containsKey('88') == false) {
-      final reqSeg = 'https://www.strava.com/api/v3/segments/starred?page=1&per_page=50';
-      final rep = await http.get(Uri.parse(reqSeg), headers: _header);
-      if (rep.statusCode == 200) {
-        globals.displayInfo(rep.statusCode.toString());
-        globals.displayInfo('List starred segments  info ${rep.body}');
-        // final parsedJson = json.decode(rep.body);
-        returnList = SegmentsList.fromJson(json.decode(rep.body));
-      } else {
-        globals.displayInfo('problem in getLoggedInAthleteStarredSegments request');
-        // Add a fault
-        returnList = null;
-      }
-    } else {
-      globals.displayInfo('Token not yet known');
-      returnList.fault = Fault(error.statusTokenNotKnownYet, 'Token not yet known');
-    }
-    return returnList;
+  Future<List<SummarySegment>?> getLoggedInAthleteStarredSegments({int page = 1,int pageSize = 30}) async {
+    return ApiClient.getRequest(
+        endPoint: "/v3/segments/starred",
+        queryParameters: {
+          "page":page,
+          "per_page":pageSize
+        },
+        dataConstructor: (data){
+          if(data is List){
+            return data.map((e) => SummarySegment.fromJson(Map<String,dynamic>.from(e))).toList();
+          }
+          return [];
+        });
   }
+
+  // Future<SegmentLeaderboard> getLeaderBoardForSegmentId(
+  //     int id,
+  //     int clubId,
+  //     int maxEntries,
+  //     bool isFollowing,
+  //     SegmentGender gender,
+  //     SegmentAgeGroup ageGroup,
+  //     SegmentWeightClass weightClass,
+  //     SegmentDateRange dateRange,
+  //     {
+  //       int page = 1,
+  //       int pageSize = 30
+  //     }
+  //     ){
+  //   return ApiClient.getRequest(
+  //       endPoint: "https://www.strava.com/api/v3/segments/$id",
+  //       queryParameters: {
+  //         "gender":gender.toString().replaceAll("SegmentGender.", ""),
+  //         "age_group":ageGroup.toString().replaceAll("SegmentAgeGroup.AgeGroup_", ""),
+  //         "weight_class":weightClass.toString().replaceAll("SegmentWeightClass.WeightClass_", ""),
+  //         "club_id":clubId,
+  //         "following":isFollowing,
+  //         "date_range":dateRange.toString().replaceAll("SegmentDateRange.", ""),
+  //         "page":page,
+  //         "per_page":pageSize,
+  //         "context":""
+  //       },
+  //       dataConstructor: (data)=>SegmentLeaderboard.fromJson(Map<String,dynamic>.from(data))
+  //   );
+  // }
 
   /// scoped needed: ?
   ///
@@ -115,7 +108,6 @@ abstract class Segments {
     String? dateRange,
   }) async {
     SegmentLeaderboard returnLeaderboard;
-
     returnLeaderboard = SegmentLeaderboard();
     final _header = globals.createHeader();
     int _pageNumber = 1;
@@ -238,4 +230,43 @@ abstract class Segments {
     }
     return returnSegment;
   }
+}
+
+enum SegmentGender{
+  male, female
+}
+
+enum SegmentAgeGroup{
+  AgeGroup_0_19,
+  AgeGroup_20_24,
+  AgeGroup_25_34,
+  AgeGroup_35_44,
+  AgeGroup_45_54,
+  AgeGroup_55_64,
+  AgeGroup_65_69,
+  AgeGroup_70_74,
+  AgeGroup_75_plus
+}
+
+enum SegmentWeightClass{
+  WeightClass_0_124,
+  WeightClass_125_149,
+  WeightClass_150_164,
+  WeightClass_165_179,
+  WeightClass_180_199,
+  WeightClass_200_224,
+  WeightClass_225_249,
+  WeightClass_250_plus,
+  WeightClass_0_54,
+  WeightClass_55_64,
+  WeightClass_65_74,
+  WeightClass_75_84,
+  WeightClass_85_94,
+  WeightClass_95_104,
+  WeightClass_105_114,
+  WeightClass_115_plus
+}
+
+enum SegmentDateRange{
+  this_year, this_month, this_week, today
 }
