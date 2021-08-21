@@ -6,7 +6,7 @@ Follow the "new" Authentication process
 
 https://developers.strava.com/docs/authentication/
 
-
+##Warning: This package is under heavy refactoring, there might be breaking changes in the following updates. 
 
 ## API currently supported:
 
