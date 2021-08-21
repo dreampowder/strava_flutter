@@ -82,4 +82,5 @@ build/
 
 # Flutter generated files
 .flutter-plugins-dependencies
-example/ios/Flutter/flutter_export_environment.sh
+ios/Flutter/flutter_export_environment.sh
+lib/generated_plugin_registrant.dart
