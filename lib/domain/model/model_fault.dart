@@ -1,11 +1,7 @@
-// To parse this JSON data, do
-//
-//     final stravaFault = stravaFaultFromJson(jsonString);
-
 import 'dart:convert';
 
-class StravaFault {
-  StravaFault({
+class Fault {
+  Fault({
     this.errors,
     this.message,
   });
@@ -13,11 +9,11 @@ class StravaFault {
   final List<Error>? errors;
   final String? message;
 
-  factory StravaFault.fromRawJson(String str) => StravaFault.fromJson(json.decode(str));
+  factory Fault.fromRawJson(String str) => Fault.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory StravaFault.fromJson(Map<String, dynamic> json) => StravaFault(
+  factory Fault.fromJson(Map<String, dynamic> json) => Fault(
     errors: List<Error>.from(json["errors"].map((x) => Error.fromJson(x))),
     message: json["message"],
   );

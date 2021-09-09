@@ -1,8 +1,10 @@
 
 import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:strava_flutter/common/session_manager.dart';
+import 'package:strava_flutter/injections.dart';
 import 'package:strava_flutter/models/strava_fault.dart';
 
 class ApiClient{
@@ -12,9 +14,10 @@ class ApiClient{
   static Future<Dio> _getDioClient({bool isAuthenticated = true}) async{
     var dio = Dio();
     if(isAuthenticated){
-      var token = await SessionManager.getInstance.getToken();
+      var token = await sl<SessionManager>().getToken();
       var headers = Map<String,dynamic>();
       if (token != null) {
+        print("Token: ${token.accessToken}");
         headers.putIfAbsent("Authorization", () => "Bearer ${token.accessToken}");
       }
       dio.options = BaseOptions(headers: headers);

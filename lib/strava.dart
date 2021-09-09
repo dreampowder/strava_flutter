@@ -1,14 +1,8 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'dart:async';
 
-import 'Models/fault.dart';
 import 'Models/gear.dart';
-
-import 'globals.dart' as globals;
-import 'error_codes.dart' as error;
-
 import 'api/strava_api.dart';
+import 'globals.dart' as globals;
 
 /// Initialize the Strava API
 ///  clientID: ID of your Strava app

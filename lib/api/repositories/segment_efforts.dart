@@ -1,14 +1,12 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:strava_flutter/api/client.dart';
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+import 'package:strava_flutter/data/repository/client.dart';
+import 'package:strava_flutter/error_codes.dart' as error;
 import 'package:strava_flutter/globals.dart' as globals;
 import 'package:strava_flutter/models/fault.dart';
 import 'package:strava_flutter/models/segment_effort.dart';
-import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class SegmentEfforts {
   Future<DetailedSegmentEffort> getSegmentEffortById(int segId) async {

@@ -2,7 +2,6 @@
 //
 //     final club = clubFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class Club {

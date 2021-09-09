@@ -1,12 +1,11 @@
 // Activity
 
-import 'gear.dart';
-import 'fault.dart';
-import '../globals.dart' as globals;
-import 'package:strava_flutter/models/segment_effort.dart';
 import 'package:strava_flutter/models/athlete.dart';
+import 'package:strava_flutter/models/segment_effort.dart';
 
-import 'package:intl/intl.dart';
+import '../globals.dart' as globals;
+import 'fault.dart';
+import 'gear.dart';
 
 class DetailedActivity {
   Fault? fault;
