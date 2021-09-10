@@ -4,8 +4,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:strava_flutter/common/session_manager.dart';
-import 'package:strava_flutter/injections.dart';
-import 'package:strava_flutter/models/strava_fault.dart';
+import 'package:strava_flutter/domain/model/model_fault.dart';
+import 'package:strava_flutter/common/injections.dart';
 
 class ApiClient{
 
@@ -43,7 +43,7 @@ class ApiClient{
   static Future<T> postRequest<T>(
       {required  String endPoint,
       Map<String, dynamic>? queryParameters,
-      Map<String, dynamic>? postBody,
+      dynamic postBody,
       required T Function(dynamic) dataConstructor}) async{
     var completer = Completer<T>();
     _getDioClient()
@@ -58,7 +58,7 @@ class ApiClient{
   static Future<T> putRequest<T>(
       {required  String endPoint,
         Map<String, dynamic>? queryParameters,
-        Map<String, dynamic>? postBody,
+        dynamic postBody,
         required T Function(dynamic) dataConstructor}) async{
     var completer = Completer<T>();
     _getDioClient()
@@ -73,7 +73,7 @@ class ApiClient{
   static void handleError<T>(Completer<T> completer,dynamic error,StackTrace stackTrace){
     if(error is DioError){
       if(error.response != null && error.response?.data != null && error.response?.data is Map){
-        var stravaFault = StravaFault.fromJson(Map<String,dynamic>.from(error.response?.data));
+        var stravaFault = Fault.fromJson(Map<String,dynamic>.from(error.response?.data));
         completer.completeError(stravaFault);
       }else{
         completer.completeError(error,stackTrace);

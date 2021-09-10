@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:strava_flutter/strava.dart';
-
-Strava strava;
 
 void main() => runApp(MyApp());
 

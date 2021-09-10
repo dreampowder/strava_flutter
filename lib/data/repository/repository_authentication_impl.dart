@@ -7,7 +7,7 @@ import 'package:strava_flutter/domain/model/model_authentication_response.dart';
 import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
 import 'package:strava_flutter/domain/model/model_fault.dart';
 import 'package:strava_flutter/domain/repository/repository_authentication.dart';
-import 'package:strava_flutter/injections.dart';
+import 'package:strava_flutter/common/injections.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 

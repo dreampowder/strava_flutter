@@ -1,9 +1,0 @@
-export 'repositories/activities.dart';
-export 'repositories/athletes.dart';
-export 'repositories/clubs.dart';
-export 'repositories/o_auth.dart';
-export 'repositories/races.dart';
-export 'repositories/races.dart';
-export 'repositories/segment_efforts.dart';
-export 'repositories/segments.dart';
-export 'repositories/upload.dart';

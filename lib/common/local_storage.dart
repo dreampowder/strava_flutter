@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:strava_flutter/domain/model/model_authentication_response.dart';
 import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
-import 'package:strava_flutter/models/token.dart';
 
 class LocalStorageManager{
 
