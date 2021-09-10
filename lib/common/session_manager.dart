@@ -1,26 +1,16 @@
 import 'dart:async';
 
-import 'package:strava_flutter/models/strava_auth_scopes.dart';
-import 'package:strava_flutter/models/token.dart';
 import 'package:strava_flutter/common/local_storage.dart';
+import 'package:strava_flutter/domain/model/model_authentication_response.dart';
+import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
 
 class SessionManager{
 
-  static SessionManager? _instance;
   late final String secret;
   late final String clientId;
 
-  SessionManager._();
-
-  static SessionManager get getInstance{
-    if (_instance == null) {
-      _instance = SessionManager._();
-    }
-    return _instance!;
-  }
-
-  Token? _currentToken;
-  List<StravaAuthScope>? _scopes;
+  TokenResponse? _currentToken;
+  List<AuthenticationScope>? _scopes;
 
   void initialize({
     required String secret,
@@ -30,8 +20,8 @@ class SessionManager{
     this.clientId = clientId;
   }
 
-  Future<Token?> getToken(){
-    var completer = Completer<Token>();
+  Future<TokenResponse?> getToken(){
+    var completer = Completer<TokenResponse?>();
     if(_currentToken != null){
       completer.complete(_currentToken);
     }else{
@@ -47,14 +37,20 @@ class SessionManager{
     return completer.future;
   }
 
-  Future<void> setToken({required Token token,required List<StravaAuthScope> scopes}){
+  Future<void> setToken({required TokenResponse token,required List<AuthenticationScope> scopes}){
     _currentToken = token;
     _scopes = scopes;
     return LocalStorageManager.saveToken(token,scopes).then((value) => _currentToken = token);
   }
 
-  bool isTokenExpired(Token token){
+  bool isTokenExpired(TokenResponse token){
     DateTime expiresAt = DateTime.fromMillisecondsSinceEpoch(token.expiresAt * 1000);
     return DateTime.now().isAfter(expiresAt);
+  }
+
+  Future<void> logout(){
+    _currentToken = null;
+    _scopes = null;
+    return LocalStorageManager.deleteToken();
   }
 }

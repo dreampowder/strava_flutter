@@ -1,25 +1,20 @@
 // oauth.dart
 
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'dart:io'; // Use in web mode only
 import 'dart:async';
-import 'dart:convert';
+import 'dart:io'; // Use in web mode only
 
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-// To handle browser return after auth is done
-import 'package:uni_links/uni_links.dart';
-
-import 'package:strava_flutter/error_codes.dart' as error;
-import 'package:strava_flutter/globals.dart' as globals;
 // import 'constants.dart';
 import 'package:strava_flutter/api/api_constants.dart';
-// import '../models/token.dart';
-import 'package:strava_flutter/models/token.dart';
+import 'package:strava_flutter/globals.dart' as globals;
 // import '../models/fault.dart';
 import 'package:strava_flutter/models/fault.dart';
+// import '../models/token.dart';
+import 'package:strava_flutter/models/token.dart';
+// To handle browser return after auth is done
+import 'package:uni_links/uni_links.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 ///===========================================
 /// Class related to Authorization processs

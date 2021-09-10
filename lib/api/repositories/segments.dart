@@ -2,17 +2,15 @@
 ///
 ///
 ///
+import 'dart:async';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:strava_flutter/api/client.dart';
-import 'dart:convert';
-import 'dart:async';
-
-import 'package:strava_flutter/models/segment.dart';
-import 'package:strava_flutter/models/fault.dart';
-
-import 'package:strava_flutter/globals.dart' as globals;
+import 'package:strava_flutter/data/repository/client.dart';
 import 'package:strava_flutter/error_codes.dart' as error;
+import 'package:strava_flutter/globals.dart' as globals;
+import 'package:strava_flutter/models/fault.dart';
+import 'package:strava_flutter/models/segment.dart';
 
 abstract class Segments {
   ///

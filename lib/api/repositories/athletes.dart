@@ -1,19 +1,12 @@
 // athletes.dart
 
-import 'package:http/http.dart' as http;
-import 'package:strava_flutter/api/client.dart';
-import 'dart:convert';
 import 'dart:async';
 
-import 'package:strava_flutter/models/stats.dart';
-import 'package:strava_flutter/models/detailed_athlete.dart';
+import 'package:strava_flutter/data/repository/client.dart';
+import 'package:strava_flutter/domain/model/model_activity_stats.dart';
+import 'package:strava_flutter/domain/model/model_detailed_athlete.dart';
 import 'package:strava_flutter/models/summary_activity.dart';
 import 'package:strava_flutter/models/zone.dart';
-import 'package:strava_flutter/models/activity.dart';
-import 'package:strava_flutter/models/fault.dart';
-
-import 'package:strava_flutter/globals.dart' as globals;
-import 'package:strava_flutter/error_codes.dart' as error;
 
 abstract class AthletesRepository {
 
@@ -31,10 +24,10 @@ abstract class AthletesRepository {
 
   /// Give activiy stats of the loggedInAthlete
   /// [athleteId] athelete Id to query
-  Future<Stats> getStats(int athleteId) async {
+  Future<ActivityStats> getStats(int athleteId) async {
     return ApiClient.getRequest(
         endPoint: "/v3/athletes/$athleteId/stats",
-        dataConstructor: (data)=>Stats.fromJson(data));
+        dataConstructor: (data)=>ActivityStats.fromJson(data));
   }
 
   /// Provide zones heart rate or power for the logged athlete
@@ -58,7 +51,6 @@ abstract class AthletesRepository {
     return ApiClient.getRequest<DetailedAthlete>(
         endPoint: "/v3/athlete",
         dataConstructor: (data){
-          print("Athlete: $data");
           return DetailedAthlete.fromJson(data);
         });
   }
