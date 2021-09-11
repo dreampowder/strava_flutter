@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:strava_flutter/domain/model/model_authentication_response.dart';
 import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
+import 'package:strava_flutter/domain/model/model_fault.dart';
 import 'package:strava_flutter/strava_client.dart';
 import 'secret.dart';
 void main() => runApp(MyApp());
@@ -43,6 +44,19 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     super.initState();
   }
 
+  void showErrorMessage(dynamic error){
+    if(error is Fault){
+
+      showDialog(context: context, builder: (context){
+        return AlertDialog(
+          title: Text("Did Receive Fault"),
+          content: Text(
+              "Message: ${error.message}\n-----------------\nErrors:\n${(error.errors ?? []).map((e) => "Code: ${e.code}\nResource: ${e.resource}\nField: ${e.field}\n").toList().join("\n----------\n")}"),
+        );
+      });
+    }
+  }
+
   void testAuthentication(){
     ExampleAuthentication(stravaClient)
         .testAuthentication([AuthenticationScope.profile_read_all,AuthenticationScope.read_all,AuthenticationScope.activity_read_all], "stravaflutter://redirect")
@@ -52,14 +66,30 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
           this.token = token;
         });
         _textEditingController.text = token.accessToken;
-    });
+    }).catchError((error)=>showErrorMessage(error));
+  }
+
+  void testDeauth(){
+    ExampleAuthentication(stravaClient)
+        .testDeauthorize()
+        .then((value){
+       setState(() {
+         isLoggedIn = false;
+         this.token = null;
+         _textEditingController.clear();
+       });
+    }).catchError((error)=>showErrorMessage(error));
   }
 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter Strava Plugin")
+        title: Text("Flutter Strava Plugin"),
+        actions: [
+          Icon(isLoggedIn ? Icons.radio_button_checked_outlined : Icons.radio_button_off, color: isLoggedIn ? Colors.white : Colors.red,),
+          SizedBox(width: 8,)
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -77,7 +107,13 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
    return Column(
      crossAxisAlignment: CrossAxisAlignment.start,
      children: [
-       ElevatedButton(child: Text("Login With Strava"),onPressed: testAuthentication,),
+       Row(
+         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+         children: [
+           ElevatedButton(child: Text("Login With Strava"),onPressed: testAuthentication,),
+           ElevatedButton(child: Text("De Authorize"),onPressed: testDeauth,)
+         ],
+       ),
        SizedBox(height: 8,),
        TextField(
          minLines: 1,
@@ -96,4 +132,5 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
      ],
    );
   }
+
 }
