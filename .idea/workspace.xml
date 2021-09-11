@@ -5,83 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_activity_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_club_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_gear_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_route_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_running_race_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_segment_efforts_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_segment_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_stream_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/repository/repository_upload_impl.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_activity_request_create.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_activity_request_update.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_activity_type_enum.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_activity_zone.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_club.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_comment.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_detailed_activity.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_detailed_segment.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_gear.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_lap.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_latlng.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_route.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_running_race.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_segment_leaderboard.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_segment_leaderboard_request.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_segments_explore.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_stream_set.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_summary_activity.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_summary_segment.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_upload.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/model/model_upload_request.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_activity.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_club.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_gear.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_route.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_running_race.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_segment.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_stream.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/repository_upload.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/domain/repository/resository_segment_effort.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/lib/examples/authentication.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/AppFrameworkInfo.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/generated_plugin_registrant.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/permissions.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/activities.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/athletes.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/authentication.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/clubs.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/o_auth.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/races.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/segment_efforts.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/repositories/segments.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api/strava_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api/strava_api.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/local_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/local_storage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/repository/client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/error_codes.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/globals.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/injections.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/injections.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/activity.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/activity_type.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/athlete.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/club.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/fault.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/gear.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/old_summary_activity.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/refresh_token.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/running_race.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/segment.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/segment_effort.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/stats.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/strava_auth_scopes.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/strava_fault.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/summary_activity.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/summary_athlete.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/token.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/upload_activity.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/zone.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/strava.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/new_api_examples.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/strava_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strava_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strava_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/strava_flutter.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +33,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="package.json" />
         <option value="Dart File" />
       </list>
     </option>
@@ -170,7 +107,6 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.force.activate" value="true" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
@@ -181,16 +117,16 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/common" />
       <recent name="$PROJECT_DIR$/lib/domain/repository" />
       <recent name="$PROJECT_DIR$/lib/data/repository" />
       <recent name="$PROJECT_DIR$/lib/model" />
       <recent name="$PROJECT_DIR$/lib/API" />
-      <recent name="$PROJECT_DIR$/lib/API/repositories" />
     </key>
   </component>
   <component name="RunManager">
@@ -216,7 +152,9 @@
       <workItem from="1630596055404" duration="2190000" />
       <workItem from="1631130990495" duration="12616000" />
       <workItem from="1631265548866" duration="7020000" />
-      <workItem from="1631273841688" duration="3143000" />
+      <workItem from="1631273841688" duration="3255000" />
+      <workItem from="1631366641682" duration="17000" />
+      <workItem from="1631371269626" duration="1603000" />
     </task>
     <servers />
   </component>
