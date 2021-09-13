@@ -30,9 +30,9 @@ class StravaClient{
   RepositoryStream get streams => sl();
   RepositoryUpload get uploads => sl();
 
-  StravaClient({required this.secret,required this.clientId}){
+  StravaClient({required this.secret,required this.clientId, String applicationName = ""}){
     initServiceLocator();
-    sl<SessionManager>().initialize(secret: secret, clientId: clientId);
+    sl<SessionManager>().initialize(secret: secret, clientId: clientId,applicationName: applicationName);
   }
 
   ///Returns stored strava token if needed.

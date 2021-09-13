@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:strava_flutter/common/local_storage.dart';
 import 'package:strava_flutter/common/session_manager.dart';
 import 'package:strava_flutter/data/repository/client.dart';
 import 'package:strava_flutter/domain/model/model_authentication_response.dart';

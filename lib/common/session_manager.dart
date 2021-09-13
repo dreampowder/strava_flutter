@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:strava_flutter/common/local_storage.dart';
 import 'package:strava_flutter/domain/model/model_authentication_response.dart';
 import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
@@ -8,16 +9,19 @@ class SessionManager{
 
   late final String secret;
   late final String clientId;
+  late final String applicationName;
 
   TokenResponse? _currentToken;
   List<AuthenticationScope>? _scopes;
 
   void initialize({
     required String secret,
-    required String clientId
+    required String clientId,
+    String applicationName = ""
   }){
     this.secret = secret;
     this.clientId = clientId;
+    this.applicationName = applicationName;
   }
 
   Future<TokenResponse?> getToken(){
@@ -26,7 +30,7 @@ class SessionManager{
       completer.complete(_currentToken);
     }else{
       LocalStorageManager
-          .getToken()
+          .getToken(applicationName: this.applicationName)
           .then((storedValue){
             if(storedValue != null){
               _currentToken = storedValue;
@@ -40,7 +44,7 @@ class SessionManager{
   Future<void> setToken({required TokenResponse token,required List<AuthenticationScope> scopes}){
     _currentToken = token;
     _scopes = scopes;
-    return LocalStorageManager.saveToken(token,scopes).then((value) => _currentToken = token);
+    return LocalStorageManager.saveToken(token,scopes,applicationName: applicationName).then((value) => _currentToken = token);
   }
 
   bool isTokenExpired(TokenResponse token){
@@ -51,6 +55,6 @@ class SessionManager{
   Future<void> logout(){
     _currentToken = null;
     _scopes = null;
-    return LocalStorageManager.deleteToken();
+    return LocalStorageManager.deleteToken(applicationName: applicationName);
   }
 }
