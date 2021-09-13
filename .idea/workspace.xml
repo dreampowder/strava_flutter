@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/local_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/local_storage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/session_manager.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/session_manager.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/injections.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/injections.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/client.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/repository/repository_authentication_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/repository_authentication_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/repository_segment_efforts_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/repository_segment_efforts_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/domain/repository/resository_segment_effort.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/domain/repository/repository_segment_effort.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/strava_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strava_client.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -147,7 +149,7 @@
       <workItem from="1631265548866" duration="7020000" />
       <workItem from="1631273841688" duration="3255000" />
       <workItem from="1631366641682" duration="17000" />
-      <workItem from="1631371269626" duration="3197000" />
+      <workItem from="1631371269626" duration="3526000" />
     </task>
     <servers />
   </component>

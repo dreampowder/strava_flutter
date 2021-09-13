@@ -128,10 +128,12 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication{
   @override
   Future<void> deAuthorize() async{
     var token = await  sl<SessionManager>().getToken();
-    print("Token: ${token?.accessToken}");
+
+    var params = {"access_token":token?.accessToken ?? ""};
     return ApiClient.postRequest(
+        baseUrl: "https://www.strava.com/",
         endPoint: "/oauth/deauthorize",
-        queryParameters:{"access_token":token?.accessToken ?? ""},
+        queryParameters:params,
         dataConstructor: (data)=>null)
       .whenComplete(() => sl<SessionManager>().logout());
   }

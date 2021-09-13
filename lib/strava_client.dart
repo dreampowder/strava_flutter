@@ -11,7 +11,7 @@ import 'package:strava_flutter/domain/repository/repository_running_race.dart';
 import 'package:strava_flutter/domain/repository/repository_segment.dart';
 import 'package:strava_flutter/domain/repository/repository_stream.dart';
 import 'package:strava_flutter/domain/repository/repository_upload.dart';
-import 'package:strava_flutter/domain/repository/resository_segment_effort.dart';
+import 'package:strava_flutter/domain/repository/repository_segment_effort.dart';
 import 'package:strava_flutter/common/injections.dart';
 
 class StravaClient{

@@ -42,13 +42,15 @@ class ApiClient{
 
   static Future<T> postRequest<T>(
       {required  String endPoint,
+        String? baseUrl,
       Map<String, dynamic>? queryParameters,
       dynamic postBody,
       required T Function(dynamic) dataConstructor}) async{
     var completer = Completer<T>();
+    print("URL: ${"${baseUrl ?? _baseUrl}$endPoint"}, PARAMS: ${queryParameters}");
     _getDioClient()
         .then((client){
-      client.post("$_baseUrl$endPoint",queryParameters: queryParameters,data: postBody)
+      client.post("${baseUrl ?? _baseUrl}$endPoint",queryParameters: queryParameters,data: postBody)
           .then((response)=>completer.complete(dataConstructor(response.data)))
           .catchError((error,stackTrace)=>handleError(completer, error, stackTrace));
     });

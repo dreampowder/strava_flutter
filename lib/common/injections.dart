@@ -22,7 +22,7 @@ import 'package:strava_flutter/domain/repository/repository_stream.dart';
 import 'package:strava_flutter/domain/repository/repository_upload.dart';
 
 import '../data/repository/repository_running_race_impl.dart';
-import '../domain/repository/resository_segment_effort.dart';
+import '../domain/repository/repository_segment_effort.dart';
 
 GetIt sl  = GetIt.instance;
 bool didInitLocators = false;
