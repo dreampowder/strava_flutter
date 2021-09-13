@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:example/examples/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,7 +46,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
     super.initState();
   }
 
-  void showErrorMessage(dynamic error){
+  FutureOr<Null> showErrorMessage(dynamic error, dynamic stackTrace){
     if(error is Fault){
 
       showDialog(context: context, builder: (context){
@@ -66,7 +68,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
           this.token = token;
         });
         _textEditingController.text = token.accessToken;
-    }).catchError((error)=>showErrorMessage(error));
+    }).catchError(showErrorMessage);
   }
 
   void testDeauth(){
@@ -78,7 +80,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
          this.token = null;
          _textEditingController.clear();
        });
-    }).catchError((error)=>showErrorMessage(error));
+    }).catchError(showErrorMessage);
   }
 
  @override
@@ -97,6 +99,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _login(),
+            _apiGroups()
           ],
         ),
       ),
@@ -131,6 +134,57 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
        Divider()
      ],
    );
+  }
+
+  Widget _apiGroups(){
+    return IgnorePointer(
+      ignoring: !isLoggedIn,
+      child: AnimatedOpacity(
+          opacity: isLoggedIn ? 1.0 : 0.4,
+          duration: Duration(milliseconds: 200),
+          child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text("Athletes"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Clubs"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Gears"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Routes"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Running Races"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Segment Efforts"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Segments"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Streams"),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              title: Text("Uploads"),
+              trailing: Icon(Icons.chevron_right),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
 }
