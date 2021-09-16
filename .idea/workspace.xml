@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/repository_authentication_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/repository_authentication_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strava_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/strava_flutter.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +146,10 @@
       <workItem from="1631265548866" duration="7020000" />
       <workItem from="1631273841688" duration="3255000" />
       <workItem from="1631366641682" duration="17000" />
-      <workItem from="1631371269626" duration="3935000" />
+      <workItem from="1631371269626" duration="3967000" />
+      <workItem from="1631541780295" duration="1041000" />
+      <workItem from="1631613590729" duration="26000" />
+      <workItem from="1631622960133" duration="1023000" />
     </task>
     <servers />
   </component>

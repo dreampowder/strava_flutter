@@ -72,8 +72,9 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication{
     final params =
         '?client_id=${sl<SessionManager>().clientId}&redirect_uri=$redirectUrl&response_type=code&approval_prompt=${forceShowingApproval ? "force" : "auto"}&scope=${AuthenticationScopeHelper.buildScopeString(scopes)}';
     var authorizationEndpoint = "https://www.strava.com/oauth/mobile/authorize";
-    final reqAuth = authorizationEndpoint + params;
 
+    final reqAuth = authorizationEndpoint + params;
+    print("Req URL: $reqAuth");
     launch(reqAuth,
         forceWebView: false,
         forceSafariVC: false,
