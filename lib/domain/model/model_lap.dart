@@ -11,7 +11,7 @@ class Lap {
   double? distance;
   int? startIndex;
   int? endIndex;
-  int? totalElevationGain;
+  double? totalElevationGain;
   double? averageSpeed;
   double? maxSpeed;
   double? averageCadence;
@@ -20,34 +20,37 @@ class Lap {
   int? lapIndex;
   int? split;
 
-  Lap({
-    this.id,
-    this.resourceState,
-    this.name,
-    this.activity,
-    this.athlete,
-    this.elapsedTime,
-    this.movingTime,
-    this.startDate,
-    this.startDateLocal,
-    this.distance,
-    this.startIndex,
-    this.endIndex,
-    this.totalElevationGain,
-    this.averageSpeed,
-    this.maxSpeed,
-    this.averageCadence,
-    this.deviceWatts,
-    this.averageWatts,
-    this.lapIndex,
-    this.split});
+  Lap(
+      {this.id,
+      this.resourceState,
+      this.name,
+      this.activity,
+      this.athlete,
+      this.elapsedTime,
+      this.movingTime,
+      this.startDate,
+      this.startDateLocal,
+      this.distance,
+      this.startIndex,
+      this.endIndex,
+      this.totalElevationGain,
+      this.averageSpeed,
+      this.maxSpeed,
+      this.averageCadence,
+      this.deviceWatts,
+      this.averageWatts,
+      this.lapIndex,
+      this.split});
 
   Lap.fromJson(dynamic json) {
     id = json['id'];
     resourceState = json['resource_state'];
     name = json['name'];
-    activity = json['activity'] != null ? MetaActivity.fromJson(json['activity']) : null;
-    athlete = json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
+    activity = json['activity'] != null
+        ? MetaActivity.fromJson(json['activity'])
+        : null;
+    athlete =
+        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
     elapsedTime = json['elapsed_time'];
     movingTime = json['moving_time'];
     startDate = json['start_date'];
@@ -93,7 +96,6 @@ class Lap {
     map['split'] = split;
     return map;
   }
-
 }
 
 /// id : 134815
@@ -103,9 +105,7 @@ class MetaAthlete {
   int? id;
   int? resourceState;
 
-  MetaAthlete({
-    this.id,
-    this.resourceState});
+  MetaAthlete({this.id, this.resourceState});
 
   MetaAthlete.fromJson(dynamic json) {
     id = json['id'];
@@ -118,7 +118,6 @@ class MetaAthlete {
     map['resource_state'] = resourceState;
     return map;
   }
-
 }
 
 /// id : 1410355832
@@ -128,9 +127,7 @@ class MetaActivity {
   int? id;
   int? resourceState;
 
-  MetaActivity({
-    this.id,
-    this.resourceState});
+  MetaActivity({this.id, this.resourceState});
 
   MetaActivity.fromJson(dynamic json) {
     id = json['id'];
@@ -143,5 +140,4 @@ class MetaActivity {
     map['resource_state'] = resourceState;
     return map;
   }
-
 }
