@@ -537,9 +537,9 @@ class SummaryGear {
 
 class SplitsMetric {
   double? distance;
-  int? elapsedTime;
+  double? elapsedTime;
   double? elevationDifference;
-  int? movingTime;
+  double? movingTime;
   int? split;
   double? averageSpeed;
   int? paceZone;
