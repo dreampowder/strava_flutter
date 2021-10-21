@@ -237,7 +237,7 @@ class DetailedActivity {
     workoutType = json['workout_type'];
     sufferScore = json['suffer_score'];
     description = json['description'];
-    calories = json['calories'];
+    calories = json['calories'].toDouble();
     if (json['segment_efforts'] != null) {
       segmentEfforts = [];
       json['segment_efforts'].forEach((v) {
