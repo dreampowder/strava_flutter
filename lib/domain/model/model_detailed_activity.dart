@@ -220,7 +220,7 @@ class DetailedActivity {
     gearId = json['gear_id'];
     fromAcceptedTag = json['from_accepted_tag'];
     averageSpeed = json['average_speed'];
-    maxSpeed = json['max_speed'];
+    maxSpeed = json['max_speed'].toDouble();
     averageCadence = json['average_cadence'];
     averageTemp = json['average_temp'];
     averageWatts = json['average_watts'];
