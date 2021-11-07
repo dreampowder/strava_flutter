@@ -58,16 +58,16 @@ class SummaryActivity {
   double? distance;
   int? movingTime;
   int? elapsedTime;
-  int? totalElevationGain;
+  double? totalElevationGain;
   String? type;
   int? workoutType;
   int? id;
   String? externalId;
-  double? uploadId;
+  int? uploadId;
   String? startDate;
   String? startDateLocal;
   String? timezone;
-  int? utcOffset;
+  double? utcOffset;
   List<double>? startLatlng;
   List<double>? endLatlng;
   String? locationCity;
@@ -87,7 +87,7 @@ class SummaryActivity {
   String? gearId;
   bool? fromAcceptedTag;
   double? averageSpeed;
-  int? maxSpeed;
+  double? maxSpeed;
   double? averageCadence;
   double? averageWatts;
   int? weightedAverageWatts;
@@ -95,72 +95,73 @@ class SummaryActivity {
   bool? deviceWatts;
   bool? hasHeartrate;
   double? averageHeartrate;
-  int? maxHeartrate;
+  double? maxHeartrate;
   int? maxWatts;
   int? prCount;
   int? totalPhotoCount;
   bool? hasKudoed;
-  int? sufferScore;
+  double? sufferScore;
 
-  SummaryActivity({
-      this.resourceState, 
-      this.athlete, 
-      this.name, 
-      this.distance, 
-      this.movingTime, 
-      this.elapsedTime, 
-      this.totalElevationGain, 
-      this.type, 
-      this.workoutType, 
-      this.id, 
-      this.externalId, 
-      this.uploadId, 
-      this.startDate, 
-      this.startDateLocal, 
-      this.timezone, 
-      this.utcOffset, 
-      this.startLatlng, 
-      this.endLatlng, 
-      this.locationCity, 
-      this.locationState, 
-      this.locationCountry, 
-      this.achievementCount, 
-      this.kudosCount, 
-      this.commentCount, 
-      this.athleteCount, 
-      this.photoCount, 
-      this.map, 
-      this.trainer, 
-      this.commute, 
-      this.manual, 
-      this.private, 
-      this.flagged, 
-      this.gearId, 
-      this.fromAcceptedTag, 
-      this.averageSpeed, 
-      this.maxSpeed, 
-      this.averageCadence, 
-      this.averageWatts, 
-      this.weightedAverageWatts, 
-      this.kilojoules, 
-      this.deviceWatts, 
-      this.hasHeartrate, 
-      this.averageHeartrate, 
-      this.maxHeartrate, 
-      this.maxWatts, 
-      this.prCount, 
-      this.totalPhotoCount, 
-      this.hasKudoed, 
+  SummaryActivity(
+      {this.resourceState,
+      this.athlete,
+      this.name,
+      this.distance,
+      this.movingTime,
+      this.elapsedTime,
+      this.totalElevationGain,
+      this.type,
+      this.workoutType,
+      this.id,
+      this.externalId,
+      this.uploadId,
+      this.startDate,
+      this.startDateLocal,
+      this.timezone,
+      this.utcOffset,
+      this.startLatlng,
+      this.endLatlng,
+      this.locationCity,
+      this.locationState,
+      this.locationCountry,
+      this.achievementCount,
+      this.kudosCount,
+      this.commentCount,
+      this.athleteCount,
+      this.photoCount,
+      this.map,
+      this.trainer,
+      this.commute,
+      this.manual,
+      this.private,
+      this.flagged,
+      this.gearId,
+      this.fromAcceptedTag,
+      this.averageSpeed,
+      this.maxSpeed,
+      this.averageCadence,
+      this.averageWatts,
+      this.weightedAverageWatts,
+      this.kilojoules,
+      this.deviceWatts,
+      this.hasHeartrate,
+      this.averageHeartrate,
+      this.maxHeartrate,
+      this.maxWatts,
+      this.prCount,
+      this.totalPhotoCount,
+      this.hasKudoed,
       this.sufferScore});
 
   SummaryActivity.fromJson(dynamic json) {
     resourceState = json['resource_state'];
-    athlete = json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
+    athlete =
+        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
     name = json['name'];
     distance = json['distance'];
     movingTime = json['moving_time'];
     elapsedTime = json['elapsed_time'];
-    totalElevationGain = json['total_elevation_gain'];
+    totalElevationGain = json['total_elevation_gain'].toDouble();
     type = json['type'];
     workoutType = json['workout_type'];
     id = json['id'];
@@ -170,8 +171,11 @@ class SummaryActivity {
     startDateLocal = json['start_date_local'];
     timezone = json['timezone'];
     utcOffset = json['utc_offset'];
-    startLatlng = json['start_latlng'];
-    endLatlng = json['end_latlng'];
+    startLatlng = (json['start_latlng'] != null)
+        ? json['start_latlng'].cast<double>()
+        : [];
+    endLatlng =
+        (json['end_latlng'] != null) ? json['end_latlng'].cast<double>() : [];
     locationCity = json['location_city'];
     locationState = json['location_state'];
     locationCountry = json['location_country'];
@@ -189,7 +193,7 @@ class SummaryActivity {
     gearId = json['gear_id'];
     fromAcceptedTag = json['from_accepted_tag'];
     averageSpeed = json['average_speed'];
-    maxSpeed = json['max_speed'];
+    maxSpeed = json['max_speed'].toDouble();
     averageCadence = json['average_cadence'];
     averageWatts = json['average_watts'];
     weightedAverageWatts = json['weighted_average_watts'];

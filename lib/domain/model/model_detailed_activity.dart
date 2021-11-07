@@ -68,15 +68,15 @@ class DetailedActivity {
   int? uploadId;
   MetaAthlete? athlete;
   String? name;
-  int? distance;
+  double? distance;
   int? movingTime;
   int? elapsedTime;
-  int? totalElevationGain;
+  double? totalElevationGain;
   String? type;
   String? startDate;
   String? startDateLocal;
   String? timezone;
-  int? utcOffset;
+  double? utcOffset;
   List<double>? startLatlng;
   List<double>? endLatlng;
   int? achievementCount;
@@ -123,66 +123,66 @@ class DetailedActivity {
   bool? segmentLeaderboardOptOut;
   bool? leaderboardOptOut;
 
-  DetailedActivity({
-      this.id, 
-      this.resourceState, 
-      this.externalId, 
-      this.uploadId, 
-      this.athlete, 
-      this.name, 
-      this.distance, 
-      this.movingTime, 
-      this.elapsedTime, 
-      this.totalElevationGain, 
-      this.type, 
-      this.startDate, 
-      this.startDateLocal, 
-      this.timezone, 
-      this.utcOffset, 
-      this.startLatlng, 
-      this.endLatlng, 
+  DetailedActivity(
+      {this.id,
+      this.resourceState,
+      this.externalId,
+      this.uploadId,
+      this.athlete,
+      this.name,
+      this.distance,
+      this.movingTime,
+      this.elapsedTime,
+      this.totalElevationGain,
+      this.type,
+      this.startDate,
+      this.startDateLocal,
+      this.timezone,
+      this.utcOffset,
+      this.startLatlng,
+      this.endLatlng,
       this.achievementCount,
-      this.kudosCount, 
-      this.commentCount, 
-      this.athleteCount, 
-      this.photoCount, 
-      this.map, 
-      this.trainer, 
-      this.commute, 
-      this.manual, 
-      this.private, 
-      this.flagged, 
-      this.gearId, 
-      this.fromAcceptedTag, 
-      this.averageSpeed, 
-      this.maxSpeed, 
-      this.averageCadence, 
-      this.averageTemp, 
-      this.averageWatts, 
-      this.weightedAverageWatts, 
-      this.kilojoules, 
-      this.deviceWatts, 
-      this.hasHeartrate, 
-      this.maxWatts, 
-      this.elevHigh, 
-      this.elevLow, 
-      this.prCount, 
-      this.totalPhotoCount, 
-      this.hasKudoed, 
-      this.workoutType, 
-      this.sufferScore, 
-      this.description, 
-      this.calories, 
-      this.segmentEfforts, 
-      this.splitsMetric, 
-      this.laps, 
-      this.gear, 
-      this.partnerBrandTag, 
-      this.photos, 
-      this.highlightedKudosers, 
-      this.deviceName, 
-      this.embedToken, 
-      this.segmentLeaderboardOptOut, 
+      this.kudosCount,
+      this.commentCount,
+      this.athleteCount,
+      this.photoCount,
+      this.map,
+      this.trainer,
+      this.commute,
+      this.manual,
+      this.private,
+      this.flagged,
+      this.gearId,
+      this.fromAcceptedTag,
+      this.averageSpeed,
+      this.maxSpeed,
+      this.averageCadence,
+      this.averageTemp,
+      this.averageWatts,
+      this.weightedAverageWatts,
+      this.kilojoules,
+      this.deviceWatts,
+      this.hasHeartrate,
+      this.maxWatts,
+      this.elevHigh,
+      this.elevLow,
+      this.prCount,
+      this.totalPhotoCount,
+      this.hasKudoed,
+      this.workoutType,
+      this.sufferScore,
+      this.description,
+      this.calories,
+      this.segmentEfforts,
+      this.splitsMetric,
+      this.laps,
+      this.gear,
+      this.partnerBrandTag,
+      this.photos,
+      this.highlightedKudosers,
+      this.deviceName,
+      this.embedToken,
+      this.segmentLeaderboardOptOut,
       this.leaderboardOptOut});
 
   DetailedActivity.fromJson(dynamic json) {
@@ -190,19 +190,22 @@ class DetailedActivity {
     resourceState = json['resource_state'];
     externalId = json['external_id'];
     uploadId = json['upload_id'];
-    athlete = json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
+    athlete =
+        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
     name = json['name'];
-    distance = json['distance'];
+    distance = json['distance'].toDouble();
     movingTime = json['moving_time'];
     elapsedTime = json['elapsed_time'];
-    totalElevationGain = json['total_elevation_gain'];
+    totalElevationGain = json['total_elevation_gain'].toDouble();
     type = json['type'];
     startDate = json['start_date'];
     startDateLocal = json['start_date_local'];
     timezone = json['timezone'];
     utcOffset = json['utc_offset'];
-    startLatlng = json['start_latlng'] != null ? json['start_latlng'].cast<double>() : [];
-    endLatlng = json['end_latlng'] != null ? json['end_latlng'].cast<double>() : [];
+    startLatlng =
+        json['start_latlng'] != null ? json['start_latlng'].cast<double>() : [];
+    endLatlng =
+        json['end_latlng'] != null ? json['end_latlng'].cast<double>() : [];
     achievementCount = json['achievement_count'];
     kudosCount = json['kudos_count'];
     commentCount = json['comment_count'];
@@ -217,7 +220,7 @@ class DetailedActivity {
     gearId = json['gear_id'];
     fromAcceptedTag = json['from_accepted_tag'];
     averageSpeed = json['average_speed'];
-    maxSpeed = json['max_speed'];
+    maxSpeed = json['max_speed'].toDouble();
     averageCadence = json['average_cadence'];
     averageTemp = json['average_temp'];
     averageWatts = json['average_watts'];
@@ -234,7 +237,7 @@ class DetailedActivity {
     workoutType = json['workout_type'];
     sufferScore = json['suffer_score'];
     description = json['description'];
-    calories = json['calories'];
+    calories = json['calories'].toDouble();
     if (json['segment_efforts'] != null) {
       segmentEfforts = [];
       json['segment_efforts'].forEach((v) {
@@ -255,7 +258,8 @@ class DetailedActivity {
     }
     gear = json['gear'] != null ? SummaryGear.fromJson(json['gear']) : null;
     partnerBrandTag = json['partner_brand_tag'];
-    photos = json['photos'] != null ? PhotosSummary.fromJson(json['photos']) : null;
+    photos =
+        json['photos'] != null ? PhotosSummary.fromJson(json['photos']) : null;
     if (json['highlighted_kudosers'] != null) {
       highlightedKudosers = [];
       json['highlighted_kudosers'].forEach((v) {
@@ -324,7 +328,8 @@ class DetailedActivity {
     jsonMap['description'] = description;
     jsonMap['calories'] = calories;
     if (segmentEfforts != null) {
-      jsonMap['segment_efforts'] = segmentEfforts?.map((v) => v.toJson()).toList();
+      jsonMap['segment_efforts'] =
+          segmentEfforts?.map((v) => v.toJson()).toList();
     }
     if (splitsMetric != null) {
       jsonMap['splits_metric'] = splitsMetric?.map((v) => v.toJson()).toList();
@@ -340,7 +345,8 @@ class DetailedActivity {
       jsonMap['photos'] = photos?.toJson();
     }
     if (highlightedKudosers != null) {
-      jsonMap['highlighted_kudosers'] = highlightedKudosers?.map((v) => v.toJson()).toList();
+      jsonMap['highlighted_kudosers'] =
+          highlightedKudosers?.map((v) => v.toJson()).toList();
     }
     jsonMap['device_name'] = deviceName;
     jsonMap['embed_token'] = embedToken;
@@ -348,7 +354,6 @@ class DetailedActivity {
     jsonMap['leaderboard_opt_out'] = leaderboardOptOut;
     return jsonMap;
   }
-
 }
 
 /// destination_url : "strava://athletes/12345678987654321"
@@ -362,11 +367,8 @@ class HighlightedKudosers {
   String? avatarUrl;
   bool? showName;
 
-  HighlightedKudosers({
-      this.destinationUrl, 
-      this.displayName, 
-      this.avatarUrl, 
-      this.showName});
+  HighlightedKudosers(
+      {this.destinationUrl, this.displayName, this.avatarUrl, this.showName});
 
   HighlightedKudosers.fromJson(dynamic json) {
     destinationUrl = json['destination_url'];
@@ -383,7 +385,6 @@ class HighlightedKudosers {
     map['show_name'] = showName;
     return map;
   }
-
 }
 
 /// primary : {"id":null,"unique_id":"3FDGKL3-204E-4867-9E8D-89FC79EAAE17","urls":{"100":"https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg","600":"https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-768x576.jpg"},"source":1}
@@ -395,13 +396,12 @@ class PhotosSummary {
   bool? usePrimaryPhoto;
   int? count;
 
-  PhotosSummary({
-      this.primary, 
-      this.usePrimaryPhoto, 
-      this.count});
+  PhotosSummary({this.primary, this.usePrimaryPhoto, this.count});
 
   PhotosSummary.fromJson(dynamic json) {
-    primary = json['primary'] != null ? PhotosSummaryPrimary.fromJson(json['primary']) : null;
+    primary = json['primary'] != null
+        ? PhotosSummaryPrimary.fromJson(json['primary'])
+        : null;
     usePrimaryPhoto = json['use_primary_photo'];
     count = json['count'];
   }
@@ -415,7 +415,6 @@ class PhotosSummary {
     map['count'] = count;
     return map;
   }
-
 }
 
 /// id : null
@@ -429,11 +428,7 @@ class PhotosSummaryPrimary {
   ActivityUrls? urls;
   int? source;
 
-  PhotosSummaryPrimary({
-      this.id, 
-      this.uniqueId, 
-      this.urls, 
-      this.source});
+  PhotosSummaryPrimary({this.id, this.uniqueId, this.urls, this.source});
 
   PhotosSummaryPrimary.fromJson(dynamic json) {
     id = json['id'];
@@ -452,7 +447,6 @@ class PhotosSummaryPrimary {
     map['source'] = source;
     return map;
   }
-
 }
 
 /// 100 : "https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg"
@@ -462,9 +456,7 @@ class ActivityUrls {
   String? s100;
   String? s600;
 
-  ActivityUrls({
-      this.s100,
-      this.s600});
+  ActivityUrls({this.s100, this.s600});
 
   ActivityUrls.fromJson(dynamic json) {
     s100 = json['100'];
@@ -477,7 +469,6 @@ class ActivityUrls {
     map['s600'] = s600;
     return map;
   }
-
 }
 
 /// id : "b12345678987654321"
@@ -493,12 +484,8 @@ class SummaryGear {
   int? resourceState;
   int? distance;
 
-  SummaryGear({
-      this.id, 
-      this.primary, 
-      this.name, 
-      this.resourceState, 
-      this.distance});
+  SummaryGear(
+      {this.id, this.primary, this.name, this.resourceState, this.distance});
 
   SummaryGear.fromJson(dynamic json) {
     id = json['id'];
@@ -517,7 +504,6 @@ class SummaryGear {
     map['distance'] = distance;
     return map;
   }
-
 }
 
 /// id : 4479306946
@@ -541,8 +527,6 @@ class SummaryGear {
 /// lap_index : 1
 /// split : 1
 
-
-
 /// distance : 1001.5
 /// elapsed_time : 141
 /// elevation_difference : 4.4
@@ -560,13 +544,13 @@ class SplitsMetric {
   double? averageSpeed;
   int? paceZone;
 
-  SplitsMetric({
-      this.distance, 
-      this.elapsedTime, 
-      this.elevationDifference, 
-      this.movingTime, 
-      this.split, 
-      this.averageSpeed, 
+  SplitsMetric(
+      {this.distance,
+      this.elapsedTime,
+      this.elevationDifference,
+      this.movingTime,
+      this.split,
+      this.averageSpeed,
       this.paceZone});
 
   SplitsMetric.fromJson(dynamic json) {
@@ -590,7 +574,6 @@ class SplitsMetric {
     map['pace_zone'] = paceZone;
     return map;
   }
-
 }
 
 /// id : 12345678987654321
@@ -636,34 +619,37 @@ class DetailedSegmentEffort {
   List<dynamic>? achievements;
   bool? hidden;
 
-  DetailedSegmentEffort({
-      this.id, 
-      this.resourceState, 
-      this.name, 
-      this.activity, 
-      this.athlete, 
-      this.elapsedTime, 
-      this.movingTime, 
-      this.startDate, 
-      this.startDateLocal, 
-      this.distance, 
-      this.startIndex, 
-      this.endIndex, 
-      this.averageCadence, 
-      this.deviceWatts, 
-      this.averageWatts, 
-      this.segment, 
-      this.komRank, 
-      this.prRank, 
-      this.achievements, 
+  DetailedSegmentEffort(
+      {this.id,
+      this.resourceState,
+      this.name,
+      this.activity,
+      this.athlete,
+      this.elapsedTime,
+      this.movingTime,
+      this.startDate,
+      this.startDateLocal,
+      this.distance,
+      this.startIndex,
+      this.endIndex,
+      this.averageCadence,
+      this.deviceWatts,
+      this.averageWatts,
+      this.segment,
+      this.komRank,
+      this.prRank,
+      this.achievements,
       this.hidden});
 
   DetailedSegmentEffort.fromJson(dynamic json) {
     id = json['id'];
     resourceState = json['resource_state'];
     name = json['name'];
-    activity = json['activity'] != null ? MetaActivity.fromJson(json['activity']) : null;
-    athlete = json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
+    activity = json['activity'] != null
+        ? MetaActivity.fromJson(json['activity'])
+        : null;
+    athlete =
+        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
     elapsedTime = json['elapsed_time'];
     movingTime = json['moving_time'];
     startDate = json['start_date'];
@@ -674,7 +660,8 @@ class DetailedSegmentEffort {
     averageCadence = json['average_cadence'];
     deviceWatts = json['device_watts'];
     averageWatts = json['average_watts'];
-    segment = json['segment'] != null ? Segment.fromJson(json['segment']) : null;
+    segment =
+        json['segment'] != null ? Segment.fromJson(json['segment']) : null;
     komRank = json['kom_rank'];
     prRank = json['pr_rank'];
     if (json['achievements'] != null) {
@@ -718,7 +705,6 @@ class DetailedSegmentEffort {
     map['hidden'] = hidden;
     return map;
   }
-
 }
 
 /// id : 673683
@@ -760,24 +746,24 @@ class Segment {
   bool? hazardous;
   bool? starred;
 
-  Segment({
-      this.id, 
-      this.resourceState, 
-      this.name, 
-      this.activityType, 
-      this.distance, 
-      this.averageGrade, 
-      this.maximumGrade, 
-      this.elevationHigh, 
-      this.elevationLow, 
-      this.startLatlng, 
-      this.endLatlng, 
-      this.climbCategory, 
-      this.city, 
-      this.state, 
-      this.country, 
-      this.private, 
-      this.hazardous, 
+  Segment(
+      {this.id,
+      this.resourceState,
+      this.name,
+      this.activityType,
+      this.distance,
+      this.averageGrade,
+      this.maximumGrade,
+      this.elevationHigh,
+      this.elevationLow,
+      this.startLatlng,
+      this.endLatlng,
+      this.climbCategory,
+      this.city,
+      this.state,
+      this.country,
+      this.private,
+      this.hazardous,
       this.starred});
 
   Segment.fromJson(dynamic json) {
@@ -790,8 +776,10 @@ class Segment {
     maximumGrade = json['maximum_grade'];
     elevationHigh = json['elevation_high'];
     elevationLow = json['elevation_low'];
-    startLatlng = json['start_latlng'] != null ? json['start_latlng'].cast<double>() : [];
-    endLatlng = json['end_latlng'] != null ? json['end_latlng'].cast<double>() : [];
+    startLatlng =
+        json['start_latlng'] != null ? json['start_latlng'].cast<double>() : [];
+    endLatlng =
+        json['end_latlng'] != null ? json['end_latlng'].cast<double>() : [];
     climbCategory = json['climb_category'];
     city = json['city'];
     state = json['state'];
@@ -823,9 +811,7 @@ class Segment {
     map['starred'] = starred;
     return map;
   }
-
 }
-
 
 /// id : "a1410355832"
 /// polyline : "ki{eFvqfiVqAWQIGEEKAYJgBVqDJ{BHa@jAkNJw@Pw@V{APs@^aABQAOEQGKoJ_FuJkFqAo@{A}@sH{DiAs@Q]?WVy@`@oBt@_CB]KYMMkB{AQEI@WT{BlE{@zAQPI@ICsCqA_BcAeCmAaFmCqIoEcLeG}KcG}A}@cDaBiDsByAkAuBqBi@y@_@o@o@kB}BgIoA_EUkAMcACa@BeBBq@LaAJe@b@uA`@_AdBcD`@iAPq@RgALqAB{@EqAyAoOCy@AmCBmANqBLqAZkB\\iCPiBJwCCsASiCq@iD]eA]y@[i@w@mAa@i@k@g@kAw@i@Ya@Q]EWFMLa@~BYpAFNpA`Aj@n@X`@V`AHh@JfB@xAMvAGZGHIDIAWOEQNcC@sACYK[MSOMe@QKKKYOs@UYQISCQ?Q@WNo@r@OHGAGCKOQ_BU}@MQGG]Io@@c@FYNg@d@s@d@ODQAMOMaASs@_@a@SESAQDqBn@a@RO?KK?UBU\\kA@Y?WMo@Iy@GWQ_@WSSGg@AkABQB_Ap@_A^o@b@Q@o@IS@OHi@n@OFS?OI}@iAQMQGQC}@DOIIUK{@IUOMyBo@kASOKIQCa@L[|AgATWN[He@?QKw@FOPCh@Fx@l@TDLELKl@aAHIJEX@r@ZTDV@LENQVg@RkA@c@MeA?WFOPMf@Ej@Fj@@LGHKDM?_@_@iC?a@HKRIl@NT?FCHMFW?YEYGWQa@GYBiAIq@Gq@L_BHSHK|@WJETSLQZs@z@_A~@uA^U`@G\\CRB\\Tl@p@Th@JZ^bB`@lAHLXVLDP?LGFSKiDBo@d@wBVi@R]VYVE\\@`@Lh@Fh@CzAk@RSDQA]GYe@eAGWSiBAWBWBIJORK`@KPOPSTg@h@}Ad@o@F[E_@EGMKUGmAEYGMIMYKs@?a@J}@@_BD_@HQJMx@e@LKHKHWAo@UoAAWFmAH}@?w@C[YwAAc@HSNM|Ao@rA}@zAq@`@a@j@eAxAuBXQj@MXSR[b@gAFg@?YISOGaAHi@Xw@v@_@d@WRSFqARUHQJc@d@m@`A[VSFUBcAEU@WFULUPa@v@Y~@UrBc@dBI~@?l@P~ABt@N`HEjA]zAEp@@p@TrBCl@CTQb@k@dAg@jAU^KJYLK@k@A[Js@d@a@b@]RgBl@[FMAw@[]G]?m@D_@F]P[Vu@t@[TMF_@Do@E_@@q@P]PWZUZw@vAkAlAGJOj@IlAMd@OR{@p@a@d@sBpD]v@a@`Aa@n@]TODgBVk@Pe@^cBfBc@Rs@La@RSPm@|@wCpDS^Wp@QZML{@l@qBbCYd@k@lAIVCZBZNTr@`@RRHZANIZQPKDW@e@CaASU?I@YTKRQx@@\\VmALYRQLCL?v@P|@D\\GJEFKDM@OCa@COOYIGm@YMUCM@]JYr@uAx@kAt@}@jAeAPWbAkBj@s@bAiAz@oAj@m@VQlAc@VQ~@aA`Au@p@Q`AIv@MZORUV_@p@iB|AoCh@q@dAaANUNWH[N{AJ[^m@t@_Av@wA\\a@`@W`@In@Al@B^E`@Wl@u@\\[VQ\\K`@Eb@?R@dAZP@d@CRExAs@\\Yt@{@LG\\MjAATINOXo@d@kAl@_AHYBOCe@QiBCm@Fq@\\wADo@AyGEeBWuB@YHu@Tu@Lk@VcCTo@d@aA\\WJE`@G~@FP?VI\\U~@sANO`@SfAMj@U\\WjAsAXS`@UNENALBHFFL?^Ml@Uj@]b@q@RUJSPkChEc@XcAb@sA|@]PaA\\OJKNER?TDTNj@Jn@?p@OfC@ZR`B@VCV_@n@{@l@WbACv@OlABnAPl@LNNHbBBNBLFFJ@^GLg@x@i@|AMP[X}@XOJKPET?l@LhAFXp@fBDRCd@S\\_@Ps@PQ@}A]S?QDe@V]b@MR[fAKt@ErAF~CANILYDKGIKe@{@Yy@e@sB[gA[c@e@YUCU?WBUHUNQPq@`AiArAMV[^e@Zc@JQJKNMz@?r@Bb@PfAAfA@VVbADn@E`@KHSEe@SMAKDKFM\\^dDCh@m@LoAQ_@@MFOZLfBEl@QbASd@KLQBOAaAc@QAQ@QHc@v@ONMJOBOCg@c@]O[EMBKFGL?RHv@ARERGNe@h@{@h@WVGNDt@JLNFPFz@LdBf@f@PJNHPF`ADPJJJDl@I`@B^Tp@bALJNDNALIf@i@PGPCt@DNE`@Uv@[dAw@RITGRCtAARBPJLPJRZxB?VEX_@vAAR?RDNHJJBh@UnBm@h@IRDRJNNJPNbBFRJLLBLCzAmAd@Uf@Gf@?P@PFJNHPFTH`BDTHNJJJ@LG`@m@^YPER@RDPHNNJRLn@HRLN^VNPHTFX@\\UlDFb@FHh@NP@HKPsB?}ASkCQ{@[y@q@}@cA{@KOCQDa@t@{CFGJCf@Nl@ZtA~@r@p@`@h@rAxBd@rA\\fARdAPjANrB?f@AtBCd@QfBkAjJOlBChA?rBFrBNlBdAfKFzAC~@Iz@Mz@Sv@s@jBmAxBi@hAWt@Sv@Qx@O`BA`@?dAPfBVpAd@`BfBlFf@fBdA~Cr@pAz@fApBhBjAt@H?IL?FBFJLx@^lHvDvh@~XnElCbAd@pGhDbAb@nAr@`Ad@`GhDnBbAxCbBrWhNJJDPARGP_@t@Qh@]pAUtAoA`Ny@jJApBBNFLJFJBv@Hb@HBF?\\"
@@ -838,11 +824,8 @@ class PolyLineMap {
   int? resourceState;
   String? summaryPolyline;
 
-  PolyLineMap({
-      this.id, 
-      this.polyline, 
-      this.resourceState, 
-      this.summaryPolyline});
+  PolyLineMap(
+      {this.id, this.polyline, this.resourceState, this.summaryPolyline});
 
   PolyLineMap.fromJson(dynamic json) {
     id = json['id'];
