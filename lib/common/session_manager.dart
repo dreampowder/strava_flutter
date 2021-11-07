@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:strava_flutter/common/local_storage.dart';
 import 'package:strava_flutter/domain/model/model_authentication_response.dart';
 import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
@@ -12,6 +11,7 @@ class SessionManager{
   late final String applicationName;
 
   TokenResponse? _currentToken;
+  // ignore: unused_field
   List<AuthenticationScope>? _scopes;
 
   void initialize({

@@ -115,7 +115,7 @@ class DetailedActivity {
   List<SplitsMetric>? splitsMetric;
   List<Lap>? laps;
   SummaryGear? gear;
-  dynamic? partnerBrandTag;
+  dynamic partnerBrandTag;
   PhotosSummary? photos;
   List<HighlightedKudosers>? highlightedKudosers;
   String? deviceName;
@@ -294,7 +294,7 @@ class DetailedActivity {
     jsonMap['comment_count'] = commentCount;
     jsonMap['athlete_count'] = athleteCount;
     jsonMap['photo_count'] = photoCount;
-    if (jsonMap != null) {
+    if (jsonMap['map'] != null) {
       jsonMap['map'] = map?.toJson();
     }
     jsonMap['trainer'] = trainer;

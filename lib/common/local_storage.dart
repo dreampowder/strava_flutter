@@ -7,7 +7,7 @@ import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
 class LocalStorageManager{
 
   static String _kTokenKey = "strava_token";
-  static String _kScopesKey = "strava_scopes";
+  // static String _kScopesKey = "strava_scopes";
 
   static Future<bool> saveToken(TokenResponse token,List<AuthenticationScope> scopes,{String applicationName = ""}) async{
     var sharedPrefs = await SharedPreferences.getInstance();

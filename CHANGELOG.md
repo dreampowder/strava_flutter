@@ -1,3 +1,7 @@
+## [2.0.0]
+A Complete rewrite of the entire package. Thanks to https://www.github.com/birdyf for giving us a good headstart.
+Warning, this version has no backwards compability and you have to re-implement everything. 
+
 ## [1.2.2+61]
 Added getSegmentEffortById
 Modification in AdroidManifest.xml to have authentication working with Firefox (not only Chrome)

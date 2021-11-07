@@ -15,7 +15,7 @@ class Comment {
   int? postId;
   int? resourceState;
   String? text;
-  dynamic? mentionsMetadata;
+  dynamic mentionsMetadata;
   String? createdAt;
   SummaryAthlete? athlete;
 

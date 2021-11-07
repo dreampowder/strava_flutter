@@ -1,4 +1,3 @@
-import 'package:strava_flutter/domain/model/model_activity_request_update.dart';
 import 'package:strava_flutter/domain/model/model_upload.dart';
 import 'package:strava_flutter/domain/model/model_upload_request.dart';
 

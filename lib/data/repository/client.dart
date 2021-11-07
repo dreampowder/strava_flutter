@@ -47,7 +47,6 @@ class ApiClient{
       dynamic postBody,
       required T Function(dynamic) dataConstructor}) async{
     var completer = Completer<T>();
-    print("URL: ${"${baseUrl ?? _baseUrl}$endPoint"}, PARAMS: ${queryParameters}");
     _getDioClient()
         .then((client){
       client.post("${baseUrl ?? _baseUrl}$endPoint",queryParameters: queryParameters,data: postBody)

@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/repository/repository_authentication_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/repository_authentication_impl.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/strava_flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/strava_flutter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/local_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/local_storage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/common/session_manager.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/session_manager.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/domain/model/model_comment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/domain/model/model_comment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/domain/model/model_detailed_activity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/domain/model/model_detailed_activity.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/domain/repository/repository_upload.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/domain/repository/repository_upload.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +51,7 @@
     </file-type-list>
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="169" />
@@ -150,6 +160,8 @@
       <workItem from="1631541780295" duration="1041000" />
       <workItem from="1631613590729" duration="26000" />
       <workItem from="1631622960133" duration="1023000" />
+      <workItem from="1636317883802" duration="17000" />
+      <workItem from="1636318272234" duration="531000" />
     </task>
     <servers />
   </component>
