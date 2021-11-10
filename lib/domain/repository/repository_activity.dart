@@ -12,7 +12,7 @@ abstract class RepositoryActivity{
   Future<DetailedActivity> getActivity(int activityId);
   Future<List<Comment>> listActivityComments(int activityId);
   Future<List<SummaryAthlete>> listActivityKudoers(int activityId);
-  Future<List<Lap>> listActivityLaps(int activityId);
+  Future<List<Lap>> getLapsByActivityId(int activityId);
   Future<List<SummaryActivity>> listLoggedInAthleteActivities(DateTime before, DateTime after, int page, int perPage);
   Future<List<ActivityZone>> getActivityZones(int activityId);
   Future<DetailedActivity> createActivity(CreateActivityRequest request);

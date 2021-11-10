@@ -37,7 +37,7 @@ class RepositoryActivityImpl extends RepositoryActivity{
   }
 
   @override
-  Future<List<Lap>> listActivityLaps(int activityId) {
+  Future<List<Lap>> getLapsByActivityId(int activityId) {
     return ApiClient.getRequest(endPoint: "/v3/activities/$activityId/laps", dataConstructor: (data){
       if(data is List){
         return data.map((d) => Lap.fromJson(Map<String,dynamic>.from(d))).toList();
