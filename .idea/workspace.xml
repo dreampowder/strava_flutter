@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f57a2b9f-f4c9-490f-b262-e0e1d8656f6d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/examples/authentication.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/examples/authentication.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/repository/repository_activity_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/repository_activity_impl.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/domain/repository/repository_activity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/domain/repository/repository_activity.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/domain/model/model_detailed_athlete.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/domain/model/model_detailed_athlete.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +152,9 @@
       <workItem from="1631622960133" duration="1023000" />
       <workItem from="1636317883802" duration="17000" />
       <workItem from="1636318272234" duration="531000" />
-      <workItem from="1636554072783" duration="524000" />
+      <workItem from="1636554072783" duration="658000" />
+      <workItem from="1637152896119" duration="205000" />
+      <workItem from="1638361836939" duration="50000" />
     </task>
     <servers />
   </component>

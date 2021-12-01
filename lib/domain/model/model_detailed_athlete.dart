@@ -98,7 +98,7 @@ class DetailedAthlete {
     athleteType: json["athlete_type"] ?? 0,
     datePreference: json["date_preference"] ?? "",
     measurementPreference: json["measurement_preference"] ?? "",
-    clubs: List<SummaryClub>.from(json["clubs"].map((x) => SummaryClub.fromJson(x))),
+    clubs: json["clubs"] == null ? [] : List<SummaryClub>.from(json["clubs"].map((x) => SummaryClub.fromJson(x))),
     ftp: json["ftp"],
     weight: json["weight"],
     bikes: json["bikes"] == null ? <SummaryGear>[] : List<SummaryGear>.from(json["bikes"].map((x) => SummaryGear.fromJson(x))),
