@@ -136,11 +136,9 @@ Alternatively, you can easily implement additional API and I will add it to stra
 
 
 ## Thanks 
-
-Thanks to Joe Birch, I used his code to better understand Oauth process
-https://github.com/hitherejoe/FlutterOAuth
-
-And Javier for https://javiercbk.github.io/json_to_dart/
+- Thanks to @Birdyf for developing this package at first place. 
+- Thanks to Joe Birch, I used his code to better understand Oauth process https://github.com/hitherejoe/FlutterOAuth
+- Javier for https://javiercbk.github.io/json_to_dart/
 
 
 ## License:

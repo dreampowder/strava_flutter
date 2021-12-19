@@ -28,21 +28,20 @@ class UploadActivityRequest {
   UploadActivityRequest.fromJson(dynamic json) {
     name = json['name'];
     description = json['description'];
-    isTrainerActivity = json['isTrainerActivity'];
-    isCommuteActivity = json['isCommuteActivity'];
-    dataType = json['dataType'];
-    externalId = json['externalId'];
+    isTrainerActivity = json['trainer'];
+    isCommuteActivity = json['commute'];
+    dataType = json['data_type'];
+    externalId = json['external_id'];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['name'] = name;
     map['description'] = description;
-    map['isTrainerActivity'] = isTrainerActivity;
-    map['isCommuteActivity'] = isCommuteActivity;
-    map['dataType'] = dataType;
-    map['externalId'] = externalId;
+    map['trainer'] = isTrainerActivity;
+    map['commute'] = isCommuteActivity;
+    map['data_type'] = dataType;
+    map['external_id'] = externalId;
     return map;
   }
-
 }
