@@ -75,7 +75,6 @@ Add the following lines in your AndroidManifest.xml (in android/app/src/)
     <category android:name="android.intent.category.DEFAULT" /> 
     <category android:name="android.intent.category.BROWSABLE" /> 
     <data android:scheme="stravaflutter" android:host="redirect" />    
-    <data android:pathPattern="/.*" />   
 </intent-filter>
 ```
 
