@@ -6,9 +6,9 @@ import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
 
 class SessionManager{
 
-  late final String secret;
-  late final String clientId;
-  late final String applicationName;
+  late String secret;
+  late String clientId;
+  late String applicationName;
 
   TokenResponse? _currentToken;
   // ignore: unused_field
