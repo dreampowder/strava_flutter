@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 import 'model_summary_club.dart';
 import 'model_summary_gear.dart';
 
@@ -74,37 +76,50 @@ class DetailedAthlete {
 
   String toRawJson() => json.encode(toJson());
 
-  factory DetailedAthlete.fromJson(Map<String, dynamic> json) => DetailedAthlete(
-    id: json["id"],
-    username: json["username"] ?? "",
-    resourceState: json["resource_state"] ?? "",
-    firstname: json["firstname"] ?? "",
-    lastname: json["lastname"] ?? "",
-    city: json["city"] ?? "",
-    state: json["state"] ?? "",
-    country: json["country"] ?? "",
-    sex: json["sex"] ?? "",
-    premium: json["premium"] ?? false,
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    badgeTypeId: json["badge_type_id"],
-    profileMedium: json["profile_medium"],
-    profile: json["profile"],
-    friend: json["friend"],
-    follower: json["follower"],
-    followerCount: json["follower_count"] ?? 0,
-    friendCount: json["friend_count"] ?? 0,
-    mutualFriendCount: json["mutual_friend_count"] ?? 0,
-    athleteType: json["athlete_type"] ?? 0,
-    datePreference: json["date_preference"] ?? "",
-    measurementPreference: json["measurement_preference"] ?? "",
-    clubs: json["clubs"] == null ? [] : List<SummaryClub>.from(json["clubs"].map((x) => SummaryClub.fromJson(x))),
-    ftp: json["ftp"],
-    weight: json["weight"],
-    bikes: json["bikes"] == null ? <SummaryGear>[] : List<SummaryGear>.from(json["bikes"].map((x) => SummaryGear.fromJson(x))),
-    shoes: json["shoes"] == null ? <SummaryGear>[] : List<SummaryGear>.from(json["shoes"].map((x) => SummaryGear.fromJson(x))),
-    bio: json["bio"]
-  );
+  factory DetailedAthlete.fromJson(Map<String, dynamic> json){
+    var summaryClubJson = json["clubs"]; //Added here to catch a mapping exception
+    List<SummaryClub> clubs = [];
+    if (summaryClubJson is List) {
+      try{
+        clubs = summaryClubJson.map((e) => SummaryClub.fromJson(e)).toList();
+      }catch(exception, stackTrace){
+        clubs = [];
+        debugPrint("Exception: $exception");
+        debugPrintStack(stackTrace: stackTrace,label:"An error occurred while serializing summary club json");
+      }
+    }
+    return DetailedAthlete(
+        id: json["id"],
+        username: json["username"] ?? "",
+        resourceState: json["resource_state"] ?? "",
+        firstname: json["firstname"] ?? "",
+        lastname: json["lastname"] ?? "",
+        city: json["city"] ?? "",
+        state: json["state"] ?? "",
+        country: json["country"] ?? "",
+        sex: json["sex"] ?? "",
+        premium: json["premium"] ?? false,
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        badgeTypeId: json["badge_type_id"],
+        profileMedium: json["profile_medium"],
+        profile: json["profile"],
+        friend: json["friend"],
+        follower: json["follower"],
+        followerCount: json["follower_count"] ?? 0,
+        friendCount: json["friend_count"] ?? 0,
+        mutualFriendCount: json["mutual_friend_count"] ?? 0,
+        athleteType: json["athlete_type"] ?? 0,
+        datePreference: json["date_preference"] ?? "",
+        measurementPreference: json["measurement_preference"] ?? "",
+        clubs: clubs,
+        ftp: json["ftp"],
+        weight: json["weight"],
+        bikes: json["bikes"] == null ? <SummaryGear>[] : List<SummaryGear>.from(json["bikes"].map((x) => SummaryGear.fromJson(x))),
+        shoes: json["shoes"] == null ? <SummaryGear>[] : List<SummaryGear>.from(json["shoes"].map((x) => SummaryGear.fromJson(x))),
+        bio: json["bio"]
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "id": id,
