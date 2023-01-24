@@ -1,5 +1,5 @@
-import 'package:strava_flutter/domain/model/model_upload.dart';
-import 'package:strava_flutter/domain/model/model_upload_request.dart';
+import 'package:strava_client/domain/model/model_upload.dart';
+import 'package:strava_client/domain/model/model_upload_request.dart';
 
 abstract class RepositoryUpload{
   Future<UploadResponse> uploadActivity(UploadActivityRequest request);

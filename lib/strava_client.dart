@@ -1,18 +1,18 @@
-import 'package:strava_flutter/common/local_storage.dart';
-import 'package:strava_flutter/common/session_manager.dart';
-import 'package:strava_flutter/domain/model/model_authentication_response.dart';
-import 'package:strava_flutter/domain/repository/repository_activity.dart';
-import 'package:strava_flutter/domain/repository/repository_athlete.dart';
-import 'package:strava_flutter/domain/repository/repository_authentication.dart';
-import 'package:strava_flutter/domain/repository/repository_club.dart';
-import 'package:strava_flutter/domain/repository/repository_gear.dart';
-import 'package:strava_flutter/domain/repository/repository_route.dart';
-import 'package:strava_flutter/domain/repository/repository_running_race.dart';
-import 'package:strava_flutter/domain/repository/repository_segment.dart';
-import 'package:strava_flutter/domain/repository/repository_stream.dart';
-import 'package:strava_flutter/domain/repository/repository_upload.dart';
-import 'package:strava_flutter/domain/repository/repository_segment_effort.dart';
-import 'package:strava_flutter/common/injections.dart';
+import 'package:strava_client/common/local_storage.dart';
+import 'package:strava_client/common/session_manager.dart';
+import 'package:strava_client/domain/model/model_authentication_response.dart';
+import 'package:strava_client/domain/repository/repository_activity.dart';
+import 'package:strava_client/domain/repository/repository_athlete.dart';
+import 'package:strava_client/domain/repository/repository_authentication.dart';
+import 'package:strava_client/domain/repository/repository_club.dart';
+import 'package:strava_client/domain/repository/repository_gear.dart';
+import 'package:strava_client/domain/repository/repository_route.dart';
+import 'package:strava_client/domain/repository/repository_running_race.dart';
+import 'package:strava_client/domain/repository/repository_segment.dart';
+import 'package:strava_client/domain/repository/repository_stream.dart';
+import 'package:strava_client/domain/repository/repository_upload.dart';
+import 'package:strava_client/domain/repository/repository_segment_effort.dart';
+import 'package:strava_client/common/injections.dart';
 
 class StravaClient{
   final String secret;

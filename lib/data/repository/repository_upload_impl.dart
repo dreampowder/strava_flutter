@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:strava_flutter/data/repository/client.dart';
-import 'package:strava_flutter/domain/model/model_upload.dart';
-import 'package:strava_flutter/domain/model/model_upload_request.dart';
-import 'package:strava_flutter/domain/repository/repository_upload.dart';
+import 'package:strava_client/data/repository/client.dart';
+import 'package:strava_client/domain/model/model_upload.dart';
+import 'package:strava_client/domain/model/model_upload_request.dart';
+import 'package:strava_client/domain/repository/repository_upload.dart';
 
 class RepositoryUploadImpl extends RepositoryUpload{
   

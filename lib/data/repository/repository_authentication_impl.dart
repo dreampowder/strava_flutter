@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:strava_flutter/common/session_manager.dart';
-import 'package:strava_flutter/data/repository/client.dart';
-import 'package:strava_flutter/domain/model/model_authentication_response.dart';
-import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
-import 'package:strava_flutter/domain/model/model_fault.dart';
-import 'package:strava_flutter/domain/repository/repository_authentication.dart';
-import 'package:strava_flutter/common/injections.dart';
+import 'package:strava_client/common/session_manager.dart';
+import 'package:strava_client/data/repository/client.dart';
+import 'package:strava_client/domain/model/model_authentication_response.dart';
+import 'package:strava_client/domain/model/model_authentication_scopes.dart';
+import 'package:strava_client/domain/model/model_fault.dart';
+import 'package:strava_client/domain/repository/repository_authentication.dart';
+import 'package:strava_client/common/injections.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 

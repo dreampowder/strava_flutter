@@ -1,4 +1,4 @@
-import 'package:strava_flutter/domain/model/model_running_race.dart';
+import 'package:strava_client/domain/model/model_running_race.dart';
 
 abstract class RepositoryRunningRace{
   Future<RunningRace> getRage(int raceId);

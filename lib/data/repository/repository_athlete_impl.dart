@@ -1,8 +1,8 @@
-import 'package:strava_flutter/data/repository/client.dart';
-import 'package:strava_flutter/domain/model/model_activity_stats.dart';
-import 'package:strava_flutter/domain/model/model_detailed_athlete.dart';
-import 'package:strava_flutter/domain/model/model_zones.dart';
-import 'package:strava_flutter/domain/repository/repository_athlete.dart';
+import 'package:strava_client/data/repository/client.dart';
+import 'package:strava_client/domain/model/model_activity_stats.dart';
+import 'package:strava_client/domain/model/model_detailed_athlete.dart';
+import 'package:strava_client/domain/model/model_zones.dart';
+import 'package:strava_client/domain/repository/repository_athlete.dart';
 
 class RepositoryAthleteImpl extends RepositoryAthlete{
 

@@ -1,5 +1,5 @@
-import 'package:strava_flutter/domain/model/model_detailed_activity.dart';
-import 'package:strava_flutter/domain/model/model_summary_segment.dart';
+import 'package:strava_client/domain/model/model_detailed_activity.dart';
+import 'package:strava_client/domain/model/model_summary_segment.dart';
 
 /// id : 229781
 /// resource_state : 3

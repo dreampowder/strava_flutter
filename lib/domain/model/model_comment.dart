@@ -1,4 +1,4 @@
-import 'package:strava_flutter/domain/model/model_summary_athlete.dart';
+import 'package:strava_client/domain/model/model_summary_athlete.dart';
 
 /// id : 12345678987654321
 /// activity_id : 12345678987654321

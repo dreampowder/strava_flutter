@@ -1,7 +1,7 @@
-import 'package:strava_flutter/domain/model/model_club.dart';
-import 'package:strava_flutter/domain/model/model_summary_activity.dart';
-import 'package:strava_flutter/domain/model/model_summary_athlete.dart';
-import 'package:strava_flutter/domain/model/model_summary_club.dart';
+import 'package:strava_client/domain/model/model_club.dart';
+import 'package:strava_client/domain/model/model_summary_activity.dart';
+import 'package:strava_client/domain/model/model_summary_athlete.dart';
+import 'package:strava_client/domain/model/model_summary_club.dart';
 
 abstract class RepositoryClub{
 

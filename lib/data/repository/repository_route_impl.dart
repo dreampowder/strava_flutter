@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:strava_flutter/data/repository/client.dart';
-import 'package:strava_flutter/domain/model/model_route.dart';
-import 'package:strava_flutter/domain/repository/repository_route.dart';
+import 'package:strava_client/data/repository/client.dart';
+import 'package:strava_client/domain/model/model_route.dart';
+import 'package:strava_client/domain/repository/repository_route.dart';
 
 class RepositoryRouteImpl extends RepositoryRoute{
   @override

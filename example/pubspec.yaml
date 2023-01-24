@@ -18,11 +18,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  html: ^0.15.0  # to remove the # at the end of the redirect url
+  html: ^0.15.1  # to remove the # at the end of the redirect url
 
   # strava_flutter: ^1.0.6+17
   # To test locally
-  strava_flutter:
+  strava_client:
     path: ../
 
   # path_provider: ^1.2.0   # To access to the gpx file used to upload

@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:strava_flutter/common/session_manager.dart';
-import 'package:strava_flutter/domain/model/model_fault.dart';
-import 'package:strava_flutter/common/injections.dart';
+import 'package:strava_client/common/session_manager.dart';
+import 'package:strava_client/domain/model/model_fault.dart';
+import 'package:strava_client/common/injections.dart';
 
 class ApiClient {
   static const _baseUrl = "https://www.strava.com/api";

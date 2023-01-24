@@ -1,5 +1,5 @@
-import 'package:strava_flutter/domain/model/model_authentication_response.dart';
-import 'package:strava_flutter/domain/model/model_authentication_scopes.dart';
+import 'package:strava_client/domain/model/model_authentication_response.dart';
+import 'package:strava_client/domain/model/model_authentication_scopes.dart';
 
 abstract class RepositoryAuthentication{
   Future<TokenResponse> authenticate({

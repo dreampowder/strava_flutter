@@ -1,5 +1,5 @@
 
-import 'package:strava_flutter/domain/model/model_activity_type_enum.dart';
+import 'package:strava_client/domain/model/model_activity_type_enum.dart';
 
 class UpdateActivityRequest{
   String name;

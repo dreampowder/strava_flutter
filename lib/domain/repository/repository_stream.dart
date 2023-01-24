@@ -1,4 +1,4 @@
-import 'package:strava_flutter/domain/model/model_stream_set.dart';
+import 'package:strava_client/domain/model/model_stream_set.dart';
 
 abstract class RepositoryStream{
   Future<List<StreamSet>> getActivityStreams(int activityId, List<String> keys);

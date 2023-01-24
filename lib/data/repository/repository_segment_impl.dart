@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:strava_flutter/data/repository/client.dart';
-import 'package:strava_flutter/domain/model/model_activity_type_enum.dart';
-import 'package:strava_flutter/domain/model/model_detailed_segment.dart';
-import 'package:strava_flutter/domain/model/model_latlng.dart';
-import 'package:strava_flutter/domain/model/model_segment_leaderboard.dart';
-import 'package:strava_flutter/domain/model/model_segment_leaderboard_request.dart';
-import 'package:strava_flutter/domain/model/model_segments_explore.dart';
-import 'package:strava_flutter/domain/model/model_summary_segment.dart';
-import 'package:strava_flutter/domain/repository/repository_segment.dart';
+import 'package:strava_client/data/repository/client.dart';
+import 'package:strava_client/domain/model/model_activity_type_enum.dart';
+import 'package:strava_client/domain/model/model_detailed_segment.dart';
+import 'package:strava_client/domain/model/model_latlng.dart';
+import 'package:strava_client/domain/model/model_segment_leaderboard.dart';
+import 'package:strava_client/domain/model/model_segment_leaderboard_request.dart';
+import 'package:strava_client/domain/model/model_segments_explore.dart';
+import 'package:strava_client/domain/model/model_summary_segment.dart';
+import 'package:strava_client/domain/repository/repository_segment.dart';
 
 class RepositorySegmentImpl extends RepositorySegment{
 

@@ -1,9 +1,9 @@
-import 'package:strava_flutter/data/repository/client.dart';
-import 'package:strava_flutter/domain/model/model_club.dart';
-import 'package:strava_flutter/domain/model/model_summary_activity.dart';
-import 'package:strava_flutter/domain/model/model_summary_athlete.dart';
-import 'package:strava_flutter/domain/model/model_summary_club.dart';
-import 'package:strava_flutter/domain/repository/repository_club.dart';
+import 'package:strava_client/data/repository/client.dart';
+import 'package:strava_client/domain/model/model_club.dart';
+import 'package:strava_client/domain/model/model_summary_activity.dart';
+import 'package:strava_client/domain/model/model_summary_athlete.dart';
+import 'package:strava_client/domain/model/model_summary_club.dart';
+import 'package:strava_client/domain/repository/repository_club.dart';
 
 class RepositoryClubImpl extends RepositoryClub{
   @override

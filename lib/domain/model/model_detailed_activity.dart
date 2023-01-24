@@ -1,4 +1,4 @@
-import 'package:strava_flutter/domain/model/model_lap.dart';
+import 'package:strava_client/domain/model/model_lap.dart';
 
 /// id : 12345678987654321
 /// resource_state : 3

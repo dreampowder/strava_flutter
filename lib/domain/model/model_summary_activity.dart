@@ -1,5 +1,5 @@
-import 'package:strava_flutter/domain/model/model_detailed_activity.dart';
-import 'package:strava_flutter/domain/model/model_lap.dart';
+import 'package:strava_client/domain/model/model_detailed_activity.dart';
+import 'package:strava_client/domain/model/model_lap.dart';
 
 /// resource_state : 2
 /// athlete : {"id":134815,"resource_state":1}
