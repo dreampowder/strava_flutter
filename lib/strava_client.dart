@@ -30,8 +30,6 @@ class StravaClient{
   RepositoryStream get streams => sl();
   RepositoryUpload get uploads => sl();
 
-  late final RepositoryAthlete _athletes;
-
   StravaClient({
       required this.secret, required this.clientId, String applicationName = "",}){
     initServiceLocator();

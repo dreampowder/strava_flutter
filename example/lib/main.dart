@@ -62,8 +62,7 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
   void testAuthentication() {
     ExampleAuthentication(stravaClient).testAuthentication(
         [AuthenticationScope.profile_read_all, AuthenticationScope.read_all, AuthenticationScope.activity_read_all],
-        "stravaflutter://redirect",
-        "stravaflutter").then((token) {
+        "stravaflutter://redirect",).then((token) {
       setState(() {
         isLoggedIn = true;
         this.token = token;
