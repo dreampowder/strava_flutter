@@ -11,15 +11,14 @@ dependencies:
     sdk: flutter
 
   shared_preferences: ^2.0.17
-  intl: ^0.18.0
   dio: ^4.0.6
   flutter_web_auth: ^0.5.0
   get_it: ^7.2.0
 
 dev_dependencies:
-  dependency_validator: ^3.2.2
   flutter_test:
     sdk: flutter
+  intl: ^0.18.0
   # test: 1.5.3 # To launch some tests in /test
 
 # For information on the generic Dart part of this file, see the
