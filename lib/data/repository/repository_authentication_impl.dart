@@ -15,7 +15,8 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
       {required List<AuthenticationScope> scopes,
         required String redirectUrl,
         bool forceShowingApproval = false,
-        required String callbackUrlScheme}) async {
+        required String callbackUrlScheme,
+        bool? preferEphemeral}) async {
     var completer = Completer<TokenResponse>();
     var token = await sl<SessionManager>().getToken();
     if (token == null) {
@@ -23,7 +24,8 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
           scopes: scopes,
           forceShowingApproval: forceShowingApproval,
           redirectUrl: redirectUrl,
-          callbackUrlScheme: callbackUrlScheme));
+          callbackUrlScheme: callbackUrlScheme,
+          preferEphemeral: preferEphemeral));
     } else {
       List<AuthenticationScope> oldScopes = AuthenticationScopeHelper.generateScopes(token.scopes ?? "");
       var isScopesAreSame = _compareScopes(oldScopes, scopes);
@@ -53,7 +55,8 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
             scopes: scopes,
             forceShowingApproval: forceShowingApproval,
             redirectUrl: redirectUrl,
-            callbackUrlScheme: callbackUrlScheme));
+            callbackUrlScheme: callbackUrlScheme,
+            preferEphemeral: preferEphemeral));
       }
     }
     return completer.future;
@@ -63,12 +66,14 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
       {required List<AuthenticationScope> scopes,
         required bool forceShowingApproval,
         required String redirectUrl,
-        required String callbackUrlScheme}) {
+        required String callbackUrlScheme,
+        bool? preferEphemeral}) {
     return _getStravaCode(
         redirectUrl: redirectUrl,
         scopes: scopes,
         forceShowingApproval: forceShowingApproval,
-        callbackUrlScheme: callbackUrlScheme)
+        callbackUrlScheme: callbackUrlScheme,
+        preferEphemeral: preferEphemeral)
         .then((code) {
       return _requestNewAccessToken(sl<SessionManager>().clientId, sl<SessionManager>().secret, code).then((token) async {
         await sl<SessionManager>().setToken(token: token, scopes: scopes);
@@ -84,7 +89,8 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
       {required String redirectUrl,
         required List<AuthenticationScope> scopes,
         required bool forceShowingApproval,
-        required String callbackUrlScheme}) async {
+        required String callbackUrlScheme,
+        bool? preferEphemeral}) async {
     final Completer<String> completer = Completer<String>();
     final params =
         '?client_id=${sl<SessionManager>().clientId}&redirect_uri=$redirectUrl&response_type=code&approval_prompt=${forceShowingApproval ? "force" : "auto"}&scope=${AuthenticationScopeHelper.buildScopeString(scopes)}';
@@ -96,6 +102,7 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
       final result = await FlutterWebAuth.authenticate(
         url: reqAuth,
         callbackUrlScheme: callbackUrlScheme,
+        preferEphemeral: preferEphemeral,
       );
 
       final parsed = Uri.parse(result);
