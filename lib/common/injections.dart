@@ -24,10 +24,10 @@ import 'package:strava_client/domain/repository/repository_upload.dart';
 import '../data/repository/repository_running_race_impl.dart';
 import '../domain/repository/repository_segment_effort.dart';
 
-GetIt sl  = GetIt.instance;
+GetIt sl = GetIt.instance;
 bool didInitLocators = false;
 
-void initServiceLocator(){
+void initServiceLocator() {
   if (didInitLocators) {
     return;
   }
@@ -36,13 +36,15 @@ void initServiceLocator(){
     sl.registerSingleton<SessionManager>(SessionManager());
   }
   sl.registerFactory<RepositoryAthlete>(() => RepositoryAthleteImpl());
-  sl.registerFactory<RepositoryAuthentication>(() => RepositoryAuthenticationImpl());
+  sl.registerFactory<RepositoryAuthentication>(
+      () => RepositoryAuthenticationImpl());
   sl.registerFactory<RepositoryActivity>(() => RepositoryActivityImpl());
   sl.registerFactory<RepositoryGear>(() => RepositoryGearImpl());
   sl.registerFactory<RepositoryRoute>(() => RepositoryRouteImpl());
   sl.registerFactory<RepositoryClub>(() => RepositoryClubImpl());
   sl.registerFactory<RepositoryRunningRace>(() => RepositoryRunningRaceImpl());
-  sl.registerFactory<RepositorySegmentEffort>(() => RepositorySegmentEffortImpl());
+  sl.registerFactory<RepositorySegmentEffort>(
+      () => RepositorySegmentEffortImpl());
   sl.registerFactory<RepositorySegment>(() => RepositorySegmentImpl());
   sl.registerFactory<RepositoryStream>(() => RepositoryStreamImpl());
   sl.registerFactory<RepositoryUpload>(() => RepositoryUploadImpl());
