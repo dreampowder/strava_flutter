@@ -61,8 +61,13 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
   void testAuthentication() {
     ExampleAuthentication(stravaClient).testAuthentication(
-        [AuthenticationScope.profile_read_all, AuthenticationScope.read_all, AuthenticationScope.activity_read_all],
-        "stravaflutter://redirect",).then((token) {
+      [
+        AuthenticationScope.profile_read_all,
+        AuthenticationScope.read_all,
+        AuthenticationScope.activity_read_all
+      ],
+      "stravaflutter://redirect",
+    ).then((token) {
       setState(() {
         isLoggedIn = true;
         this.token = token;
@@ -88,7 +93,9 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
         title: Text("Flutter Strava Plugin"),
         actions: [
           Icon(
-            isLoggedIn ? Icons.radio_button_checked_outlined : Icons.radio_button_off,
+            isLoggedIn
+                ? Icons.radio_button_checked_outlined
+                : Icons.radio_button_off,
             color: isLoggedIn ? Colors.white : Colors.red,
           ),
           SizedBox(
@@ -136,8 +143,10 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
               suffixIcon: TextButton(
                 child: Text("Copy"),
                 onPressed: () {
-                  Clipboard.setData(ClipboardData(text: _textEditingController.text))
-                      .then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  Clipboard.setData(
+                          ClipboardData(text: _textEditingController.text))
+                      .then((value) =>
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Copied!"),
                           )));
                 },
