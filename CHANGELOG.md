@@ -1,6 +1,11 @@
-## [2.0.1]
-- Had to mode the library into a new package name because we could not reach the the original developer to transfer
-- 
+## [2.0.3]
+- First of all, Thanks a lot to all contributors. 
+- [FIX] Issue #87 : Fails to auth on Android fix by @ChrisElliotUK
+- [CHORE] Dependency cleanup @Nenuphar12 (thanks a lot)
+- [FEATURE] Added PreferEphemeral pass through for auth by @withu-william
+- [DOCUMENTATION] Improved code documentation by @Nenuphar12
+- [FIX] updated dio package version by @dreampowder
+
 
 ## [2.0.0]
 A Complete rewrite of the entire package. Thanks to https://www.github.com/birdyf for giving us a good headstart.
