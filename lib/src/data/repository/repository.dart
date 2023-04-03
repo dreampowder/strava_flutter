@@ -1,0 +1,12 @@
+export 'client.dart';
+export 'repository_activity_impl.dart';
+export 'repository_athlete_impl.dart';
+export 'repository_authentication_impl.dart';
+export 'repository_club_impl.dart';
+export 'repository_gear_impl.dart';
+export 'repository_route_impl.dart';
+export 'repository_running_race_impl.dart';
+export 'repository_segment_efforts_impl.dart';
+export 'repository_segment_impl.dart';
+export 'repository_stream_impl.dart';
+export 'repository_upload_impl.dart';

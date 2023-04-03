@@ -4,9 +4,6 @@ import 'package:example/examples/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:strava_client/domain/model/model_authentication_response.dart';
-import 'package:strava_client/domain/model/model_authentication_scopes.dart';
-import 'package:strava_client/domain/model/model_fault.dart';
 import 'package:strava_client/strava_client.dart';
 import 'secret.dart';
 
