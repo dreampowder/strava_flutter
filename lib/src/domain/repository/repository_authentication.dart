@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:strava_client/src/common/common.dart';
 import 'package:strava_client/src/domain/model/model.dart';
 
+/// Repository managing all API calls related to `authentication`.
 abstract class RepositoryAuthentication {
   /// Authenticates the user with the requested [AuthenticationScope].
   ///

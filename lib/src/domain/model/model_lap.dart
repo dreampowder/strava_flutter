@@ -4,15 +4,25 @@ class Lap {
   String? name;
   MetaActivity? activity;
   MetaAthlete? athlete;
+
+  /// The lap's elapsed time, in seconds.
   int? elapsedTime;
+
+  /// The lap's moving time, in seconds.
   int? movingTime;
   String? startDate;
   String? startDateLocal;
+
+  /// The lap's distance, in meters.
   double? distance;
   int? startIndex;
   int? endIndex;
+
+  /// The elevation gain of this lap, in meters.
   double? totalElevationGain;
   double? averageSpeed;
+
+  /// The maximum speed of this lat, in meters per second.
   double? maxSpeed;
   double? averageCadence;
   bool? deviceWatts;
@@ -98,9 +108,8 @@ class Lap {
   }
 }
 
-/// id : 134815
-/// resource_state : 1
-
+// id : 134815
+// resource_state : 1
 class MetaAthlete {
   int? id;
   int? resourceState;
@@ -120,9 +129,8 @@ class MetaAthlete {
   }
 }
 
-/// id : 1410355832
-/// resource_state : 1
-
+// id : 1410355832
+// resource_state : 1
 class MetaActivity {
   int? id;
   int? resourceState;

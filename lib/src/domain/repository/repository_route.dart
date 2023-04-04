@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:strava_client/src/domain/model/model.dart';
 
+/// Repository managing all API calls related to `routes`.
 abstract class RepositoryRoute {
   /// Returns a [Route] from its [routeId].
   ///

@@ -15,10 +15,26 @@ class TokenResponse {
       this.scopes});
 
   String tokenType;
+
+  /// The number of seconds since the epoch when the provided access token will
+  /// expire.
   int expiresAt;
+
+  /// Seconds until the short-lived access token will expire.
   int expiresIn;
+
+  /// The refresh token for this user, to be used to get the next access token
+  /// for this user.
+  ///
+  /// Please expect that this value can change anytime you retrieve a new access
+  /// token. Once a new refresh token code has been returned, the older code
+  /// will no longer work.
   String refreshToken;
+
+  /// The access token for this user.
   String accessToken;
+
+  /// A summary of athlete information.
   Athlete? athlete;
   String? scopes;
 

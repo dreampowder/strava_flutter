@@ -1,6 +1,7 @@
 import 'package:strava_client/src/domain/model/model_authentication_scopes.dart';
 import 'package:strava_client/src/domain/model/model_stream_set.dart';
 
+/// Repository managing all API calls related to `streams`.
 abstract class RepositoryStream {
   /// Returns from [activityId] its activity's streams as a [StreamSet].
   ///

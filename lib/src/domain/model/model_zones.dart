@@ -22,18 +22,21 @@ class Zones {
   String toRawJson() => json.encode(toJson());
 
   factory Zones.fromJson(Map<String, dynamic> json) => Zones(
-    distributionBuckets: List<DistributionBucket>.from(json["distribution_buckets"].map((x) => DistributionBucket.fromJson(x))),
-    type: json["type"],
-    resourceState: json["resource_state"],
-    sensorBased: json["sensor_based"],
-  );
+        distributionBuckets: List<DistributionBucket>.from(
+            json["distribution_buckets"]
+                .map((x) => DistributionBucket.fromJson(x))),
+        type: json["type"],
+        resourceState: json["resource_state"],
+        sensorBased: json["sensor_based"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "distribution_buckets": List<dynamic>.from(distributionBuckets.map((x) => x.toJson())),
-    "type": type,
-    "resource_state": resourceState,
-    "sensor_based": sensorBased,
-  };
+        "distribution_buckets":
+            List<dynamic>.from(distributionBuckets.map((x) => x.toJson())),
+        "type": type,
+        "resource_state": resourceState,
+        "sensor_based": sensorBased,
+      };
 }
 
 class DistributionBucket {
@@ -47,19 +50,21 @@ class DistributionBucket {
   int min;
   int time;
 
-  factory DistributionBucket.fromRawJson(String str) => DistributionBucket.fromJson(json.decode(str));
+  factory DistributionBucket.fromRawJson(String str) =>
+      DistributionBucket.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory DistributionBucket.fromJson(Map<String, dynamic> json) => DistributionBucket(
-    max: json["max"],
-    min: json["min"],
-    time: json["time"],
-  );
+  factory DistributionBucket.fromJson(Map<String, dynamic> json) =>
+      DistributionBucket(
+        max: json["max"],
+        min: json["min"],
+        time: json["time"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "max": max,
-    "min": min,
-    "time": time,
-  };
+        "max": max,
+        "min": min,
+        "time": time,
+      };
 }

@@ -1,27 +1,33 @@
-/// score : 0
-/// sensor_based : true
-/// custom_zones : true
-/// max : 1
-/// distribution_buckets : ""
-/// type : "heartrate"
-/// points : 6
-
+// Example of value :
+// ```dart
+// ActivityZone(
+//   score: 0,
+//   sensorBased: true,
+//   customZones: true,
+//   max: 1,
+//   distributionBuckets: '',
+//   type: 'heartrate',
+//   points: 6,
+// );
+// ```
 class ActivityZone {
   int? score;
   bool? sensorBased;
   bool? customZones;
   int? max;
   String? distributionBuckets;
+
+  /// May take one of the following values: `heartrate`, `power`.
   String? type;
   int? points;
 
-  ActivityZone({
-      this.score, 
-      this.sensorBased, 
-      this.customZones, 
-      this.max, 
-      this.distributionBuckets, 
-      this.type, 
+  ActivityZone(
+      {this.score,
+      this.sensorBased,
+      this.customZones,
+      this.max,
+      this.distributionBuckets,
+      this.type,
       this.points});
 
   ActivityZone.fromJson(dynamic json) {
@@ -45,5 +51,4 @@ class ActivityZone {
     map['points'] = points;
     return map;
   }
-
 }

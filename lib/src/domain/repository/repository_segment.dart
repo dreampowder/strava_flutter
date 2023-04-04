@@ -1,5 +1,6 @@
 import 'package:strava_client/src/domain/model/model.dart';
 
+/// Repository managing all API calls related to `segments`.
 abstract class RepositorySegment {
   /// Returns the top 10 segments matching a specific query as a
   /// [ExplorerResponse].

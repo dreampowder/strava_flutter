@@ -1,5 +1,6 @@
 import 'package:strava_client/src/domain/model/model_activity_type_enum.dart';
 
+/// Model containing information to create a manual `Activity` on *Strava*.
 class CreateActivityRequest {
   String name;
   ActivityTypeEnum type;

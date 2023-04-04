@@ -1,5 +1,6 @@
 import 'package:strava_client/src/domain/model/model.dart';
 
+/// Repository managing all API calls related to `clubs`.
 abstract class RepositoryClub {
   /// Returns the recent [SummaryActivity]s from `members` of the `club` with
   /// this [clubId].

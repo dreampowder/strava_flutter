@@ -1,10 +1,9 @@
-/// id_str : "aeiou"
-/// activity_id : 6
-/// external_id : "aeiou"
-/// id : 0
-/// error : "aeiou"
-/// status : "aeiou"
-
+// id_str : "aeiou"
+// activity_id : 6
+// external_id : "aeiou"
+// id : 0
+// error : "aeiou"
+// status : "aeiou"
 class UploadResponse {
   String? idStr;
   int? activityId;
@@ -13,12 +12,12 @@ class UploadResponse {
   String? error;
   String? status;
 
-  UploadResponse({
-      this.idStr, 
-      this.activityId, 
-      this.externalId, 
-      this.id, 
-      this.error, 
+  UploadResponse(
+      {this.idStr,
+      this.activityId,
+      this.externalId,
+      this.id,
+      this.error,
       this.status});
 
   UploadResponse.fromJson(dynamic json) {
@@ -40,5 +39,4 @@ class UploadResponse {
     map['status'] = status;
     return map;
   }
-
 }

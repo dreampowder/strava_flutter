@@ -1,5 +1,5 @@
 import 'package:strava_client/src/common/common.dart';
-import 'package:strava_client/src/domain/model/model_authentication_response.dart';
+import 'package:strava_client/src/domain/model/model.dart';
 import 'package:strava_client/src/domain/repository/repository.dart';
 
 /// A Flutter client for Strava, which supports most of

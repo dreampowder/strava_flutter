@@ -1,5 +1,6 @@
 import 'package:strava_client/src/domain/model/model_detailed_activity.dart';
 
+/// Repository managing all API calls related to `segments effort`.
 abstract class RepositorySegmentEffort {
   /// Returns a list of the authenticated `athlete`'s [DetailedSegmentEffort]s
   /// for the segment with this [segmentId]. (*Requires Subscription*)

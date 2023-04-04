@@ -43,19 +43,29 @@ class DetailedAthlete {
 
   int id;
   String? username;
+
+  /// Resource state, indicates level of detail.
+  ///
+  /// Possible values: 1 -> `meta`, 2 -> `summary`, 3 -> `detail`.
   int resourceState;
   String firstname;
   String lastname;
   String city;
   String state;
   String country;
+
+  /// The athlete's sex. May take one of the following values: `M`, `F`.
   String sex;
   String? bio;
   bool premium;
   DateTime? createdAt;
   DateTime? updatedAt;
   int badgeTypeId;
+
+  /// URL to a 62x62 pixel profile picture.
   String? profileMedium;
+
+  /// URL to a 124x124 pixel profile picture.
   String? profile;
   dynamic friend;
   dynamic follower;
@@ -64,6 +74,10 @@ class DetailedAthlete {
   int mutualFriendCount;
   int athleteType;
   String datePreference;
+
+  /// The athlete's preferred unit system.
+  ///
+  /// May take one of the following values: `feet`, `meters`.
   String measurementPreference;
   List<SummaryClub> clubs;
   int? ftp;

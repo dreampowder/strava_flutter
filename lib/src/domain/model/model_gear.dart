@@ -1,15 +1,18 @@
-/// id : "b1231"
-/// primary : false
-/// resource_state : 3
-/// distance : 388206
-/// brand_name : "BMC"
-/// model_name : "Teammachine"
-/// frame_type : 3
-/// description : "My Bike."
-
+// id : "b1231"
+// primary : false
+// resource_state : 3
+// distance : 388206
+// brand_name : "BMC"
+// model_name : "Teammachine"
+// frame_type : 3
+// description : "My Bike."
 class Gear {
   String? id;
   bool? primary;
+
+  /// Resource state, indicates level of detail.
+  ///
+  /// Possible values: 2 -> `summary`, 3 -> `detail`.
   int? resourceState;
   int? distance;
   String? brandName;
@@ -17,14 +20,14 @@ class Gear {
   int? frameType;
   String? description;
 
-  Gear({
-      this.id, 
-      this.primary, 
-      this.resourceState, 
-      this.distance, 
-      this.brandName, 
-      this.modelName, 
-      this.frameType, 
+  Gear(
+      {this.id,
+      this.primary,
+      this.resourceState,
+      this.distance,
+      this.brandName,
+      this.modelName,
+      this.frameType,
       this.description});
 
   Gear.fromJson(dynamic json) {
@@ -50,5 +53,4 @@ class Gear {
     map['description'] = description;
     return map;
   }
-
 }

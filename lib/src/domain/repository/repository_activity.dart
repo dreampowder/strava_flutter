@@ -1,5 +1,6 @@
 import 'package:strava_client/src/domain/model/model.dart';
 
+/// Repository managing all API calls related to `activities`.
 abstract class RepositoryActivity {
   /// Returns the [DetailedActivity] corresponding to the given [activityId].
   ///

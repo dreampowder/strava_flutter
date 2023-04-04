@@ -14,14 +14,14 @@ class Fault {
   String toRawJson() => json.encode(toJson());
 
   factory Fault.fromJson(Map<String, dynamic> json) => Fault(
-    errors: List<Error>.from(json["errors"].map((x) => Error.fromJson(x))),
-    message: json["message"],
-  );
+        errors: List<Error>.from(json["errors"].map((x) => Error.fromJson(x))),
+        message: json["message"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "errors": List<dynamic>.from((errors ?? []).map((x) => x.toJson())),
-    "message": message,
-  };
+        "errors": List<dynamic>.from((errors ?? []).map((x) => x.toJson())),
+        "message": message,
+      };
 }
 
 class Error {
@@ -40,14 +40,14 @@ class Error {
   String toRawJson() => json.encode(toJson());
 
   factory Error.fromJson(Map<String, dynamic> json) => Error(
-    code: json["code"],
-    field: json["field"],
-    resource: json["resource"],
-  );
+        code: json["code"],
+        field: json["field"],
+        resource: json["resource"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "code": code,
-    "field": field,
-    "resource": resource,
-  };
+        "code": code,
+        "field": field,
+        "resource": resource,
+      };
 }

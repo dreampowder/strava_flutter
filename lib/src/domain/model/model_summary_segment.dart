@@ -1,58 +1,72 @@
-/// country : "aeiou"
-/// private : true
-/// distance : 3.6160767
-/// average_grade : 2.027123
-/// maximum_grade : 4.145608
-/// climb_category : 1
-/// city : "aeiou"
-/// elevation_high : 7.386282
-/// athlete_pr_effort : {"distance":1.1730742,"start_date_local":"2000-01-23T04:56:07.000+00:00","activity_id":6,"elapsed_time":7,"is_kom":true,"id":1,"start_date":"2000-01-23T04:56:07.000+00:00"}
-/// athlete_segment_stats : {"pr_elapsed_time":5,"pr_date":"2000-01-23T04:56:07.000+00:00","effort_count":9,"pr_activity_id":4}
-/// start_latlng : ""
-/// elevation_low : 1.2315135
-/// end_latlng : ""
-/// activity_type : "Ride"
-/// name : "aeiou"
-/// id : 9
-/// state : "aeiou"
-
+// country : "aeiou"
+// private : true
+// distance : 3.6160767
+// average_grade : 2.027123
+// maximum_grade : 4.145608
+// climb_category : 1
+// city : "aeiou"
+// elevation_high : 7.386282
+// athlete_pr_effort : {"distance":1.1730742,"start_date_local":"2000-01-23T04:56:07.000+00:00","activity_id":6,"elapsed_time":7,"is_kom":true,"id":1,"start_date":"2000-01-23T04:56:07.000+00:00"}
+// athlete_segment_stats : {"pr_elapsed_time":5,"pr_date":"2000-01-23T04:56:07.000+00:00","effort_count":9,"pr_activity_id":4}
+// start_latlng : ""
+// elevation_low : 1.2315135
+// end_latlng : ""
+// activity_type : "Ride"
+// name : "aeiou"
+// id : 9
+// state : "aeiou"
 class SummarySegment {
   String? country;
   bool? private;
+
+  /// The segment's distance, in meters.
   double? distance;
+
+  /// The segment's average grade, in percents.
   double? averageGrade;
+
+  /// The segments's maximum grade, in percents.
   double? maximumGrade;
+
+  /// The category of the climb [0, 5]. Higher is harder ie. 5 is Hors
+  /// catégorie, 0 is uncategorized in climb_category.
   int? climbCategory;
   String? city;
+
+  /// The segments's highest elevation, in meters.
   double? elevationHigh;
+
+  /// The segments's lowest elevation, in meters.
+  double? elevationLow;
   SummarySegmentEffort? athletePrEffort;
   SummaryPRSegmentEffort? athleteSegmentStats;
   String? startLatlng;
-  double? elevationLow;
   String? endLatlng;
+
+  /// May take one of the following values: `Ride`, `Run`.
   String? activityType;
   String? name;
   int? id;
   String? state;
 
-  SummarySegment({
-    this.country,
-    this.private,
-    this.distance,
-    this.averageGrade,
-    this.maximumGrade,
-    this.climbCategory,
-    this.city,
-    this.elevationHigh,
-    this.athletePrEffort,
-    this.athleteSegmentStats,
-    this.startLatlng,
-    this.elevationLow,
-    this.endLatlng,
-    this.activityType,
-    this.name,
-    this.id,
-    this.state});
+  SummarySegment(
+      {this.country,
+      this.private,
+      this.distance,
+      this.averageGrade,
+      this.maximumGrade,
+      this.climbCategory,
+      this.city,
+      this.elevationHigh,
+      this.athletePrEffort,
+      this.athleteSegmentStats,
+      this.startLatlng,
+      this.elevationLow,
+      this.endLatlng,
+      this.activityType,
+      this.name,
+      this.id,
+      this.state});
 
   SummarySegment.fromJson(dynamic json) {
     country = json['country'];
@@ -63,8 +77,12 @@ class SummarySegment {
     climbCategory = json['climb_category'];
     city = json['city'];
     elevationHigh = json['elevation_high'];
-    athletePrEffort = json['athlete_pr_effort'] != null ? SummarySegmentEffort.fromJson(json['athletePrEffort']) : null;
-    athleteSegmentStats = json['athlete_segment_stats'] != null ? SummaryPRSegmentEffort.fromJson(json['athleteSegmentStats']) : null;
+    athletePrEffort = json['athlete_pr_effort'] != null
+        ? SummarySegmentEffort.fromJson(json['athletePrEffort'])
+        : null;
+    athleteSegmentStats = json['athlete_segment_stats'] != null
+        ? SummaryPRSegmentEffort.fromJson(json['athleteSegmentStats'])
+        : null;
     startLatlng = json['start_latlng'];
     elevationLow = json['elevation_low'];
     endLatlng = json['end_latlng'];
@@ -99,25 +117,20 @@ class SummarySegment {
     map['state'] = state;
     return map;
   }
-
 }
 
-/// pr_elapsed_time : 5
-/// pr_date : "2000-01-23T04:56:07.000+00:00"
-/// effort_count : 9
-/// pr_activity_id : 4
-
+// pr_elapsed_time : 5
+// pr_date : "2000-01-23T04:56:07.000+00:00"
+// effort_count : 9
+// pr_activity_id : 4
 class SummaryPRSegmentEffort {
   int? prElapsedTime;
   String? prDate;
   int? effortCount;
   int? prActivityId;
 
-  SummaryPRSegmentEffort({
-    this.prElapsedTime,
-    this.prDate,
-    this.effortCount,
-    this.prActivityId});
+  SummaryPRSegmentEffort(
+      {this.prElapsedTime, this.prDate, this.effortCount, this.prActivityId});
 
   SummaryPRSegmentEffort.fromJson(dynamic json) {
     prElapsedTime = json['pr_elapsed_time'];
@@ -134,17 +147,15 @@ class SummaryPRSegmentEffort {
     map['pr_activity_id'] = prActivityId;
     return map;
   }
-
 }
 
-/// distance : 1.1730742
-/// start_date_local : "2000-01-23T04:56:07.000+00:00"
-/// activity_id : 6
-/// elapsed_time : 7
-/// is_kom : true
-/// id : 1
-/// start_date : "2000-01-23T04:56:07.000+00:00"
-
+// distance : 1.1730742
+// start_date_local : "2000-01-23T04:56:07.000+00:00"
+// activity_id : 6
+// elapsed_time : 7
+// is_kom : true
+// id : 1
+// start_date : "2000-01-23T04:56:07.000+00:00"
 class SummarySegmentEffort {
   double? distance;
   String? startDateLocal;
@@ -154,14 +165,14 @@ class SummarySegmentEffort {
   int? id;
   String? startDate;
 
-  SummarySegmentEffort({
-    this.distance,
-    this.startDateLocal,
-    this.activityId,
-    this.elapsedTime,
-    this.isKom,
-    this.id,
-    this.startDate});
+  SummarySegmentEffort(
+      {this.distance,
+      this.startDateLocal,
+      this.activityId,
+      this.elapsedTime,
+      this.isKom,
+      this.id,
+      this.startDate});
 
   SummarySegmentEffort.fromJson(dynamic json) {
     distance = json['distance'];
@@ -184,5 +195,4 @@ class SummarySegmentEffort {
     map['start_date'] = startDate;
     return map;
   }
-
 }

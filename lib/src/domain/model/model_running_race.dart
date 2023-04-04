@@ -1,16 +1,15 @@
-/// country : "aeiou"
-/// route_ids : [5]
-/// running_race_type : 6
-/// distance : 1.4658129
-/// website_url : "aeiou"
-/// city : "aeiou"
-/// start_date_local : "2000-01-23T04:56:07.000+00:00"
-/// name : "aeiou"
-/// measurement_preference : "feet"
-/// id : 0
-/// state : "aeiou"
-/// url : "aeiou"
-
+// country : "aeiou"
+// route_ids : [5]
+// running_race_type : 6
+// distance : 1.4658129
+// website_url : "aeiou"
+// city : "aeiou"
+// start_date_local : "2000-01-23T04:56:07.000+00:00"
+// name : "aeiou"
+// measurement_preference : "feet"
+// id : 0
+// state : "aeiou"
+// url : "aeiou"
 class RunningRace {
   String? country;
   List<int>? routeIds;
@@ -25,18 +24,18 @@ class RunningRace {
   String? state;
   String? url;
 
-  RunningRace({
-      this.country, 
-      this.routeIds, 
-      this.runningRaceType, 
-      this.distance, 
-      this.websiteUrl, 
-      this.city, 
-      this.startDateLocal, 
-      this.name, 
-      this.measurementPreference, 
-      this.id, 
-      this.state, 
+  RunningRace(
+      {this.country,
+      this.routeIds,
+      this.runningRaceType,
+      this.distance,
+      this.websiteUrl,
+      this.city,
+      this.startDateLocal,
+      this.name,
+      this.measurementPreference,
+      this.id,
+      this.state,
       this.url});
 
   RunningRace.fromJson(dynamic json) {
@@ -70,5 +69,4 @@ class RunningRace {
     map['url'] = url;
     return map;
   }
-
 }

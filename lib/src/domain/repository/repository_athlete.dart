@@ -1,5 +1,6 @@
 import 'package:strava_client/src/domain/model/model.dart';
 
+/// Repository managing all API calls related to `athletes`.
 abstract class RepositoryAthlete {
   /// Returns the currently authenticated `athlete`.
   ///
