@@ -5,7 +5,6 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-
 import 'package:strava_client/src/domain/model/model_summary_club.dart';
 import 'package:strava_client/src/domain/model/model_summary_gear.dart';
 

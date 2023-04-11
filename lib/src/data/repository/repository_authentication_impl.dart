@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:strava_client/src/common/common.dart';
 import 'package:strava_client/src/data/repository/client.dart';
 import 'package:strava_client/src/domain/model/model.dart';
 import 'package:strava_client/src/domain/repository/repository_authentication.dart';
 import 'package:uni_links/uni_links.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 // import 'package:uni_links/uni_links.dart' as uni_links;
 
