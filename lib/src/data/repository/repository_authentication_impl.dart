@@ -1,12 +1,23 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:strava_client/src/common/common.dart';
 import 'package:strava_client/src/data/repository/client.dart';
 import 'package:strava_client/src/domain/model/model.dart';
 import 'package:strava_client/src/domain/repository/repository_authentication.dart';
+import 'package:uni_links/uni_links.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+// import 'package:uni_links/uni_links.dart' as uni_links;
+
 
 class RepositoryAuthenticationImpl extends RepositoryAuthentication {
+
+  ///Used for nativa Starva app callback
+  StreamSubscription<Uri?>? _uriLinkStream;
+
   @override
   Future<TokenResponse> authenticate(
       {required List<AuthenticationScope> scopes,
@@ -96,28 +107,52 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
     final params =
         '?client_id=${sl<SessionManager>().clientId}&redirect_uri=$redirectUrl&response_type=code&approval_prompt=${forceShowingApproval ? "force" : "auto"}&scope=${AuthenticationScopeHelper.buildScopeString(scopes)}';
 
-    const authorizationEndpoint =
-        "https://www.strava.com/oauth/mobile/authorize";
 
-    final reqAuth = authorizationEndpoint + params;
-    try {
-      final result = await FlutterWebAuth.authenticate(
-        url: reqAuth,
-        callbackUrlScheme: callbackUrlScheme,
-        preferEphemeral: preferEphemeral,
-      );
+    var host = "https://www.strava.com/";
 
-      final parsed = Uri.parse(result);
+    const authorizationEndpoint = "oauth/mobile/authorize";
 
-      final error = parsed.queryParameters['error'];
-      final code = parsed.queryParameters['code'];
-      if (error != null) {
-        completer.completeError(Fault(errors: [], message: error));
-      } else {
-        completer.complete(code);
+    var didLaunchNativeApp = false;
+    if (Platform.isIOS) {
+      //We need to check if we have the strava app in the phone, if yes we will launch the app
+      if(await canLaunchUrlString("strava://$authorizationEndpoint")){
+        didLaunchNativeApp = true;
+        host = "strava://";
+        _uriLinkStream?.cancel();
+        _uriLinkStream = uriLinkStream.listen((uri) {
+          final error = uri?.queryParameters['error'];
+          final code = uri?.queryParameters['code'];
+          if (error != null) {
+            completer.completeError(Fault(errors: [], message: error));
+          } else {
+            completer.complete(code);
+          }
+          _uriLinkStream?.cancel();
+        });
+        launchUrlString(host+authorizationEndpoint + params).then((value){});
       }
-    } catch (e) {
-      completer.completeError(Fault(errors: [], message: e.toString()));
+    }
+    if (!didLaunchNativeApp) {
+      final reqAuth = host+authorizationEndpoint + params;
+      try {
+        final result = await FlutterWebAuth.authenticate(
+          url: reqAuth,
+          callbackUrlScheme: callbackUrlScheme,
+          preferEphemeral: preferEphemeral,
+        );
+
+        final parsed = Uri.parse(result);
+
+        final error = parsed.queryParameters['error'];
+        final code = parsed.queryParameters['code'];
+        if (error != null) {
+          completer.completeError(Fault(errors: [], message: error));
+        } else {
+          completer.complete(code);
+        }
+      } catch (e) {
+        completer.completeError(Fault(errors: [], message: e.toString()));
+      }
     }
     return completer.future;
   }

@@ -21,8 +21,12 @@ dependencies:
   # strava_flutter: ^1.0.6+17
   # To test locally
   intl: ^0.18.0
+
   strava_client:
     path: ../
+
+dependency_overrides:
+  file: ^6.1.4
 
 dev_dependencies:
   test: any

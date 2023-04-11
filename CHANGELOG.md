@@ -1,3 +1,9 @@
+## [2.1.0]
+
+- Code cleanup and refactoring (thanks to @Nenuphar12) 
+- Added Support for authenticate via native Strava app from ios if available
+- Updated Readme.md for additional ios directives for native strava app authentication
+
 ## [2.0.3]
 - First of all, Thanks a lot to all contributors. 
 - [FIX] Issue #87 : Fails to auth on Android fix by @ChrisElliotUK

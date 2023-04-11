@@ -100,6 +100,15 @@ Add the following lines in your info.plist (in ios/Flutter/Runner/)
 	</array>
 ```
 
+Also for launching the Native Strava app for Authenticate
+
+
+```
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>strava</string>
+	</array>
+```
 
 
 3  - Create a file secret.dart and put in this file:

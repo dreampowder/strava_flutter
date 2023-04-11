@@ -10,7 +10,9 @@ class ExampleAuthentication {
         scopes: scopes,
         redirectUrl: redirectUrl,
         forceShowingApproval: false,
-        callbackUrlScheme: "");
+        callbackUrlScheme: "stravaflutter",
+        preferEphemeral: true
+    );
   }
 
   Future<void> testDeauthorize() {
