@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:strava_client/strava_client.dart';
+
 import 'secret.dart';
 
 void main() => runApp(MyApp());
