@@ -15,7 +15,6 @@ class RepositoryAthleteImpl extends RepositoryAthlete {
     return ApiClient.getRequest<DetailedAthlete>(
         endPoint: "/v3/athlete",
         dataConstructor: (data) {
-          print("$data");
           return DetailedAthlete.fromJson(data);
         });
   }
