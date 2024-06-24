@@ -6,13 +6,10 @@ import 'package:strava_client/src/common/common.dart';
 import 'package:strava_client/src/data/repository/client.dart';
 import 'package:strava_client/src/domain/model/model.dart';
 import 'package:strava_client/src/domain/repository/repository_authentication.dart';
-import 'package:uni_links/uni_links.dart';
+import 'package:app_links/app_links.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-// import 'package:uni_links/uni_links.dart' as uni_links;
-
 
 class RepositoryAuthenticationImpl extends RepositoryAuthentication {
-
   ///Used for nativa Starva app callback
   StreamSubscription<Uri?>? _uriLinkStream;
 
@@ -104,7 +101,7 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
     final Completer<String> completer = Completer<String>();
     final params =
         '?client_id=${sl<SessionManager>().clientId}&redirect_uri=$redirectUrl&response_type=code&approval_prompt=${forceShowingApproval ? "force" : "auto"}&scope=${AuthenticationScopeHelper.buildScopeString(scopes)}';
-
+    final _appLinks = AppLinks();
 
     var host = "https://www.strava.com/";
 
@@ -113,13 +110,13 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
     var didLaunchNativeApp = false;
     if (Platform.isIOS) {
       //We need to check if we have the strava app in the phone, if yes we will launch the app
-      if(await canLaunchUrlString("strava://$authorizationEndpoint")){
+      if (await canLaunchUrlString("strava://$authorizationEndpoint")) {
         didLaunchNativeApp = true;
         host = "strava://";
         _uriLinkStream?.cancel();
-        _uriLinkStream = uriLinkStream.listen((uri) {
-          final error = uri?.queryParameters['error'];
-          final code = uri?.queryParameters['code'];
+        _uriLinkStream = _appLinks.uriLinkStream.listen((uri) {
+          final error = uri.queryParameters['error'];
+          final code = uri.queryParameters['code'];
           if (error != null) {
             completer.completeError(Fault(errors: [], message: error));
           } else {
@@ -127,11 +124,11 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
           }
           _uriLinkStream?.cancel();
         });
-        launchUrlString(host+authorizationEndpoint + params).then((value){});
+        launchUrlString(host + authorizationEndpoint + params).then((value) {});
       }
     }
     if (!didLaunchNativeApp) {
-      final reqAuth = host+authorizationEndpoint + params;
+      final reqAuth = host + authorizationEndpoint + params;
       try {
         final result = await FlutterWebAuth.authenticate(
           url: reqAuth,
