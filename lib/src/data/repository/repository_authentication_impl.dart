@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:strava_client/src/common/common.dart';
 import 'package:strava_client/src/data/repository/client.dart';
 import 'package:strava_client/src/domain/model/model.dart';
@@ -130,11 +130,10 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
     if (!didLaunchNativeApp) {
       final reqAuth = host + authorizationEndpoint + params;
       try {
-        final result = await FlutterWebAuth.authenticate(
-          url: reqAuth,
-          callbackUrlScheme: callbackUrlScheme,
-          preferEphemeral: preferEphemeral,
-        );
+        final result = await FlutterWebAuth2.authenticate(
+            url: reqAuth,
+            callbackUrlScheme: callbackUrlScheme,
+            options: FlutterWebAuth2Options(preferEphemeral: preferEphemeral));
 
         final parsed = Uri.parse(result);
 
