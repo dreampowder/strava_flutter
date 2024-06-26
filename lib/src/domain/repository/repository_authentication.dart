@@ -11,7 +11,7 @@ abstract class RepositoryAuthentication {
   /// returned.
   ///
   /// Else if there is no stored `token`, the package
-  /// [flutter_web_auth](https://pub.dev/packages/flutter_web_auth) is used to
+  /// [flutter_web_auth_2](https://pub.dev/packages/flutter_web_auth_2) is used to
   /// ask the user to authenticate to Strava using `OAuth2`.
   ///
   /// `redirectUrl` should be the `url` you set up when creating your application
