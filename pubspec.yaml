@@ -1,16 +1,16 @@
 name: strava_client
-description:  A Flutter Client for Strava V3 Api Based on the old strava_flutter api.
+description: A Flutter Client for Strava V3 Api Based on the old strava_flutter api.
 version: 2.1.0
 homepage: https://github.com/dreampowder/strava_flutter
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   dio: ^5.1.1
   flutter:
     sdk: flutter
-  flutter_web_auth: ^0.5.0
+  flutter_web_auth_2: ^3.1.2
   get_it: ^7.2.0
   shared_preferences: ^2.1.0
   url_launcher: ^6.1.10

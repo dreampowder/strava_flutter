@@ -11,7 +11,7 @@ abstract class RepositoryAuthentication {
   /// returned.
   ///
   /// Else if there is no stored `token`, the package
-  /// [flutter_web_auth](https://pub.dev/packages/flutter_web_auth) is used to
+  /// [flutter_web_auth_2](https://pub.dev/packages/flutter_web_auth_2) is used to
   /// ask the user to authenticate to Strava using `OAuth2`.
   ///
   /// `redirectUrl` should be the `url` you set up when creating your application
@@ -19,9 +19,6 @@ abstract class RepositoryAuthentication {
   /// ([the documentation to do so](https://developers.strava.com/docs/getting-started/#account)).
   /// `callbackUrlScheme` should be a string specifying the scheme of the url
   /// that the page will redirect to upon successful authentication.
-  /// If `preferEphemeral` is specified as true, an ephemeral web browser
-  /// session will be used where possible (allowing to choose Strava account to
-  /// log into).
   ///
   /// Example :
   /// ```dart
@@ -38,7 +35,6 @@ abstract class RepositoryAuthentication {
     required String redirectUrl,
     required String callbackUrlScheme,
     bool forceShowingApproval = false,
-    bool? preferEphemeral,
   });
 
   /// De authorize the app from accessing the current user's data.

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:strava_client/src/common/common.dart';
 import 'package:strava_client/src/data/repository/client.dart';
 import 'package:strava_client/src/domain/model/model.dart';
@@ -14,12 +14,12 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
   StreamSubscription<Uri?>? _uriLinkStream;
 
   @override
-  Future<TokenResponse> authenticate(
-      {required List<AuthenticationScope> scopes,
-      required String redirectUrl,
-      required String callbackUrlScheme,
-      bool forceShowingApproval = false,
-      bool? preferEphemeral}) async {
+  Future<TokenResponse> authenticate({
+    required List<AuthenticationScope> scopes,
+    required String redirectUrl,
+    required String callbackUrlScheme,
+    bool forceShowingApproval = false,
+  }) async {
     var completer = Completer<TokenResponse>();
     var token = await sl<SessionManager>().getToken();
     if (token == null) {
@@ -27,8 +27,7 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
           scopes: scopes,
           forceShowingApproval: forceShowingApproval,
           redirectUrl: redirectUrl,
-          callbackUrlScheme: callbackUrlScheme,
-          preferEphemeral: preferEphemeral));
+          callbackUrlScheme: callbackUrlScheme));
     } else {
       List<AuthenticationScope> oldScopes =
           AuthenticationScopeHelper.generateScopes(token.scopes ?? "");
@@ -57,29 +56,28 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
       } else {
         // Scopes have changed. we need a new token.
         completer.complete(_completeAuthentication(
-            scopes: scopes,
-            forceShowingApproval: forceShowingApproval,
-            redirectUrl: redirectUrl,
-            callbackUrlScheme: callbackUrlScheme,
-            preferEphemeral: preferEphemeral));
+          scopes: scopes,
+          forceShowingApproval: forceShowingApproval,
+          redirectUrl: redirectUrl,
+          callbackUrlScheme: callbackUrlScheme,
+        ));
       }
     }
     return completer.future;
   }
 
-  Future<TokenResponse> _completeAuthentication(
-      {required List<AuthenticationScope> scopes,
-      required bool forceShowingApproval,
-      required String redirectUrl,
-      required String callbackUrlScheme,
-      bool? preferEphemeral}) {
+  Future<TokenResponse> _completeAuthentication({
+    required List<AuthenticationScope> scopes,
+    required bool forceShowingApproval,
+    required String redirectUrl,
+    required String callbackUrlScheme,
+  }) {
     return _getStravaCode(
-            redirectUrl: redirectUrl,
-            scopes: scopes,
-            forceShowingApproval: forceShowingApproval,
-            callbackUrlScheme: callbackUrlScheme,
-            preferEphemeral: preferEphemeral)
-        .then((code) {
+      redirectUrl: redirectUrl,
+      scopes: scopes,
+      forceShowingApproval: forceShowingApproval,
+      callbackUrlScheme: callbackUrlScheme,
+    ).then((code) {
       return _requestNewAccessToken(
               sl<SessionManager>().clientId, sl<SessionManager>().secret, code)
           .then((token) async {
@@ -92,12 +90,12 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
   /// RedirectUrl works best when it is a custom scheme. For example: strava://auth
   ///
   /// If your redirectUrl is, for example, strava://auth then your callbackUrlScheme should be strava
-  Future<String> _getStravaCode(
-      {required String redirectUrl,
-      required List<AuthenticationScope> scopes,
-      required bool forceShowingApproval,
-      required String callbackUrlScheme,
-      bool? preferEphemeral}) async {
+  Future<String> _getStravaCode({
+    required String redirectUrl,
+    required List<AuthenticationScope> scopes,
+    required bool forceShowingApproval,
+    required String callbackUrlScheme,
+  }) async {
     final Completer<String> completer = Completer<String>();
     final params =
         '?client_id=${sl<SessionManager>().clientId}&redirect_uri=$redirectUrl&response_type=code&approval_prompt=${forceShowingApproval ? "force" : "auto"}&scope=${AuthenticationScopeHelper.buildScopeString(scopes)}';
@@ -130,10 +128,9 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
     if (!didLaunchNativeApp) {
       final reqAuth = host + authorizationEndpoint + params;
       try {
-        final result = await FlutterWebAuth.authenticate(
+        final result = await FlutterWebAuth2.authenticate(
           url: reqAuth,
           callbackUrlScheme: callbackUrlScheme,
-          preferEphemeral: preferEphemeral,
         );
 
         final parsed = Uri.parse(result);
