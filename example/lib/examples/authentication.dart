@@ -7,11 +7,11 @@ class ExampleAuthentication {
   Future<TokenResponse> testAuthentication(
       List<AuthenticationScope> scopes, String redirectUrl) {
     return stravaClient.authentication.authenticate(
-      scopes: scopes,
-      redirectUrl: redirectUrl,
-      forceShowingApproval: false,
-      callbackUrlScheme: "stravaflutter",
-    );
+        scopes: scopes,
+        redirectUrl: redirectUrl,
+        forceShowingApproval: false,
+        callbackUrlScheme: "stravaflutter",
+        preferEphemeral: true);
   }
 
   Future<void> testDeauthorize() {
