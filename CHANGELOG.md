@@ -1,3 +1,12 @@
+## [2.1.2]
+
+- Updated web_auth into flutter_web_auth_2 (thanks to @ChrisElliotUK)
+- Change unilinks dependency into app_links (thanks to @ChrisElliotUK)
+
+## [2.1.1]
+
+- Removed unnecessary print statement (thanks to @ChrisElliotUK)
+
 ## [2.1.0]
 
 - Code cleanup and refactoring (thanks to @Nenuphar12) 

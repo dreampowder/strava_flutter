@@ -1,6 +1,6 @@
 name: strava_client
 description: A Flutter Client for Strava V3 Api Based on the old strava_flutter api.
-version: 3.0.0
+version: 2.1.2
 homepage: https://github.com/dreampowder/strava_flutter
 
 environment:
