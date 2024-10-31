@@ -11,8 +11,7 @@ class ExampleAuthentication {
         redirectUrl: redirectUrl,
         forceShowingApproval: false,
         callbackUrlScheme: "stravaflutter",
-        preferEphemeral: true
-    );
+        preferEphemeral: true);
   }
 
   Future<void> testDeauthorize() {
