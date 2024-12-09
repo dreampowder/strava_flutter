@@ -70,16 +70,22 @@ a) For Android
 Add the following lines in your AndroidManifest.xml (in android/app/src/)
 ```
  <!-- To get redirect url when using url_launcher   -->
- <intent-filter>
-    <action android:name="android.intent.action.VIEW" />  
-    <category android:name="android.intent.category.DEFAULT" /> 
-    <category android:name="android.intent.category.BROWSABLE" /> 
-    <data android:scheme="stravaflutter" android:host="redirect" />    
-</intent-filter>
+<activity
+	android:name="com.linusu.flutter_web_auth_2.CallbackActivity"
+	android:exported="true">
+	<intent-filter android:label="flutter_web_auth_2">
+		<action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="redirect"
+                    android:scheme="stravaflutter" />
+	</intent-filter>
+</activity>
 ```
 
-Change android:launchMode="singleTop" to android:launchMode="singleInstance"
-It is needed to have authentication working with firefox
+3 - set `android:launchMode="singleTop"` and remove any `android:taskAffinity` entries.
 
 
 b) for iOS 
@@ -111,16 +117,16 @@ Also for launching the Native Strava app for Authenticate
 ```
 
 
-3  - Create a file secret.dart and put in this file:
+4  - Create a file secret.dart and put in this file:
 final String secret = "[Your client secret]";
 final String clientId = "[Your appID]";
 
-4 - import 'secret.dart' when you need secret and clientId in Strava API
+5 - import 'secret.dart' when you need secret and clientId in Strava API
 
 
-5 - To see debug info in Strava API, set isInDebug to true in Strava() init
+6 - To see debug info in Strava API, set isInDebug to true in Strava() init
 
-6 - Please check examples.dart for the moment
+7 - Please check examples.dart for the moment
 
 https://github.com/BirdyF/strava_flutter/blob/master/example/lib/main.dart
 
