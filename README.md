@@ -46,7 +46,7 @@ https://pub.dev/packages/rw_tcx
 ## How to install
 Check on pub.dev/packages to see how to install this package
 
-[https://pub.dev/packages/strava_client/install](https://pub.dev/packages/strava_client/install)
+https://pub.dev/packages/strava_client/install
 
 ### Additional steps when running on Android Pie 9.0 (API level 28)
 
