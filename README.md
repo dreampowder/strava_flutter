@@ -46,7 +46,7 @@ https://pub.dev/packages/rw_tcx
 ## How to install
 Check on pub.dev/packages to see how to install this package
 
-https://pub.dev/packages/strava_flutter#-installing-tab-
+https://pub.dev/packages/strava_client/install
 
 ### Additional steps when running on Android Pie 9.0 (API level 28)
 
@@ -126,12 +126,11 @@ final String clientId = "[Your appID]";
 
 6 - To see debug info in Strava API, set isInDebug to true in Strava() init
 
-7 - Please check examples.dart for the moment
+7 - Please check these examples for the moment
 
-https://github.com/BirdyF/strava_flutter/blob/master/example/lib/main.dart
+https://github.com/dreampowder/strava_flutter/tree/master/example
 
-https://github.com/BirdyF/strava_flutter/blob/master/example/lib/examples.dart
-
+https://github.com/dreampowder/strava_flutter/blob/master/example/lib/main.dart
 
 If you have any problem or need an API not yet implemented please post a new issue
 
