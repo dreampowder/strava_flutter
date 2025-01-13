@@ -106,6 +106,7 @@ class RepositoryActivityImpl extends RepositoryActivity {
       int activityId, UpdateActivityRequest request) {
     return ApiClient.putRequest(
         endPoint: "/v3/activities/$activityId",
+        postBody: request.toJson(),
         dataConstructor: (data) =>
             DetailedActivity.fromJson(Map<String, dynamic>.from(data)));
   }
