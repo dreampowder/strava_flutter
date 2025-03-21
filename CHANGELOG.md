@@ -1,5 +1,6 @@
 ## [2.1.3]
 - Fixed toJson() call for ModelDetailedActivity (Thanks @tchex)
+- Updated project dependencies
 
 ## [2.1.2]
 
