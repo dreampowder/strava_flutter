@@ -9,12 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^5.7.0
-  flutter_web_auth_2: ^4.0.1
-  get_it: ^8.0.2
-  shared_preferences: ^2.3.2
+  dio: ^5.8.0+1
+  flutter_web_auth_2: ^4.1.0
+  get_it: ^8.0.3
+  shared_preferences: ^2.5.2
   url_launcher: ^6.3.1
-  app_links: ^6.3.2
+  app_links: ^6.4.0
 
 dev_dependencies:
   flutter_test:
