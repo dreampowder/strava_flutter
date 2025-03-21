@@ -1,3 +1,6 @@
+## [2.1.3]
+- Fixed toJson() call for ModelDetailedActivity (Thanks @tchex)
+
 ## [2.1.2]
 
 - Updated web_auth into flutter_web_auth_2 (thanks to @ChrisElliotUK)
