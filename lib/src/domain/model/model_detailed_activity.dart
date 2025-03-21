@@ -315,7 +315,7 @@ class DetailedActivity {
     jsonMap['comment_count'] = commentCount;
     jsonMap['athlete_count'] = athleteCount;
     jsonMap['photo_count'] = photoCount;
-    if (jsonMap['map'] != null) {
+    if (map != null) {
       jsonMap['map'] = map?.toJson();
     }
     jsonMap['trainer'] = trainer;
