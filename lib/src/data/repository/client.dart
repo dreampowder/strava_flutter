@@ -14,7 +14,6 @@ class ApiClient {
       var token = await sl<SessionManager>().getToken();
       var headers = Map<String, dynamic>();
       if (token != null) {
-        print("Token: ${token.accessToken}");
         headers.putIfAbsent(
             "Authorization", () => "Bearer ${token.accessToken}");
       }
