@@ -317,10 +317,11 @@ CI runs analysis and tests on every PR.
 ## Acknowledgements
 
 - [@Birdyf](https://github.com/Birdyf) for the original package.
+- Patrick Finkelstein, the package's original maintainer.
 - [Joe Birch](https://github.com/hitherejoe/FlutterOAuth) — OAuth reference.
 - Strava's published [Swagger spec](https://developers.strava.com/swagger/),
   bundled and validated under [`openapi/`](openapi/).
 
 ## License
 
-[MIT](LICENSE) — Copyright (c) 2019-present the strava_flutter contributors.
+[MIT](LICENSE) — Copyright (c) 2019-present Serdar Coşkun and contributors.
