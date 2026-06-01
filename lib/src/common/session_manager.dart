@@ -27,7 +27,7 @@ class SessionManager {
     if (_currentToken != null) {
       completer.complete(_currentToken);
     } else {
-      LocalStorageManager.getToken(applicationName: this.applicationName)
+      LocalStorageManager.getToken(applicationName: applicationName)
           .then((storedValue) {
         if (storedValue != null) {
           _currentToken = storedValue;

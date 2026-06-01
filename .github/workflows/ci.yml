@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  package:
+    name: Analyze & test (package)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Verify generated code is up to date
+        run: |
+          dart run build_runner build
+          if ! git diff --quiet; then
+            echo "::error::Generated *.g.dart files are out of date. Run: dart run build_runner build"
+            git --no-pager diff --stat
+            exit 1
+          fi
+
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings
+
+      - name: Test
+        run: flutter test
+
+  example:
+    name: Analyze (example)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create example secret
+        working-directory: example
+        run: cp lib/secret.dart.example lib/secret.dart
+
+      - name: Install dependencies
+        working-directory: example
+        run: flutter pub get
+
+      - name: Analyze
+        working-directory: example
+        run: flutter analyze

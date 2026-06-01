@@ -22,6 +22,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.15.0
   json_serializable: ^6.14.0
+  flutter_lints: ^5.0.0
   # test: 1.5.3 # To launch some tests in /test
 
 # For information on the generic Dart part of this file, see the

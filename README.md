@@ -1,4 +1,6 @@
-gir# strava_flutter
+# strava_flutter
+
+[![CI](https://github.com/dreampowder/strava_flutter/actions/workflows/ci.yml/badge.svg)](https://github.com/dreampowder/strava_flutter/actions/workflows/ci.yml)
 
 Dart/flutter package to use Strava API v3
 

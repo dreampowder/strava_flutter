@@ -53,6 +53,6 @@ extension ActivityTypeEnumHelper on ActivityTypeEnum {
   }
 
   String stringValue() {
-    return this.toString().split(".").last;
+    return toString().split(".").last;
   }
 }

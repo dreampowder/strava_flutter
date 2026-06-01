@@ -5,7 +5,7 @@ import 'package:strava_client/src/domain/model/model_authentication_response.dar
 import 'package:strava_client/src/domain/model/model_authentication_scopes.dart';
 
 class LocalStorageManager {
-  static String _kTokenKey = "strava_token";
+  static const String _kTokenKey = "strava_token";
   // static String _kScopesKey = "strava_scopes";
 
   static Future<bool> saveToken(

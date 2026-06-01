@@ -101,7 +101,7 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
     final Completer<String> completer = Completer<String>();
     final params =
         '?client_id=${sl<SessionManager>().clientId}&redirect_uri=$redirectUrl&response_type=code&approval_prompt=${forceShowingApproval ? "force" : "auto"}&scope=${AuthenticationScopeHelper.buildScopeString(scopes)}';
-    final _appLinks = AppLinks();
+    final appLinks = AppLinks();
 
     var host = "https://www.strava.com/";
 
@@ -114,7 +114,7 @@ class RepositoryAuthenticationImpl extends RepositoryAuthentication {
         didLaunchNativeApp = true;
         host = "strava://";
         _uriLinkStream?.cancel();
-        _uriLinkStream = _appLinks.uriLinkStream.listen((uri) {
+        _uriLinkStream = appLinks.uriLinkStream.listen((uri) {
           final error = uri.queryParameters['error'];
           final code = uri.queryParameters['code'];
           if (error != null) {
