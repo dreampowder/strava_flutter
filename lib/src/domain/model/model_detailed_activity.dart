@@ -218,72 +218,73 @@ class DetailedActivity {
   @JsonKey(name: "splits_standard", includeIfNull: false)
   List<SplitsMetric>? splitsStandard;
 
-  DetailedActivity(
-      {this.id,
-      this.resourceState,
-      this.externalId,
-      this.uploadId,
-      this.athlete,
-      this.name,
-      this.distance,
-      this.movingTime,
-      this.elapsedTime,
-      this.totalElevationGain,
-      this.type,
-      this.startDate,
-      this.startDateLocal,
-      this.timezone,
-      this.utcOffset,
-      this.startLatlng,
-      this.endLatlng,
-      this.achievementCount,
-      this.kudosCount,
-      this.commentCount,
-      this.athleteCount,
-      this.photoCount,
-      this.map,
-      this.trainer,
-      this.commute,
-      this.manual,
-      this.private,
-      this.flagged,
-      this.gearId,
-      this.fromAcceptedTag,
-      this.averageSpeed,
-      this.maxSpeed,
-      this.averageCadence,
-      this.averageTemp,
-      this.averageWatts,
-      this.weightedAverageWatts,
-      this.kilojoules,
-      this.deviceWatts,
-      this.hasHeartrate,
-      this.maxWatts,
-      this.elevHigh,
-      this.elevLow,
-      this.prCount,
-      this.totalPhotoCount,
-      this.hasKudoed,
-      this.workoutType,
-      this.sufferScore,
-      this.description,
-      this.calories,
-      this.segmentEfforts,
-      this.splitsMetric,
-      this.laps,
-      this.gear,
-      this.partnerBrandTag,
-      this.photos,
-      this.highlightedKudosers,
-      this.deviceName,
-      this.embedToken,
-      this.segmentLeaderboardOptOut,
-      this.leaderboardOptOut,
-      this.sportType,
-      this.hideFromHome,
-      this.uploadIdStr,
-      this.bestEfforts,
-      this.splitsStandard});
+  DetailedActivity({
+    this.id,
+    this.resourceState,
+    this.externalId,
+    this.uploadId,
+    this.athlete,
+    this.name,
+    this.distance,
+    this.movingTime,
+    this.elapsedTime,
+    this.totalElevationGain,
+    this.type,
+    this.startDate,
+    this.startDateLocal,
+    this.timezone,
+    this.utcOffset,
+    this.startLatlng,
+    this.endLatlng,
+    this.achievementCount,
+    this.kudosCount,
+    this.commentCount,
+    this.athleteCount,
+    this.photoCount,
+    this.map,
+    this.trainer,
+    this.commute,
+    this.manual,
+    this.private,
+    this.flagged,
+    this.gearId,
+    this.fromAcceptedTag,
+    this.averageSpeed,
+    this.maxSpeed,
+    this.averageCadence,
+    this.averageTemp,
+    this.averageWatts,
+    this.weightedAverageWatts,
+    this.kilojoules,
+    this.deviceWatts,
+    this.hasHeartrate,
+    this.maxWatts,
+    this.elevHigh,
+    this.elevLow,
+    this.prCount,
+    this.totalPhotoCount,
+    this.hasKudoed,
+    this.workoutType,
+    this.sufferScore,
+    this.description,
+    this.calories,
+    this.segmentEfforts,
+    this.splitsMetric,
+    this.laps,
+    this.gear,
+    this.partnerBrandTag,
+    this.photos,
+    this.highlightedKudosers,
+    this.deviceName,
+    this.embedToken,
+    this.segmentLeaderboardOptOut,
+    this.leaderboardOptOut,
+    this.sportType,
+    this.hideFromHome,
+    this.uploadIdStr,
+    this.bestEfforts,
+    this.splitsStandard,
+  });
 
   factory DetailedActivity.fromJson(Map<String, dynamic> json) =>
       _$DetailedActivityFromJson(json);
@@ -310,8 +311,12 @@ class HighlightedKudosers {
   @JsonKey(name: "show_name")
   bool? showName;
 
-  HighlightedKudosers(
-      {this.destinationUrl, this.displayName, this.avatarUrl, this.showName});
+  HighlightedKudosers({
+    this.destinationUrl,
+    this.displayName,
+    this.avatarUrl,
+    this.showName,
+  });
 
   factory HighlightedKudosers.fromJson(Map<String, dynamic> json) =>
       _$HighlightedKudosersFromJson(json);
@@ -444,14 +449,15 @@ class SplitsMetric {
   @JsonKey(name: "pace_zone")
   int? paceZone;
 
-  SplitsMetric(
-      {this.distance,
-      this.elapsedTime,
-      this.elevationDifference,
-      this.movingTime,
-      this.split,
-      this.averageSpeed,
-      this.paceZone});
+  SplitsMetric({
+    this.distance,
+    this.elapsedTime,
+    this.elevationDifference,
+    this.movingTime,
+    this.split,
+    this.averageSpeed,
+    this.paceZone,
+  });
 
   factory SplitsMetric.fromJson(Map<String, dynamic> json) =>
       _$SplitsMetricFromJson(json);
@@ -553,31 +559,32 @@ class DetailedSegmentEffort {
   @JsonKey(name: "is_kom")
   bool? isKom;
 
-  DetailedSegmentEffort(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.activity,
-      this.athlete,
-      this.elapsedTime,
-      this.movingTime,
-      this.startDate,
-      this.startDateLocal,
-      this.distance,
-      this.startIndex,
-      this.endIndex,
-      this.averageCadence,
-      this.deviceWatts,
-      this.averageWatts,
-      this.segment,
-      this.komRank,
-      this.prRank,
-      this.achievements,
-      this.hidden,
-      this.activityId,
-      this.averageHeartrate,
-      this.maxHeartrate,
-      this.isKom});
+  DetailedSegmentEffort({
+    this.id,
+    this.resourceState,
+    this.name,
+    this.activity,
+    this.athlete,
+    this.elapsedTime,
+    this.movingTime,
+    this.startDate,
+    this.startDateLocal,
+    this.distance,
+    this.startIndex,
+    this.endIndex,
+    this.averageCadence,
+    this.deviceWatts,
+    this.averageWatts,
+    this.segment,
+    this.komRank,
+    this.prRank,
+    this.achievements,
+    this.hidden,
+    this.activityId,
+    this.averageHeartrate,
+    this.maxHeartrate,
+    this.isKom,
+  });
 
   factory DetailedSegmentEffort.fromJson(Map<String, dynamic> json) =>
       _$DetailedSegmentEffortFromJson(json);
@@ -664,25 +671,26 @@ class Segment {
   @JsonKey(name: "starred")
   bool? starred;
 
-  Segment(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.activityType,
-      this.distance,
-      this.averageGrade,
-      this.maximumGrade,
-      this.elevationHigh,
-      this.elevationLow,
-      this.startLatlng,
-      this.endLatlng,
-      this.climbCategory,
-      this.city,
-      this.state,
-      this.country,
-      this.private,
-      this.hazardous,
-      this.starred});
+  Segment({
+    this.id,
+    this.resourceState,
+    this.name,
+    this.activityType,
+    this.distance,
+    this.averageGrade,
+    this.maximumGrade,
+    this.elevationHigh,
+    this.elevationLow,
+    this.startLatlng,
+    this.endLatlng,
+    this.climbCategory,
+    this.city,
+    this.state,
+    this.country,
+    this.private,
+    this.hazardous,
+    this.starred,
+  });
 
   factory Segment.fromJson(Map<String, dynamic> json) =>
       _$SegmentFromJson(json);
@@ -708,8 +716,12 @@ class PolyLineMap {
   @JsonKey(name: "summary_polyline")
   String? summaryPolyline;
 
-  PolyLineMap(
-      {this.id, this.polyline, this.resourceState, this.summaryPolyline});
+  PolyLineMap({
+    this.id,
+    this.polyline,
+    this.resourceState,
+    this.summaryPolyline,
+  });
 
   factory PolyLineMap.fromJson(Map<String, dynamic> json) =>
       _$PolyLineMapFromJson(json);

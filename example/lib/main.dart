@@ -57,7 +57,7 @@ class _StravaExplorerPageState extends State<StravaExplorerPage> {
   FutureOr<Null> _showError(dynamic error, dynamic stackTrace) {
     final message = error is Fault
         ? 'Fault: ${error.message}\n'
-            '${(error.errors ?? []).map((e) => "• ${e.code} (${e.field})").join("\n")}'
+              '${(error.errors ?? []).map((e) => "• ${e.code} (${e.field})").join("\n")}'
         : error.toString();
     if (!mounted) return null;
     showDialog(
@@ -67,8 +67,9 @@ class _StravaExplorerPageState extends State<StravaExplorerPage> {
         content: SingleChildScrollView(child: Text(message)),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'))
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
         ],
       ),
     );
@@ -76,32 +77,35 @@ class _StravaExplorerPageState extends State<StravaExplorerPage> {
   }
 
   void _login() {
-    ExampleAuthentication(stravaClient).testAuthentication(
-      const [
-        AuthenticationScope.profile_read_all,
-        AuthenticationScope.read_all,
-        AuthenticationScope.activity_read_all,
-        AuthenticationScope.activity_write,
-        AuthenticationScope.profile_write,
-      ],
-      "stravaflutter://redirect",
-    ).then((token) {
-      setState(() {
-        isLoggedIn = true;
-        this.token = token;
-        _tokenController.text = token.accessToken;
-      });
-    }).catchError(_showError);
+    ExampleAuthentication(stravaClient)
+        .testAuthentication(const [
+          AuthenticationScope.profile_read_all,
+          AuthenticationScope.read_all,
+          AuthenticationScope.activity_read_all,
+          AuthenticationScope.activity_write,
+          AuthenticationScope.profile_write,
+        ], "stravaflutter://redirect")
+        .then((token) {
+          setState(() {
+            isLoggedIn = true;
+            this.token = token;
+            _tokenController.text = token.accessToken;
+          });
+        })
+        .catchError(_showError);
   }
 
   void _logout() {
-    ExampleAuthentication(stravaClient).testDeauthorize().then((_) {
-      setState(() {
-        isLoggedIn = false;
-        token = null;
-        _tokenController.clear();
-      });
-    }).catchError(_showError);
+    ExampleAuthentication(stravaClient)
+        .testDeauthorize()
+        .then((_) {
+          setState(() {
+            isLoggedIn = false;
+            token = null;
+            _tokenController.clear();
+          });
+        })
+        .catchError(_showError);
   }
 
   @override
@@ -164,10 +168,10 @@ class _StravaExplorerPageState extends State<StravaExplorerPage> {
               suffixIcon: IconButton(
                 icon: const Icon(Icons.copy),
                 onPressed: () {
-                  Clipboard.setData(
-                      ClipboardData(text: _tokenController.text));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Copied')));
+                  Clipboard.setData(ClipboardData(text: _tokenController.text));
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Copied')));
                 },
               ),
             ),
@@ -182,8 +186,7 @@ class _StravaExplorerPageState extends State<StravaExplorerPage> {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(24),
-          child: Text('Login to run API calls.',
-              textAlign: TextAlign.center),
+          child: Text('Login to run API calls.', textAlign: TextAlign.center),
         ),
       );
     }
@@ -191,8 +194,10 @@ class _StravaExplorerPageState extends State<StravaExplorerPage> {
     return ListView(
       children: grouped.entries.map((entry) {
         return ExpansionTile(
-          title: Text(entry.key,
-              style: const TextStyle(fontWeight: FontWeight.w600)),
+          title: Text(
+            entry.key,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
           children: entry.value.map(_callTile).toList(),
         );
       }).toList(),
@@ -208,9 +213,11 @@ class _StravaExplorerPageState extends State<StravaExplorerPage> {
           ? const Icon(Icons.edit, color: Colors.orange, size: 20)
           : const Icon(Icons.download, color: Colors.blueGrey, size: 20),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (_) => CallScreen(client: stravaClient, call: call),
-      )),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => CallScreen(client: stravaClient, call: call),
+        ),
+      ),
     );
   }
 }

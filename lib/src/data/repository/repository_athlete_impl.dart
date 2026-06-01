@@ -6,48 +6,53 @@ class RepositoryAthleteImpl extends RepositoryAthlete {
   @override
   Future<ActivityStats> getAthleteStats(int athleteId) {
     return ApiClient.getRequest(
-        endPoint: "/v3/athletes/$athleteId/stats",
-        dataConstructor: (data) => ActivityStats.fromJson(data));
+      endPoint: "/v3/athletes/$athleteId/stats",
+      dataConstructor: (data) => ActivityStats.fromJson(data),
+    );
   }
 
   @override
   Future<DetailedAthlete> getAuthenticatedAthlete() {
     return ApiClient.getRequest<DetailedAthlete>(
-        endPoint: "/v3/athlete",
-        dataConstructor: (data) {
-          return DetailedAthlete.fromJson(data);
-        });
+      endPoint: "/v3/athlete",
+      dataConstructor: (data) {
+        return DetailedAthlete.fromJson(data);
+      },
+    );
   }
 
   @Deprecated('Mismodels GET /athlete/zones. Use getAthleteZones() instead.')
   @override
   Future<List<Zones>> getZones() {
     return ApiClient.getRequest<List<Zones>>(
-        endPoint: "/v3/athlete/zones",
-        dataConstructor: (data) {
-          if (data is List) {
-            return data
-                .map((e) => Zones.fromJson(Map<String, dynamic>.from(e)))
-                .toList();
-          } else {
-            return [];
-          }
-        });
+      endPoint: "/v3/athlete/zones",
+      dataConstructor: (data) {
+        if (data is List) {
+          return data
+              .map((e) => Zones.fromJson(Map<String, dynamic>.from(e)))
+              .toList();
+        } else {
+          return [];
+        }
+      },
+    );
   }
 
   @override
   Future<AthleteZones> getAthleteZones() {
     return ApiClient.getRequest<AthleteZones>(
-        endPoint: "/v3/athlete/zones",
-        dataConstructor: (data) =>
-            AthleteZones.fromJson(Map<String, dynamic>.from(data)));
+      endPoint: "/v3/athlete/zones",
+      dataConstructor: (data) =>
+          AthleteZones.fromJson(Map<String, dynamic>.from(data)),
+    );
   }
 
   @override
   Future<DetailedAthlete> updateAthlete(double weight) {
     return ApiClient.putRequest<DetailedAthlete>(
-        endPoint: "/v3/athlete",
-        queryParameters: {"weight": weight},
-        dataConstructor: (data) => DetailedAthlete.fromJson(data));
+      endPoint: "/v3/athlete",
+      queryParameters: {"weight": weight},
+      dataConstructor: (data) => DetailedAthlete.fromJson(data),
+    );
   }
 }

@@ -75,19 +75,20 @@ class ExplorerSegment {
   @JsonKey(name: "starred")
   bool? starred;
 
-  ExplorerSegment(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.climbCategory,
-      this.climbCategoryDesc,
-      this.avgGrade,
-      this.startLatlng,
-      this.endLatlng,
-      this.elevDifference,
-      this.distance,
-      this.points,
-      this.starred});
+  ExplorerSegment({
+    this.id,
+    this.resourceState,
+    this.name,
+    this.climbCategory,
+    this.climbCategoryDesc,
+    this.avgGrade,
+    this.startLatlng,
+    this.endLatlng,
+    this.elevDifference,
+    this.distance,
+    this.points,
+    this.starred,
+  });
 
   factory ExplorerSegment.fromJson(Map<String, dynamic> json) =>
       _$ExplorerSegmentFromJson(json);

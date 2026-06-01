@@ -116,31 +116,32 @@ class Club {
   @JsonKey(name: "following_count")
   int? followingCount;
 
-  Club(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.profileMedium,
-      this.profile,
-      this.coverPhoto,
-      this.coverPhotoSmall,
-      this.sportType,
-      this.city,
-      this.state,
-      this.country,
-      this.private,
-      this.memberCount,
-      this.featured,
-      this.verified,
-      this.url,
-      this.membership,
-      this.admin,
-      this.owner,
-      this.description,
-      this.clubType,
-      this.postCount,
-      this.ownerId,
-      this.followingCount});
+  Club({
+    this.id,
+    this.resourceState,
+    this.name,
+    this.profileMedium,
+    this.profile,
+    this.coverPhoto,
+    this.coverPhotoSmall,
+    this.sportType,
+    this.city,
+    this.state,
+    this.country,
+    this.private,
+    this.memberCount,
+    this.featured,
+    this.verified,
+    this.url,
+    this.membership,
+    this.admin,
+    this.owner,
+    this.description,
+    this.clubType,
+    this.postCount,
+    this.ownerId,
+    this.followingCount,
+  });
 
   factory Club.fromJson(Map<String, dynamic> json) => _$ClubFromJson(json);
 

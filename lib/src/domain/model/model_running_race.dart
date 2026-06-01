@@ -57,19 +57,20 @@ class RunningRace {
   @JsonKey(name: "url")
   String? url;
 
-  RunningRace(
-      {this.country,
-      this.routeIds,
-      this.runningRaceType,
-      this.distance,
-      this.websiteUrl,
-      this.city,
-      this.startDateLocal,
-      this.name,
-      this.measurementPreference,
-      this.id,
-      this.state,
-      this.url});
+  RunningRace({
+    this.country,
+    this.routeIds,
+    this.runningRaceType,
+    this.distance,
+    this.websiteUrl,
+    this.city,
+    this.startDateLocal,
+    this.name,
+    this.measurementPreference,
+    this.id,
+    this.state,
+    this.url,
+  });
 
   factory RunningRace.fromJson(Map<String, dynamic> json) =>
       _$RunningRaceFromJson(json);

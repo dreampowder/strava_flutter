@@ -27,7 +27,7 @@ enum AuthenticationScope {
   /// activities that are visible to the app, based on activity read access
   /// level.
   activity_write,
-  undefined_scope
+  undefined_scope,
 }
 
 extension AuthenticationScopeHelper on AuthenticationScope {
@@ -54,8 +54,9 @@ extension AuthenticationScopeHelper on AuthenticationScope {
 
   static AuthenticationScope getAuthScope(String value) {
     return AuthenticationScope.values.firstWhere(
-        (e) => e.toScopeString() == value,
-        orElse: () => AuthenticationScope.undefined_scope);
+      (e) => e.toScopeString() == value,
+      orElse: () => AuthenticationScope.undefined_scope,
+    );
   }
 
   /// Builds comma separated scope string for strava.

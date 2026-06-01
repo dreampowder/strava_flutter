@@ -10,14 +10,15 @@ part 'model_authentication_response.g.dart';
 
 @JsonSerializable()
 class TokenResponse {
-  TokenResponse(
-      {required this.tokenType,
-      required this.expiresAt,
-      required this.expiresIn,
-      required this.refreshToken,
-      required this.accessToken,
-      this.athlete,
-      this.scopes});
+  TokenResponse({
+    required this.tokenType,
+    required this.expiresAt,
+    required this.expiresIn,
+    required this.refreshToken,
+    required this.accessToken,
+    this.athlete,
+    this.scopes,
+  });
 
   @JsonKey(name: "token_type")
   String tokenType;

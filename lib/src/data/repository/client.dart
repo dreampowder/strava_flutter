@@ -15,7 +15,9 @@ class ApiClient {
       var headers = <String, dynamic>{};
       if (token != null) {
         headers.putIfAbsent(
-            "Authorization", () => "Bearer ${token.accessToken}");
+          "Authorization",
+          () => "Bearer ${token.accessToken}",
+        );
       }
 
       dio.options = BaseOptions(headers: headers);
@@ -24,67 +26,86 @@ class ApiClient {
     return Future.value(dio);
   }
 
-  static Future<T> getRequest<T>(
-      {required String endPoint,
-      Map<String, dynamic>? queryParameters,
-      required T Function(dynamic) dataConstructor}) async {
+  static Future<T> getRequest<T>({
+    required String endPoint,
+    Map<String, dynamic>? queryParameters,
+    required T Function(dynamic) dataConstructor,
+  }) async {
     var completer = Completer<T>();
     _getDioClient().then((client) {
       client
           .get("$_baseUrl$endPoint", queryParameters: queryParameters)
           .then(
-              (response) => completer.complete(dataConstructor(response.data)))
+            (response) => completer.complete(dataConstructor(response.data)),
+          )
           .catchError(
-              (error, stackTrace) => handleError(completer, error, stackTrace));
+            (error, stackTrace) => handleError(completer, error, stackTrace),
+          );
     });
     return completer.future;
   }
 
-  static Future<T> postRequest<T>(
-      {required String endPoint,
-      String? baseUrl,
-      Map<String, dynamic>? queryParameters,
-      dynamic postBody,
-      required T Function(dynamic) dataConstructor}) async {
+  static Future<T> postRequest<T>({
+    required String endPoint,
+    String? baseUrl,
+    Map<String, dynamic>? queryParameters,
+    dynamic postBody,
+    required T Function(dynamic) dataConstructor,
+  }) async {
     var completer = Completer<T>();
     _getDioClient().then((client) {
       client
-          .post("${baseUrl ?? _baseUrl}$endPoint",
-              queryParameters: queryParameters, data: postBody)
+          .post(
+            "${baseUrl ?? _baseUrl}$endPoint",
+            queryParameters: queryParameters,
+            data: postBody,
+          )
           .then(
-              (response) => completer.complete(dataConstructor(response.data)))
+            (response) => completer.complete(dataConstructor(response.data)),
+          )
           .catchError(
-              (error, stackTrace) => handleError(completer, error, stackTrace));
+            (error, stackTrace) => handleError(completer, error, stackTrace),
+          );
     });
     return completer.future;
   }
 
-  static Future<T> putRequest<T>(
-      {required String endPoint,
-      Map<String, dynamic>? queryParameters,
-      dynamic postBody,
-      required T Function(dynamic) dataConstructor}) async {
+  static Future<T> putRequest<T>({
+    required String endPoint,
+    Map<String, dynamic>? queryParameters,
+    dynamic postBody,
+    required T Function(dynamic) dataConstructor,
+  }) async {
     var completer = Completer<T>();
     _getDioClient().then((client) {
       client
-          .put("$_baseUrl$endPoint",
-              queryParameters: queryParameters, data: postBody)
+          .put(
+            "$_baseUrl$endPoint",
+            queryParameters: queryParameters,
+            data: postBody,
+          )
           .then(
-              (response) => completer.complete(dataConstructor(response.data)))
+            (response) => completer.complete(dataConstructor(response.data)),
+          )
           .catchError(
-              (error, stackTrace) => handleError(completer, error, stackTrace));
+            (error, stackTrace) => handleError(completer, error, stackTrace),
+          );
     });
     return completer.future;
   }
 
   static void handleError<T>(
-      Completer<T> completer, dynamic error, StackTrace stackTrace) {
+    Completer<T> completer,
+    dynamic error,
+    StackTrace stackTrace,
+  ) {
     if (error is DioException) {
       if (error.response != null &&
           error.response?.data != null &&
           error.response?.data is Map) {
-        var stravaFault =
-            Fault.fromJson(Map<String, dynamic>.from(error.response?.data));
+        var stravaFault = Fault.fromJson(
+          Map<String, dynamic>.from(error.response?.data),
+        );
         completer.completeError(stravaFault);
       } else {
         completer.completeError(error, stackTrace);

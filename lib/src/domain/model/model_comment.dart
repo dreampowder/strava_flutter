@@ -38,15 +38,16 @@ class Comment {
   @JsonKey(name: "athlete", includeIfNull: false)
   SummaryAthlete? athlete;
 
-  Comment(
-      {this.id,
-      this.activityId,
-      this.postId,
-      this.resourceState,
-      this.text,
-      this.mentionsMetadata,
-      this.createdAt,
-      this.athlete});
+  Comment({
+    this.id,
+    this.activityId,
+    this.postId,
+    this.resourceState,
+    this.text,
+    this.mentionsMetadata,
+    this.createdAt,
+    this.athlete,
+  });
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);

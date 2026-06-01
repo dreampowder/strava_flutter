@@ -53,24 +53,25 @@ class SummarySegment {
   int? id;
   String? state;
 
-  SummarySegment(
-      {this.country,
-      this.private,
-      this.distance,
-      this.averageGrade,
-      this.maximumGrade,
-      this.climbCategory,
-      this.city,
-      this.elevationHigh,
-      this.athletePrEffort,
-      this.athleteSegmentStats,
-      this.startLatlng,
-      this.elevationLow,
-      this.endLatlng,
-      this.activityType,
-      this.name,
-      this.id,
-      this.state});
+  SummarySegment({
+    this.country,
+    this.private,
+    this.distance,
+    this.averageGrade,
+    this.maximumGrade,
+    this.climbCategory,
+    this.city,
+    this.elevationHigh,
+    this.athletePrEffort,
+    this.athleteSegmentStats,
+    this.startLatlng,
+    this.elevationLow,
+    this.endLatlng,
+    this.activityType,
+    this.name,
+    this.id,
+    this.state,
+  });
 
   SummarySegment.fromJson(dynamic json) {
     country = json['country'];
@@ -138,8 +139,12 @@ class SummaryPRSegmentEffort {
   @JsonKey(name: "pr_activity_id")
   int? prActivityId;
 
-  SummaryPRSegmentEffort(
-      {this.prElapsedTime, this.prDate, this.effortCount, this.prActivityId});
+  SummaryPRSegmentEffort({
+    this.prElapsedTime,
+    this.prDate,
+    this.effortCount,
+    this.prActivityId,
+  });
 
   factory SummaryPRSegmentEffort.fromJson(Map<String, dynamic> json) =>
       _$SummaryPRSegmentEffortFromJson(json);
@@ -171,14 +176,15 @@ class SummarySegmentEffort {
   @JsonKey(name: "start_date")
   String? startDate;
 
-  SummarySegmentEffort(
-      {this.distance,
-      this.startDateLocal,
-      this.activityId,
-      this.elapsedTime,
-      this.isKom,
-      this.id,
-      this.startDate});
+  SummarySegmentEffort({
+    this.distance,
+    this.startDateLocal,
+    this.activityId,
+    this.elapsedTime,
+    this.isKom,
+    this.id,
+    this.startDate,
+  });
 
   factory SummarySegmentEffort.fromJson(Map<String, dynamic> json) =>
       _$SummarySegmentEffortFromJson(json);

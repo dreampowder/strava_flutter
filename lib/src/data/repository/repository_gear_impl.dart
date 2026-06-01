@@ -10,8 +10,8 @@ class RepositoryGearImpl extends RepositoryGear {
   @override
   Future<Gear> getGearById(String gearId) {
     return ApiClient.getRequest(
-        endPoint: "/v3/gear/$gearId",
-        dataConstructor: (data) =>
-            Gear.fromJson(Map<String, dynamic>.from(data)));
+      endPoint: "/v3/gear/$gearId",
+      dataConstructor: (data) => Gear.fromJson(Map<String, dynamic>.from(data)),
+    );
   }
 }

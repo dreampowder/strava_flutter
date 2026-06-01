@@ -122,43 +122,45 @@ class DetailedSegment {
   int? starCount;
 
   @JsonKey(
-      name: "athlete_segment_stats",
-      includeIfNull: false,
-      readValue: _athleteSegmentStatsReadValue)
+    name: "athlete_segment_stats",
+    includeIfNull: false,
+    readValue: _athleteSegmentStatsReadValue,
+  )
   SummaryPRSegmentEffort? athleteSegmentStats;
 
   /// The authenticated athlete's PR effort on this segment.
   @JsonKey(name: "athlete_pr_effort", includeIfNull: false)
   SummaryPRSegmentEffort? athletePrEffort;
 
-  DetailedSegment(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.activityType,
-      this.distance,
-      this.averageGrade,
-      this.maximumGrade,
-      this.elevationHigh,
-      this.elevationLow,
-      this.startLatlng,
-      this.endLatlng,
-      this.climbCategory,
-      this.city,
-      this.state,
-      this.country,
-      this.private,
-      this.hazardous,
-      this.starred,
-      this.createdAt,
-      this.updatedAt,
-      this.totalElevationGain,
-      this.map,
-      this.effortCount,
-      this.athleteCount,
-      this.starCount,
-      this.athleteSegmentStats,
-      this.athletePrEffort});
+  DetailedSegment({
+    this.id,
+    this.resourceState,
+    this.name,
+    this.activityType,
+    this.distance,
+    this.averageGrade,
+    this.maximumGrade,
+    this.elevationHigh,
+    this.elevationLow,
+    this.startLatlng,
+    this.endLatlng,
+    this.climbCategory,
+    this.city,
+    this.state,
+    this.country,
+    this.private,
+    this.hazardous,
+    this.starred,
+    this.createdAt,
+    this.updatedAt,
+    this.totalElevationGain,
+    this.map,
+    this.effortCount,
+    this.athleteCount,
+    this.starCount,
+    this.athleteSegmentStats,
+    this.athletePrEffort,
+  });
 
   factory DetailedSegment.fromJson(Map<String, dynamic> json) =>
       _$DetailedSegmentFromJson(json);

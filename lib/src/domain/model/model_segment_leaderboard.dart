@@ -13,8 +13,12 @@ class SegmentLeaderboard {
   @JsonKey(name: "entries")
   List<SegmentLeaderboardEntry>? entries;
 
-  SegmentLeaderboard(
-      {this.effortCount, this.entryCount, this.komType, this.entries});
+  SegmentLeaderboard({
+    this.effortCount,
+    this.entryCount,
+    this.komType,
+    this.entries,
+  });
 
   factory SegmentLeaderboard.fromJson(Map<String, dynamic> json) =>
       _$SegmentLeaderboardFromJson(json);
@@ -37,13 +41,14 @@ class SegmentLeaderboardEntry {
   @JsonKey(name: "rank")
   int? rank;
 
-  SegmentLeaderboardEntry(
-      {this.athleteName,
-      this.elapsedTime,
-      this.movingTime,
-      this.startDate,
-      this.startDateLocal,
-      this.rank});
+  SegmentLeaderboardEntry({
+    this.athleteName,
+    this.elapsedTime,
+    this.movingTime,
+    this.startDate,
+    this.startDateLocal,
+    this.rank,
+  });
 
   factory SegmentLeaderboardEntry.fromJson(Map<String, dynamic> json) =>
       _$SegmentLeaderboardEntryFromJson(json);

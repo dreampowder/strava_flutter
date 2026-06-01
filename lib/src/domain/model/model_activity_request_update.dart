@@ -21,12 +21,12 @@ class UpdateActivityRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        if (name != null) "name": name,
-        if (description != null) "description": description,
-        if (type != null) "type": type!.stringValue(),
-        if (isTrainerActivity != null) "trainer": isTrainerActivity! ? 1 : 0,
-        if (isCommuteActivity != null) "commute": isCommuteActivity! ? 1 : 0,
-        if (gearId != null) "gear_id": gearId,
-        if (hideFromHome != null) "hide_from_home": hideFromHome! ? 1 : 0,
-      };
+    if (name != null) "name": name,
+    if (description != null) "description": description,
+    if (type != null) "type": type!.stringValue(),
+    if (isTrainerActivity != null) "trainer": isTrainerActivity! ? 1 : 0,
+    if (isCommuteActivity != null) "commute": isCommuteActivity! ? 1 : 0,
+    if (gearId != null) "gear_id": gearId,
+    if (hideFromHome != null) "hide_from_home": hideFromHome! ? 1 : 0,
+  };
 }

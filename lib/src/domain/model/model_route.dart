@@ -84,25 +84,26 @@ class Route {
   @JsonKey(name: "waypoints", includeIfNull: false)
   List<Waypoint>? waypoints;
 
-  Route(
-      {this.private,
-      this.distance,
-      this.athlete,
-      this.description,
-      this.createdAt,
-      this.elevationGain,
-      this.type,
-      this.estimatedMovingTime,
-      this.segments,
-      this.starred,
-      this.updatedAt,
-      this.subType,
-      this.idStr,
-      this.name,
-      this.id,
-      this.map,
-      this.timestamp,
-      this.waypoints});
+  Route({
+    this.private,
+    this.distance,
+    this.athlete,
+    this.description,
+    this.createdAt,
+    this.elevationGain,
+    this.type,
+    this.estimatedMovingTime,
+    this.segments,
+    this.starred,
+    this.updatedAt,
+    this.subType,
+    this.idStr,
+    this.name,
+    this.id,
+    this.map,
+    this.timestamp,
+    this.waypoints,
+  });
 
   factory Route.fromJson(Map<String, dynamic> json) => _$RouteFromJson(json);
 
@@ -137,13 +138,14 @@ class Waypoint {
   @JsonKey(name: "distance_into_route")
   double? distanceIntoRoute;
 
-  Waypoint(
-      {this.latlng,
-      this.targetLatlng,
-      this.categories,
-      this.title,
-      this.description,
-      this.distanceIntoRoute});
+  Waypoint({
+    this.latlng,
+    this.targetLatlng,
+    this.categories,
+    this.title,
+    this.description,
+    this.distanceIntoRoute,
+  });
 
   factory Waypoint.fromJson(Map<String, dynamic> json) =>
       _$WaypointFromJson(json);

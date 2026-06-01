@@ -12,23 +12,24 @@ class CreateActivityRequest {
   bool isCommuteActivity;
 
   CreateActivityRequest(
-      this.name,
-      this.type,
-      this.startDateLocal,
-      this.elapsedTimeInSeconds,
-      this.description,
-      this.distanceInMeters,
-      this.isTrainerActivity,
-      this.isCommuteActivity);
+    this.name,
+    this.type,
+    this.startDateLocal,
+    this.elapsedTimeInSeconds,
+    this.description,
+    this.distanceInMeters,
+    this.isTrainerActivity,
+    this.isCommuteActivity,
+  );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "description": description,
-        "type": type.stringValue(),
-        "start_date_local": startDateLocal.toIso8601String(),
-        "elapsed_time": elapsedTimeInSeconds,
-        "distance": distanceInMeters,
-        "trainer": isTrainerActivity ? 1 : 0,
-        "commute": isCommuteActivity ? 1 : 0
-      };
+    "name": name,
+    "description": description,
+    "type": type.stringValue(),
+    "start_date_local": startDateLocal.toIso8601String(),
+    "elapsed_time": elapsedTimeInSeconds,
+    "distance": distanceInMeters,
+    "trainer": isTrainerActivity ? 1 : 0,
+    "commute": isCommuteActivity ? 1 : 0,
+  };
 }

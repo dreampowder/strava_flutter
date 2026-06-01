@@ -40,10 +40,11 @@ void main() {
 
     test('fromRawJson / toRawJson still work', () {
       final a = SummaryAthlete.fromRawJson(
-          '{"id":1,"resource_state":2,"firstname":"A","lastname":"B",'
-          '"profile_medium":"m","profile":"p","city":"c","state":"s",'
-          '"country":"co","sex":"M","premium":false,"summit":false,'
-          '"created_at":"x","updated_at":"y"}');
+        '{"id":1,"resource_state":2,"firstname":"A","lastname":"B",'
+        '"profile_medium":"m","profile":"p","city":"c","state":"s",'
+        '"country":"co","sex":"M","premium":false,"summit":false,'
+        '"created_at":"x","updated_at":"y"}',
+      );
       expect(a.id, 1);
       expect(a.toRawJson(), contains('"firstname":"A"'));
     });

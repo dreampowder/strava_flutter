@@ -16,9 +16,11 @@ abstract class RepositoryAthlete {
   /// Requires [AuthenticationScope.profile_read_all].
   ///
   /// {@macro fault_management}
-  @Deprecated('Mismodels GET /athlete/zones (which returns a single '
-      '{heart_rate, power} object, not a list). Use getAthleteZones() instead. '
-      'Removed in the next major version.')
+  @Deprecated(
+    'Mismodels GET /athlete/zones (which returns a single '
+    '{heart_rate, power} object, not a list). Use getAthleteZones() instead. '
+    'Removed in the next major version.',
+  )
   Future<List<Zones>> getZones();
 
   /// Returns the authenticated `athlete`'s heart-rate and power zones as an

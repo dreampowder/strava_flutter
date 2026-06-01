@@ -42,14 +42,15 @@ enum ActivityTypeEnum {
   Wheelchair,
   Windsurf,
   Workout,
-  Yoga
+  Yoga,
 }
 
 extension ActivityTypeEnumHelper on ActivityTypeEnum {
   static ActivityTypeEnum getType(String value) {
     return ActivityTypeEnum.values.firstWhere(
-        (element) => element.toString().endsWith(value),
-        orElse: () => ActivityTypeEnum.undefined);
+      (element) => element.toString().endsWith(value),
+      orElse: () => ActivityTypeEnum.undefined,
+    );
   }
 
   String stringValue() {
