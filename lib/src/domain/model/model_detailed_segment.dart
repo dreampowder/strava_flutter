@@ -1,5 +1,19 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:strava_client/src/domain/model/model_detailed_activity.dart';
 import 'package:strava_client/src/domain/model/model_summary_segment.dart';
+
+part 'model_detailed_segment.g.dart';
+
+/// Preserves the legacy behavior of returning an empty list (not null) when
+/// the latlng field is absent from the JSON payload.
+List<double>? _latLngFromJson(dynamic value) =>
+    value != null ? (value as List).cast<double>() : <double>[];
+
+/// Preserves the legacy behavior of reading the athlete segment stats from the
+/// `athleteSegmentStats` key (camelCase) on deserialization, even though it is
+/// written back out under the `athlete_segment_stats` key.
+Object? _athleteSegmentStatsReadValue(Map json, String key) =>
+    json['athleteSegmentStats'];
 
 // id : 229781
 // resource_state : 3
@@ -27,37 +41,90 @@ import 'package:strava_client/src/domain/model/model_summary_segment.dart';
 // athlete_count : 30623
 // star_count : 2428
 // athlete_segment_stats : {"pr_elapsed_time":553,"pr_date":"1993-04-03","effort_count":2}
+@JsonSerializable()
 class DetailedSegment {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "name")
   String? name;
 
   /// May take one of the following values: `Ride`, `Run`.
+  @JsonKey(name: "activity_type")
   String? activityType;
+
+  @JsonKey(name: "distance")
   double? distance;
+
+  @JsonKey(name: "average_grade")
   double? averageGrade;
+
+  @JsonKey(name: "maximum_grade")
   double? maximumGrade;
+
+  @JsonKey(name: "elevation_high")
   double? elevationHigh;
+
+  @JsonKey(name: "elevation_low")
   double? elevationLow;
+
+  @JsonKey(name: "start_latlng", fromJson: _latLngFromJson)
   List<double>? startLatlng;
+
+  @JsonKey(name: "end_latlng", fromJson: _latLngFromJson)
   List<double>? endLatlng;
 
   /// The category of the climb [0, 5]. Higher is harder ie. 5 is Hors
   /// catégorie, 0 is uncategorized in climb_category.
+  @JsonKey(name: "climb_category")
   int? climbCategory;
+
+  @JsonKey(name: "city")
   String? city;
+
+  @JsonKey(name: "state")
   String? state;
+
+  @JsonKey(name: "country")
   String? country;
+
+  @JsonKey(name: "private")
   bool? private;
+
+  @JsonKey(name: "hazardous")
   bool? hazardous;
+
+  @JsonKey(name: "starred")
   bool? starred;
+
+  @JsonKey(name: "created_at")
   String? createdAt;
+
+  @JsonKey(name: "updated_at")
   String? updatedAt;
+
+  @JsonKey(name: "total_elevation_gain")
   double? totalElevationGain;
+
+  @JsonKey(name: "map", includeIfNull: false)
   PolyLineMap? map;
+
+  @JsonKey(name: "effort_count")
   int? effortCount;
+
+  @JsonKey(name: "athlete_count")
   int? athleteCount;
+
+  @JsonKey(name: "star_count")
   int? starCount;
+
+  @JsonKey(
+      name: "athlete_segment_stats",
+      includeIfNull: false,
+      readValue: _athleteSegmentStatsReadValue)
   SummaryPRSegmentEffort? athleteSegmentStats;
 
   DetailedSegment(
@@ -88,71 +155,8 @@ class DetailedSegment {
       this.starCount,
       this.athleteSegmentStats});
 
-  DetailedSegment.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    activityType = json['activity_type'];
-    distance = json['distance'];
-    averageGrade = json['average_grade'];
-    maximumGrade = json['maximum_grade'];
-    elevationHigh = json['elevation_high'];
-    elevationLow = json['elevation_low'];
-    startLatlng =
-        json['start_latlng'] != null ? json['start_latlng'].cast<double>() : [];
-    endLatlng =
-        json['end_latlng'] != null ? json['end_latlng'].cast<double>() : [];
-    climbCategory = json['climb_category'];
-    city = json['city'];
-    state = json['state'];
-    country = json['country'];
-    private = json['private'];
-    hazardous = json['hazardous'];
-    starred = json['starred'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    totalElevationGain = json['total_elevation_gain'];
-    map = json['map'] != null ? PolyLineMap.fromJson(json['map']) : null;
-    effortCount = json['effort_count'];
-    athleteCount = json['athlete_count'];
-    starCount = json['star_count'];
-    athleteSegmentStats = json['athlete_segment_stats'] != null
-        ? SummaryPRSegmentEffort.fromJson(json['athleteSegmentStats'])
-        : null;
-  }
+  factory DetailedSegment.fromJson(Map<String, dynamic> json) =>
+      _$DetailedSegmentFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var jsonMap = <String, dynamic>{};
-    jsonMap['id'] = id;
-    jsonMap['resource_state'] = resourceState;
-    jsonMap['name'] = name;
-    jsonMap['activity_type'] = activityType;
-    jsonMap['distance'] = distance;
-    jsonMap['average_grade'] = averageGrade;
-    jsonMap['maximum_grade'] = maximumGrade;
-    jsonMap['elevation_high'] = elevationHigh;
-    jsonMap['elevation_low'] = elevationLow;
-    jsonMap['start_latlng'] = startLatlng;
-    jsonMap['end_latlng'] = endLatlng;
-    jsonMap['climb_category'] = climbCategory;
-    jsonMap['city'] = city;
-    jsonMap['state'] = state;
-    jsonMap['country'] = country;
-    jsonMap['private'] = private;
-    jsonMap['hazardous'] = hazardous;
-    jsonMap['starred'] = starred;
-    jsonMap['created_at'] = createdAt;
-    jsonMap['updated_at'] = updatedAt;
-    jsonMap['total_elevation_gain'] = totalElevationGain;
-    if (map != null) {
-      jsonMap['map'] = map?.toJson();
-    }
-    jsonMap['effort_count'] = effortCount;
-    jsonMap['athlete_count'] = athleteCount;
-    jsonMap['star_count'] = starCount;
-    if (athleteSegmentStats != null) {
-      jsonMap['athlete_segment_stats'] = athleteSegmentStats?.toJson();
-    }
-    return jsonMap;
-  }
+  Map<String, dynamic> toJson() => _$DetailedSegmentToJson(this);
 }

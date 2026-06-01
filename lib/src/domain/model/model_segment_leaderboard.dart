@@ -1,42 +1,40 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_segment_leaderboard.g.dart';
+
+@JsonSerializable()
 class SegmentLeaderboard {
+  @JsonKey(name: "effort_count")
   int? effortCount;
+  @JsonKey(name: "entry_count")
   int? entryCount;
+  @JsonKey(name: "kom_type")
   String? komType;
+  @JsonKey(name: "entries")
   List<SegmentLeaderboardEntry>? entries;
 
   SegmentLeaderboard(
       {this.effortCount, this.entryCount, this.komType, this.entries});
 
-  SegmentLeaderboard.fromJson(Map<String, dynamic> json) {
-    effortCount = json['effort_count'];
-    entryCount = json['entry_count'];
-    komType = json['kom_type'];
-    if (json['entries'] != null) {
-      entries = <SegmentLeaderboardEntry>[];
-      json['entries'].forEach((v) {
-        entries?.add(SegmentLeaderboardEntry.fromJson(v));
-      });
-    }
-  }
+  factory SegmentLeaderboard.fromJson(Map<String, dynamic> json) =>
+      _$SegmentLeaderboardFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['effort_count'] = this.effortCount;
-    data['entry_count'] = this.entryCount;
-    data['kom_type'] = this.komType;
-    if (this.entries != null) {
-      data['entries'] = this.entries?.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$SegmentLeaderboardToJson(this);
 }
 
+@JsonSerializable()
 class SegmentLeaderboardEntry {
+  @JsonKey(name: "athlete_name")
   String? athleteName;
+  @JsonKey(name: "elapsed_time")
   int? elapsedTime;
+  @JsonKey(name: "moving_time")
   int? movingTime;
+  @JsonKey(name: "start_date")
   String? startDate;
+  @JsonKey(name: "start_date_local")
   String? startDateLocal;
+  @JsonKey(name: "rank")
   int? rank;
 
   SegmentLeaderboardEntry(
@@ -47,23 +45,8 @@ class SegmentLeaderboardEntry {
       this.startDateLocal,
       this.rank});
 
-  SegmentLeaderboardEntry.fromJson(Map<String, dynamic> json) {
-    athleteName = json['athlete_name'];
-    elapsedTime = json['elapsed_time'];
-    movingTime = json['moving_time'];
-    startDate = json['start_date'];
-    startDateLocal = json['start_date_local'];
-    rank = json['rank'];
-  }
+  factory SegmentLeaderboardEntry.fromJson(Map<String, dynamic> json) =>
+      _$SegmentLeaderboardEntryFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['athlete_name'] = this.athleteName;
-    data['elapsed_time'] = this.elapsedTime;
-    data['moving_time'] = this.movingTime;
-    data['start_date'] = this.startDate;
-    data['start_date_local'] = this.startDateLocal;
-    data['rank'] = this.rank;
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$SegmentLeaderboardEntryToJson(this);
 }

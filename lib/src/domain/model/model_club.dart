@@ -24,51 +24,96 @@
 // post_count : 29
 // owner_id : 759
 // following_count : 107
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_club.g.dart';
+
+@JsonSerializable()
 class Club {
+  @JsonKey(name: "id")
   int? id;
 
   /// Resource state, indicates level of detail.
   ///
   /// Possible values: 1 -> `meta`, 2 -> `summary`, 3 -> `detail`.
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "name")
   String? name;
 
   /// URL to a 60x60 pixel profile picture.
+  @JsonKey(name: "profile_medium")
   String? profileMedium;
+
+  @JsonKey(name: "profile")
   String? profile;
 
   /// URL to a ~1185x580 pixel cover photo.
+  @JsonKey(name: "cover_photo")
   String? coverPhoto;
 
   /// URL to a ~360x176 pixel cover photo.
+  @JsonKey(name: "cover_photo_small")
   String? coverPhotoSmall;
 
   /// Deprecated. Prefer to use `activity_types`.
   ///
   /// May take one of the following values: `cycling`, `running`, `triathlon`,
   /// `other`.
+  @JsonKey(name: "sport_type")
   String? sportType;
+
+  @JsonKey(name: "city")
   String? city;
+
+  @JsonKey(name: "state")
   String? state;
+
+  @JsonKey(name: "country")
   String? country;
+
+  @JsonKey(name: "private")
   bool? private;
+
+  @JsonKey(name: "member_count")
   int? memberCount;
+
+  @JsonKey(name: "featured")
   bool? featured;
+
+  @JsonKey(name: "verified")
   bool? verified;
 
   /// The club's vanity URL.
+  @JsonKey(name: "url")
   String? url;
 
   /// The membership status of the logged-in athlete.
   ///
   /// May take one of the following values: `member`, `pending`.
+  @JsonKey(name: "membership")
   String? membership;
+
+  @JsonKey(name: "admin")
   bool? admin;
+
+  @JsonKey(name: "owner")
   bool? owner;
+
+  @JsonKey(name: "description")
   String? description;
+
+  @JsonKey(name: "club_type")
   String? clubType;
+
+  @JsonKey(name: "post_count")
   int? postCount;
+
+  @JsonKey(name: "owner_id")
   int? ownerId;
+
+  @JsonKey(name: "following_count")
   int? followingCount;
 
   Club(
@@ -97,59 +142,7 @@ class Club {
       this.ownerId,
       this.followingCount});
 
-  Club.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    profileMedium = json['profile_medium'];
-    profile = json['profile'];
-    coverPhoto = json['cover_photo'];
-    coverPhotoSmall = json['cover_photo_small'];
-    sportType = json['sport_type'];
-    city = json['city'];
-    state = json['state'];
-    country = json['country'];
-    private = json['private'];
-    memberCount = json['member_count'];
-    featured = json['featured'];
-    verified = json['verified'];
-    url = json['url'];
-    membership = json['membership'];
-    admin = json['admin'];
-    owner = json['owner'];
-    description = json['description'];
-    clubType = json['club_type'];
-    postCount = json['post_count'];
-    ownerId = json['owner_id'];
-    followingCount = json['following_count'];
-  }
+  factory Club.fromJson(Map<String, dynamic> json) => _$ClubFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['resource_state'] = resourceState;
-    map['name'] = name;
-    map['profile_medium'] = profileMedium;
-    map['profile'] = profile;
-    map['cover_photo'] = coverPhoto;
-    map['cover_photo_small'] = coverPhotoSmall;
-    map['sport_type'] = sportType;
-    map['city'] = city;
-    map['state'] = state;
-    map['country'] = country;
-    map['private'] = private;
-    map['member_count'] = memberCount;
-    map['featured'] = featured;
-    map['verified'] = verified;
-    map['url'] = url;
-    map['membership'] = membership;
-    map['admin'] = admin;
-    map['owner'] = owner;
-    map['description'] = description;
-    map['club_type'] = clubType;
-    map['post_count'] = postCount;
-    map['owner_id'] = ownerId;
-    map['following_count'] = followingCount;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$ClubToJson(this);
 }

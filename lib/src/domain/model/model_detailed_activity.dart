@@ -1,82 +1,202 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:strava_client/src/domain/model/model_lap.dart';
 import 'package:strava_client/src/domain/model/model_summary_gear.dart';
 
+part 'model_detailed_activity.g.dart';
+
+/// Preserves the legacy behavior of returning an empty list (not null) when
+/// the latlng field is absent from the JSON payload.
+List<double>? _latLngFromJson(dynamic value) =>
+    value != null ? (value as List).cast<double>() : <double>[];
+
+@JsonSerializable()
 class DetailedActivity {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "external_id")
   String? externalId;
+
+  @JsonKey(name: "upload_id")
   int? uploadId;
+
+  @JsonKey(name: "athlete", includeIfNull: false)
   MetaAthlete? athlete;
+
+  @JsonKey(name: "name")
   String? name;
 
   /// The activity's distance, in meters.
+  @JsonKey(name: "distance")
   double? distance;
 
   /// The activity's moving time, in seconds.
+  @JsonKey(name: "moving_time")
   int? movingTime;
 
   /// The activity's elapsed time, in seconds.
+  @JsonKey(name: "elapsed_time")
   int? elapsedTime;
+
+  @JsonKey(name: "total_elevation_gain")
   double? totalElevationGain;
+
+  @JsonKey(name: "type")
   String? type;
+
+  @JsonKey(name: "start_date")
   String? startDate;
+
+  @JsonKey(name: "start_date_local")
   String? startDateLocal;
+
+  @JsonKey(name: "timezone")
   String? timezone;
+
+  @JsonKey(name: "utc_offset")
   double? utcOffset;
+
+  @JsonKey(name: "start_latlng", fromJson: _latLngFromJson)
   List<double>? startLatlng;
+
+  @JsonKey(name: "end_latlng", fromJson: _latLngFromJson)
   List<double>? endLatlng;
+
+  @JsonKey(name: "achievement_count")
   int? achievementCount;
+
+  @JsonKey(name: "kudos_count")
   int? kudosCount;
+
+  @JsonKey(name: "comment_count")
   int? commentCount;
+
+  @JsonKey(name: "athlete_count")
   int? athleteCount;
 
   /// The number of Instagram photos for this activity.
+  @JsonKey(name: "photo_count")
   int? photoCount;
+
+  @JsonKey(name: "map", includeIfNull: false)
   PolyLineMap? map;
+
+  @JsonKey(name: "trainer")
   bool? trainer;
+
+  @JsonKey(name: "commute")
   bool? commute;
+
+  @JsonKey(name: "manual")
   bool? manual;
+
+  @JsonKey(name: "private")
   bool? private;
+
+  @JsonKey(name: "flagged")
   bool? flagged;
+
+  @JsonKey(name: "gear_id")
   String? gearId;
+
+  @JsonKey(name: "from_accepted_tag")
   bool? fromAcceptedTag;
 
   /// The activity's average speed, in meters per second.
+  @JsonKey(name: "average_speed")
   double? averageSpeed;
 
   /// The activity's max speed, in meters per second.
+  @JsonKey(name: "max_speed")
   double? maxSpeed;
+
+  @JsonKey(name: "average_cadence")
   double? averageCadence;
+
+  @JsonKey(name: "average_temp")
   int? averageTemp;
+
+  @JsonKey(name: "average_watts")
   double? averageWatts;
+
+  @JsonKey(name: "weighted_average_watts")
   int? weightedAverageWatts;
+
+  @JsonKey(name: "kilojoules")
   double? kilojoules;
+
+  @JsonKey(name: "device_watts")
   bool? deviceWatts;
+
+  @JsonKey(name: "has_heartrate")
   bool? hasHeartrate;
+
+  @JsonKey(name: "max_watts")
   int? maxWatts;
+
+  @JsonKey(name: "elev_high")
   double? elevHigh;
+
+  @JsonKey(name: "elev_low")
   double? elevLow;
+
+  @JsonKey(name: "pr_count")
   int? prCount;
 
   /// The number of Instagram and Strava photos for this activity.
+  @JsonKey(name: "total_photo_count")
   int? totalPhotoCount;
+
+  @JsonKey(name: "has_kudoed")
   bool? hasKudoed;
+
+  @JsonKey(name: "workout_type")
   int? workoutType;
+
+  @JsonKey(name: "suffer_score")
   num? sufferScore;
+
+  @JsonKey(name: "description")
   String? description;
+
+  @JsonKey(name: "calories")
   double? calories;
+
+  @JsonKey(name: "segment_efforts", includeIfNull: false)
   List<DetailedSegmentEffort>? segmentEfforts;
 
   /// The splits of this activity in metric units (for runs).
+  @JsonKey(name: "splits_metric", includeIfNull: false)
   List<SplitsMetric>? splitsMetric;
+
+  @JsonKey(name: "laps", includeIfNull: false)
   List<Lap>? laps;
+
+  @JsonKey(name: "gear", includeIfNull: false)
   SummaryGear? gear;
+
+  @JsonKey(name: "partner_brand_tag")
   dynamic partnerBrandTag;
+
+  @JsonKey(name: "photos", includeIfNull: false)
   PhotosSummary? photos;
+
+  @JsonKey(name: "highlighted_kudosers", includeIfNull: false)
   List<HighlightedKudosers>? highlightedKudosers;
+
+  @JsonKey(name: "device_name")
   String? deviceName;
+
+  @JsonKey(name: "embed_token")
   String? embedToken;
+
+  @JsonKey(name: "segment_leaderboard_opt_out")
   bool? segmentLeaderboardOptOut;
+
+  @JsonKey(name: "leaderboard_opt_out")
   bool? leaderboardOptOut;
 
   DetailedActivity(
@@ -141,175 +261,10 @@ class DetailedActivity {
       this.segmentLeaderboardOptOut,
       this.leaderboardOptOut});
 
-  DetailedActivity.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    externalId = json['external_id'];
-    uploadId = json['upload_id'];
-    athlete =
-        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
-    name = json['name'];
-    distance = json['distance'].toDouble();
-    movingTime = json['moving_time'];
-    elapsedTime = json['elapsed_time'];
-    totalElevationGain = json['total_elevation_gain'].toDouble();
-    type = json['type'];
-    startDate = json['start_date'];
-    startDateLocal = json['start_date_local'];
-    timezone = json['timezone'];
-    utcOffset = json['utc_offset'];
-    startLatlng =
-        json['start_latlng'] != null ? json['start_latlng'].cast<double>() : [];
-    endLatlng =
-        json['end_latlng'] != null ? json['end_latlng'].cast<double>() : [];
-    achievementCount = json['achievement_count'];
-    kudosCount = json['kudos_count'];
-    commentCount = json['comment_count'];
-    athleteCount = json['athlete_count'];
-    photoCount = json['photo_count'];
-    map = json['map'] != null ? PolyLineMap.fromJson(json['map']) : null;
-    trainer = json['trainer'];
-    commute = json['commute'];
-    manual = json['manual'];
-    private = json['private'];
-    flagged = json['flagged'];
-    gearId = json['gear_id'];
-    fromAcceptedTag = json['from_accepted_tag'];
-    averageSpeed = json['average_speed'];
-    maxSpeed = json['max_speed'].toDouble();
-    averageCadence = json['average_cadence'];
-    averageTemp = json['average_temp'];
-    averageWatts = json['average_watts'];
-    weightedAverageWatts = json['weighted_average_watts'];
-    kilojoules = json['kilojoules'];
-    deviceWatts = json['device_watts'];
-    hasHeartrate = json['has_heartrate'];
-    maxWatts = json['max_watts'];
-    elevHigh = json['elev_high'];
-    elevLow = json['elev_low'];
-    prCount = json['pr_count'];
-    totalPhotoCount = json['total_photo_count'];
-    hasKudoed = json['has_kudoed'];
-    workoutType = json['workout_type'];
-    sufferScore = json['suffer_score'];
-    description = json['description'];
-    calories = json['calories'].toDouble();
-    if (json['segment_efforts'] != null) {
-      segmentEfforts = [];
-      json['segment_efforts'].forEach((v) {
-        segmentEfforts?.add(DetailedSegmentEffort.fromJson(v));
-      });
-    }
-    if (json['splits_metric'] != null) {
-      splitsMetric = [];
-      json['splits_metric'].forEach((v) {
-        splitsMetric?.add(SplitsMetric.fromJson(v));
-      });
-    }
-    if (json['laps'] != null) {
-      laps = [];
-      json['laps'].forEach((v) {
-        laps?.add(Lap.fromJson(v));
-      });
-    }
-    gear = json['gear'] != null ? SummaryGear.fromJson(json['gear']) : null;
-    partnerBrandTag = json['partner_brand_tag'];
-    photos =
-        json['photos'] != null ? PhotosSummary.fromJson(json['photos']) : null;
-    if (json['highlighted_kudosers'] != null) {
-      highlightedKudosers = [];
-      json['highlighted_kudosers'].forEach((v) {
-        highlightedKudosers?.add(HighlightedKudosers.fromJson(v));
-      });
-    }
-    deviceName = json['device_name'];
-    embedToken = json['embed_token'];
-    segmentLeaderboardOptOut = json['segment_leaderboard_opt_out'];
-    leaderboardOptOut = json['leaderboard_opt_out'];
-  }
+  factory DetailedActivity.fromJson(Map<String, dynamic> json) =>
+      _$DetailedActivityFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var jsonMap = <String, dynamic>{};
-    jsonMap['id'] = id;
-    jsonMap['resource_state'] = resourceState;
-    jsonMap['external_id'] = externalId;
-    jsonMap['upload_id'] = uploadId;
-    if (athlete != null) {
-      jsonMap['athlete'] = athlete?.toJson();
-    }
-    jsonMap['name'] = name;
-    jsonMap['distance'] = distance;
-    jsonMap['moving_time'] = movingTime;
-    jsonMap['elapsed_time'] = elapsedTime;
-    jsonMap['total_elevation_gain'] = totalElevationGain;
-    jsonMap['type'] = type;
-    jsonMap['start_date'] = startDate;
-    jsonMap['start_date_local'] = startDateLocal;
-    jsonMap['timezone'] = timezone;
-    jsonMap['utc_offset'] = utcOffset;
-    jsonMap['start_latlng'] = startLatlng;
-    jsonMap['end_latlng'] = endLatlng;
-    jsonMap['achievement_count'] = achievementCount;
-    jsonMap['kudos_count'] = kudosCount;
-    jsonMap['comment_count'] = commentCount;
-    jsonMap['athlete_count'] = athleteCount;
-    jsonMap['photo_count'] = photoCount;
-    if (map != null) {
-      jsonMap['map'] = map?.toJson();
-    }
-    jsonMap['trainer'] = trainer;
-    jsonMap['commute'] = commute;
-    jsonMap['manual'] = manual;
-    jsonMap['private'] = private;
-    jsonMap['flagged'] = flagged;
-    jsonMap['gear_id'] = gearId;
-    jsonMap['from_accepted_tag'] = fromAcceptedTag;
-    jsonMap['average_speed'] = averageSpeed;
-    jsonMap['max_speed'] = maxSpeed;
-    jsonMap['average_cadence'] = averageCadence;
-    jsonMap['average_temp'] = averageTemp;
-    jsonMap['average_watts'] = averageWatts;
-    jsonMap['weighted_average_watts'] = weightedAverageWatts;
-    jsonMap['kilojoules'] = kilojoules;
-    jsonMap['device_watts'] = deviceWatts;
-    jsonMap['has_heartrate'] = hasHeartrate;
-    jsonMap['max_watts'] = maxWatts;
-    jsonMap['elev_high'] = elevHigh;
-    jsonMap['elev_low'] = elevLow;
-    jsonMap['pr_count'] = prCount;
-    jsonMap['total_photo_count'] = totalPhotoCount;
-    jsonMap['has_kudoed'] = hasKudoed;
-    jsonMap['workout_type'] = workoutType;
-    jsonMap['suffer_score'] = sufferScore;
-    jsonMap['description'] = description;
-    jsonMap['calories'] = calories;
-    if (segmentEfforts != null) {
-      jsonMap['segment_efforts'] =
-          segmentEfforts?.map((v) => v.toJson()).toList();
-    }
-    if (splitsMetric != null) {
-      jsonMap['splits_metric'] = splitsMetric?.map((v) => v.toJson()).toList();
-    }
-    if (laps != null) {
-      jsonMap['laps'] = laps?.map((v) => v.toJson()).toList();
-    }
-    if (gear != null) {
-      jsonMap['gear'] = gear?.toJson();
-    }
-    jsonMap['partner_brand_tag'] = partnerBrandTag;
-    if (photos != null) {
-      jsonMap['photos'] = photos?.toJson();
-    }
-    if (highlightedKudosers != null) {
-      jsonMap['highlighted_kudosers'] =
-          highlightedKudosers?.map((v) => v.toJson()).toList();
-    }
-    jsonMap['device_name'] = deviceName;
-    jsonMap['embed_token'] = embedToken;
-    jsonMap['segment_leaderboard_opt_out'] = segmentLeaderboardOptOut;
-    jsonMap['leaderboard_opt_out'] = leaderboardOptOut;
-    return jsonMap;
-  }
+  Map<String, dynamic> toJson() => _$DetailedActivityToJson(this);
 }
 
 // Example value :
@@ -317,90 +272,75 @@ class DetailedActivity {
 // display_name : "Marianne V."
 // avatar_url : "https://dgalywyr863hv.cloudfront.net/pictures/athletes/12345678987654321/12345678987654321/3/medium.jpg"
 // show_name : true
+@JsonSerializable()
 class HighlightedKudosers {
+  @JsonKey(name: "destination_url")
   String? destinationUrl;
+
+  @JsonKey(name: "display_name")
   String? displayName;
+
+  @JsonKey(name: "avatar_url")
   String? avatarUrl;
+
+  @JsonKey(name: "show_name")
   bool? showName;
 
   HighlightedKudosers(
       {this.destinationUrl, this.displayName, this.avatarUrl, this.showName});
 
-  HighlightedKudosers.fromJson(dynamic json) {
-    destinationUrl = json['destination_url'];
-    displayName = json['display_name'];
-    avatarUrl = json['avatar_url'];
-    showName = json['show_name'];
-  }
+  factory HighlightedKudosers.fromJson(Map<String, dynamic> json) =>
+      _$HighlightedKudosersFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['destination_url'] = destinationUrl;
-    map['display_name'] = displayName;
-    map['avatar_url'] = avatarUrl;
-    map['show_name'] = showName;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$HighlightedKudosersToJson(this);
 }
 
 // primary : {"id":null,"unique_id":"3FDGKL3-204E-4867-9E8D-89FC79EAAE17","urls":{"100":"https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg","600":"https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-768x576.jpg"},"source":1}
 // use_primary_photo : true
 // count : 2
+@JsonSerializable()
 class PhotosSummary {
+  @JsonKey(name: "primary", includeIfNull: false)
   PhotosSummaryPrimary? primary;
+
+  @JsonKey(name: "use_primary_photo")
   bool? usePrimaryPhoto;
+
+  @JsonKey(name: "count")
   int? count;
 
   PhotosSummary({this.primary, this.usePrimaryPhoto, this.count});
 
-  PhotosSummary.fromJson(dynamic json) {
-    primary = json['primary'] != null
-        ? PhotosSummaryPrimary.fromJson(json['primary'])
-        : null;
-    usePrimaryPhoto = json['use_primary_photo'];
-    count = json['count'];
-  }
+  factory PhotosSummary.fromJson(Map<String, dynamic> json) =>
+      _$PhotosSummaryFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    if (primary != null) {
-      map['primary'] = primary?.toJson();
-    }
-    map['use_primary_photo'] = usePrimaryPhoto;
-    map['count'] = count;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$PhotosSummaryToJson(this);
 }
 
 // id : null
 // unique_id : "3FDGKL3-204E-4867-9E8D-89FC79EAAE17"
 // urls : {"100":"https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg","600":"https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-768x576.jpg"}
 // source : 1
+@JsonSerializable()
 class PhotosSummaryPrimary {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "unique_id")
   String? uniqueId;
+
+  @JsonKey(name: "urls", includeIfNull: false)
   ActivityUrls? urls;
+
+  @JsonKey(name: "source")
   int? source;
 
   PhotosSummaryPrimary({this.id, this.uniqueId, this.urls, this.source});
 
-  PhotosSummaryPrimary.fromJson(dynamic json) {
-    id = json['id'];
-    uniqueId = json['unique_id'];
-    urls = json['urls'] != null ? ActivityUrls.fromJson(json['urls']) : null;
-    source = json['source'];
-  }
+  factory PhotosSummaryPrimary.fromJson(Map<String, dynamic> json) =>
+      _$PhotosSummaryPrimaryFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['unique_id'] = uniqueId;
-    if (urls != null) {
-      map['urls'] = urls?.toJson();
-    }
-    map['source'] = source;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$PhotosSummaryPrimaryToJson(this);
 }
 
 // 100 : "https://dgtzuqphqg23d.cloudfront.net/Bv93zv5t_mr57v0wXFbY_JyvtucgmU5Ym6N9z_bKeUI-128x96.jpg"
@@ -452,22 +392,32 @@ class ActivityUrls {
 // split : 1
 // average_speed : 7.1
 // pace_zone : 0
+@JsonSerializable()
 class SplitsMetric {
   /// The distance of this split, in meters.
+  @JsonKey(name: "distance")
   double? distance;
 
   /// The elapsed time of this split, in seconds.
+  @JsonKey(name: "elapsed_time")
   int? elapsedTime;
 
   /// The elevation difference of this split, in meters.
+  @JsonKey(name: "elevation_difference")
   double? elevationDifference;
 
   /// The moving time of this split, in seconds.
+  @JsonKey(name: "moving_time")
   int? movingTime;
+
+  @JsonKey(name: "split")
   int? split;
 
   /// The average speed of this split, in meters per second.
+  @JsonKey(name: "average_speed")
   double? averageSpeed;
+
+  @JsonKey(name: "pace_zone")
   int? paceZone;
 
   SplitsMetric(
@@ -479,27 +429,10 @@ class SplitsMetric {
       this.averageSpeed,
       this.paceZone});
 
-  SplitsMetric.fromJson(dynamic json) {
-    distance = json['distance'];
-    elapsedTime = json['elapsed_time'];
-    elevationDifference = json['elevation_difference'];
-    movingTime = json['moving_time'];
-    split = json['split'];
-    averageSpeed = json['average_speed'];
-    paceZone = json['pace_zone'];
-  }
+  factory SplitsMetric.fromJson(Map<String, dynamic> json) =>
+      _$SplitsMetricFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['distance'] = distance;
-    map['elapsed_time'] = elapsedTime;
-    map['elevation_difference'] = elevationDifference;
-    map['moving_time'] = movingTime;
-    map['split'] = split;
-    map['average_speed'] = averageSpeed;
-    map['pace_zone'] = paceZone;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$SplitsMetricToJson(this);
 }
 
 // id : 12345678987654321
@@ -522,26 +455,66 @@ class SplitsMetric {
 // pr_rank : null
 // achievements : []
 // hidden : false
+@JsonSerializable()
 class DetailedSegmentEffort {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "name")
   String? name;
+
+  @JsonKey(name: "activity", includeIfNull: false)
   MetaActivity? activity;
+
+  @JsonKey(name: "athlete", includeIfNull: false)
   MetaAthlete? athlete;
+
+  @JsonKey(name: "elapsed_time")
   int? elapsedTime;
+
+  @JsonKey(name: "moving_time")
   int? movingTime;
+
+  @JsonKey(name: "start_date")
   String? startDate;
+
+  @JsonKey(name: "start_date_local")
   String? startDateLocal;
+
+  @JsonKey(name: "distance")
   double? distance;
+
+  @JsonKey(name: "start_index")
   int? startIndex;
+
+  @JsonKey(name: "end_index")
   int? endIndex;
+
+  @JsonKey(name: "average_cadence")
   double? averageCadence;
+
+  @JsonKey(name: "device_watts")
   bool? deviceWatts;
+
+  @JsonKey(name: "average_watts")
   double? averageWatts;
+
+  @JsonKey(name: "segment", includeIfNull: false)
   Segment? segment;
+
+  @JsonKey(name: "kom_rank")
   int? komRank;
+
+  @JsonKey(name: "pr_rank")
   int? prRank;
+
+  @JsonKey(name: "achievements", includeIfNull: false)
   List<dynamic>? achievements;
+
+  @JsonKey(name: "hidden")
   bool? hidden;
 
   DetailedSegmentEffort(
@@ -566,70 +539,10 @@ class DetailedSegmentEffort {
       this.achievements,
       this.hidden});
 
-  DetailedSegmentEffort.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    activity = json['activity'] != null
-        ? MetaActivity.fromJson(json['activity'])
-        : null;
-    athlete =
-        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
-    elapsedTime = json['elapsed_time'];
-    movingTime = json['moving_time'];
-    startDate = json['start_date'];
-    startDateLocal = json['start_date_local'];
-    distance = json['distance'];
-    startIndex = json['start_index'];
-    endIndex = json['end_index'];
-    averageCadence = json['average_cadence'];
-    deviceWatts = json['device_watts'];
-    averageWatts = json['average_watts'];
-    segment =
-        json['segment'] != null ? Segment.fromJson(json['segment']) : null;
-    komRank = json['kom_rank'];
-    prRank = json['pr_rank'];
-    if (json['achievements'] != null) {
-      achievements = [];
-      json['achievements'].forEach((v) {
-        achievements?.add(v);
-      });
-    }
-    hidden = json['hidden'];
-  }
+  factory DetailedSegmentEffort.fromJson(Map<String, dynamic> json) =>
+      _$DetailedSegmentEffortFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['resource_state'] = resourceState;
-    map['name'] = name;
-    if (activity != null) {
-      map['activity'] = activity?.toJson();
-    }
-    if (athlete != null) {
-      map['athlete'] = athlete?.toJson();
-    }
-    map['elapsed_time'] = elapsedTime;
-    map['moving_time'] = movingTime;
-    map['start_date'] = startDate;
-    map['start_date_local'] = startDateLocal;
-    map['distance'] = distance;
-    map['start_index'] = startIndex;
-    map['end_index'] = endIndex;
-    map['average_cadence'] = averageCadence;
-    map['device_watts'] = deviceWatts;
-    map['average_watts'] = averageWatts;
-    if (segment != null) {
-      map['segment'] = segment?.toJson();
-    }
-    map['kom_rank'] = komRank;
-    map['pr_rank'] = prRank;
-    if (achievements != null) {
-      map['achievements'] = achievements?.map((v) => v.toJson()).toList();
-    }
-    map['hidden'] = hidden;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$DetailedSegmentEffortToJson(this);
 }
 
 // id : 673683
@@ -650,33 +563,65 @@ class DetailedSegmentEffort {
 // private : false
 // hazardous : false
 // starred : false
+@JsonSerializable()
 class Segment {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "name")
   String? name;
 
   /// May take one of the following values: `Ride`, `Run`.
+  @JsonKey(name: "activity_type")
   String? activityType;
+
+  @JsonKey(name: "distance")
   double? distance;
 
   /// The segment's average grade, in percents.
+  @JsonKey(name: "average_grade")
   double? averageGrade;
 
   /// The segment's maximum grade, in percents.
+  @JsonKey(name: "maximum_grade")
   double? maximumGrade;
+
+  @JsonKey(name: "elevation_high")
   double? elevationHigh;
+
+  @JsonKey(name: "elevation_low")
   double? elevationLow;
+
+  @JsonKey(name: "start_latlng", fromJson: _latLngFromJson)
   List<double>? startLatlng;
+
+  @JsonKey(name: "end_latlng", fromJson: _latLngFromJson)
   List<double>? endLatlng;
 
   /// The category of the climb [0, 5]. Higher is harder ie. 5 is Hors
   /// catégorie, 0 is uncategorized in climb_category.
+  @JsonKey(name: "climb_category")
   int? climbCategory;
+
+  @JsonKey(name: "city")
   String? city;
+
+  @JsonKey(name: "state")
   String? state;
+
+  @JsonKey(name: "country")
   String? country;
+
+  @JsonKey(name: "private")
   bool? private;
+
+  @JsonKey(name: "hazardous")
   bool? hazardous;
+
+  @JsonKey(name: "starred")
   bool? starred;
 
   Segment(
@@ -699,79 +644,35 @@ class Segment {
       this.hazardous,
       this.starred});
 
-  Segment.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    activityType = json['activity_type'];
-    distance = json['distance'];
-    averageGrade = json['average_grade'];
-    maximumGrade = json['maximum_grade'];
-    elevationHigh = json['elevation_high'];
-    elevationLow = json['elevation_low'];
-    startLatlng =
-        json['start_latlng'] != null ? json['start_latlng'].cast<double>() : [];
-    endLatlng =
-        json['end_latlng'] != null ? json['end_latlng'].cast<double>() : [];
-    climbCategory = json['climb_category'];
-    city = json['city'];
-    state = json['state'];
-    country = json['country'];
-    private = json['private'];
-    hazardous = json['hazardous'];
-    starred = json['starred'];
-  }
+  factory Segment.fromJson(Map<String, dynamic> json) =>
+      _$SegmentFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['resource_state'] = resourceState;
-    map['name'] = name;
-    map['activity_type'] = activityType;
-    map['distance'] = distance;
-    map['average_grade'] = averageGrade;
-    map['maximum_grade'] = maximumGrade;
-    map['elevation_high'] = elevationHigh;
-    map['elevation_low'] = elevationLow;
-    map['start_latlng'] = startLatlng;
-    map['end_latlng'] = endLatlng;
-    map['climb_category'] = climbCategory;
-    map['city'] = city;
-    map['state'] = state;
-    map['country'] = country;
-    map['private'] = private;
-    map['hazardous'] = hazardous;
-    map['starred'] = starred;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$SegmentToJson(this);
 }
 
 // id : "a1410355832"
 // polyline : "ki{eFvqfiVqAWQIGEEKAYJgBVqDJ{BHa@jAkNJw@Pw@V{APs@^aABQAOEQGKoJ_FuJkFqAo@{A}@sH{DiAs@Q]?WVy@`@oBt@_CB]KYMMkB{AQEI@WT{BlE{@zAQPI@ICsCqA_BcAeCmAaFmCqIoEcLeG}KcG}A}@cDaBiDsByAkAuBqBi@y@_@o@o@kB}BgIoA_EUkAMcACa@BeBBq@LaAJe@b@uA`@_AdBcD`@iAPq@RgALqAB{@EqAyAoOCy@AmCBmANqBLqAZkB\\iCPiBJwCCsASiCq@iD]eA]y@[i@w@mAa@i@k@g@kAw@i@Ya@Q]EWFMLa@~BYpAFNpA`Aj@n@X`@V`AHh@JfB@xAMvAGZGHIDIAWOEQNcC@sACYK[MSOMe@QKKKYOs@UYQISCQ?Q@WNo@r@OHGAGCKOQ_BU}@MQGG]Io@@c@FYNg@d@s@d@ODQAMOMaASs@_@a@SESAQDqBn@a@RO?KK?UBU\\kA@Y?WMo@Iy@GWQ_@WSSGg@AkABQB_Ap@_A^o@b@Q@o@IS@OHi@n@OFS?OI}@iAQMQGQC}@DOIIUK{@IUOMyBo@kASOKIQCa@L[|AgATWN[He@?QKw@FOPCh@Fx@l@TDLELKl@aAHIJEX@r@ZTDV@LENQVg@RkA@c@MeA?WFOPMf@Ej@Fj@@LGHKDM?_@_@iC?a@HKRIl@NT?FCHMFW?YEYGWQa@GYBiAIq@Gq@L_BHSHK|@WJETSLQZs@z@_A~@uA^U`@G\\CRB\\Tl@p@Th@JZ^bB`@lAHLXVLDP?LGFSKiDBo@d@wBVi@R]VYVE\\@`@Lh@Fh@CzAk@RSDQA]GYe@eAGWSiBAWBWBIJORK`@KPOPSTg@h@}Ad@o@F[E_@EGMKUGmAEYGMIMYKs@?a@J}@@_BD_@HQJMx@e@LKHKHWAo@UoAAWFmAH}@?w@C[YwAAc@HSNM|Ao@rA}@zAq@`@a@j@eAxAuBXQj@MXSR[b@gAFg@?YISOGaAHi@Xw@v@_@d@WRSFqARUHQJc@d@m@`A[VSFUBcAEU@WFULUPa@v@Y~@UrBc@dBI~@?l@P~ABt@N`HEjA]zAEp@@p@TrBCl@CTQb@k@dAg@jAU^KJYLK@k@A[Js@d@a@b@]RgBl@[FMAw@[]G]?m@D_@F]P[Vu@t@[TMF_@Do@E_@@q@P]PWZUZw@vAkAlAGJOj@IlAMd@OR{@p@a@d@sBpD]v@a@`Aa@n@]TODgBVk@Pe@^cBfBc@Rs@La@RSPm@|@wCpDS^Wp@QZML{@l@qBbCYd@k@lAIVCZBZNTr@`@RRHZANIZQPKDW@e@CaASU?I@YTKRQx@@\\VmALYRQLCL?v@P|@D\\GJEFKDM@OCa@COOYIGm@YMUCM@]JYr@uAx@kAt@}@jAeAPWbAkBj@s@bAiAz@oAj@m@VQlAc@VQ~@aA`Au@p@Q`AIv@MZORUV_@p@iB|AoCh@q@dAaANUNWH[N{AJ[^m@t@_Av@wA\\a@`@W`@In@Al@B^E`@Wl@u@\\[VQ\\K`@Eb@?R@dAZP@d@CRExAs@\\Yt@{@LG\\MjAATINOXo@d@kAl@_AHYBOCe@QiBCm@Fq@\\wADo@AyGEeBWuB@YHu@Tu@Lk@VcCTo@d@aA\\WJE`@G~@FP?VI\\U~@sANO`@SfAMj@U\\WjAsAXS`@UNENALBHFFL?^Ml@Uj@]b@q@RUJSPkChEc@XcAb@sA|@]PaA\\OJKNER?TDTNj@Jn@?p@OfC@ZR`B@VCV_@n@{@l@WbACv@OlABnAPl@LNNHbBBNBLFFJ@^GLg@x@i@|AMP[X}@XOJKPET?l@LhAFXp@fBDRCd@S\\_@Ps@PQ@}A]S?QDe@V]b@MR[fAKt@ErAF~CANILYDKGIKe@{@Yy@e@sB[gA[c@e@YUCU?WBUHUNQPq@`AiArAMV[^e@Zc@JQJKNMz@?r@Bb@PfAAfA@VVbADn@E`@KHSEe@SMAKDKFM\\^dDCh@m@LoAQ_@@MFOZLfBEl@QbASd@KLQBOAaAc@QAQ@QHc@v@ONMJOBOCg@c@]O[EMBKFGL?RHv@ARERGNe@h@{@h@WVGNDt@JLNFPFz@LdBf@f@PJNHPF`ADPJJJDl@I`@B^Tp@bALJNDNALIf@i@PGPCt@DNE`@Uv@[dAw@RITGRCtAARBPJLPJRZxB?VEX_@vAAR?RDNHJJBh@UnBm@h@IRDRJNNJPNbBFRJLLBLCzAmAd@Uf@Gf@?P@PFJNHPFTH`BDTHNJJJ@LG`@m@^YPER@RDPHNNJRLn@HRLN^VNPHTFX@\\UlDFb@FHh@NP@HKPsB?}ASkCQ{@[y@q@}@cA{@KOCQDa@t@{CFGJCf@Nl@ZtA~@r@p@`@h@rAxBd@rA\\fARdAPjANrB?f@AtBCd@QfBkAjJOlBChA?rBFrBNlBdAfKFzAC~@Iz@Mz@Sv@s@jBmAxBi@hAWt@Sv@Qx@O`BA`@?dAPfBVpAd@`BfBlFf@fBdA~Cr@pAz@fApBhBjAt@H?IL?FBFJLx@^lHvDvh@~XnElCbAd@pGhDbAb@nAr@`Ad@`GhDnBbAxCbBrWhNJJDPARGP_@t@Qh@]pAUtAoA`Ny@jJApBBNFLJFJBv@Hb@HBF?\\"
 // resource_state : 3
 // summary_polyline : "ki{eFvqfiVsBmA`Feh@qg@iX`B}JeCcCqGjIq~@kf@cM{KeHeX`@_GdGkSeBiXtB}YuEkPwFyDeAzAe@pC~DfGc@bIOsGmCcEiD~@oBuEkFhBcBmDiEfAVuDiAuD}NnDaNiIlCyDD_CtJKv@wGhD]YyEzBo@g@uKxGmHpCGtEtI~AuLrHkAcAaIvEgH_EaDR_FpBuBg@sNxHqEtHgLoTpIiCzKNr[sB|Es\\`JyObYeMbGsMnPsAfDxAnD}DBu@bCx@{BbEEyAoD`AmChNoQzMoGhOwX|[yIzBeFKg[zAkIdU_LiHxK}HzEh@vM_BtBg@xGzDbCcF~GhArHaIfByAhLsDiJuC?_HbHd@nL_Cz@ZnEkDDy@hHwJLiCbIrNrIvN_EfAjDWlEnEiAfBxDlFkBfBtEfDaAzBvDKdFx@|@XgJmDsHhAgD`GfElEzOwBnYdBxXgGlSc@bGdHpW|HdJztBnhAgFxc@HnCvBdA"
+@JsonSerializable()
 class PolyLineMap {
+  @JsonKey(name: "id")
   String? id;
+
+  @JsonKey(name: "polyline")
   String? polyline;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "summary_polyline")
   String? summaryPolyline;
 
   PolyLineMap(
       {this.id, this.polyline, this.resourceState, this.summaryPolyline});
 
-  PolyLineMap.fromJson(dynamic json) {
-    id = json['id'];
-    polyline = json['polyline'];
-    resourceState = json['resource_state'];
-    summaryPolyline = json['summary_polyline'];
-  }
+  factory PolyLineMap.fromJson(Map<String, dynamic> json) =>
+      _$PolyLineMapFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['polyline'] = polyline;
-    map['resource_state'] = resourceState;
-    map['summary_polyline'] = summaryPolyline;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$PolyLineMapToJson(this);
 }

@@ -1,6 +1,9 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:strava_client/src/domain/model/model_detailed_activity.dart';
 import 'package:strava_client/src/domain/model/model_summary_athlete.dart';
 import 'package:strava_client/src/domain/model/model_summary_segment.dart';
+
+part 'model_route.g.dart';
 
 // private : true
 // distance : 0.8008282
@@ -19,32 +22,62 @@ import 'package:strava_client/src/domain/model/model_summary_segment.dart';
 // id : 1
 // map : {"summary_polyline":"aeiou","id":"aeiou","polyline":"aeiou"}
 // timestamp : 5
+@JsonSerializable()
 class Route {
+  @JsonKey(name: "private")
   bool? private;
 
   /// The route's distance, in meters.
+  @JsonKey(name: "distance")
   double? distance;
+
+  @JsonKey(name: "athlete")
   SummaryAthlete? athlete;
+
+  @JsonKey(name: "description")
   String? description;
+
+  @JsonKey(name: "created_at")
   String? createdAt;
+
+  @JsonKey(name: "elevation_gain")
   double? elevationGain;
 
   /// This route's type (1 for ride, 2 for runs).
+  @JsonKey(name: "type")
   int? type;
 
   /// Estimated time in seconds for the authenticated athlete to complete route.
+  @JsonKey(name: "estimated_moving_time")
   int? estimatedMovingTime;
+
+  @JsonKey(name: "segments", includeIfNull: false)
   List<SummarySegment>? segments;
+
+  @JsonKey(name: "starred")
   bool? starred;
+
+  @JsonKey(name: "updated_at")
   String? updatedAt;
 
   /// This route's sub-type (1 for `road`, 2 for `mountain bike`, 3 for `cross`,
   /// 4 for `trail`, 5 for `mixed`).
+  @JsonKey(name: "sub_type")
   int? subType;
+
+  @JsonKey(name: "id_str")
   String? idStr;
+
+  @JsonKey(name: "name")
   String? name;
+
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "map")
   PolyLineMap? map;
+
+  @JsonKey(name: "timestamp")
   int? timestamp;
 
   Route(
@@ -66,54 +99,7 @@ class Route {
       this.map,
       this.timestamp});
 
-  Route.fromJson(dynamic json) {
-    private = json['private'];
-    distance = json['distance'];
-    athlete = json['athlete'] != null
-        ? SummaryAthlete.fromJson(json['athlete'])
-        : null;
-    description = json['description'];
-    createdAt = json['created_at'];
-    elevationGain = json['elevation_gain'];
-    type = json['type'];
-    estimatedMovingTime = json['estimated_moving_time'];
-    if (json['segments'] != null) {
-      segments = [];
-      json['segments'].forEach((v) {
-        segments?.add(SummarySegment.fromJson(v));
-      });
-    }
-    starred = json['starred'];
-    updatedAt = json['updated_at'];
-    subType = json['sub_type'];
-    idStr = json['id_str'];
-    name = json['name'];
-    id = json['id'];
-    map = json['map'] != null ? PolyLineMap.fromJson(json['map']) : null;
-    timestamp = json['timestamp'];
-  }
+  factory Route.fromJson(Map<String, dynamic> json) => _$RouteFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var jsonMap = <String, dynamic>{};
-    jsonMap['private'] = private;
-    jsonMap['distance'] = distance;
-    jsonMap['athlete'] = athlete?.toJson();
-    jsonMap['description'] = description;
-    jsonMap['created_at'] = createdAt;
-    jsonMap['elevation_gain'] = elevationGain;
-    jsonMap['type'] = type;
-    jsonMap['estimated_moving_time'] = estimatedMovingTime;
-    if (segments != null) {
-      jsonMap['segments'] = segments?.map((v) => v.toJson()).toList();
-    }
-    jsonMap['starred'] = starred;
-    jsonMap['updated_at'] = updatedAt;
-    jsonMap['sub_type'] = subType;
-    jsonMap['id_str'] = idStr;
-    jsonMap['name'] = name;
-    jsonMap['id'] = id;
-    jsonMap['map'] = map?.toJson();
-    jsonMap['timestamp'] = timestamp;
-    return jsonMap;
-  }
+  Map<String, dynamic> toJson() => _$RouteToJson(this);
 }

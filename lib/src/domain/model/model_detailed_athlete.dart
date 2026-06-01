@@ -5,9 +5,43 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:strava_client/src/domain/model/model_summary_club.dart';
 import 'package:strava_client/src/domain/model/model_summary_gear.dart';
 
+part 'model_detailed_athlete.g.dart';
+
+/// Preserves the legacy behavior of accepting a non-`int` fallback (`""`) when
+/// the `resource_state` field is absent from the JSON payload.
+dynamic _resourceStateFromJson(dynamic value) => value ?? "";
+
+/// Preserves the legacy behavior of catching deserialization errors for the
+/// `clubs` list and returning an empty list (not null) on failure or when the
+/// field is absent / not a list.
+List<SummaryClub> _clubsFromJson(dynamic value) {
+  List<SummaryClub> clubs = [];
+  if (value is List) {
+    try {
+      clubs = value.map((e) => SummaryClub.fromJson(e)).toList();
+    } catch (exception, stackTrace) {
+      clubs = [];
+      debugPrint("Exception: $exception");
+      debugPrintStack(
+          stackTrace: stackTrace,
+          label: "An error occurred while serializing summary club json");
+    }
+  }
+  return clubs;
+}
+
+/// Preserves the legacy behavior of returning an empty list (not null) when a
+/// gear field (`bikes` / `shoes`) is absent from the JSON payload.
+List<SummaryGear> _gearFromJson(dynamic value) => value == null
+    ? <SummaryGear>[]
+    : List<SummaryGear>.from(
+        value.map((x) => SummaryGear.fromJson(x)));
+
+@JsonSerializable()
 class DetailedAthlete {
   DetailedAthlete(
       {required this.id,
@@ -40,141 +74,109 @@ class DetailedAthlete {
       required this.shoes,
       this.bio});
 
+  @JsonKey(name: "id")
   int id;
+
+  @JsonKey(name: "username", defaultValue: "")
   String? username;
 
   /// Resource state, indicates level of detail.
   ///
   /// Possible values: 1 -> `meta`, 2 -> `summary`, 3 -> `detail`.
+  @JsonKey(name: "resource_state", fromJson: _resourceStateFromJson)
   int resourceState;
+
+  @JsonKey(name: "firstname", defaultValue: "")
   String firstname;
+
+  @JsonKey(name: "lastname", defaultValue: "")
   String lastname;
+
+  @JsonKey(name: "city", defaultValue: "")
   String city;
+
+  @JsonKey(name: "state", defaultValue: "")
   String state;
+
+  @JsonKey(name: "country", defaultValue: "")
   String country;
 
   /// The athlete's sex. May take one of the following values: `M`, `F`.
+  @JsonKey(name: "sex", defaultValue: "")
   String sex;
-  String? bio;
+
+  @JsonKey(name: "premium", defaultValue: false)
   bool premium;
+
+  @JsonKey(name: "created_at")
   DateTime? createdAt;
+
+  @JsonKey(name: "updated_at")
   DateTime? updatedAt;
+
+  @JsonKey(name: "badge_type_id")
   int badgeTypeId;
 
   /// URL to a 62x62 pixel profile picture.
+  @JsonKey(name: "profile_medium")
   String? profileMedium;
 
   /// URL to a 124x124 pixel profile picture.
+  @JsonKey(name: "profile")
   String? profile;
+
+  @JsonKey(name: "friend")
   dynamic friend;
+
+  @JsonKey(name: "follower")
   dynamic follower;
+
+  @JsonKey(name: "follower_count", defaultValue: 0)
   int followerCount;
+
+  @JsonKey(name: "friend_count", defaultValue: 0)
   int friendCount;
+
+  @JsonKey(name: "mutual_friend_count", defaultValue: 0)
   int mutualFriendCount;
+
+  @JsonKey(name: "athlete_type", defaultValue: 0)
   int athleteType;
+
+  @JsonKey(name: "date_preference", defaultValue: "")
   String datePreference;
 
   /// The athlete's preferred unit system.
   ///
   /// May take one of the following values: `feet`, `meters`.
+  @JsonKey(name: "measurement_preference", defaultValue: "")
   String measurementPreference;
+
+  @JsonKey(name: "clubs", fromJson: _clubsFromJson)
   List<SummaryClub> clubs;
+
+  @JsonKey(name: "ftp")
   int? ftp;
+
+  @JsonKey(name: "weight")
   num? weight;
+
+  @JsonKey(name: "bikes", fromJson: _gearFromJson)
   List<SummaryGear> bikes;
+
+  @JsonKey(name: "shoes", fromJson: _gearFromJson)
   List<SummaryGear> shoes;
+
+  @JsonKey(name: "bio")
+  String? bio;
 
   factory DetailedAthlete.fromRawJson(String str) =>
       DetailedAthlete.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory DetailedAthlete.fromJson(Map<String, dynamic> json) {
-    var summaryClubJson =
-        json["clubs"]; //Added here to catch a mapping exception
-    List<SummaryClub> clubs = [];
-    if (summaryClubJson is List) {
-      try {
-        clubs = summaryClubJson.map((e) => SummaryClub.fromJson(e)).toList();
-      } catch (exception, stackTrace) {
-        clubs = [];
-        debugPrint("Exception: $exception");
-        debugPrintStack(
-            stackTrace: stackTrace,
-            label: "An error occurred while serializing summary club json");
-      }
-    }
-    return DetailedAthlete(
-        id: json["id"],
-        username: json["username"] ?? "",
-        resourceState: json["resource_state"] ?? "",
-        firstname: json["firstname"] ?? "",
-        lastname: json["lastname"] ?? "",
-        city: json["city"] ?? "",
-        state: json["state"] ?? "",
-        country: json["country"] ?? "",
-        sex: json["sex"] ?? "",
-        premium: json["premium"] ?? false,
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        badgeTypeId: json["badge_type_id"],
-        profileMedium: json["profile_medium"],
-        profile: json["profile"],
-        friend: json["friend"],
-        follower: json["follower"],
-        followerCount: json["follower_count"] ?? 0,
-        friendCount: json["friend_count"] ?? 0,
-        mutualFriendCount: json["mutual_friend_count"] ?? 0,
-        athleteType: json["athlete_type"] ?? 0,
-        datePreference: json["date_preference"] ?? "",
-        measurementPreference: json["measurement_preference"] ?? "",
-        clubs: clubs,
-        ftp: json["ftp"],
-        weight: json["weight"],
-        bikes: json["bikes"] == null
-            ? <SummaryGear>[]
-            : List<SummaryGear>.from(
-                json["bikes"].map((x) => SummaryGear.fromJson(x))),
-        shoes: json["shoes"] == null
-            ? <SummaryGear>[]
-            : List<SummaryGear>.from(
-                json["shoes"].map((x) => SummaryGear.fromJson(x))),
-        bio: json["bio"]);
-  }
+  factory DetailedAthlete.fromJson(Map<String, dynamic> json) =>
+      _$DetailedAthleteFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "username": username,
-        "resource_state": resourceState,
-        "firstname": firstname,
-        "lastname": lastname,
-        "city": city,
-        "state": state,
-        "country": country,
-        "sex": sex,
-        "premium": premium,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-        "badge_type_id": badgeTypeId,
-        "profile_medium": profileMedium,
-        "profile": profile,
-        "friend": friend,
-        "follower": follower,
-        "follower_count": followerCount,
-        "friend_count": friendCount,
-        "mutual_friend_count": mutualFriendCount,
-        "athlete_type": athleteType,
-        "date_preference": datePreference,
-        "measurement_preference": measurementPreference,
-        "clubs": List<dynamic>.from(clubs.map((x) => x.toJson())),
-        "ftp": ftp,
-        "weight": weight,
-        "bikes": List<dynamic>.from(bikes.map((x) => x.toJson())),
-        "shoes": List<dynamic>.from(shoes.map((x) => x.toJson())),
-        "bio": bio
-      };
+  Map<String, dynamic> toJson() => _$DetailedAthleteToJson(this);
 }
