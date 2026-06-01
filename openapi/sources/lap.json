@@ -1,0 +1,84 @@
+{
+  "Lap": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of this lap"
+      },
+      "activity": {
+        "$ref": "https://developers.strava.com/swagger/activity.json#/MetaActivity"
+      },
+      "athlete": {
+        "$ref": "https://developers.strava.com/swagger/athlete.json#/MetaAthlete"
+      },
+      "average_cadence": {
+        "type": "number",
+        "format": "float",
+        "description": "The lap's average cadence"
+      },
+      "average_speed": {
+        "type": "number",
+        "format": "float",
+        "description": "The lap's average speed"
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The lap's distance, in meters"
+      },
+      "elapsed_time": {
+        "type": "integer",
+        "description": "The lap's elapsed time, in seconds"
+      },
+      "start_index": {
+        "type": "integer",
+        "description": "The start index of this effort in its activity's stream"
+      },
+      "end_index": {
+        "type": "integer",
+        "description": "The end index of this effort in its activity's stream"
+      },
+      "lap_index": {
+        "type": "integer",
+        "description": "The index of this lap in the activity it belongs to"
+      },
+      "max_speed": {
+        "type": "number",
+        "format": "float",
+        "description": "The maximum speed of this lat, in meters per second"
+      },
+      "moving_time": {
+        "type": "integer",
+        "description": "The lap's moving time, in seconds"
+      },
+      "name": {
+        "type": "string",
+        "description": "The name of the lap"
+      },
+      "pace_zone": {
+        "type": "integer",
+        "description": "The athlete's pace zone during this lap"
+      },
+      "split": {
+        "type": "integer"
+      },
+      "start_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which the lap was started."
+      },
+      "start_date_local": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which the lap was started in the local timezone."
+      },
+      "total_elevation_gain": {
+        "type": "number",
+        "format": "float",
+        "description": "The elevation gain of this lap, in meters"
+      }
+    }
+  }
+}

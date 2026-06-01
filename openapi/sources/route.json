@@ -1,0 +1,89 @@
+{
+  "Route": {
+    "type": "object",
+    "properties": {
+      "athlete": {
+        "$ref": "https://developers.strava.com/swagger/athlete.json#/SummaryAthlete"
+      },
+      "description": {
+        "type": "string",
+        "description": "The description of the route"
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The route's distance, in meters"
+      },
+      "elevation_gain": {
+        "type": "number",
+        "format": "float",
+        "description": "The route's elevation gain."
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of this route"
+      },
+      "id_str": {
+        "type": "string",
+        "description": "The unique identifier of the route in string format"
+      },
+      "map": {
+        "$ref": "https://developers.strava.com/swagger/map.json#/PolylineMap"
+      },
+      "name": {
+        "type": "string",
+        "description": "The name of this route"
+      },
+      "private": {
+        "type": "boolean",
+        "description": "Whether this route is private"
+      },
+      "starred": {
+        "type": "boolean",
+        "description": "Whether this route is starred by the logged-in athlete"
+      },
+      "timestamp": {
+        "type": "integer",
+        "description": "An epoch timestamp of when the route was created"
+      },
+      "type": {
+        "type": "integer",
+        "description": "This route's type (1 for ride, 2 for runs)"
+      },
+      "sub_type": {
+        "type": "integer",
+        "description": "This route's sub-type (1 for road, 2 for mountain bike, 3 for cross, 4 for trail, 5 for mixed)"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which the route was created"
+      },
+      "updated_at": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which the route was last updated"
+      },
+      "estimated_moving_time": {
+        "type": "integer",
+        "description": "Estimated time in seconds for the authenticated athlete to complete route"
+      },
+      "segments": {
+        "type": "array",
+        "items": {
+          "$ref": "https://developers.strava.com/swagger/segment.json#/SummarySegment"
+        },
+        "description": "The segments traversed by this route"
+      },
+      "waypoints": {
+        "type": "array",
+        "items": {
+          "$ref": "https://developers.strava.com/swagger/waypoint.json#/Waypoint"
+        },
+        "minItems": 0,
+        "description": "The custom waypoints along this route"
+      }
+    }
+  }
+}

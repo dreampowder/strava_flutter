@@ -1,0 +1,341 @@
+{
+  "DetailedActivity": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/activity.json#/SummaryActivity"
+      },
+      {
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "The description of the activity"
+          },
+          "photos": {
+            "$ref": "https://developers.strava.com/swagger/photo.json#/PhotosSummary"
+          },
+          "gear": {
+            "$ref": "https://developers.strava.com/swagger/gear.json#/SummaryGear"
+          },
+          "calories": {
+            "type": "number",
+            "format": "float",
+            "description": "The number of kilocalories consumed during this activity"
+          },
+          "segment_efforts": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/segment_effort.json#/DetailedSegmentEffort"
+            }
+          },
+          "device_name": {
+            "type": "string",
+            "description": "The name of the device used to record the activity"
+          },
+          "embed_token": {
+            "type": "string",
+            "description": "The token used to embed a Strava activity"
+          },
+          "splits_metric": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/split.json#/Split"
+            },
+            "description": "The splits of this activity in metric units (for runs)"
+          },
+          "splits_standard": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/split.json#/Split"
+            },
+            "description": "The splits of this activity in imperial units (for runs)"
+          },
+          "laps": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/lap.json#/Lap"
+            }
+          },
+          "best_efforts": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/segment_effort.json#/DetailedSegmentEffort"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "SummaryActivity": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/activity.json#/MetaActivity"
+      },
+      {
+        "properties": {
+          "external_id": {
+            "type": "string",
+            "description": "The identifier provided at upload time"
+          },
+          "upload_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The identifier of the upload that resulted in this activity"
+          },
+          "athlete": {
+            "$ref": "https://developers.strava.com/swagger/athlete.json#/MetaAthlete"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the activity"
+          },
+          "distance": {
+            "type": "number",
+            "format": "float",
+            "description": "The activity's distance, in meters"
+          },
+          "moving_time": {
+            "type": "integer",
+            "description": "The activity's moving time, in seconds"
+          },
+          "elapsed_time": {
+            "type": "integer",
+            "description": "The activity's elapsed time, in seconds"
+          },
+          "total_elevation_gain": {
+            "type": "number",
+            "format": "float",
+            "description": "The activity's total elevation gain."
+          },
+          "elev_high": {
+            "type": "number",
+            "format": "float",
+            "description": "The activity's highest elevation, in meters"
+          },
+          "elev_low": {
+            "type": "number",
+            "format": "float",
+            "description": "The activity's lowest elevation, in meters"
+          },
+          "type": {
+            "$ref": "https://developers.strava.com/swagger/activity_type.json#/ActivityType",
+            "description": "Deprecated. Prefer to use sport_type"
+          },
+          "sport_type": {
+            "$ref": "https://developers.strava.com/swagger/sport_type.json#/SportType"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the activity was started."
+          },
+          "start_date_local": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the activity was started in the local timezone."
+          },
+          "timezone": {
+            "type": "string",
+            "description": "The timezone of the activity"
+          },
+          "start_latlng": {
+            "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng"
+          },
+          "end_latlng": {
+            "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng"
+          },
+          "achievement_count": {
+            "type": "integer",
+            "description": "The number of achievements gained during this activity"
+          },
+          "kudos_count": {
+            "type": "integer",
+            "description": "The number of kudos given for this activity"
+          },
+          "comment_count": {
+            "type": "integer",
+            "description": "The number of comments for this activity"
+          },
+          "athlete_count": {
+            "type": "integer",
+            "description": "The number of athletes for taking part in a group activity",
+            "minimum": 1
+          },
+          "photo_count": {
+            "type": "integer",
+            "description": "The number of Instagram photos for this activity"
+          },
+          "total_photo_count": {
+            "type": "integer",
+            "description": "The number of Instagram and Strava photos for this activity"
+          },
+          "map": {
+            "$ref": "https://developers.strava.com/swagger/map.json#/PolylineMap"
+          },
+          "device_name": {
+            "type": "string",
+            "description": "The name of the device used to record the activity"
+          },
+          "trainer": {
+            "type": "boolean",
+            "description": "Whether this activity was recorded on a training machine"
+          },
+          "commute": {
+            "type": "boolean",
+            "description": "Whether this activity is a commute"
+          },
+          "manual": {
+            "type": "boolean",
+            "description": "Whether this activity was created manually"
+          },
+          "private": {
+            "type": "boolean",
+            "description": "Whether this activity is private"
+          },
+          "flagged": {
+            "type": "boolean",
+            "description": "Whether this activity is flagged"
+          },
+          "workout_type": {
+            "type": "integer",
+            "description": "The activity's workout type"
+          },
+          "upload_id_str": {
+            "type": "string",
+            "description": "The unique identifier of the upload in string format"
+          },
+          "average_speed": {
+            "type": "number",
+            "format": "float",
+            "description": "The activity's average speed, in meters per second"
+          },
+          "max_speed": {
+            "type": "number",
+            "format": "float",
+            "description": "The activity's max speed, in meters per second"
+          },
+          "has_kudoed": {
+            "type": "boolean",
+            "description": "Whether the logged-in athlete has kudoed this activity"
+          },
+          "hide_from_home": {
+            "type": "boolean",
+            "description": "Whether the activity is muted"
+          },
+          "gear_id": {
+            "type": "string",
+            "description": "The id of the gear for the activity"
+          },
+          "kilojoules": {
+            "type": "number",
+            "format": "float",
+            "description": "The total work done in kilojoules during this activity. Rides only"
+          },
+          "average_watts": {
+            "type": "number",
+            "format": "float",
+            "description": "Average power output in watts during this activity. Rides only"
+          },
+          "device_watts": {
+            "type": "boolean",
+            "description": "Whether the watts are from a power meter, false if estimated"
+          },
+          "max_watts": {
+            "type": "integer",
+            "description": "Rides with power meter data only"
+          },
+          "weighted_average_watts": {
+            "type": "integer",
+            "description": "Similar to Normalized Power. Rides with power meter data only"
+          }
+        }
+      }
+    ]
+  },
+  "MetaActivity": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of the activity"
+      }
+    }
+  },
+  "UpdatableActivity": {
+    "type": "object",
+    "properties": {
+      "commute": {
+        "type": "boolean",
+        "description": "Whether this activity is a commute"
+      },
+      "trainer": {
+        "type": "boolean",
+        "description": "Whether this activity was recorded on a training machine"
+      },
+      "hide_from_home": {
+        "type": "boolean",
+        "description": "Whether this activity is muted"
+      },
+      "description": {
+        "type": "string",
+        "description": "The description of the activity"
+      },
+      "name": {
+        "type": "string",
+        "description": "The name of the activity"
+      },
+      "type": {
+        "$ref": "https://developers.strava.com/swagger/activity_type.json#/ActivityType",
+        "description": "Deprecated. Prefer to use sport_type. In a request where both type and sport_type are present, this field will be ignored"
+      },
+      "sport_type": {
+        "$ref": "https://developers.strava.com/swagger/sport_type.json#/SportType"
+      },
+      "gear_id": {
+        "type": "string",
+        "description": "Identifier for the gear associated with the activity. ‘none’ clears gear from activity"
+      }
+    }
+  },
+  "ClubActivity": {
+    "type": "object",
+    "properties": {
+      "athlete": {
+        "$ref": "https://developers.strava.com/swagger/athlete.json#/MetaAthlete"
+      },
+      "name": {
+        "type": "string",
+        "description": "The name of the activity"
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The activity's distance, in meters"
+      },
+      "moving_time": {
+        "type": "integer",
+        "description": "The activity's moving time, in seconds"
+      },
+      "elapsed_time": {
+        "type": "integer",
+        "description": "The activity's elapsed time, in seconds"
+      },
+      "total_elevation_gain": {
+        "type": "number",
+        "format": "float",
+        "description": "The activity's total elevation gain."
+      },
+      "type": {
+        "$ref": "https://developers.strava.com/swagger/activity_type.json#/ActivityType",
+        "description": "Deprecated. Prefer to use sport_type"
+      },
+      "sport_type": {
+        "$ref": "https://developers.strava.com/swagger/sport_type.json#/SportType"
+      },
+      "workout_type": {
+        "type": "integer",
+        "description": "The activity's workout type"
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "Upload": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of the upload"
+      },
+      "id_str": {
+        "type": "string",
+        "description": "The unique identifier of the upload in string format"
+      },
+      "external_id": {
+        "type": "string",
+        "description": "The external identifier of the upload"
+      },
+      "error": {
+        "type": "string",
+        "description": "The error associated with this upload"
+      },
+      "status": {
+        "type": "string",
+        "description": "The status of this upload"
+      },
+      "activity_id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The identifier of the activity this upload resulted into"
+      }
+    }
+  }
+}

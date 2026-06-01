@@ -1,0 +1,161 @@
+{
+  "DetailedAthlete": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/athlete.json#/SummaryAthlete"
+      },
+      {
+        "properties": {
+          "follower_count": {
+            "type": "integer",
+            "description": "The athlete's follower count."
+          },
+          "friend_count": {
+            "type": "integer",
+            "description": "The athlete's friend count."
+          },
+          "measurement_preference": {
+            "type": "string",
+            "enum": ["feet", "meters"],
+            "description": "The athlete's preferred unit system."
+          },
+          "ftp": {
+            "type": "integer",
+            "description": "The athlete's FTP (Functional Threshold Power)."
+          },
+          "weight": {
+            "type": "number",
+            "format": "float",
+            "description": "The athlete's weight."
+          },
+          "clubs": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/club.json#/SummaryClub"
+            },
+            "description": "The athlete's clubs."
+          },
+          "bikes": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/gear.json#/SummaryGear"
+            },
+            "description": "The athlete's bikes."
+          },
+          "shoes": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/gear.json#/SummaryGear"
+            },
+            "description": "The athlete's shoes."
+          }
+        }
+      }
+    ]
+  },
+  "SummaryAthlete": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/athlete.json#/MetaAthlete"
+      },
+      {
+        "properties": {
+          "resource_state": {
+            "type": "integer",
+            "description": "Resource state, indicates level of detail. Possible values: 1 -> \"meta\", 2 -> \"summary\", 3 -> \"detail\""
+          },
+          "firstname": {
+            "type": "string",
+            "description": "The athlete's first name."
+          },
+          "lastname": {
+            "type": "string",
+            "description": "The athlete's last name."
+          },
+          "profile_medium": {
+            "type": "string",
+            "description": "URL to a 62x62 pixel profile picture."
+          },
+          "profile": {
+            "type": "string",
+            "description": "URL to a 124x124 pixel profile picture."
+          },
+          "city": {
+            "type": "string",
+            "description": "The athlete's city."
+          },
+          "state": {
+            "type": "string",
+            "description": "The athlete's state or geographical region."
+          },
+          "country": {
+            "type": "string",
+            "description": "The athlete's country."
+          },
+          "sex": {
+            "type": "string",
+            "description": "The athlete's sex.",
+            "enum": ["M", "F"]
+          },
+          "premium": {
+            "type": "boolean",
+            "description": "Deprecated.  Use summit field instead. Whether the athlete has any Summit subscription."
+          },
+          "summit": {
+            "type": "boolean",
+            "description": "Whether the athlete has any Summit subscription."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the athlete was created."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the athlete was last updated."
+          }
+        }
+      }
+    ]
+  },
+    "ClubAthlete": {
+    "type": "object",
+    "properties": {
+      "resource_state": {
+        "type": "integer",
+        "description": "Resource state, indicates level of detail. Possible values: 1 -> \"meta\", 2 -> \"summary\", 3 -> \"detail\""
+      },
+      "firstname": {
+        "type": "string",
+        "description": "The athlete's first name."
+      },
+      "lastname": {
+        "type": "string",
+        "description": "The athlete's last initial."
+      },
+      "member": {
+        "type": "string",
+        "description": "The athlete's member status."
+      },
+      "admin": {
+        "type": "boolean",
+        "description": "Whether the athlete is a club admin."
+      },
+      "owner": {
+        "type": "boolean",
+        "description": "Whether the athlete is club owner."
+      }
+    }
+  },
+  "MetaAthlete": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of the athlete"
+      }
+    }
+  }
+}

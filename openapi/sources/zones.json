@@ -1,0 +1,102 @@
+{
+  "Zones": {
+    "type": "object",
+    "properties": {
+      "heart_rate": {
+        "$ref": "https://developers.strava.com/swagger/zones.json#/HeartRateZoneRanges"
+      },
+      "power": {
+        "$ref": "https://developers.strava.com/swagger/zones.json#/PowerZoneRanges"
+      }
+    }
+  },
+  "HeartRateZoneRanges": {
+    "type": "object",
+    "properties": {
+      "custom_zones": {
+        "type": "boolean",
+        "description": "Whether the athlete has set their own custom heart rate zones"
+      },
+      "zones": {
+        "$ref": "https://developers.strava.com/swagger/zones.json#/ZoneRanges"
+      }
+    }
+  },
+  "PowerZoneRanges": {
+    "type": "object",
+    "properties": {
+      "zones": {
+        "$ref": "https://developers.strava.com/swagger/zones.json#/ZoneRanges"
+      }
+    }
+  },
+  "ZoneRanges": {
+    "type": "array",
+    "items": {
+      "$ref": "https://developers.strava.com/swagger/zones.json#/ZoneRange"
+    }
+  },
+  "ZoneRange": {
+    "type": "object",
+    "properties": {
+      "min": {
+        "type": "integer",
+        "description": "The minimum value in the range."
+      },
+      "max": {
+        "type": "integer",
+        "description": "The maximum value in the range."
+      }
+    }
+  },
+  "TimedZoneRange": {
+    "description": "A union type representing the time spent in a given zone.",
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/zones.json#/ZoneRange"
+      },
+      {
+        "properties": {
+          "time": {
+            "type": "integer",
+            "description": "The number of seconds spent in this zone"
+          }
+        }
+      }
+    ]
+  },
+  "TimedZoneDistribution": {
+    "type": "array",
+    "description": "Stores the exclusive ranges representing zones and the time spent in each.",
+    "items": {
+      "$ref": "#/TimedZoneRange"
+    }
+  },
+  "ActivityZone": {
+    "type": "object",
+    "properties": {
+      "score": {
+        "type": "integer"
+      },
+      "distribution_buckets": {
+        "$ref": "#/TimedZoneDistribution"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["heartrate", "power"]
+      },
+      "sensor_based": {
+        "type": "boolean"
+      },
+      "points": {
+        "type": "integer"
+      },
+      "custom_zones": {
+        "type": "boolean"
+      },
+      "max": {
+        "type": "integer"
+      }
+    }
+  }
+}

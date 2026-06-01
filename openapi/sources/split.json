@@ -1,0 +1,38 @@
+{
+  "Split": {
+    "type": "object",
+    "properties": {
+      "average_speed": {
+        "type": "number",
+        "format": "float",
+        "description": "The average speed of this split, in meters per second"
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The distance of this split, in meters"
+      },
+      "elapsed_time": {
+        "type": "integer",
+        "description": "The elapsed time of this split, in seconds"
+      },
+      "elevation_difference": {
+        "type": "number",
+        "format": "float",
+        "description": "The elevation difference of this split, in meters"
+      },
+      "pace_zone": {
+        "type": "integer",
+        "description": "The pacing zone of this split"
+      },
+      "moving_time": {
+        "type": "integer",
+        "description": "The moving time of this split, in seconds"
+      },
+      "split": {
+        "type": "integer",
+        "description": "N/A"
+      }
+    }
+  }
+}

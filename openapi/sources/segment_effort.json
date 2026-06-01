@@ -1,0 +1,139 @@
+{
+  "DetailedSegmentEffort": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/segment_effort.json#/SummarySegmentEffort"
+      },
+      {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the segment on which this effort was performed"
+          },
+          "activity": {
+            "$ref": "https://developers.strava.com/swagger/activity.json#/MetaActivity"
+          },
+          "athlete": {
+            "$ref": "https://developers.strava.com/swagger/athlete.json#/MetaAthlete"
+          },
+          "moving_time": {
+            "type": "integer",
+            "description": "The effort's moving time"
+          },
+          "start_index": {
+            "type": "integer",
+            "description": "The start index of this effort in its activity's stream"
+          },
+          "end_index": {
+            "type": "integer",
+            "description": "The end index of this effort in its activity's stream"
+          },
+          "average_cadence": {
+            "type": "number",
+            "format": "float",
+            "description": "The effort's average cadence"
+          },
+          "average_watts": {
+            "type": "number",
+            "format": "float",
+            "description": "The average wattage of this effort"
+          },
+          "device_watts": {
+            "type": "boolean",
+            "description": "For riding efforts, whether the wattage was reported by a dedicated recording device"
+          },
+          "average_heartrate": {
+            "type": "number",
+            "format": "float",
+            "description": "The heart heart rate of the athlete during this effort"
+          },
+          "max_heartrate": {
+            "type": "number",
+            "format": "float",
+            "description": "The maximum heart rate of the athlete during this effort"
+          },
+          "segment": {
+            "$ref": "https://developers.strava.com/swagger/segment.json#/SummarySegment"
+          },
+          "kom_rank": {
+            "type": "integer",
+            "description": "The rank of the effort on the global leaderboard if it belongs in the top 10 at the time of upload",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "pr_rank": {
+            "type": "integer",
+            "description": "The rank of the effort on the athlete's leaderboard if it belongs in the top 3 at the time of upload",
+            "minimum": 1,
+            "maximum": 3
+          },
+          "hidden": {
+            "type": "boolean",
+            "description": "Whether this effort should be hidden when viewed within an activity"
+          }
+        }
+      }
+    ]
+  },
+  "SummarySegmentEffort": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of this effort"
+      },
+      "activity_id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of the activity related to this effort"
+      },
+      "elapsed_time": {
+        "type": "integer",
+        "description": "The effort's elapsed time"
+      },
+      "start_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which the effort was started."
+      },
+      "start_date_local": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which the effort was started in the local timezone."
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The effort's distance in meters"
+      },
+      "is_kom": {
+        "type": "boolean",
+        "description": "Whether this effort is the current best on the leaderboard"
+      }
+    }
+  },
+  "SummaryPRSegmentEffort": {
+    "type": "object",
+    "properties": {
+      "pr_activity_id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of the activity related to the PR effort."
+      },
+      "pr_elapsed_time": {
+        "type": "integer",
+        "description": "The elapsed time ot the PR effort."
+      },
+      "pr_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which the PR effort was started."
+      },
+      "effort_count": {
+        "type": "integer",
+        "description": "Number of efforts by the authenticated athlete on this segment."
+      }
+    }
+  }
+}
