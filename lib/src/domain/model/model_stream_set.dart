@@ -30,12 +30,13 @@ class StravaStream {
   @JsonKey(name: "resolution")
   String? resolution;
 
-  StravaStream(
-      {this.type,
-      this.data,
-      this.seriesType,
-      this.originalSize,
-      this.resolution});
+  StravaStream({
+    this.type,
+    this.data,
+    this.seriesType,
+    this.originalSize,
+    this.resolution,
+  });
 
   factory StravaStream.fromJson(Map<String, dynamic> json) =>
       _$StravaStreamFromJson(json);
@@ -49,6 +50,8 @@ class StravaStream {
 /// of streams. The keyed object that Strava calls a "StreamSet" is now modeled
 /// by [StreamCollection]. This alias is kept for source compatibility and will
 /// be removed in the next major version.
-@Deprecated('Renamed to StravaStream. A single stream is not a "set". '
-    'For the keyed object use StreamCollection. Removed in the next major.')
+@Deprecated(
+  'Renamed to StravaStream. A single stream is not a "set". '
+  'For the keyed object use StreamCollection. Removed in the next major.',
+)
 typedef StreamSet = StravaStream;

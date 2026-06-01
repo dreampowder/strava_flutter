@@ -33,14 +33,15 @@ class UploadActivityRequest {
   @JsonKey(name: "external_id")
   String? externalId;
 
-  UploadActivityRequest(
-      {this.file,
-      this.name,
-      this.description,
-      this.isTrainerActivity,
-      this.isCommuteActivity,
-      this.dataType,
-      this.externalId});
+  UploadActivityRequest({
+    this.file,
+    this.name,
+    this.description,
+    this.isTrainerActivity,
+    this.isCommuteActivity,
+    this.dataType,
+    this.externalId,
+  });
 
   factory UploadActivityRequest.fromJson(Map<String, dynamic> json) =>
       _$UploadActivityRequestFromJson(json);

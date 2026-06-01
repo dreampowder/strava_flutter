@@ -7,9 +7,10 @@ class RepositoryUploadImpl extends RepositoryUpload {
   @override
   Future<UploadResponse> getUpload(int uploadId) {
     return ApiClient.getRequest(
-        endPoint: "/v3/uploads/$uploadId",
-        dataConstructor: (data) =>
-            UploadResponse.fromJson(Map<String, dynamic>.from(data)));
+      endPoint: "/v3/uploads/$uploadId",
+      dataConstructor: (data) =>
+          UploadResponse.fromJson(Map<String, dynamic>.from(data)),
+    );
   }
 
   @override
@@ -20,9 +21,10 @@ class RepositoryUploadImpl extends RepositoryUpload {
       formData.files.add(MapEntry("file", multipartFile));
     }
     return ApiClient.postRequest(
-        endPoint: "/v3/uploads",
-        postBody: formData,
-        dataConstructor: (data) =>
-            UploadResponse.fromJson(Map<String, dynamic>.from(data)));
+      endPoint: "/v3/uploads",
+      postBody: formData,
+      dataConstructor: (data) =>
+          UploadResponse.fromJson(Map<String, dynamic>.from(data)),
+    );
   }
 }

@@ -13,7 +13,9 @@ abstract class RepositoryStream {
   ///
   /// {@macro fault_management}
   Future<List<StravaStream>> getActivityStreams(
-      int activityId, List<String> keys);
+    int activityId,
+    List<String> keys,
+  );
 
   /// Returns from [routeId] its route's streams as a list of [StravaStream]s.
   ///
@@ -45,7 +47,9 @@ abstract class RepositoryStream {
   ///
   /// {@macro fault_management}
   Future<List<StravaStream>> getSegmentStreams(
-      int segmentId, List<String> keys);
+    int segmentId,
+    List<String> keys,
+  );
 
   /// Returns from [activityId] its activity's streams as a [StreamCollection]
   /// (Strava's `key_by_type=true` form), keyed by stream type.
@@ -54,7 +58,9 @@ abstract class RepositoryStream {
   ///
   /// {@macro fault_management}
   Future<StreamCollection> getActivityStreamsByType(
-      int activityId, List<String> keys);
+    int activityId,
+    List<String> keys,
+  );
 
   /// Returns from [routeId] its route's streams as a [StreamCollection].
   ///
@@ -80,5 +86,7 @@ abstract class RepositoryStream {
   ///
   /// {@macro fault_management}
   Future<StreamCollection> getSegmentStreamsByType(
-      int segmentId, List<String> keys);
+    int segmentId,
+    List<String> keys,
+  );
 }

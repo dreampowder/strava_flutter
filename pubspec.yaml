@@ -1,7 +1,18 @@
 name: strava_client
-description: A Flutter Client for Strava V3 Api Based on the old strava_flutter api.
-version: 2.3.0
+description: >-
+  An unofficial Flutter client for the Strava V3 API: OAuth2 authentication with
+  automatic token refresh, typed models, and repository-based endpoints.
+version: 2.3.1
 homepage: https://github.com/dreampowder/strava_flutter
+repository: https://github.com/dreampowder/strava_flutter
+issue_tracker: https://github.com/dreampowder/strava_flutter/issues
+documentation: https://github.com/dreampowder/strava_flutter#readme
+topics:
+  - strava
+  - fitness
+  - oauth
+  - http
+  - api
 
 environment:
   sdk: ">=3.8.0 <4.0.0"

@@ -10,8 +10,7 @@ part 'model_activity_stats.g.dart';
 
 /// Preserves the legacy behavior of defaulting to `0` when the
 /// biggest_ride_distance field is absent or null in the JSON payload.
-double? _biggestRideDistanceFromJson(dynamic value) =>
-    value?.toDouble() ?? 0;
+double? _biggestRideDistanceFromJson(dynamic value) => value?.toDouble() ?? 0;
 
 /// Preserves the legacy behavior of defaulting to `0` when the
 /// biggest_climb_elevation_gain field is absent or null in the JSON payload.
@@ -48,7 +47,10 @@ class ActivityStats {
   ActivityTotal? recentSwimTotals;
 
   /// The longest distance ridden by the athlete.
-  @JsonKey(name: "biggest_ride_distance", fromJson: _biggestRideDistanceFromJson)
+  @JsonKey(
+    name: "biggest_ride_distance",
+    fromJson: _biggestRideDistanceFromJson,
+  )
   double? biggestRideDistance;
 
   /// The year to date swim stats for the athlete.
@@ -65,8 +67,9 @@ class ActivityStats {
 
   /// The highest climb ridden by the athlete.
   @JsonKey(
-      name: "biggest_climb_elevation_gain",
-      fromJson: _biggestClimbElevationGainFromJson)
+    name: "biggest_climb_elevation_gain",
+    fromJson: _biggestClimbElevationGainFromJson,
+  )
   double? biggestClimbElevationGain;
 
   /// The year to date ride stats for the athlete.

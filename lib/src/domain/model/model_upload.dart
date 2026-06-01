@@ -28,13 +28,14 @@ class UploadResponse {
   @JsonKey(name: "status")
   String? status;
 
-  UploadResponse(
-      {this.idStr,
-      this.activityId,
-      this.externalId,
-      this.id,
-      this.error,
-      this.status});
+  UploadResponse({
+    this.idStr,
+    this.activityId,
+    this.externalId,
+    this.id,
+    this.error,
+    this.status,
+  });
 
   factory UploadResponse.fromJson(Map<String, dynamic> json) =>
       _$UploadResponseFromJson(json);

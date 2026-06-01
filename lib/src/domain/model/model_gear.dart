@@ -39,15 +39,16 @@ class Gear {
   @JsonKey(name: "description")
   String? description;
 
-  Gear(
-      {this.id,
-      this.primary,
-      this.resourceState,
-      this.distance,
-      this.brandName,
-      this.modelName,
-      this.frameType,
-      this.description});
+  Gear({
+    this.id,
+    this.primary,
+    this.resourceState,
+    this.distance,
+    this.brandName,
+    this.modelName,
+    this.frameType,
+    this.description,
+  });
 
   factory Gear.fromJson(Map<String, dynamic> json) => _$GearFromJson(json);
 

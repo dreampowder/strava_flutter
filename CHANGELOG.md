@@ -1,3 +1,8 @@
+## [2.3.1]
+- Recognized OSI MIT `LICENSE`, `dart format` applied across the package, and
+  added `repository` / `issue_tracker` / `documentation` / `topics` metadata
+  (improves pub.dev score). No API changes.
+
 ## [2.3.0]
 Backwards compatible (additions + deprecations only).
 

@@ -9,12 +9,16 @@ class LocalStorageManager {
   // static String _kScopesKey = "strava_scopes";
 
   static Future<bool> saveToken(
-      TokenResponse token, List<AuthenticationScope> scopes,
-      {String applicationName = ""}) async {
+    TokenResponse token,
+    List<AuthenticationScope> scopes, {
+    String applicationName = "",
+  }) async {
     var sharedPrefs = await SharedPreferences.getInstance();
     token.scopes = AuthenticationScopeHelper.buildScopeString(scopes);
     return sharedPrefs.setString(
-        "$_kTokenKey+_$applicationName", token.toRawJson());
+      "$_kTokenKey+_$applicationName",
+      token.toRawJson(),
+    );
   }
 
   static Future<bool> deleteToken({String applicationName = ""}) async {

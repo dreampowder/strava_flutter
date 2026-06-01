@@ -12,9 +12,9 @@ import 'package:strava_client/src/domain/model/model_detailed_segment.dart';
 /// `fromJson` -> `toJson` -> `fromJson` is idempotent (no behavior drift, no
 /// throw, no field loss across a round-trip).
 void main() {
-  final examples = json.decode(
-          File('test/_spec_examples.json').readAsStringSync())
-      as Map<String, dynamic>;
+  final examples =
+      json.decode(File('test/_spec_examples.json').readAsStringSync())
+          as Map<String, dynamic>;
 
   Map<String, dynamic> ex(String path) =>
       (examples[path] as Map).cast<String, dynamic>();
@@ -33,8 +33,11 @@ void main() {
         once.remove(k);
         twice.remove(k);
       }
-      expect(twice, once,
-          reason: 'fromJson/toJson must be idempotent for $label');
+      expect(
+        twice,
+        once,
+        reason: 'fromJson/toJson must be idempotent for $label',
+      );
     });
   }
 

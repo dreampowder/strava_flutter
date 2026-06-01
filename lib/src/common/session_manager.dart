@@ -14,10 +14,11 @@ class SessionManager {
   // ignore: unused_field
   List<AuthenticationScope>? _scopes;
 
-  void initialize(
-      {required String secret,
-      required String clientId,
-      String applicationName = ""}) {
+  void initialize({
+    required String secret,
+    required String clientId,
+    String applicationName = "",
+  }) {
     this.secret = secret;
     this.clientId = clientId;
     this.applicationName = applicationName;
@@ -28,8 +29,9 @@ class SessionManager {
     if (_currentToken != null) {
       completer.complete(_currentToken);
     } else {
-      LocalStorageManager.getToken(applicationName: applicationName)
-          .then((storedValue) {
+      LocalStorageManager.getToken(applicationName: applicationName).then((
+        storedValue,
+      ) {
         if (storedValue != null) {
           _currentToken = storedValue;
         }
@@ -39,19 +41,23 @@ class SessionManager {
     return completer.future;
   }
 
-  Future<void> setToken(
-      {required TokenResponse token,
-      required List<AuthenticationScope> scopes}) {
+  Future<void> setToken({
+    required TokenResponse token,
+    required List<AuthenticationScope> scopes,
+  }) {
     _currentToken = token;
     _scopes = scopes;
-    return LocalStorageManager.saveToken(token, scopes,
-            applicationName: applicationName)
-        .then((value) => _currentToken = token);
+    return LocalStorageManager.saveToken(
+      token,
+      scopes,
+      applicationName: applicationName,
+    ).then((value) => _currentToken = token);
   }
 
   bool isTokenExpired(TokenResponse token) {
-    DateTime expiresAt =
-        DateTime.fromMillisecondsSinceEpoch(token.expiresAt * 1000);
+    DateTime expiresAt = DateTime.fromMillisecondsSinceEpoch(
+      token.expiresAt * 1000,
+    );
     return DateTime.now().isAfter(expiresAt);
   }
 
@@ -66,8 +72,9 @@ class SessionManager {
     final token = await getToken();
     if (token == null) return null;
     if (!isTokenExpired(token)) return token;
-    return _refreshInFlight ??= _refreshToken(token)
-        .whenComplete(() => _refreshInFlight = null);
+    return _refreshInFlight ??= _refreshToken(
+      token,
+    ).whenComplete(() => _refreshInFlight = null);
   }
 
   Future<TokenResponse> _refreshToken(TokenResponse token) async {

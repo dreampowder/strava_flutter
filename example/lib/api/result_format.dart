@@ -13,8 +13,7 @@ dynamic _toEncodable(dynamic value) {
   if (value is num || value is String || value is bool) return value;
   if (value is List) return value.map(_toEncodable).toList();
   if (value is Map) {
-    return value
-        .map((k, v) => MapEntry(k.toString(), _toEncodable(v)));
+    return value.map((k, v) => MapEntry(k.toString(), _toEncodable(v)));
   }
   try {
     // Strava models expose toJson(); explicit_to_json makes it fully expanded.

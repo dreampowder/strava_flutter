@@ -72,28 +72,29 @@ class Lap {
   @JsonKey(name: "pace_zone")
   int? paceZone;
 
-  Lap(
-      {this.id,
-      this.resourceState,
-      this.name,
-      this.activity,
-      this.athlete,
-      this.elapsedTime,
-      this.movingTime,
-      this.startDate,
-      this.startDateLocal,
-      this.distance,
-      this.startIndex,
-      this.endIndex,
-      this.totalElevationGain,
-      this.averageSpeed,
-      this.maxSpeed,
-      this.averageCadence,
-      this.deviceWatts,
-      this.averageWatts,
-      this.lapIndex,
-      this.split,
-      this.paceZone});
+  Lap({
+    this.id,
+    this.resourceState,
+    this.name,
+    this.activity,
+    this.athlete,
+    this.elapsedTime,
+    this.movingTime,
+    this.startDate,
+    this.startDateLocal,
+    this.distance,
+    this.startIndex,
+    this.endIndex,
+    this.totalElevationGain,
+    this.averageSpeed,
+    this.maxSpeed,
+    this.averageCadence,
+    this.deviceWatts,
+    this.averageWatts,
+    this.lapIndex,
+    this.split,
+    this.paceZone,
+  });
 
   factory Lap.fromJson(Map<String, dynamic> json) => _$LapFromJson(json);
 

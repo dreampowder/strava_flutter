@@ -10,31 +10,35 @@ class SegmentLeaderboardRequest {
   int page;
   int perPage;
   SegmentLeaderboardRequest(
-      this.dateRange,
-      this.gender,
-      this.ageGroup,
-      this.weightClass,
-      this.segmentId,
-      this.clubId,
-      this.maxEntries,
-      this.isFollowing,
-      this.page,
-      this.perPage);
+    this.dateRange,
+    this.gender,
+    this.ageGroup,
+    this.weightClass,
+    this.segmentId,
+    this.clubId,
+    this.maxEntries,
+    this.isFollowing,
+    this.page,
+    this.perPage,
+  );
 
   Map<String, dynamic> toJson() => {
-        "gender": gender.toString().replaceAll("SegmentGender.", ""),
-        "age_group":
-            ageGroup.toString().replaceAll("SegmentAgeGroup.AgeGroup_", ""),
-        "weight_class": weightClass
-            .toString()
-            .replaceAll("SegmentWeightClass_WeightClass_", ""),
-        "following": isFollowing ? "true" : "false",
-        "club_id": clubId,
-        "data_range": dateRange.toString().replaceAll("SegmentDateRange.", ""),
-        "context_entries": "",
-        "page": page,
-        "per_page": perPage
-      };
+    "gender": gender.toString().replaceAll("SegmentGender.", ""),
+    "age_group": ageGroup.toString().replaceAll(
+      "SegmentAgeGroup.AgeGroup_",
+      "",
+    ),
+    "weight_class": weightClass.toString().replaceAll(
+      "SegmentWeightClass_WeightClass_",
+      "",
+    ),
+    "following": isFollowing ? "true" : "false",
+    "club_id": clubId,
+    "data_range": dateRange.toString().replaceAll("SegmentDateRange.", ""),
+    "context_entries": "",
+    "page": page,
+    "per_page": perPage,
+  };
 }
 
 // String reqLeaderboard = 'https://www.strava.com/api/v3/segments/' +
@@ -65,7 +69,7 @@ enum SegmentAgeGroup {
   AgeGroup_55_64,
   AgeGroup_65_69,
   AgeGroup_70_74,
-  AgeGroup_75_plus
+  AgeGroup_75_plus,
 }
 
 enum SegmentWeightClass {
@@ -84,7 +88,7 @@ enum SegmentWeightClass {
   WeightClass_85_94,
   WeightClass_95_104,
   WeightClass_105_114,
-  WeightClass_115_plus
+  WeightClass_115_plus,
 }
 
 enum SegmentDateRange { this_year, this_month, this_week, today }

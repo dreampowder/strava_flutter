@@ -38,8 +38,7 @@ class _CallScreenState extends State<CallScreen> {
               (p.defaultValue as Object?) ?? p.enumValues!.first;
           break;
         default:
-          _controllers[p.key] =
-              TextEditingController(text: _initialText(p));
+          _controllers[p.key] = TextEditingController(text: _initialText(p));
       }
     }
   }
@@ -73,8 +72,7 @@ class _CallScreenState extends State<CallScreen> {
           args[p.key] = DateTime.parse(_controllers[p.key]!.text.trim());
           break;
         case ParamType.stringList:
-          args[p.key] = _controllers[p.key]!
-              .text
+          args[p.key] = _controllers[p.key]!.text
               .split(',')
               .map((e) => e.trim())
               .where((e) => e.isNotEmpty)
@@ -121,8 +119,11 @@ class _CallScreenState extends State<CallScreen> {
 
   String _formatFault(Fault fault) {
     final errors = (fault.errors ?? [])
-        .map((e) => '  - code: ${e.code}, field: ${e.field}, '
-            'resource: ${e.resource}')
+        .map(
+          (e) =>
+              '  - code: ${e.code}, field: ${e.field}, '
+              'resource: ${e.resource}',
+        )
         .join('\n');
     return 'Strava Fault\nmessage: ${fault.message}\nerrors:\n$errors';
   }
@@ -148,8 +149,7 @@ class _CallScreenState extends State<CallScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text(call.description,
-              style: Theme.of(context).textTheme.bodyMedium),
+          Text(call.description, style: Theme.of(context).textTheme.bodyMedium),
           if (call.isWrite)
             Padding(
               padding: const EdgeInsets.only(top: 8),
@@ -167,7 +167,8 @@ class _CallScreenState extends State<CallScreen> {
                 ? const SizedBox(
                     width: 16,
                     height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2))
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
                 : const Icon(Icons.play_arrow),
             label: Text(_loading ? 'Running…' : 'Run'),
           ),
@@ -192,16 +193,20 @@ class _CallScreenState extends State<CallScreen> {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: InputDecorator(
           decoration: InputDecoration(
-              labelText: p.label, border: const OutlineInputBorder()),
+            labelText: p.label,
+            border: const OutlineInputBorder(),
+          ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<Object>(
               isExpanded: true,
               value: _enumValues[p.key],
               items: p.enumValues!
-                  .map((v) => DropdownMenuItem<Object>(
-                        value: v,
-                        child: Text(p.enumLabel?.call(v) ?? v.toString()),
-                      ))
+                  .map(
+                    (v) => DropdownMenuItem<Object>(
+                      value: v,
+                      child: Text(p.enumLabel?.call(v) ?? v.toString()),
+                    ),
+                  )
                   .toList(),
               onChanged: (v) => setState(() => _enumValues[p.key] = v!),
             ),
@@ -209,8 +214,7 @@ class _CallScreenState extends State<CallScreen> {
         ),
       );
     }
-    final isNumber =
-        p.type == ParamType.int || p.type == ParamType.double;
+    final isNumber = p.type == ParamType.int || p.type == ParamType.double;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
@@ -234,17 +238,21 @@ class _CallScreenState extends State<CallScreen> {
       children: [
         Row(
           children: [
-            Text(_isError ? 'Error' : 'Response',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: _isError ? Colors.red : Colors.green.shade800)),
+            Text(
+              _isError ? 'Error' : 'Response',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: _isError ? Colors.red : Colors.green.shade800,
+              ),
+            ),
             const Spacer(),
             TextButton.icon(
               icon: const Icon(Icons.copy, size: 16),
               label: const Text('Copy'),
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: _result ?? ''));
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Copied')));
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Copied')));
               },
             ),
           ],

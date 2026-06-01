@@ -39,7 +39,7 @@ class ApiCall {
   final bool isWrite;
   final List<ApiParam> params;
   final Future<dynamic> Function(StravaClient client, Map<String, dynamic> args)
-      run;
+  run;
 
   const ApiCall({
     required this.group,

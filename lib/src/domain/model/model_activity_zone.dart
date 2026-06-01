@@ -38,14 +38,15 @@ class ActivityZone {
   @JsonKey(name: "points")
   int? points;
 
-  ActivityZone(
-      {this.score,
-      this.sensorBased,
-      this.customZones,
-      this.max,
-      this.distributionBuckets,
-      this.type,
-      this.points});
+  ActivityZone({
+    this.score,
+    this.sensorBased,
+    this.customZones,
+    this.max,
+    this.distributionBuckets,
+    this.type,
+    this.points,
+  });
 
   factory ActivityZone.fromJson(Map<String, dynamic> json) =>
       _$ActivityZoneFromJson(json);

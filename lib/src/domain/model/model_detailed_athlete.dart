@@ -27,8 +27,9 @@ List<SummaryClub> _clubsFromJson(dynamic value) {
       clubs = [];
       debugPrint("Exception: $exception");
       debugPrintStack(
-          stackTrace: stackTrace,
-          label: "An error occurred while serializing summary club json");
+        stackTrace: stackTrace,
+        label: "An error occurred while serializing summary club json",
+      );
     }
   }
   return clubs;
@@ -38,42 +39,42 @@ List<SummaryClub> _clubsFromJson(dynamic value) {
 /// gear field (`bikes` / `shoes`) is absent from the JSON payload.
 List<SummaryGear> _gearFromJson(dynamic value) => value == null
     ? <SummaryGear>[]
-    : List<SummaryGear>.from(
-        value.map((x) => SummaryGear.fromJson(x)));
+    : List<SummaryGear>.from(value.map((x) => SummaryGear.fromJson(x)));
 
 @JsonSerializable()
 class DetailedAthlete {
-  DetailedAthlete(
-      {required this.id,
-      required this.username,
-      required this.resourceState,
-      required this.firstname,
-      required this.lastname,
-      required this.city,
-      required this.state,
-      required this.country,
-      required this.sex,
-      required this.premium,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.badgeTypeId,
-      required this.profileMedium,
-      required this.profile,
-      required this.friend,
-      required this.follower,
-      required this.followerCount,
-      required this.friendCount,
-      required this.mutualFriendCount,
-      required this.athleteType,
-      required this.datePreference,
-      required this.measurementPreference,
-      required this.clubs,
-      required this.ftp,
-      required this.weight,
-      required this.bikes,
-      required this.shoes,
-      this.bio,
-      this.summit});
+  DetailedAthlete({
+    required this.id,
+    required this.username,
+    required this.resourceState,
+    required this.firstname,
+    required this.lastname,
+    required this.city,
+    required this.state,
+    required this.country,
+    required this.sex,
+    required this.premium,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.badgeTypeId,
+    required this.profileMedium,
+    required this.profile,
+    required this.friend,
+    required this.follower,
+    required this.followerCount,
+    required this.friendCount,
+    required this.mutualFriendCount,
+    required this.athleteType,
+    required this.datePreference,
+    required this.measurementPreference,
+    required this.clubs,
+    required this.ftp,
+    required this.weight,
+    required this.bikes,
+    required this.shoes,
+    this.bio,
+    this.summit,
+  });
 
   @JsonKey(name: "id")
   int id;

@@ -8,24 +8,26 @@ class RepositoryRouteImpl extends RepositoryRoute {
   @override
   Future<Route> getRoute(int routeId) {
     return ApiClient.getRequest(
-        endPoint: "/v3/routes/$routeId",
-        dataConstructor: (data) =>
-            Route.fromJson(Map<String, dynamic>.from(data)));
+      endPoint: "/v3/routes/$routeId",
+      dataConstructor: (data) =>
+          Route.fromJson(Map<String, dynamic>.from(data)),
+    );
   }
 
   @override
   Future<List<Route>> listAthleteRoutes(int athleteId, int page, int perPage) {
     return ApiClient.getRequest(
-        endPoint: "/v3/athletes/$athleteId/routes",
-        queryParameters: {"page": page, "per_page": perPage},
-        dataConstructor: (data) {
-          if (data is List) {
-            return data
-                .map((e) => Route.fromJson(Map<String, dynamic>.from(e)))
-                .toList();
-          }
-          return [];
-        });
+      endPoint: "/v3/athletes/$athleteId/routes",
+      queryParameters: {"page": page, "per_page": perPage},
+      dataConstructor: (data) {
+        if (data is List) {
+          return data
+              .map((e) => Route.fromJson(Map<String, dynamic>.from(e)))
+              .toList();
+        }
+        return [];
+      },
+    );
   }
 
   @override

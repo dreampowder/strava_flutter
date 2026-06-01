@@ -18,10 +18,7 @@ List<dynamic> _errorsToJson(List<Error>? errors) =>
 
 @JsonSerializable()
 class Fault {
-  Fault({
-    this.errors,
-    this.message,
-  });
+  Fault({this.errors, this.message});
 
   @JsonKey(name: "errors", fromJson: _errorsFromJson, toJson: _errorsToJson)
   final List<Error>? errors;
@@ -40,11 +37,7 @@ class Fault {
 
 @JsonSerializable()
 class Error {
-  Error({
-    this.code,
-    this.field,
-    this.resource,
-  });
+  Error({this.code, this.field, this.resource});
 
   @JsonKey(name: "code")
   final String? code;

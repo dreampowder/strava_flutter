@@ -3,9 +3,17 @@ import 'package:strava_client/strava_client.dart';
 import 'api_models.dart';
 
 const _page = ApiParam(
-    key: "page", label: "Page", type: ParamType.int, defaultValue: 1);
+  key: "page",
+  label: "Page",
+  type: ParamType.int,
+  defaultValue: 1,
+);
 const _perPage = ApiParam(
-    key: "perPage", label: "Per page", type: ParamType.int, defaultValue: 30);
+  key: "perPage",
+  label: "Per page",
+  type: ParamType.int,
+  defaultValue: 30,
+);
 
 ApiParam _id(String key, String label) =>
     ApiParam(key: key, label: label, type: ParamType.int);
@@ -56,23 +64,26 @@ final List<ApiCall> kApiCalls = [
     description: "Your activities within a date window.",
     params: [
       ApiParam(
-          key: "before",
-          label: "Before (ISO date)",
-          type: ParamType.dateTime,
-          defaultValue: DateTime.now()),
+        key: "before",
+        label: "Before (ISO date)",
+        type: ParamType.dateTime,
+        defaultValue: DateTime.now(),
+      ),
       ApiParam(
-          key: "after",
-          label: "After (ISO date)",
-          type: ParamType.dateTime,
-          defaultValue: DateTime.now().subtract(const Duration(days: 30))),
+        key: "after",
+        label: "After (ISO date)",
+        type: ParamType.dateTime,
+        defaultValue: DateTime.now().subtract(const Duration(days: 30)),
+      ),
       _page,
       _perPage,
     ],
     run: (c, a) => c.activities.listLoggedInAthleteActivities(
-        a["before"] as DateTime,
-        a["after"] as DateTime,
-        a["page"] as int,
-        a["perPage"] as int),
+      a["before"] as DateTime,
+      a["after"] as DateTime,
+      a["page"] as int,
+      a["perPage"] as int,
+    ),
   ),
   ApiCall(
     group: "Activity",
@@ -111,37 +122,44 @@ final List<ApiCall> kApiCalls = [
       ApiParam(key: "name", label: "Name", type: ParamType.string),
       _activityTypeParam,
       ApiParam(
-          key: "startDateLocal",
-          label: "Start date local (ISO)",
-          type: ParamType.dateTime,
-          defaultValue: DateTime.now()),
+        key: "startDateLocal",
+        label: "Start date local (ISO)",
+        type: ParamType.dateTime,
+        defaultValue: DateTime.now(),
+      ),
       ApiParam(
-          key: "elapsedTime",
-          label: "Elapsed time (s)",
-          type: ParamType.int,
-          defaultValue: 3600),
+        key: "elapsedTime",
+        label: "Elapsed time (s)",
+        type: ParamType.int,
+        defaultValue: 3600,
+      ),
       ApiParam(
-          key: "description",
-          label: "Description",
-          type: ParamType.string,
-          defaultValue: ""),
+        key: "description",
+        label: "Description",
+        type: ParamType.string,
+        defaultValue: "",
+      ),
       ApiParam(
-          key: "distance",
-          label: "Distance (m)",
-          type: ParamType.double,
-          defaultValue: 0.0),
+        key: "distance",
+        label: "Distance (m)",
+        type: ParamType.double,
+        defaultValue: 0.0,
+      ),
       ApiParam(
-          key: "trainer",
-          label: "Trainer",
-          type: ParamType.bool,
-          defaultValue: false),
+        key: "trainer",
+        label: "Trainer",
+        type: ParamType.bool,
+        defaultValue: false,
+      ),
       ApiParam(
-          key: "commute",
-          label: "Commute",
-          type: ParamType.bool,
-          defaultValue: false),
+        key: "commute",
+        label: "Commute",
+        type: ParamType.bool,
+        defaultValue: false,
+      ),
     ],
-    run: (c, a) => c.activities.createActivity(CreateActivityRequest(
+    run: (c, a) => c.activities.createActivity(
+      CreateActivityRequest(
         a["name"] as String,
         a["type"] as ActivityTypeEnum,
         a["startDateLocal"] as DateTime,
@@ -149,7 +167,9 @@ final List<ApiCall> kApiCalls = [
         a["description"] as String,
         a["distance"] as double,
         a["trainer"] as bool,
-        a["commute"] as bool)),
+        a["commute"] as bool,
+      ),
+    ),
   ),
   ApiCall(
     group: "Activity",
@@ -158,28 +178,36 @@ final List<ApiCall> kApiCalls = [
     isWrite: true,
     params: [
       _id("activityId", "Activity id"),
-      ApiParam(key: "name", label: "Name (blank = skip)", type: ParamType.string),
       ApiParam(
-          key: "description",
-          label: "Description (blank = skip)",
-          type: ParamType.string),
+        key: "name",
+        label: "Name (blank = skip)",
+        type: ParamType.string,
+      ),
       ApiParam(
-          key: "gearId", label: "Gear id (blank = skip)", type: ParamType.string),
+        key: "description",
+        label: "Description (blank = skip)",
+        type: ParamType.string,
+      ),
+      ApiParam(
+        key: "gearId",
+        label: "Gear id (blank = skip)",
+        type: ParamType.string,
+      ),
     ],
     run: (c, a) => c.activities.updateActivity(
-          a["activityId"] as int,
-          UpdateActivityRequest(
-            name: (a["name"] as String?)?.isEmpty ?? true
-                ? null
-                : a["name"] as String,
-            description: (a["description"] as String?)?.isEmpty ?? true
-                ? null
-                : a["description"] as String,
-            gearId: (a["gearId"] as String?)?.isEmpty ?? true
-                ? null
-                : a["gearId"] as String,
-          ),
-        ),
+      a["activityId"] as int,
+      UpdateActivityRequest(
+        name: (a["name"] as String?)?.isEmpty ?? true
+            ? null
+            : a["name"] as String,
+        description: (a["description"] as String?)?.isEmpty ?? true
+            ? null
+            : a["description"] as String,
+        gearId: (a["gearId"] as String?)?.isEmpty ?? true
+            ? null
+            : a["gearId"] as String,
+      ),
+    ),
   ),
 
   // ------------------------------------------------------------------- Club
@@ -204,7 +232,10 @@ final List<ApiCall> kApiCalls = [
     description: "Recent activities of a club.",
     params: [_id("clubId", "Club id"), _page, _perPage],
     run: (c, a) => c.clubs.listClubActivities(
-        a["clubId"] as int, a["page"] as int, a["perPage"] as int),
+      a["clubId"] as int,
+      a["page"] as int,
+      a["perPage"] as int,
+    ),
   ),
   ApiCall(
     group: "Club",
@@ -212,7 +243,10 @@ final List<ApiCall> kApiCalls = [
     description: "Administrators of a club.",
     params: [_id("clubId", "Club id"), _page, _perPage],
     run: (c, a) => c.clubs.listClubAdministrators(
-        a["clubId"] as int, a["page"] as int, a["perPage"] as int),
+      a["clubId"] as int,
+      a["page"] as int,
+      a["perPage"] as int,
+    ),
   ),
   ApiCall(
     group: "Club",
@@ -220,7 +254,10 @@ final List<ApiCall> kApiCalls = [
     description: "Members of a club.",
     params: [_id("clubId", "Club id"), _page, _perPage],
     run: (c, a) => c.clubs.listClubMembers(
-        a["clubId"] as int, a["page"] as int, a["perPage"] as int),
+      a["clubId"] as int,
+      a["page"] as int,
+      a["perPage"] as int,
+    ),
   ),
 
   // ------------------------------------------------------------------- Gear
@@ -230,9 +267,10 @@ final List<ApiCall> kApiCalls = [
     description: "Gear (bike/shoe) by id.",
     params: [
       ApiParam(
-          key: "gearId",
-          label: "Gear id (e.g. b1234567)",
-          type: ParamType.string)
+        key: "gearId",
+        label: "Gear id (e.g. b1234567)",
+        type: ParamType.string,
+      ),
     ],
     run: (c, a) => c.gears.getGearById(a["gearId"] as String),
   ),
@@ -251,7 +289,10 @@ final List<ApiCall> kApiCalls = [
     description: "Routes created by an athlete.",
     params: [_id("athleteId", "Athlete id"), _page, _perPage],
     run: (c, a) => c.routes.listAthleteRoutes(
-        a["athleteId"] as int, a["page"] as int, a["perPage"] as int),
+      a["athleteId"] as int,
+      a["page"] as int,
+      a["perPage"] as int,
+    ),
   ),
   ApiCall(
     group: "Route",
@@ -282,10 +323,11 @@ final List<ApiCall> kApiCalls = [
     description: "Running races in a given year.",
     params: [
       ApiParam(
-          key: "year",
-          label: "Year",
-          type: ParamType.int,
-          defaultValue: DateTime.now().year)
+        key: "year",
+        label: "Year",
+        type: ParamType.int,
+        defaultValue: DateTime.now().year,
+      ),
     ],
     run: (c, a) => c.runningRaces.listRunningRaces(a["year"] as int),
   ),
@@ -305,22 +347,25 @@ final List<ApiCall> kApiCalls = [
     params: [
       _id("segmentId", "Segment id"),
       ApiParam(
-          key: "startDate",
-          label: "Start date (ISO)",
-          type: ParamType.dateTime,
-          defaultValue: DateTime.now().subtract(const Duration(days: 365))),
+        key: "startDate",
+        label: "Start date (ISO)",
+        type: ParamType.dateTime,
+        defaultValue: DateTime.now().subtract(const Duration(days: 365)),
+      ),
       ApiParam(
-          key: "endDate",
-          label: "End date (ISO)",
-          type: ParamType.dateTime,
-          defaultValue: DateTime.now()),
+        key: "endDate",
+        label: "End date (ISO)",
+        type: ParamType.dateTime,
+        defaultValue: DateTime.now(),
+      ),
       _perPage,
     ],
     run: (c, a) => c.segmentEfforts.listSegmentEfforts(
-        a["segmentId"] as int,
-        a["startDate"] as DateTime,
-        a["endDate"] as DateTime,
-        a["perPage"] as int),
+      a["segmentId"] as int,
+      a["startDate"] as DateTime,
+      a["endDate"] as DateTime,
+      a["perPage"] as int,
+    ),
   ),
 
   // ---------------------------------------------------------------- Segment
@@ -347,10 +392,11 @@ final List<ApiCall> kApiCalls = [
     params: [
       _id("segmentId", "Segment id"),
       ApiParam(
-          key: "starred",
-          label: "Starred",
-          type: ParamType.bool,
-          defaultValue: true),
+        key: "starred",
+        label: "Starred",
+        type: ParamType.bool,
+        defaultValue: true,
+      ),
     ],
     run: (c, a) =>
         c.segments.starSegment(a["segmentId"] as int, a["starred"] as bool),
@@ -361,43 +407,50 @@ final List<ApiCall> kApiCalls = [
     description: "Explore segments within a bounding box.",
     params: [
       ApiParam(
-          key: "swLat",
-          label: "SW latitude",
-          type: ParamType.double,
-          defaultValue: 37.821),
+        key: "swLat",
+        label: "SW latitude",
+        type: ParamType.double,
+        defaultValue: 37.821,
+      ),
       ApiParam(
-          key: "swLon",
-          label: "SW longitude",
-          type: ParamType.double,
-          defaultValue: -122.505),
+        key: "swLon",
+        label: "SW longitude",
+        type: ParamType.double,
+        defaultValue: -122.505,
+      ),
       ApiParam(
-          key: "neLat",
-          label: "NE latitude",
-          type: ParamType.double,
-          defaultValue: 37.842),
+        key: "neLat",
+        label: "NE latitude",
+        type: ParamType.double,
+        defaultValue: 37.842,
+      ),
       ApiParam(
-          key: "neLon",
-          label: "NE longitude",
-          type: ParamType.double,
-          defaultValue: -122.465),
+        key: "neLon",
+        label: "NE longitude",
+        type: ParamType.double,
+        defaultValue: -122.465,
+      ),
       _activityTypeParam,
       ApiParam(
-          key: "minCat",
-          label: "Min climb category",
-          type: ParamType.int,
-          defaultValue: 0),
+        key: "minCat",
+        label: "Min climb category",
+        type: ParamType.int,
+        defaultValue: 0,
+      ),
       ApiParam(
-          key: "maxCat",
-          label: "Max climb category",
-          type: ParamType.int,
-          defaultValue: 5),
+        key: "maxCat",
+        label: "Max climb category",
+        type: ParamType.int,
+        defaultValue: 5,
+      ),
     ],
     run: (c, a) => c.segments.exploreSegments(
-        GeoPoint(a["swLat"] as double, a["swLon"] as double),
-        GeoPoint(a["neLat"] as double, a["neLon"] as double),
-        a["type"] as ActivityTypeEnum,
-        a["minCat"] as int,
-        a["maxCat"] as int),
+      GeoPoint(a["swLat"] as double, a["swLon"] as double),
+      GeoPoint(a["neLat"] as double, a["neLon"] as double),
+      a["type"] as ActivityTypeEnum,
+      a["minCat"] as int,
+      a["maxCat"] as int,
+    ),
   ),
   ApiCall(
     group: "Segment",
@@ -406,50 +459,60 @@ final List<ApiCall> kApiCalls = [
     params: [
       _id("segmentId", "Segment id"),
       ApiParam(
-          key: "gender",
-          label: "Gender",
-          type: ParamType.enumValue,
-          defaultValue: SegmentGender.male,
-          enumValues: SegmentGender.values,
-          enumLabel: (v) => (v as SegmentGender).name),
+        key: "gender",
+        label: "Gender",
+        type: ParamType.enumValue,
+        defaultValue: SegmentGender.male,
+        enumValues: SegmentGender.values,
+        enumLabel: (v) => (v as SegmentGender).name,
+      ),
       ApiParam(
-          key: "ageGroup",
-          label: "Age group",
-          type: ParamType.enumValue,
-          defaultValue: SegmentAgeGroup.values.first,
-          enumValues: SegmentAgeGroup.values,
-          enumLabel: (v) => (v as SegmentAgeGroup).name),
+        key: "ageGroup",
+        label: "Age group",
+        type: ParamType.enumValue,
+        defaultValue: SegmentAgeGroup.values.first,
+        enumValues: SegmentAgeGroup.values,
+        enumLabel: (v) => (v as SegmentAgeGroup).name,
+      ),
       ApiParam(
-          key: "weightClass",
-          label: "Weight class",
-          type: ParamType.enumValue,
-          defaultValue: SegmentWeightClass.values.first,
-          enumValues: SegmentWeightClass.values,
-          enumLabel: (v) => (v as SegmentWeightClass).name),
+        key: "weightClass",
+        label: "Weight class",
+        type: ParamType.enumValue,
+        defaultValue: SegmentWeightClass.values.first,
+        enumValues: SegmentWeightClass.values,
+        enumLabel: (v) => (v as SegmentWeightClass).name,
+      ),
       ApiParam(
-          key: "dateRange",
-          label: "Date range",
-          type: ParamType.enumValue,
-          defaultValue: SegmentDateRange.this_year,
-          enumValues: SegmentDateRange.values,
-          enumLabel: (v) => (v as SegmentDateRange).name),
+        key: "dateRange",
+        label: "Date range",
+        type: ParamType.enumValue,
+        defaultValue: SegmentDateRange.this_year,
+        enumValues: SegmentDateRange.values,
+        enumLabel: (v) => (v as SegmentDateRange).name,
+      ),
       ApiParam(
-          key: "clubId", label: "Club id (0 = none)", type: ParamType.int,
-          defaultValue: 0),
+        key: "clubId",
+        label: "Club id (0 = none)",
+        type: ParamType.int,
+        defaultValue: 0,
+      ),
       ApiParam(
-          key: "maxEntries",
-          label: "Max entries",
-          type: ParamType.int,
-          defaultValue: 10),
+        key: "maxEntries",
+        label: "Max entries",
+        type: ParamType.int,
+        defaultValue: 10,
+      ),
       ApiParam(
-          key: "following",
-          label: "Following only",
-          type: ParamType.bool,
-          defaultValue: false),
+        key: "following",
+        label: "Following only",
+        type: ParamType.bool,
+        defaultValue: false,
+      ),
       _page,
       _perPage,
     ],
-    run: (c, a) => c.segments.getLeaderBoard(SegmentLeaderboardRequest(
+    run: (c, a) => c.segments.getLeaderBoard(
+      SegmentLeaderboardRequest(
         a["dateRange"] as SegmentDateRange,
         a["gender"] as SegmentGender,
         a["ageGroup"] as SegmentAgeGroup,
@@ -459,7 +522,9 @@ final List<ApiCall> kApiCalls = [
         a["maxEntries"] as int,
         a["following"] as bool,
         a["page"] as int,
-        a["perPage"] as int)),
+        a["perPage"] as int,
+      ),
+    ),
   ),
 
   // ----------------------------------------------------------------- Stream
@@ -468,8 +533,10 @@ final List<ApiCall> kApiCalls = [
     name: "getActivityStreams",
     description: "Activity streams as a list (array form).",
     params: [_id("activityId", "Activity id"), _streamKeys],
-    run: (c, a) => c.streams
-        .getActivityStreams(a["activityId"] as int, a["keys"] as List<String>),
+    run: (c, a) => c.streams.getActivityStreams(
+      a["activityId"] as int,
+      a["keys"] as List<String>,
+    ),
   ),
   ApiCall(
     group: "Stream",
@@ -477,7 +544,9 @@ final List<ApiCall> kApiCalls = [
     description: "Activity streams keyed by type (StreamCollection).",
     params: [_id("activityId", "Activity id"), _streamKeys],
     run: (c, a) => c.streams.getActivityStreamsByType(
-        a["activityId"] as int, a["keys"] as List<String>),
+      a["activityId"] as int,
+      a["keys"] as List<String>,
+    ),
   ),
   ApiCall(
     group: "Stream",
@@ -499,7 +568,9 @@ final List<ApiCall> kApiCalls = [
     description: "Segment-effort streams as a list.",
     params: [_id("effortId", "Segment effort id"), _streamKeys],
     run: (c, a) => c.streams.getSegmentEffortStreams(
-        a["effortId"] as int, a["keys"] as List<String>),
+      a["effortId"] as int,
+      a["keys"] as List<String>,
+    ),
   ),
   ApiCall(
     group: "Stream",
@@ -507,15 +578,19 @@ final List<ApiCall> kApiCalls = [
     description: "Segment-effort streams keyed by type.",
     params: [_id("effortId", "Segment effort id"), _streamKeys],
     run: (c, a) => c.streams.getSegmentEffortStreamsByType(
-        a["effortId"] as int, a["keys"] as List<String>),
+      a["effortId"] as int,
+      a["keys"] as List<String>,
+    ),
   ),
   ApiCall(
     group: "Stream",
     name: "getSegmentStreams",
     description: "Segment streams as a list.",
     params: [_id("segmentId", "Segment id"), _streamKeys],
-    run: (c, a) => c.streams
-        .getSegmentStreams(a["segmentId"] as int, a["keys"] as List<String>),
+    run: (c, a) => c.streams.getSegmentStreams(
+      a["segmentId"] as int,
+      a["keys"] as List<String>,
+    ),
   ),
   ApiCall(
     group: "Stream",
@@ -523,7 +598,9 @@ final List<ApiCall> kApiCalls = [
     description: "Segment streams keyed by type.",
     params: [_id("segmentId", "Segment id"), _streamKeys],
     run: (c, a) => c.streams.getSegmentStreamsByType(
-        a["segmentId"] as int, a["keys"] as List<String>),
+      a["segmentId"] as int,
+      a["keys"] as List<String>,
+    ),
   ),
 
   // ----------------------------------------------------------------- Upload
@@ -541,7 +618,8 @@ const _streamKeys = ApiParam(
   label: "Keys (comma separated)",
   type: ParamType.stringList,
   defaultValue: "distance,heartrate,watts",
-  hint: "time, distance, latlng, altitude, velocity_smooth, heartrate, "
+  hint:
+      "time, distance, latlng, altitude, velocity_smooth, heartrate, "
       "cadence, watts, temp, moving, grade_smooth",
 );
 
