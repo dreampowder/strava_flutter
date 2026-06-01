@@ -19,6 +19,7 @@ class RepositoryAthleteImpl extends RepositoryAthlete {
         });
   }
 
+  @Deprecated('Mismodels GET /athlete/zones. Use getAthleteZones() instead.')
   @override
   Future<List<Zones>> getZones() {
     return ApiClient.getRequest<List<Zones>>(
@@ -32,6 +33,14 @@ class RepositoryAthleteImpl extends RepositoryAthlete {
             return [];
           }
         });
+  }
+
+  @override
+  Future<AthleteZones> getAthleteZones() {
+    return ApiClient.getRequest<AthleteZones>(
+        endPoint: "/v3/athlete/zones",
+        dataConstructor: (data) =>
+            AthleteZones.fromJson(Map<String, dynamic>.from(data)));
   }
 
   @override

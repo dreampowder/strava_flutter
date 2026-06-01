@@ -1,3 +1,21 @@
+## [2.2.0]
+Modernization pass — fully backwards compatible (additions + deprecations only).
+
+### Added
+- Bundled, validated OpenAPI 3.0 + Swagger 2.0 specs for the Strava V3 API under `openapi/` (reference artifacts; not shipped in the package).
+- Missing fields on existing models, sourced from the spec: `sport_type` (the modern replacement for the deprecated `type`), `elev_high`, `elev_low`, `device_name`, `hide_from_home`, `upload_id_str`, `best_efforts`, `splits_standard` (activities); `activity_id`, `average_heartrate`, `max_heartrate`, `is_kom` (segment efforts); `summit` (athlete); `athlete_pr_effort` (segment); `pace_zone` (lap); `waypoints` + new `Waypoint` model (route); `activity_types` (club).
+- `StreamCollection` model + `RepositoryStream.get*StreamsByType(...)` methods for Strava's keyed (`key_by_type=true`) stream form.
+- `AthleteZones` model (`heart_rate` / `power` ranges) + `RepositoryAthlete.getAthleteZones()`, the correct model for `GET /athlete/zones`.
+
+### Changed
+- All models migrated to `json_serializable` (generated `*.g.dart`). Public API, field names, types, nullability and serialization output are unchanged.
+- `RepositoryStream.get*Streams(...)` now correctly request the array form and return populated `List<StravaStream>` (previously returned an empty list due to a `key_by_type` mismatch).
+- SDK constraint raised to `>=3.8.0 <4.0.0`.
+
+### Deprecated
+- `StreamSet` → renamed to `StravaStream` (kept as a deprecated alias; a single stream is not a "set").
+- `RepositoryAthlete.getZones()` / its `List<Zones>` shape — mismodels `GET /athlete/zones`; use `getAthleteZones()`.
+
 ## [2.1.3]
 - Fixed toJson() call for ModelDetailedActivity (Thanks @tchex)
 - Updated project dependencies

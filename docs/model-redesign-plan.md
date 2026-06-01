@@ -1,5 +1,10 @@
 # Non-breaking redesign plan: `StreamSet` and `Zones`
 
+> **Status: implemented in 2.2.0.** `StravaStream` + `StreamCollection` and the
+> `get*StreamsByType` methods ship alongside the deprecated `StreamSet` alias;
+> `AthleteZones` + `getAthleteZones()` ship alongside the deprecated
+> `getZones()`. The notes below are the original design rationale.
+
 Two models diverge semantically from the Strava spec (`openapi/strava_v3.*`).
 Both can be corrected without breaking existing users by **keeping the current
 classes/methods, deprecating them, and adding correct ones alongside**.
