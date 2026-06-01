@@ -12,7 +12,7 @@ class ApiClient {
     var dio = Dio();
     if (isAuthenticated) {
       var token = await sl<SessionManager>().getValidToken();
-      var headers = Map<String, dynamic>();
+      var headers = <String, dynamic>{};
       if (token != null) {
         headers.putIfAbsent(
             "Authorization", () => "Bearer ${token.accessToken}");
