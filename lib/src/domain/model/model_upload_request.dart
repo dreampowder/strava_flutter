@@ -1,18 +1,36 @@
 import 'dart:io';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_upload_request.g.dart';
+
 // name : "sdfsdf"
 // description : "sdfsdfsdf"
 // isTrainerActivity : true
 // isCommuteActivity : true
 // dataType : "sdfsdf"
 // externalId : "23424"
+@JsonSerializable()
 class UploadActivityRequest {
+  @JsonKey(includeFromJson: false, includeToJson: false)
   File? file;
+
+  @JsonKey(name: "name")
   String? name;
+
+  @JsonKey(name: "description")
   String? description;
+
+  @JsonKey(name: "trainer")
   bool? isTrainerActivity;
+
+  @JsonKey(name: "commute")
   bool? isCommuteActivity;
+
+  @JsonKey(name: "data_type")
   String? dataType;
+
+  @JsonKey(name: "external_id")
   String? externalId;
 
   UploadActivityRequest(
@@ -24,23 +42,8 @@ class UploadActivityRequest {
       this.dataType,
       this.externalId});
 
-  UploadActivityRequest.fromJson(dynamic json) {
-    name = json['name'];
-    description = json['description'];
-    isTrainerActivity = json['trainer'];
-    isCommuteActivity = json['commute'];
-    dataType = json['data_type'];
-    externalId = json['external_id'];
-  }
+  factory UploadActivityRequest.fromJson(Map<String, dynamic> json) =>
+      _$UploadActivityRequestFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['name'] = name;
-    map['description'] = description;
-    map['trainer'] = isTrainerActivity;
-    map['commute'] = isCommuteActivity;
-    map['data_type'] = dataType;
-    map['external_id'] = externalId;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$UploadActivityRequestToJson(this);
 }

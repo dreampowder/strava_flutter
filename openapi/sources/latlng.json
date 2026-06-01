@@ -1,0 +1,12 @@
+{
+  "LatLng": {
+    "type": "array",
+    "items": {
+      "type": "number",
+      "format": "float"
+    },
+    "minItems": 2,
+    "maxItems": 2,
+    "description": "A pair of latitude/longitude coordinates, represented as an array of 2 floating point numbers."
+  }
+}

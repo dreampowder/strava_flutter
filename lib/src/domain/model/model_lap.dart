@@ -1,34 +1,76 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_lap.g.dart';
+
+@JsonSerializable()
 class Lap {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "name")
   String? name;
+
+  @JsonKey(name: "activity", includeIfNull: false)
   MetaActivity? activity;
+
+  @JsonKey(name: "athlete", includeIfNull: false)
   MetaAthlete? athlete;
 
   /// The lap's elapsed time, in seconds.
+  @JsonKey(name: "elapsed_time")
   int? elapsedTime;
 
   /// The lap's moving time, in seconds.
+  @JsonKey(name: "moving_time")
   int? movingTime;
+
+  @JsonKey(name: "start_date")
   String? startDate;
+
+  @JsonKey(name: "start_date_local")
   String? startDateLocal;
 
   /// The lap's distance, in meters.
+  @JsonKey(name: "distance")
   double? distance;
+
+  @JsonKey(name: "start_index")
   int? startIndex;
+
+  @JsonKey(name: "end_index")
   int? endIndex;
 
   /// The elevation gain of this lap, in meters.
+  @JsonKey(name: "total_elevation_gain")
   double? totalElevationGain;
+
+  @JsonKey(name: "average_speed")
   double? averageSpeed;
 
   /// The maximum speed of this lat, in meters per second.
+  @JsonKey(name: "max_speed")
   double? maxSpeed;
+
+  @JsonKey(name: "average_cadence")
   double? averageCadence;
+
+  @JsonKey(name: "device_watts")
   bool? deviceWatts;
+
+  @JsonKey(name: "average_watts")
   double? averageWatts;
+
+  @JsonKey(name: "lap_index")
   int? lapIndex;
+
+  @JsonKey(name: "split")
   int? split;
+
+  @JsonKey(name: "pace_zone")
+  int? paceZone;
 
   Lap(
       {this.id,
@@ -50,102 +92,46 @@ class Lap {
       this.deviceWatts,
       this.averageWatts,
       this.lapIndex,
-      this.split});
+      this.split,
+      this.paceZone});
 
-  Lap.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-    name = json['name'];
-    activity = json['activity'] != null
-        ? MetaActivity.fromJson(json['activity'])
-        : null;
-    athlete =
-        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
-    elapsedTime = json['elapsed_time'];
-    movingTime = json['moving_time'];
-    startDate = json['start_date'];
-    startDateLocal = json['start_date_local'];
-    distance = json['distance'];
-    startIndex = json['start_index'];
-    endIndex = json['end_index'];
-    totalElevationGain = json['total_elevation_gain'].toDouble();
-    averageSpeed = json['average_speed'];
-    maxSpeed = json['max_speed'];
-    averageCadence = json['average_cadence'];
-    deviceWatts = json['device_watts'];
-    averageWatts = json['average_watts'];
-    lapIndex = json['lap_index'];
-    split = json['split'];
-  }
+  factory Lap.fromJson(Map<String, dynamic> json) => _$LapFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['resource_state'] = resourceState;
-    map['name'] = name;
-    if (activity != null) {
-      map['activity'] = activity?.toJson();
-    }
-    if (athlete != null) {
-      map['athlete'] = athlete?.toJson();
-    }
-    map['elapsed_time'] = elapsedTime;
-    map['moving_time'] = movingTime;
-    map['start_date'] = startDate;
-    map['start_date_local'] = startDateLocal;
-    map['distance'] = distance;
-    map['start_index'] = startIndex;
-    map['end_index'] = endIndex;
-    map['total_elevation_gain'] = totalElevationGain;
-    map['average_speed'] = averageSpeed;
-    map['max_speed'] = maxSpeed;
-    map['average_cadence'] = averageCadence;
-    map['device_watts'] = deviceWatts;
-    map['average_watts'] = averageWatts;
-    map['lap_index'] = lapIndex;
-    map['split'] = split;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$LapToJson(this);
 }
 
 // id : 134815
 // resource_state : 1
+@JsonSerializable()
 class MetaAthlete {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
 
   MetaAthlete({this.id, this.resourceState});
 
-  MetaAthlete.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-  }
+  factory MetaAthlete.fromJson(Map<String, dynamic> json) =>
+      _$MetaAthleteFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['resource_state'] = resourceState;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$MetaAthleteToJson(this);
 }
 
 // id : 1410355832
 // resource_state : 1
+@JsonSerializable()
 class MetaActivity {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
 
   MetaActivity({this.id, this.resourceState});
 
-  MetaActivity.fromJson(dynamic json) {
-    id = json['id'];
-    resourceState = json['resource_state'];
-  }
+  factory MetaActivity.fromJson(Map<String, dynamic> json) =>
+      _$MetaActivityFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['resource_state'] = resourceState;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$MetaActivityToJson(this);
 }

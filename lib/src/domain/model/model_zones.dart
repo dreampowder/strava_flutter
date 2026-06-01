@@ -4,6 +4,11 @@
 
 import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_zones.g.dart';
+
+@JsonSerializable()
 class Zones {
   Zones({
     required this.distributionBuckets,
@@ -12,33 +17,28 @@ class Zones {
     required this.sensorBased,
   });
 
+  @JsonKey(name: "distribution_buckets")
   List<DistributionBucket> distributionBuckets;
+
+  @JsonKey(name: "type")
   String type;
+
+  @JsonKey(name: "resource_state")
   int resourceState;
+
+  @JsonKey(name: "sensor_based")
   bool sensorBased;
 
   factory Zones.fromRawJson(String str) => Zones.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Zones.fromJson(Map<String, dynamic> json) => Zones(
-        distributionBuckets: List<DistributionBucket>.from(
-            json["distribution_buckets"]
-                .map((x) => DistributionBucket.fromJson(x))),
-        type: json["type"],
-        resourceState: json["resource_state"],
-        sensorBased: json["sensor_based"],
-      );
+  factory Zones.fromJson(Map<String, dynamic> json) => _$ZonesFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "distribution_buckets":
-            List<dynamic>.from(distributionBuckets.map((x) => x.toJson())),
-        "type": type,
-        "resource_state": resourceState,
-        "sensor_based": sensorBased,
-      };
+  Map<String, dynamic> toJson() => _$ZonesToJson(this);
 }
 
+@JsonSerializable()
 class DistributionBucket {
   DistributionBucket({
     required this.max,
@@ -46,8 +46,13 @@ class DistributionBucket {
     required this.time,
   });
 
+  @JsonKey(name: "max")
   int max;
+
+  @JsonKey(name: "min")
   int min;
+
+  @JsonKey(name: "time")
   int time;
 
   factory DistributionBucket.fromRawJson(String str) =>
@@ -56,15 +61,7 @@ class DistributionBucket {
   String toRawJson() => json.encode(toJson());
 
   factory DistributionBucket.fromJson(Map<String, dynamic> json) =>
-      DistributionBucket(
-        max: json["max"],
-        min: json["min"],
-        time: json["time"],
-      );
+      _$DistributionBucketFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "max": max,
-        "min": min,
-        "time": time,
-      };
+  Map<String, dynamic> toJson() => _$DistributionBucketToJson(this);
 }

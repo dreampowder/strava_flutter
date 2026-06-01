@@ -1,0 +1,184 @@
+{
+  "DetailedSegment": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/segment.json#/SummarySegment"
+      },
+      {
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the segment was created."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The time at which the segment was last updated."
+          },
+          "total_elevation_gain": {
+            "type": "number",
+            "format": "float",
+            "description": "The segment's total elevation gain."
+          },
+          "map": {
+            "$ref": "https://developers.strava.com/swagger/map.json#/PolylineMap"
+          },
+          "effort_count": {
+            "type": "integer",
+            "description": "The total number of efforts for this segment"
+          },
+          "athlete_count": {
+            "type": "integer",
+            "description": "The number of unique athletes who have an effort for this segment"
+          },
+          "hazardous": {
+            "type": "boolean",
+            "description": "Whether this segment is considered hazardous"
+          },
+          "star_count": {
+            "type": "integer",
+            "description": "The number of stars for this segment"
+          }
+        }
+      }
+    ]
+  },
+  "SummarySegment": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of this segment"
+      },
+      "name": {
+        "type": "string",
+        "description": "The name of this segment"
+      },
+      "activity_type": {
+        "type": "string",
+        "enum": ["Ride", "Run"]
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The segment's distance, in meters"
+      },
+      "average_grade": {
+        "type": "number",
+        "format": "float",
+        "description": "The segment's average grade, in percents"
+      },
+      "maximum_grade": {
+        "type": "number",
+        "format": "float",
+        "description": "The segments's maximum grade, in percents"
+      },
+      "elevation_high": {
+        "type": "number",
+        "format": "float",
+        "description": "The segments's highest elevation, in meters"
+      },
+      "elevation_low": {
+        "type": "number",
+        "format": "float",
+        "description": "The segments's lowest elevation, in meters"
+      },
+      "start_latlng": {
+        "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng"
+      },
+      "end_latlng": {
+        "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng"
+      },
+      "climb_category": {
+        "type": "integer",
+        "description": "The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category."
+      },
+      "city": {
+        "type": "string",
+        "description": "The segments's city."
+      },
+      "state": {
+        "type": "string",
+        "description": "The segments's state or geographical region."
+      },
+      "country": {
+        "type": "string",
+        "description": "The segment's country."
+      },
+      "private": {
+        "type": "boolean",
+        "description": "Whether this segment is private."
+      },
+      "athlete_pr_effort": {
+        "$ref": "https://developers.strava.com/swagger/segment_effort.json#/SummaryPRSegmentEffort"
+      },
+      "athlete_segment_stats": {
+        "$ref": "https://developers.strava.com/swagger/segment_effort.json#/SummarySegmentEffort"
+      }
+    }
+  },
+  "ExplorerResponse": {
+    "type": "object",
+    "properties": {
+      "segments": {
+        "type": "array",
+        "items": {
+          "$ref": "https://developers.strava.com/swagger/segment.json#/ExplorerSegment"
+        },
+        "description": "The set of segments matching an explorer request"
+      }
+    }
+  },
+  "ExplorerSegment": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of this segment"
+      },
+      "name": {
+        "type": "string",
+        "description": "The name of this segment"
+      },
+      "climb_category": {
+        "type": "integer",
+        "description": "The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category. If climb_category = 5, climb_category_desc = HC. If climb_category = 2, climb_category_desc = 3.",
+        "minimum": 0,
+        "maximum": 5
+      },
+      "climb_category_desc": {
+        "type": "string",
+        "description": "The description for the category of the climb",
+        "enum": ["NC", "4", "3", "2", "1", "HC"]
+      },
+      "avg_grade": {
+        "type": "number",
+        "format": "float",
+        "description": "The segment's average grade, in percents"
+      },
+      "start_latlng": {
+        "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng"
+      },
+      "end_latlng": {
+        "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng"
+      },
+      "elev_difference": {
+        "type": "number",
+        "format": "float",
+        "description": "The segments's evelation difference, in meters"
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The segment's distance, in meters"
+      },
+      "points": {
+        "type": "string",
+        "description": "The polyline of the segment"
+      }
+    }
+  }
+}

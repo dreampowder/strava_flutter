@@ -14,7 +14,6 @@ class ApiClient {
       var token = await sl<SessionManager>().getToken();
       var headers = Map<String, dynamic>();
       if (token != null) {
-        print("Token: ${token.accessToken}");
         headers.putIfAbsent(
             "Authorization", () => "Bearer ${token.accessToken}");
       }
@@ -80,7 +79,7 @@ class ApiClient {
 
   static void handleError<T>(
       Completer<T> completer, dynamic error, StackTrace stackTrace) {
-    if (error is DioError) {
+    if (error is DioException) {
       if (error.response != null &&
           error.response?.data != null &&
           error.response?.data is Map) {

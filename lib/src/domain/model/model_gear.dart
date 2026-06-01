@@ -6,18 +6,37 @@
 // model_name : "Teammachine"
 // frame_type : 3
 // description : "My Bike."
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_gear.g.dart';
+
+@JsonSerializable()
 class Gear {
+  @JsonKey(name: "id")
   String? id;
+
+  @JsonKey(name: "primary")
   bool? primary;
 
   /// Resource state, indicates level of detail.
   ///
   /// Possible values: 2 -> `summary`, 3 -> `detail`.
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "distance")
   int? distance;
+
+  @JsonKey(name: "brand_name")
   String? brandName;
+
+  @JsonKey(name: "model_name")
   String? modelName;
+
+  @JsonKey(name: "frame_type")
   int? frameType;
+
+  @JsonKey(name: "description")
   String? description;
 
   Gear(
@@ -30,27 +49,7 @@ class Gear {
       this.frameType,
       this.description});
 
-  Gear.fromJson(dynamic json) {
-    id = json['id'];
-    primary = json['primary'];
-    resourceState = json['resource_state'];
-    distance = json['distance'];
-    brandName = json['brand_name'];
-    modelName = json['model_name'];
-    frameType = json['frame_type'];
-    description = json['description'];
-  }
+  factory Gear.fromJson(Map<String, dynamic> json) => _$GearFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['primary'] = primary;
-    map['resource_state'] = resourceState;
-    map['distance'] = distance;
-    map['brand_name'] = brandName;
-    map['model_name'] = modelName;
-    map['frame_type'] = frameType;
-    map['description'] = description;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$GearToJson(this);
 }

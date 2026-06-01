@@ -4,12 +4,28 @@
 // id : 0
 // error : "aeiou"
 // status : "aeiou"
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_upload.g.dart';
+
+@JsonSerializable()
 class UploadResponse {
+  @JsonKey(name: "id_str")
   String? idStr;
+
+  @JsonKey(name: "activity_id")
   int? activityId;
+
+  @JsonKey(name: "external_id")
   String? externalId;
+
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "error")
   String? error;
+
+  @JsonKey(name: "status")
   String? status;
 
   UploadResponse(
@@ -20,23 +36,8 @@ class UploadResponse {
       this.error,
       this.status});
 
-  UploadResponse.fromJson(dynamic json) {
-    idStr = json['id_str'];
-    activityId = json['activity_id'];
-    externalId = json['external_id'];
-    id = json['id'];
-    error = json['error'];
-    status = json['status'];
-  }
+  factory UploadResponse.fromJson(Map<String, dynamic> json) =>
+      _$UploadResponseFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id_str'] = idStr;
-    map['activity_id'] = activityId;
-    map['external_id'] = externalId;
-    map['id'] = id;
-    map['error'] = error;
-    map['status'] = status;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$UploadResponseToJson(this);
 }

@@ -1,0 +1,160 @@
+{
+  "DetailedClub": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/club.json#/SummaryClub"
+      },
+      {
+        "properties": {
+          "membership": {
+            "type": "string",
+            "enum": ["member", "pending"],
+            "description": "The membership status of the logged-in athlete."
+          },
+          "admin": {
+            "type": "boolean",
+            "description": "Whether the currently logged-in athlete is an administrator of this club."
+          },
+          "owner": {
+            "type": "boolean",
+            "description": "Whether the currently logged-in athlete is the owner of this club."
+          },
+          "following_count": {
+            "type": "integer",
+            "description": "The number of athletes in the club that the logged-in athlete follows."
+          }
+        }
+      }
+    ]
+  },
+  "SummaryClub": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/club.json#/MetaClub"
+      },
+      {
+        "properties": {
+          "profile_medium": {
+            "type": "string",
+            "description": "URL to a 60x60 pixel profile picture."
+          },
+          "cover_photo": {
+            "type": "string",
+            "description": "URL to a ~1185x580 pixel cover photo."
+          },
+          "cover_photo_small": {
+            "type": "string",
+            "description": "URL to a ~360x176  pixel cover photo."
+          },
+          "sport_type": {
+            "type": "string",
+            "enum": ["cycling", "running", "triathlon", "other"],
+            "description": "Deprecated. Prefer to use activity_types."
+          },
+          "activity_types": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/activity_type.json#/ActivityType"
+            },
+            "description": "The activity types that count for a club. This takes precedence over sport_type."
+          },
+          "city": {
+            "type": "string",
+            "description": "The club's city."
+          },
+          "state": {
+            "type": "string",
+            "description": "The club's state or geographical region."
+          },
+          "country": {
+            "type": "string",
+            "description": "The club's country."
+          },
+          "private": {
+            "type": "boolean",
+            "description": "Whether the club is private."
+          },
+          "member_count": {
+            "type": "integer",
+            "description": "The club's member count."
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Whether the club is featured or not."
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "Whether the club is verified or not."
+          },
+          "url": {
+            "type": "string",
+            "description": "The club's vanity URL."
+          }
+        }
+      }
+    ]
+  },
+  "MetaClub": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The club's unique identifier."
+      },
+      "resource_state": {
+        "type": "integer",
+        "description": "Resource state, indicates level of detail. Possible values: 1 -> \"meta\", 2 -> \"summary\", 3 -> \"detail\""
+      },
+      "name": {
+        "type": "string",
+        "description": "The club's name."
+      }
+    }
+  },
+  "ClubAnnouncement": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of this announcement."
+      },
+      "club_id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The unique identifier of the club this announcements was made in."
+      },
+      "athlete": {
+        "$ref": "https://developers.strava.com/swagger/athlete.json#/SummaryAthlete"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The time at which this announcement was created."
+      },
+      "message": {
+        "type": "string",
+        "description": "The content of this announcement"
+      }
+    }
+  },
+  "MembershipApplication": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether the application for membership was successfully submitted"
+      },
+      "active": {
+        "type": "boolean",
+        "description": "Whether the membership is currently active"
+      },
+      "membership": {
+        "type": "string",
+        "enum": ["member", "pending"],
+        "description": "The membership status of this application"
+      }
+    }
+  }
+}

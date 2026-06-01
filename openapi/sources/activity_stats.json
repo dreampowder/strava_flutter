@@ -1,0 +1,53 @@
+{
+  "ActivityStats": {
+    "description": "A set of rolled-up statistics and totals for an athlete",
+    "properties": {
+      "biggest_ride_distance": {
+        "type": "number",
+        "format": "double",
+        "description": "The longest distance ridden by the athlete."
+      },
+      "biggest_climb_elevation_gain": {
+        "type": "number",
+        "format": "double",
+        "description": "The highest climb ridden by the athlete."
+      },
+      "recent_ride_totals": {
+        "description": "The recent (last 4 weeks) ride stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "recent_run_totals": {
+        "description": "The recent (last 4 weeks) run stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "recent_swim_totals": {
+        "description": "The recent (last 4 weeks) swim stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "ytd_ride_totals": {
+        "description": "The year to date ride stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "ytd_run_totals": {
+        "description": "The year to date run stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "ytd_swim_totals": {
+        "description": "The year to date swim stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "all_ride_totals": {
+        "description": "The all time ride stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "all_run_totals": {
+        "description": "The all time run stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      },
+      "all_swim_totals": {
+        "description": "The all time swim stats for the athlete.",
+        "$ref": "https://developers.strava.com/swagger/activity_total.json#/ActivityTotal"
+      }
+    }
+  }
+}

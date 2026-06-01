@@ -1,3 +1,12 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_running_race.g.dart';
+
+/// Preserves the legacy behavior of returning an empty list (not null) when
+/// the route_ids field is absent from the JSON payload.
+List<int>? _routeIdsFromJson(dynamic value) =>
+    value != null ? (value as List).cast<int>() : <int>[];
+
 // country : "aeiou"
 // route_ids : [5]
 // running_race_type : 6
@@ -10,18 +19,42 @@
 // id : 0
 // state : "aeiou"
 // url : "aeiou"
+@JsonSerializable()
 class RunningRace {
+  @JsonKey(name: "country")
   String? country;
+
+  @JsonKey(name: "route_ids", fromJson: _routeIdsFromJson)
   List<int>? routeIds;
+
+  @JsonKey(name: "running_race_type")
   int? runningRaceType;
+
+  @JsonKey(name: "distance")
   double? distance;
+
+  @JsonKey(name: "website_url")
   String? websiteUrl;
+
+  @JsonKey(name: "city")
   String? city;
+
+  @JsonKey(name: "start_date_local")
   String? startDateLocal;
+
+  @JsonKey(name: "name")
   String? name;
+
+  @JsonKey(name: "measurement_preference")
   String? measurementPreference;
+
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "state")
   String? state;
+
+  @JsonKey(name: "url")
   String? url;
 
   RunningRace(
@@ -38,35 +71,8 @@ class RunningRace {
       this.state,
       this.url});
 
-  RunningRace.fromJson(dynamic json) {
-    country = json['country'];
-    routeIds = json['route_ids'] != null ? json['route_ids'].cast<int>() : [];
-    runningRaceType = json['running_race_type'];
-    distance = json['distance'];
-    websiteUrl = json['website_url'];
-    city = json['city'];
-    startDateLocal = json['start_date_local'];
-    name = json['name'];
-    measurementPreference = json['measurement_preference'];
-    id = json['id'];
-    state = json['state'];
-    url = json['url'];
-  }
+  factory RunningRace.fromJson(Map<String, dynamic> json) =>
+      _$RunningRaceFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['country'] = country;
-    map['route_ids'] = routeIds;
-    map['running_race_type'] = runningRaceType;
-    map['distance'] = distance;
-    map['website_url'] = websiteUrl;
-    map['city'] = city;
-    map['start_date_local'] = startDateLocal;
-    map['name'] = name;
-    map['measurement_preference'] = measurementPreference;
-    map['id'] = id;
-    map['state'] = state;
-    map['url'] = url;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$RunningRaceToJson(this);
 }

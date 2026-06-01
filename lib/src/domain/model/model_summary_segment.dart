@@ -15,6 +15,10 @@
 // name : "aeiou"
 // id : 9
 // state : "aeiou"
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_summary_segment.g.dart';
+
 class SummarySegment {
   String? country;
   bool? private;
@@ -123,30 +127,24 @@ class SummarySegment {
 // pr_date : "2000-01-23T04:56:07.000+00:00"
 // effort_count : 9
 // pr_activity_id : 4
+@JsonSerializable()
 class SummaryPRSegmentEffort {
+  @JsonKey(name: "pr_elapsed_time")
   int? prElapsedTime;
+  @JsonKey(name: "pr_date")
   String? prDate;
+  @JsonKey(name: "effort_count")
   int? effortCount;
+  @JsonKey(name: "pr_activity_id")
   int? prActivityId;
 
   SummaryPRSegmentEffort(
       {this.prElapsedTime, this.prDate, this.effortCount, this.prActivityId});
 
-  SummaryPRSegmentEffort.fromJson(dynamic json) {
-    prElapsedTime = json['pr_elapsed_time'];
-    prDate = json['pr_date'];
-    effortCount = json['effort_count'];
-    prActivityId = json['pr_activity_id'];
-  }
+  factory SummaryPRSegmentEffort.fromJson(Map<String, dynamic> json) =>
+      _$SummaryPRSegmentEffortFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['pr_elapsed_time'] = prElapsedTime;
-    map['pr_date'] = prDate;
-    map['effort_count'] = effortCount;
-    map['pr_activity_id'] = prActivityId;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$SummaryPRSegmentEffortToJson(this);
 }
 
 // distance : 1.1730742
@@ -156,13 +154,21 @@ class SummaryPRSegmentEffort {
 // is_kom : true
 // id : 1
 // start_date : "2000-01-23T04:56:07.000+00:00"
+@JsonSerializable()
 class SummarySegmentEffort {
+  @JsonKey(name: "distance")
   double? distance;
+  @JsonKey(name: "start_date_local")
   String? startDateLocal;
+  @JsonKey(name: "activity_id")
   int? activityId;
+  @JsonKey(name: "elapsed_time")
   int? elapsedTime;
+  @JsonKey(name: "is_kom")
   bool? isKom;
+  @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "start_date")
   String? startDate;
 
   SummarySegmentEffort(
@@ -174,25 +180,8 @@ class SummarySegmentEffort {
       this.id,
       this.startDate});
 
-  SummarySegmentEffort.fromJson(dynamic json) {
-    distance = json['distance'];
-    startDateLocal = json['start_date_local'];
-    activityId = json['activity_id'];
-    elapsedTime = json['elapsed_time'];
-    isKom = json['is_kom'];
-    id = json['id'];
-    startDate = json['start_date'];
-  }
+  factory SummarySegmentEffort.fromJson(Map<String, dynamic> json) =>
+      _$SummarySegmentEffortFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['distance'] = distance;
-    map['start_date_local'] = startDateLocal;
-    map['activity_id'] = activityId;
-    map['elapsed_time'] = elapsedTime;
-    map['is_kom'] = isKom;
-    map['id'] = id;
-    map['start_date'] = startDate;
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$SummarySegmentEffortToJson(this);
 }

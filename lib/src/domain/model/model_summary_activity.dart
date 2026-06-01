@@ -1,117 +1,190 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:strava_client/src/domain/model/model_detailed_activity.dart';
 import 'package:strava_client/src/domain/model/model_lap.dart';
 
-// resource_state : 2
-// athlete : {"id":134815,"resource_state":1}
-// name : "Happy Friday"
-// distance : 24931.4
-// moving_time : 4500
-// elapsed_time : 4500
-// total_elevation_gain : 0
-// type : "Ride"
-// workout_type : null
-// id : 154504250376823
-// external_id : "garmin_push_12345678987654321"
-// upload_id : 987654321234567891234
-// start_date : "2018-05-02T12:15:09Z"
-// start_date_local : "2018-05-02T05:15:09Z"
-// timezone : "(GMT-08:00) America/Los_Angeles"
-// utc_offset : -25200
-// start_latlng : null
-// end_latlng : null
-// location_city : null
-// location_state : null
-// location_country : "United States"
-// achievement_count : 0
-// kudos_count : 3
-// comment_count : 1
-// athlete_count : 1
-// photo_count : 0
-// map : {"id":"a12345678987654321","summary_polyline":null,"resource_state":2}
-// trainer : true
-// commute : false
-// manual : false
-// private : false
-// flagged : false
-// gear_id : "b12345678987654321"
-// from_accepted_tag : false
-// average_speed : 5.54
-// max_speed : 11
-// average_cadence : 67.1
-// average_watts : 175.3
-// weighted_average_watts : 210
-// kilojoules : 788.7
-// device_watts : true
-// has_heartrate : true
-// average_heartrate : 140.3
-// max_heartrate : 178
-// max_watts : 406
-// pr_count : 0
-// total_photo_count : 1
-// has_kudoed : false
-// suffer_score : 82
+part 'model_summary_activity.g.dart';
+
+/// Preserves the legacy behavior of returning an empty list (not null) when
+/// the latlng field is absent from the JSON payload.
+List<double>? _latLngFromJson(dynamic value) =>
+    value != null ? (value as List).cast<double>() : <double>[];
+
+@JsonSerializable()
 class SummaryActivity {
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "athlete", includeIfNull: false)
   MetaAthlete? athlete;
+
+  @JsonKey(name: "name")
   String? name;
 
   /// The activity's distance, in meters.
+  @JsonKey(name: "distance")
   double? distance;
 
   /// The activity's moving time, in seconds.
+  @JsonKey(name: "moving_time")
   int? movingTime;
 
   /// The activity's elapsed time, in seconds.
+  @JsonKey(name: "elapsed_time")
   int? elapsedTime;
+
+  @JsonKey(name: "total_elevation_gain")
   double? totalElevationGain;
+
+  @JsonKey(name: "type")
   String? type;
+
+  @JsonKey(name: "workout_type")
   int? workoutType;
+
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "external_id")
   String? externalId;
+
+  @JsonKey(name: "upload_id")
   int? uploadId;
+
+  @JsonKey(name: "start_date")
   String? startDate;
+
+  @JsonKey(name: "start_date_local")
   String? startDateLocal;
+
+  @JsonKey(name: "timezone")
   String? timezone;
+
+  @JsonKey(name: "utc_offset")
   double? utcOffset;
+
+  @JsonKey(name: "start_latlng", fromJson: _latLngFromJson)
   List<double>? startLatlng;
+
+  @JsonKey(name: "end_latlng", fromJson: _latLngFromJson)
   List<double>? endLatlng;
+
+  @JsonKey(name: "location_city")
   String? locationCity;
+
+  @JsonKey(name: "location_state")
   String? locationState;
+
+  @JsonKey(name: "location_country")
   String? locationCountry;
+
+  @JsonKey(name: "achievement_count")
   int? achievementCount;
+
+  @JsonKey(name: "kudos_count")
   int? kudosCount;
+
+  @JsonKey(name: "comment_count")
   int? commentCount;
+
+  @JsonKey(name: "athlete_count")
   int? athleteCount;
+
+  @JsonKey(name: "photo_count")
   int? photoCount;
+
+  @JsonKey(name: "map", includeIfNull: false)
   PolyLineMap? map;
+
+  @JsonKey(name: "trainer")
   bool? trainer;
+
+  @JsonKey(name: "commute")
   bool? commute;
+
+  @JsonKey(name: "manual")
   bool? manual;
+
+  @JsonKey(name: "private")
   bool? private;
+
+  @JsonKey(name: "flagged")
   bool? flagged;
+
+  @JsonKey(name: "gear_id")
   String? gearId;
+
+  @JsonKey(name: "from_accepted_tag")
   bool? fromAcceptedTag;
 
   /// The activity's average speed, in meters per second.
+  @JsonKey(name: "average_speed")
   double? averageSpeed;
 
   /// The activity's max speed, in meters per second.
+  @JsonKey(name: "max_speed")
   double? maxSpeed;
+
+  @JsonKey(name: "average_cadence")
   double? averageCadence;
+
+  @JsonKey(name: "average_watts")
   double? averageWatts;
+
+  @JsonKey(name: "weighted_average_watts")
   int? weightedAverageWatts;
+
+  @JsonKey(name: "kilojoules")
   double? kilojoules;
 
   /// Whether the watts are from a power meter, `false` if estimated.
+  @JsonKey(name: "device_watts")
   bool? deviceWatts;
+
+  @JsonKey(name: "has_heartrate")
   bool? hasHeartrate;
+
+  @JsonKey(name: "average_heartrate")
   double? averageHeartrate;
+
+  @JsonKey(name: "max_heartrate")
   double? maxHeartrate;
+
+  @JsonKey(name: "max_watts")
   int? maxWatts;
+
+  @JsonKey(name: "pr_count")
   int? prCount;
+
+  @JsonKey(name: "total_photo_count")
   int? totalPhotoCount;
+
+  @JsonKey(name: "has_kudoed")
   bool? hasKudoed;
+
+  @JsonKey(name: "suffer_score")
   double? sufferScore;
+
+  /// The activity's sport type. Strava's modern replacement for [type]; may take
+  /// values such as `Ride`, `MountainBikeRide`, `Run`, `TrailRun`, etc.
+  @JsonKey(name: "sport_type")
+  String? sportType;
+
+  /// The activity's highest elevation, in meters.
+  @JsonKey(name: "elev_high")
+  double? elevHigh;
+
+  /// The activity's lowest elevation, in meters.
+  @JsonKey(name: "elev_low")
+  double? elevLow;
+
+  @JsonKey(name: "device_name")
+  String? deviceName;
+
+  @JsonKey(name: "hide_from_home")
+  bool? hideFromHome;
+
+  @JsonKey(name: "upload_id_str")
+  String? uploadIdStr;
 
   SummaryActivity(
       {this.resourceState,
@@ -162,119 +235,16 @@ class SummaryActivity {
       this.prCount,
       this.totalPhotoCount,
       this.hasKudoed,
-      this.sufferScore});
+      this.sufferScore,
+      this.sportType,
+      this.elevHigh,
+      this.elevLow,
+      this.deviceName,
+      this.hideFromHome,
+      this.uploadIdStr});
 
-  SummaryActivity.fromJson(dynamic json) {
-    resourceState = json['resource_state'];
-    athlete =
-        json['athlete'] != null ? MetaAthlete.fromJson(json['athlete']) : null;
-    name = json['name'];
-    distance = json['distance'];
-    movingTime = json['moving_time'];
-    elapsedTime = json['elapsed_time'];
-    totalElevationGain = json['total_elevation_gain'].toDouble();
-    type = json['type'];
-    workoutType = json['workout_type'];
-    id = json['id'];
-    externalId = json['external_id'];
-    uploadId = json['upload_id'];
-    startDate = json['start_date'];
-    startDateLocal = json['start_date_local'];
-    timezone = json['timezone'];
-    utcOffset = json['utc_offset'];
-    startLatlng = (json['start_latlng'] != null)
-        ? json['start_latlng'].cast<double>()
-        : [];
-    endLatlng =
-        (json['end_latlng'] != null) ? json['end_latlng'].cast<double>() : [];
-    locationCity = json['location_city'];
-    locationState = json['location_state'];
-    locationCountry = json['location_country'];
-    achievementCount = json['achievement_count'];
-    kudosCount = json['kudos_count'];
-    commentCount = json['comment_count'];
-    athleteCount = json['athlete_count'];
-    photoCount = json['photo_count'];
-    map = json['map'] != null ? PolyLineMap.fromJson(json['map']) : null;
-    trainer = json['trainer'];
-    commute = json['commute'];
-    manual = json['manual'];
-    private = json['private'];
-    flagged = json['flagged'];
-    gearId = json['gear_id'];
-    fromAcceptedTag = json['from_accepted_tag'];
-    averageSpeed = json['average_speed'];
-    maxSpeed = json['max_speed'].toDouble();
-    averageCadence = json['average_cadence'];
-    averageWatts = json['average_watts'];
-    weightedAverageWatts = json['weighted_average_watts'];
-    kilojoules = json['kilojoules'];
-    deviceWatts = json['device_watts'];
-    hasHeartrate = json['has_heartrate'];
-    averageHeartrate = json['average_heartrate'];
-    maxHeartrate = json['max_heartrate'];
-    maxWatts = json['max_watts'];
-    prCount = json['pr_count'];
-    totalPhotoCount = json['total_photo_count'];
-    hasKudoed = json['has_kudoed'];
-    sufferScore = json['suffer_score'];
-  }
+  factory SummaryActivity.fromJson(Map<String, dynamic> json) =>
+      _$SummaryActivityFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var jsonMap = <String, dynamic>{};
-    jsonMap['resource_state'] = resourceState;
-    if (athlete != null) {
-      jsonMap['athlete'] = athlete?.toJson();
-    }
-    jsonMap['name'] = name;
-    jsonMap['distance'] = distance;
-    jsonMap['moving_time'] = movingTime;
-    jsonMap['elapsed_time'] = elapsedTime;
-    jsonMap['total_elevation_gain'] = totalElevationGain;
-    jsonMap['type'] = type;
-    jsonMap['workout_type'] = workoutType;
-    jsonMap['id'] = id;
-    jsonMap['external_id'] = externalId;
-    jsonMap['upload_id'] = uploadId;
-    jsonMap['start_date'] = startDate;
-    jsonMap['start_date_local'] = startDateLocal;
-    jsonMap['timezone'] = timezone;
-    jsonMap['utc_offset'] = utcOffset;
-    jsonMap['start_latlng'] = startLatlng;
-    jsonMap['end_latlng'] = endLatlng;
-    jsonMap['location_city'] = locationCity;
-    jsonMap['location_state'] = locationState;
-    jsonMap['location_country'] = locationCountry;
-    jsonMap['achievement_count'] = achievementCount;
-    jsonMap['kudos_count'] = kudosCount;
-    jsonMap['comment_count'] = commentCount;
-    jsonMap['athlete_count'] = athleteCount;
-    jsonMap['photo_count'] = photoCount;
-    if (map != null) {
-      jsonMap['map'] = map?.toJson();
-    }
-    jsonMap['trainer'] = trainer;
-    jsonMap['commute'] = commute;
-    jsonMap['manual'] = manual;
-    jsonMap['private'] = private;
-    jsonMap['flagged'] = flagged;
-    jsonMap['gear_id'] = gearId;
-    jsonMap['from_accepted_tag'] = fromAcceptedTag;
-    jsonMap['average_speed'] = averageSpeed;
-    jsonMap['max_speed'] = maxSpeed;
-    jsonMap['average_cadence'] = averageCadence;
-    jsonMap['average_watts'] = averageWatts;
-    jsonMap['weighted_average_watts'] = weightedAverageWatts;
-    jsonMap['kilojoules'] = kilojoules;
-    jsonMap['device_watts'] = deviceWatts;
-    jsonMap['has_heartrate'] = hasHeartrate;
-    jsonMap['average_heartrate'] = averageHeartrate;
-    jsonMap['max_heartrate'] = maxHeartrate;
-    jsonMap['max_watts'] = maxWatts;
-    jsonMap['pr_count'] = prCount;
-    jsonMap['total_photo_count'] = totalPhotoCount;
-    jsonMap['has_kudoed'] = hasKudoed;
-    jsonMap['suffer_score'] = sufferScore;
-    return jsonMap;
-  }
+  Map<String, dynamic> toJson() => _$SummaryActivityToJson(this);
 }

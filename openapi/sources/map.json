@@ -1,0 +1,19 @@
+{
+  "PolylineMap": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The identifier of the map"
+      },
+      "polyline": {
+        "type": "string",
+        "description": "The polyline of the map, only returned on detailed representation of an object"
+      },
+      "summary_polyline": {
+        "type": "string",
+        "description": "The summary polyline of the map"
+      }
+    }
+  }
+}

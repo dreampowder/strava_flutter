@@ -1,0 +1,14 @@
+# Configures json_serializable for the whole package.
+#
+# explicit_to_json: the original hand-written models returned fully-expanded
+# nested Maps from toJson() (e.g. `athlete?.toJson()`). Keeping this true makes
+# the generated toJson() call .toJson() on nested objects, preserving that exact
+# behavior — without it, toJson() would emit raw model instances and rely on
+# jsonEncode to recurse, which is a behavior change for callers that inspect the
+# returned Map.
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          explicit_to_json: true

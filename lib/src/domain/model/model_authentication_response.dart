@@ -4,6 +4,11 @@
 
 import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'model_authentication_response.g.dart';
+
+@JsonSerializable()
 class TokenResponse {
   TokenResponse(
       {required this.tokenType,
@@ -14,13 +19,16 @@ class TokenResponse {
       this.athlete,
       this.scopes});
 
+  @JsonKey(name: "token_type")
   String tokenType;
 
   /// The number of seconds since the epoch when the provided access token will
   /// expire.
+  @JsonKey(name: "expires_at")
   int expiresAt;
 
   /// Seconds until the short-lived access token will expire.
+  @JsonKey(name: "expires_in")
   int expiresIn;
 
   /// The refresh token for this user, to be used to get the next access token
@@ -29,13 +37,18 @@ class TokenResponse {
   /// Please expect that this value can change anytime you retrieve a new access
   /// token. Once a new refresh token code has been returned, the older code
   /// will no longer work.
+  @JsonKey(name: "refresh_token")
   String refreshToken;
 
   /// The access token for this user.
+  @JsonKey(name: "access_token")
   String accessToken;
 
   /// A summary of athlete information.
+  @JsonKey(name: "athlete")
   Athlete? athlete;
+
+  @JsonKey(name: "scopes")
   String? scopes;
 
   factory TokenResponse.fromRawJson(String str) =>
@@ -43,27 +56,13 @@ class TokenResponse {
 
   String toRawJson() => json.encode(toJson());
 
-  factory TokenResponse.fromJson(Map<String, dynamic> json) => TokenResponse(
-      tokenType: json["token_type"],
-      expiresAt: json["expires_at"],
-      expiresIn: json["expires_in"],
-      refreshToken: json["refresh_token"],
-      accessToken: json["access_token"],
-      athlete:
-          json["athlete"] == null ? null : Athlete.fromJson(json["athlete"]),
-      scopes: json["scopes"]);
+  factory TokenResponse.fromJson(Map<String, dynamic> json) =>
+      _$TokenResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "token_type": tokenType,
-        "expires_at": expiresAt,
-        "expires_in": expiresIn,
-        "refresh_token": refreshToken,
-        "access_token": accessToken,
-        "athlete": athlete?.toJson(),
-        "scopes": scopes
-      };
+  Map<String, dynamic> toJson() => _$TokenResponseToJson(this);
 }
 
+@JsonSerializable()
 class Athlete {
   Athlete();
 
@@ -71,7 +70,8 @@ class Athlete {
 
   String toRawJson() => json.encode(toJson());
 
-  factory Athlete.fromJson(Map<String, dynamic> json) => Athlete();
+  factory Athlete.fromJson(Map<String, dynamic> json) =>
+      _$AthleteFromJson(json);
 
-  Map<String, dynamic> toJson() => {};
+  Map<String, dynamic> toJson() => _$AthleteToJson(this);
 }

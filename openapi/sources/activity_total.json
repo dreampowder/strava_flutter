@@ -1,0 +1,34 @@
+{
+  "ActivityTotal": {
+    "type": "object",
+    "description": "A roll-up of metrics pertaining to a set of activities. Values are in seconds and meters.",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "description": "The number of activities considered in this total."
+      },
+      "distance": {
+        "type": "number",
+        "format": "float",
+        "description": "The total distance covered by the considered activities."
+      },
+      "moving_time": {
+        "type": "integer",
+        "description": "The total moving time of the considered activities."
+      },
+      "elapsed_time": {
+        "type": "integer",
+        "description": "The total elapsed time of the considered activities."
+      },
+      "elevation_gain": {
+        "type": "number",
+        "format": "float",
+        "description": "The total elevation gain of the considered activities."
+      },
+      "achievement_count": {
+        "type": "integer",
+        "description": "The total number of achievements of the considered activities."
+      }
+    }
+  }
+}

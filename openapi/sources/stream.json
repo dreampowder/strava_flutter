@@ -1,0 +1,278 @@
+{
+  "StreamType": {
+    "type": "string",
+    "enum": [
+      "time",
+      "distance",
+      "latlng",
+      "altitude",
+      "velocity_smooth",
+      "heartrate",
+      "cadence",
+      "watts",
+      "temp",
+      "moving",
+      "grade_smooth"
+    ],
+    "description": "An enumeration of the supported types of streams."
+  },
+  "BaseStream": {
+    "type": "object",
+    "properties": {
+      "original_size": {
+        "type": "integer",
+        "description": "The number of data points in this stream"
+      },
+      "resolution": {
+        "type": "string",
+        "enum": ["low", "medium", "high"],
+        "description": "The level of detail (sampling) in which this stream was returned"
+      },
+      "series_type": {
+        "type": "string",
+        "enum": ["distance", "time"],
+        "description": "The base series used in the case the stream was downsampled"
+      }
+    }
+  },
+  "DistanceStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "The sequence of distance values for this stream, in meters"
+          }
+        }
+      }
+    ]
+  },
+  "TimeStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "The sequence of time values for this stream, in seconds"
+          }
+        }
+      }
+    ]
+  },
+  "LatLngStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng"
+            },
+            "description": "The sequence of lat/long values for this stream"
+          }
+        }
+      }
+    ]
+  },
+  "AltitudeStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "The sequence of altitude values for this stream, in meters"
+          }
+        }
+      }
+    ]
+  },
+  "SmoothVelocityStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "The sequence of velocity values for this stream, in meters per second"
+          }
+        }
+      }
+    ]
+  },
+  "HeartrateStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "The sequence of heart rate values for this stream, in beats per minute"
+          }
+        }
+      }
+    ]
+  },
+  "CadenceStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "The sequence of cadence values for this stream, in rotations per minute"
+          }
+        }
+      }
+    ]
+  },
+  "PowerStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "The sequence of power values for this stream, in watts"
+          }
+        }
+      }
+    ]
+  },
+  "TemperatureStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "The sequence of temperature values for this stream, in celsius degrees"
+          }
+        }
+      }
+    ]
+  },
+  "MovingStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            },
+            "description": "The sequence of moving values for this stream, as boolean values"
+          }
+        }
+      }
+    ]
+  },
+  "SmoothGradeStream": {
+    "allOf": [
+      {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/BaseStream"
+      },
+      {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "The sequence of grade values for this stream, as percents of a grade"
+          }
+        }
+      }
+    ]
+  },
+  "StreamSet": {
+    "type": "object",
+    "properties": {
+      "time": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/TimeStream"
+      },
+      "distance": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/DistanceStream"
+      },
+      "latlng": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/LatLngStream"
+      },
+      "altitude": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/AltitudeStream"
+      },
+      "velocity_smooth": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/SmoothVelocityStream"
+      },
+      "heartrate": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/HeartrateStream"
+      },
+      "cadence": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/CadenceStream"
+      },
+      "watts": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/PowerStream"
+      },
+      "temp": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/TemperatureStream"
+      },
+      "moving": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/MovingStream"
+      },
+      "grade_smooth": {
+        "$ref": "https://developers.strava.com/swagger/stream.json#/SmoothGradeStream"
+      }
+    }
+  }
+}

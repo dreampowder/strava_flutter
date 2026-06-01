@@ -1,4 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:strava_client/src/domain/model/model_summary_athlete.dart';
+
+part 'model_comment.g.dart';
 
 // Example of value :
 // id : 12345678987654321
@@ -9,14 +12,30 @@ import 'package:strava_client/src/domain/model/model_summary_athlete.dart';
 // mentions_metadata : null
 // created_at : "2018-02-08T19:25:39Z"
 // athlete : {"firstname":"Peter","lastname":"S"}
+@JsonSerializable()
 class Comment {
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "activity_id")
   int? activityId;
+
+  @JsonKey(name: "post_id")
   int? postId;
+
+  @JsonKey(name: "resource_state")
   int? resourceState;
+
+  @JsonKey(name: "text")
   String? text;
+
+  @JsonKey(name: "mentions_metadata")
   dynamic mentionsMetadata;
+
+  @JsonKey(name: "created_at")
   String? createdAt;
+
+  @JsonKey(name: "athlete", includeIfNull: false)
   SummaryAthlete? athlete;
 
   Comment(
@@ -29,31 +48,8 @@ class Comment {
       this.createdAt,
       this.athlete});
 
-  Comment.fromJson(dynamic json) {
-    id = json['id'];
-    activityId = json['activity_id'];
-    postId = json['post_id'];
-    resourceState = json['resource_state'];
-    text = json['text'];
-    mentionsMetadata = json['mentions_metadata'];
-    createdAt = json['created_at'];
-    athlete = json['athlete'] != null
-        ? SummaryAthlete.fromJson(json['athlete'])
-        : null;
-  }
+  factory Comment.fromJson(Map<String, dynamic> json) =>
+      _$CommentFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = id;
-    map['activity_id'] = activityId;
-    map['post_id'] = postId;
-    map['resource_state'] = resourceState;
-    map['text'] = text;
-    map['mentions_metadata'] = mentionsMetadata;
-    map['created_at'] = createdAt;
-    if (athlete != null) {
-      map['athlete'] = athlete?.toJson();
-    }
-    return map;
-  }
+  Map<String, dynamic> toJson() => _$CommentToJson(this);
 }

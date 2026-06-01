@@ -1,0 +1,36 @@
+{
+  "Waypoint": {
+    "type": "object",
+    "properties": {
+      "latlng": {
+        "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng",
+        "description": "The location along the route that the waypoint is closest to"
+      },
+      "target_latlng": {
+        "$ref": "https://developers.strava.com/swagger/latlng.json#/LatLng",
+        "description": "A location off of the route that the waypoint is (optional)"
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 0,
+        "description": "Categories that the waypoint belongs to"
+      },
+      "title": {
+        "type": "string",
+        "description": "A title for the waypoint"
+      },
+      "description": {
+        "type": "string",
+        "description": "A description of the waypoint (optional)"
+      },
+      "distance_into_route": {
+        "type": "number",
+        "format": "float",
+        "description": "The number meters along the route that the waypoint is located"
+      }
+    }
+  }
+}
