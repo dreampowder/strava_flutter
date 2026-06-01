@@ -80,7 +80,7 @@ class ApiClient {
 
   static void handleError<T>(
       Completer<T> completer, dynamic error, StackTrace stackTrace) {
-    if (error is DioError) {
+    if (error is DioException) {
       if (error.response != null &&
           error.response?.data != null &&
           error.response?.data is Map) {
