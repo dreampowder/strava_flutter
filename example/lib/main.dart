@@ -3,35 +3,40 @@ import 'dart:async';
 import 'package:example/examples/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:strava_client/strava_client.dart';
 
+import 'api/api_models.dart';
+import 'api/api_registry.dart';
+import 'screens/call_screen.dart';
 import 'secret.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Strava Flutter',
+      title: 'Strava Client Explorer',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorSchemeSeed: const Color(0xFFFC4C02), // Strava orange
+        useMaterial3: true,
       ),
-      home: StravaFlutterPage(),
+      home: const StravaExplorerPage(),
     );
   }
 }
 
-class StravaFlutterPage extends StatefulWidget {
+class StravaExplorerPage extends StatefulWidget {
+  const StravaExplorerPage({super.key});
+
   @override
-  _StravaFlutterPageState createState() => _StravaFlutterPageState();
+  State<StravaExplorerPage> createState() => _StravaExplorerPageState();
 }
 
-class _StravaFlutterPageState extends State<StravaFlutterPage> {
-  final TextEditingController _textEditingController = TextEditingController();
-  final DateFormat dateFormatter = DateFormat("HH:mm:ss");
+class _StravaExplorerPageState extends State<StravaExplorerPage> {
+  final TextEditingController _tokenController = TextEditingController();
   late final StravaClient stravaClient;
 
   bool isLoggedIn = false;
@@ -39,170 +44,173 @@ class _StravaFlutterPageState extends State<StravaFlutterPage> {
 
   @override
   void initState() {
-    stravaClient = StravaClient(secret: secret, clientId: clientId);
     super.initState();
+    stravaClient = StravaClient(secret: secret, clientId: clientId);
   }
 
-  FutureOr<Null> showErrorMessage(dynamic error, dynamic stackTrace) {
-    if (error is Fault) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("Did Receive Fault"),
-              content: Text(
-                  "Message: ${error.message}\n-----------------\nErrors:\n${(error.errors ?? []).map((e) => "Code: ${e.code}\nResource: ${e.resource}\nField: ${e.field}\n").toList().join("\n----------\n")}"),
-            );
-          });
-    }
+  @override
+  void dispose() {
+    _tokenController.dispose();
+    super.dispose();
   }
 
-  void testAuthentication() {
+  FutureOr<Null> _showError(dynamic error, dynamic stackTrace) {
+    final message = error is Fault
+        ? 'Fault: ${error.message}\n'
+            '${(error.errors ?? []).map((e) => "• ${e.code} (${e.field})").join("\n")}'
+        : error.toString();
+    if (!mounted) return null;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Request failed'),
+        content: SingleChildScrollView(child: Text(message)),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'))
+        ],
+      ),
+    );
+    return null;
+  }
+
+  void _login() {
     ExampleAuthentication(stravaClient).testAuthentication(
-      [
+      const [
         AuthenticationScope.profile_read_all,
         AuthenticationScope.read_all,
-        AuthenticationScope.activity_read_all
+        AuthenticationScope.activity_read_all,
+        AuthenticationScope.activity_write,
+        AuthenticationScope.profile_write,
       ],
       "stravaflutter://redirect",
     ).then((token) {
       setState(() {
         isLoggedIn = true;
         this.token = token;
+        _tokenController.text = token.accessToken;
       });
-      _textEditingController.text = token.accessToken;
-    }).catchError(showErrorMessage);
+    }).catchError(_showError);
   }
 
-  void testDeauth() {
-    ExampleAuthentication(stravaClient).testDeauthorize().then((value) {
+  void _logout() {
+    ExampleAuthentication(stravaClient).testDeauthorize().then((_) {
       setState(() {
         isLoggedIn = false;
-        this.token = null;
-        _textEditingController.clear();
+        token = null;
+        _tokenController.clear();
       });
-    }).catchError(showErrorMessage);
+    }).catchError(_showError);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter Strava Plugin"),
+        title: const Text('Strava Client Explorer'),
         actions: [
-          Icon(
-            isLoggedIn
-                ? Icons.radio_button_checked_outlined
-                : Icons.radio_button_off,
-            color: isLoggedIn ? Colors.white : Colors.red,
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Icon(
+              isLoggedIn ? Icons.cloud_done : Icons.cloud_off,
+              color: isLoggedIn ? Colors.green : Colors.red.shade300,
+            ),
           ),
-          SizedBox(
-            width: 8,
-          )
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_login(), _apiGroups()],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _loginPanel(),
+          const Divider(height: 1),
+          Expanded(child: _callList()),
+        ],
       ),
     );
   }
 
-  Widget _login() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ElevatedButton(
-              child: Text("Login With Strava"),
-              onPressed: testAuthentication,
-            ),
-            ElevatedButton(
-              child: Text("De Authorize"),
-              onPressed: testDeauth,
-            )
-          ],
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        TextField(
-          minLines: 1,
-          maxLines: 3,
-          controller: _textEditingController,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              label: Text("Access Token"),
-              suffixIcon: TextButton(
-                child: Text("Copy"),
+  Widget _loginPanel() {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              FilledButton.icon(
+                onPressed: _login,
+                icon: const Icon(Icons.login),
+                label: const Text('Login with Strava'),
+              ),
+              const SizedBox(width: 12),
+              OutlinedButton.icon(
+                onPressed: isLoggedIn ? _logout : null,
+                icon: const Icon(Icons.logout),
+                label: const Text('De-authorize'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _tokenController,
+            readOnly: true,
+            minLines: 1,
+            maxLines: 2,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: 'Access token',
+              isDense: true,
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.copy),
                 onPressed: () {
                   Clipboard.setData(
-                          ClipboardData(text: _textEditingController.text))
-                      .then((value) =>
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Copied!"),
-                          )));
+                      ClipboardData(text: _tokenController.text));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Copied')));
                 },
-              )),
-        ),
-        Divider()
-      ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _apiGroups() {
-    return IgnorePointer(
-      ignoring: !isLoggedIn,
-      child: AnimatedOpacity(
-        opacity: isLoggedIn ? 1.0 : 0.4,
-        duration: Duration(milliseconds: 200),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: Text("Athletes"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Clubs"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Gears"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Routes"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Running Races"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Segment Efforts"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Segments"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Streams"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              title: Text("Uploads"),
-              trailing: Icon(Icons.chevron_right),
-            )
-          ],
+  Widget _callList() {
+    if (!isLoggedIn) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Text('Login to run API calls.',
+              textAlign: TextAlign.center),
         ),
-      ),
+      );
+    }
+    final grouped = groupedApiCalls();
+    return ListView(
+      children: grouped.entries.map((entry) {
+        return ExpansionTile(
+          title: Text(entry.key,
+              style: const TextStyle(fontWeight: FontWeight.w600)),
+          children: entry.value.map(_callTile).toList(),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _callTile(ApiCall call) {
+    return ListTile(
+      dense: true,
+      title: Text(call.name),
+      subtitle: Text(call.description),
+      leading: call.isWrite
+          ? const Icon(Icons.edit, color: Colors.orange, size: 20)
+          : const Icon(Icons.download, color: Colors.blueGrey, size: 20),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => CallScreen(client: stravaClient, call: call),
+      )),
     );
   }
 }

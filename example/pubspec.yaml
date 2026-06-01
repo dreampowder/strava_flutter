@@ -12,21 +12,16 @@ description: Describes how to use strava_flutter package
 version: 1.0.1+5
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  # strava_flutter: ^1.0.6+17
-  # To test locally
-  intl: ^0.18.0
+  intl: ^0.20.2
 
   strava_client:
     path: ../
-
-dependency_overrides:
-  file: ^6.1.4
 
 dev_dependencies:
   test: any
