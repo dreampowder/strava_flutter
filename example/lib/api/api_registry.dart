@@ -228,8 +228,13 @@ final List<ApiCall> kApiCalls = [
     group: "Gear",
     name: "getGear",
     description: "Gear (bike/shoe) by id.",
-    params: [_id("gearId", "Gear id")],
-    run: (c, a) => c.gears.getGear(a["gearId"] as int),
+    params: [
+      ApiParam(
+          key: "gearId",
+          label: "Gear id (e.g. b1234567)",
+          type: ParamType.string)
+    ],
+    run: (c, a) => c.gears.getGearById(a["gearId"] as String),
   ),
 
   // ------------------------------------------------------------------ Route

@@ -11,8 +11,8 @@ class ApiClient {
   static Future<Dio> _getDioClient({bool isAuthenticated = true}) async {
     var dio = Dio();
     if (isAuthenticated) {
-      var token = await sl<SessionManager>().getToken();
-      var headers = <String, dynamic>{};
+      var token = await sl<SessionManager>().getValidToken();
+      var headers = Map<String, dynamic>();
       if (token != null) {
         headers.putIfAbsent(
             "Authorization", () => "Bearer ${token.accessToken}");

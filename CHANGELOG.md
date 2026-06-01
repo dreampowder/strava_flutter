@@ -1,3 +1,17 @@
+## [2.3.0]
+Backwards compatible (additions + deprecations only).
+
+### Added
+- Automatic access-token refresh: every authenticated request now transparently
+  refreshes an expired token via the stored refresh token before sending
+  (`SessionManager.getValidToken()`), with concurrent requests sharing a single
+  in-flight refresh. Previously an expired token caused requests to fail.
+- `RepositoryGear.getGearById(String gearId)` — gear ids are strings
+  (e.g. `b1234567`), which the old `int`-typed method could not represent.
+
+### Deprecated
+- `RepositoryGear.getGear(int gearId)` — use `getGearById(String)`.
+
 ## [2.2.0]
 Modernization pass — fully backwards compatible (additions + deprecations only).
 
