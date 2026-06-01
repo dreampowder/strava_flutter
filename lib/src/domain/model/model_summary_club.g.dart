@@ -23,6 +23,9 @@ SummaryClub _$SummaryClubFromJson(Map<String, dynamic> json) => SummaryClub(
   featured: json['featured'] as bool,
   verified: json['verified'] as bool,
   url: json['url'] as String?,
+  activityTypes: (json['activity_types'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
 );
 
 Map<String, dynamic> _$SummaryClubToJson(SummaryClub instance) =>
@@ -43,4 +46,5 @@ Map<String, dynamic> _$SummaryClubToJson(SummaryClub instance) =>
       'featured': instance.featured,
       'verified': instance.verified,
       'url': instance.url,
+      'activity_types': instance.activityTypes,
     };

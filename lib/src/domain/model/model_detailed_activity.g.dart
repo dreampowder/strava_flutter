@@ -6,87 +6,95 @@ part of 'model_detailed_activity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DetailedActivity _$DetailedActivityFromJson(Map<String, dynamic> json) =>
-    DetailedActivity(
-      id: (json['id'] as num?)?.toInt(),
-      resourceState: (json['resource_state'] as num?)?.toInt(),
-      externalId: json['external_id'] as String?,
-      uploadId: (json['upload_id'] as num?)?.toInt(),
-      athlete: json['athlete'] == null
-          ? null
-          : MetaAthlete.fromJson(json['athlete'] as Map<String, dynamic>),
-      name: json['name'] as String?,
-      distance: (json['distance'] as num?)?.toDouble(),
-      movingTime: (json['moving_time'] as num?)?.toInt(),
-      elapsedTime: (json['elapsed_time'] as num?)?.toInt(),
-      totalElevationGain: (json['total_elevation_gain'] as num?)?.toDouble(),
-      type: json['type'] as String?,
-      startDate: json['start_date'] as String?,
-      startDateLocal: json['start_date_local'] as String?,
-      timezone: json['timezone'] as String?,
-      utcOffset: (json['utc_offset'] as num?)?.toDouble(),
-      startLatlng: _latLngFromJson(json['start_latlng']),
-      endLatlng: _latLngFromJson(json['end_latlng']),
-      achievementCount: (json['achievement_count'] as num?)?.toInt(),
-      kudosCount: (json['kudos_count'] as num?)?.toInt(),
-      commentCount: (json['comment_count'] as num?)?.toInt(),
-      athleteCount: (json['athlete_count'] as num?)?.toInt(),
-      photoCount: (json['photo_count'] as num?)?.toInt(),
-      map: json['map'] == null
-          ? null
-          : PolyLineMap.fromJson(json['map'] as Map<String, dynamic>),
-      trainer: json['trainer'] as bool?,
-      commute: json['commute'] as bool?,
-      manual: json['manual'] as bool?,
-      private: json['private'] as bool?,
-      flagged: json['flagged'] as bool?,
-      gearId: json['gear_id'] as String?,
-      fromAcceptedTag: json['from_accepted_tag'] as bool?,
-      averageSpeed: (json['average_speed'] as num?)?.toDouble(),
-      maxSpeed: (json['max_speed'] as num?)?.toDouble(),
-      averageCadence: (json['average_cadence'] as num?)?.toDouble(),
-      averageTemp: (json['average_temp'] as num?)?.toInt(),
-      averageWatts: (json['average_watts'] as num?)?.toDouble(),
-      weightedAverageWatts: (json['weighted_average_watts'] as num?)?.toInt(),
-      kilojoules: (json['kilojoules'] as num?)?.toDouble(),
-      deviceWatts: json['device_watts'] as bool?,
-      hasHeartrate: json['has_heartrate'] as bool?,
-      maxWatts: (json['max_watts'] as num?)?.toInt(),
-      elevHigh: (json['elev_high'] as num?)?.toDouble(),
-      elevLow: (json['elev_low'] as num?)?.toDouble(),
-      prCount: (json['pr_count'] as num?)?.toInt(),
-      totalPhotoCount: (json['total_photo_count'] as num?)?.toInt(),
-      hasKudoed: json['has_kudoed'] as bool?,
-      workoutType: (json['workout_type'] as num?)?.toInt(),
-      sufferScore: json['suffer_score'] as num?,
-      description: json['description'] as String?,
-      calories: (json['calories'] as num?)?.toDouble(),
-      segmentEfforts: (json['segment_efforts'] as List<dynamic>?)
-          ?.map(
-            (e) => DetailedSegmentEffort.fromJson(e as Map<String, dynamic>),
-          )
-          .toList(),
-      splitsMetric: (json['splits_metric'] as List<dynamic>?)
-          ?.map((e) => SplitsMetric.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      laps: (json['laps'] as List<dynamic>?)
-          ?.map((e) => Lap.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      gear: json['gear'] == null
-          ? null
-          : SummaryGear.fromJson(json['gear'] as Map<String, dynamic>),
-      partnerBrandTag: json['partner_brand_tag'],
-      photos: json['photos'] == null
-          ? null
-          : PhotosSummary.fromJson(json['photos'] as Map<String, dynamic>),
-      highlightedKudosers: (json['highlighted_kudosers'] as List<dynamic>?)
-          ?.map((e) => HighlightedKudosers.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      deviceName: json['device_name'] as String?,
-      embedToken: json['embed_token'] as String?,
-      segmentLeaderboardOptOut: json['segment_leaderboard_opt_out'] as bool?,
-      leaderboardOptOut: json['leaderboard_opt_out'] as bool?,
-    );
+DetailedActivity _$DetailedActivityFromJson(
+  Map<String, dynamic> json,
+) => DetailedActivity(
+  id: (json['id'] as num?)?.toInt(),
+  resourceState: (json['resource_state'] as num?)?.toInt(),
+  externalId: json['external_id'] as String?,
+  uploadId: (json['upload_id'] as num?)?.toInt(),
+  athlete: json['athlete'] == null
+      ? null
+      : MetaAthlete.fromJson(json['athlete'] as Map<String, dynamic>),
+  name: json['name'] as String?,
+  distance: (json['distance'] as num?)?.toDouble(),
+  movingTime: (json['moving_time'] as num?)?.toInt(),
+  elapsedTime: (json['elapsed_time'] as num?)?.toInt(),
+  totalElevationGain: (json['total_elevation_gain'] as num?)?.toDouble(),
+  type: json['type'] as String?,
+  startDate: json['start_date'] as String?,
+  startDateLocal: json['start_date_local'] as String?,
+  timezone: json['timezone'] as String?,
+  utcOffset: (json['utc_offset'] as num?)?.toDouble(),
+  startLatlng: _latLngFromJson(json['start_latlng']),
+  endLatlng: _latLngFromJson(json['end_latlng']),
+  achievementCount: (json['achievement_count'] as num?)?.toInt(),
+  kudosCount: (json['kudos_count'] as num?)?.toInt(),
+  commentCount: (json['comment_count'] as num?)?.toInt(),
+  athleteCount: (json['athlete_count'] as num?)?.toInt(),
+  photoCount: (json['photo_count'] as num?)?.toInt(),
+  map: json['map'] == null
+      ? null
+      : PolyLineMap.fromJson(json['map'] as Map<String, dynamic>),
+  trainer: json['trainer'] as bool?,
+  commute: json['commute'] as bool?,
+  manual: json['manual'] as bool?,
+  private: json['private'] as bool?,
+  flagged: json['flagged'] as bool?,
+  gearId: json['gear_id'] as String?,
+  fromAcceptedTag: json['from_accepted_tag'] as bool?,
+  averageSpeed: (json['average_speed'] as num?)?.toDouble(),
+  maxSpeed: (json['max_speed'] as num?)?.toDouble(),
+  averageCadence: (json['average_cadence'] as num?)?.toDouble(),
+  averageTemp: (json['average_temp'] as num?)?.toInt(),
+  averageWatts: (json['average_watts'] as num?)?.toDouble(),
+  weightedAverageWatts: (json['weighted_average_watts'] as num?)?.toInt(),
+  kilojoules: (json['kilojoules'] as num?)?.toDouble(),
+  deviceWatts: json['device_watts'] as bool?,
+  hasHeartrate: json['has_heartrate'] as bool?,
+  maxWatts: (json['max_watts'] as num?)?.toInt(),
+  elevHigh: (json['elev_high'] as num?)?.toDouble(),
+  elevLow: (json['elev_low'] as num?)?.toDouble(),
+  prCount: (json['pr_count'] as num?)?.toInt(),
+  totalPhotoCount: (json['total_photo_count'] as num?)?.toInt(),
+  hasKudoed: json['has_kudoed'] as bool?,
+  workoutType: (json['workout_type'] as num?)?.toInt(),
+  sufferScore: json['suffer_score'] as num?,
+  description: json['description'] as String?,
+  calories: (json['calories'] as num?)?.toDouble(),
+  segmentEfforts: (json['segment_efforts'] as List<dynamic>?)
+      ?.map((e) => DetailedSegmentEffort.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  splitsMetric: (json['splits_metric'] as List<dynamic>?)
+      ?.map((e) => SplitsMetric.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  laps: (json['laps'] as List<dynamic>?)
+      ?.map((e) => Lap.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  gear: json['gear'] == null
+      ? null
+      : SummaryGear.fromJson(json['gear'] as Map<String, dynamic>),
+  partnerBrandTag: json['partner_brand_tag'],
+  photos: json['photos'] == null
+      ? null
+      : PhotosSummary.fromJson(json['photos'] as Map<String, dynamic>),
+  highlightedKudosers: (json['highlighted_kudosers'] as List<dynamic>?)
+      ?.map((e) => HighlightedKudosers.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  deviceName: json['device_name'] as String?,
+  embedToken: json['embed_token'] as String?,
+  segmentLeaderboardOptOut: json['segment_leaderboard_opt_out'] as bool?,
+  leaderboardOptOut: json['leaderboard_opt_out'] as bool?,
+  sportType: json['sport_type'] as String?,
+  hideFromHome: json['hide_from_home'] as bool?,
+  uploadIdStr: json['upload_id_str'] as String?,
+  bestEfforts: (json['best_efforts'] as List<dynamic>?)
+      ?.map((e) => DetailedSegmentEffort.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  splitsStandard: (json['splits_standard'] as List<dynamic>?)
+      ?.map((e) => SplitsMetric.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$DetailedActivityToJson(
   DetailedActivity instance,
@@ -153,6 +161,11 @@ Map<String, dynamic> _$DetailedActivityToJson(
   'embed_token': instance.embedToken,
   'segment_leaderboard_opt_out': instance.segmentLeaderboardOptOut,
   'leaderboard_opt_out': instance.leaderboardOptOut,
+  'sport_type': instance.sportType,
+  'hide_from_home': instance.hideFromHome,
+  'upload_id_str': instance.uploadIdStr,
+  'best_efforts': ?instance.bestEfforts?.map((e) => e.toJson()).toList(),
+  'splits_standard': ?instance.splitsStandard?.map((e) => e.toJson()).toList(),
 };
 
 HighlightedKudosers _$HighlightedKudosersFromJson(Map<String, dynamic> json) =>
@@ -258,6 +271,10 @@ DetailedSegmentEffort _$DetailedSegmentEffortFromJson(
   prRank: (json['pr_rank'] as num?)?.toInt(),
   achievements: json['achievements'] as List<dynamic>?,
   hidden: json['hidden'] as bool?,
+  activityId: (json['activity_id'] as num?)?.toInt(),
+  averageHeartrate: (json['average_heartrate'] as num?)?.toDouble(),
+  maxHeartrate: (json['max_heartrate'] as num?)?.toDouble(),
+  isKom: json['is_kom'] as bool?,
 );
 
 Map<String, dynamic> _$DetailedSegmentEffortToJson(
@@ -283,6 +300,10 @@ Map<String, dynamic> _$DetailedSegmentEffortToJson(
   'pr_rank': instance.prRank,
   'achievements': ?instance.achievements,
   'hidden': instance.hidden,
+  'activity_id': instance.activityId,
+  'average_heartrate': instance.averageHeartrate,
+  'max_heartrate': instance.maxHeartrate,
+  'is_kom': instance.isKom,
 };
 
 Segment _$SegmentFromJson(Map<String, dynamic> json) => Segment(

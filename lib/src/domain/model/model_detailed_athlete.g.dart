@@ -41,6 +41,7 @@ DetailedAthlete _$DetailedAthleteFromJson(Map<String, dynamic> json) =>
       bikes: _gearFromJson(json['bikes']),
       shoes: _gearFromJson(json['shoes']),
       bio: json['bio'] as String?,
+      summit: json['summit'] as bool?,
     );
 
 Map<String, dynamic> _$DetailedAthleteToJson(DetailedAthlete instance) =>
@@ -55,6 +56,7 @@ Map<String, dynamic> _$DetailedAthleteToJson(DetailedAthlete instance) =>
       'country': instance.country,
       'sex': instance.sex,
       'premium': instance.premium,
+      'summit': instance.summit,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'badge_type_id': instance.badgeTypeId,

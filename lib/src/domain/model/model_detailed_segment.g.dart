@@ -42,6 +42,11 @@ DetailedSegment _$DetailedSegmentFromJson(Map<String, dynamic> json) =>
               _athleteSegmentStatsReadValue(json, 'athlete_segment_stats')
                   as Map<String, dynamic>,
             ),
+      athletePrEffort: json['athlete_pr_effort'] == null
+          ? null
+          : SummaryPRSegmentEffort.fromJson(
+              json['athlete_pr_effort'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$DetailedSegmentToJson(DetailedSegment instance) =>
@@ -72,4 +77,5 @@ Map<String, dynamic> _$DetailedSegmentToJson(DetailedSegment instance) =>
       'athlete_count': instance.athleteCount,
       'star_count': instance.starCount,
       'athlete_segment_stats': ?instance.athleteSegmentStats?.toJson(),
+      'athlete_pr_effort': ?instance.athletePrEffort?.toJson(),
     };

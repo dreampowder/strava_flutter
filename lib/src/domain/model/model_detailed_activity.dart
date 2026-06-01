@@ -199,6 +199,25 @@ class DetailedActivity {
   @JsonKey(name: "leaderboard_opt_out")
   bool? leaderboardOptOut;
 
+  /// The activity's sport type. Strava's modern replacement for [type]; may take
+  /// values such as `Ride`, `MountainBikeRide`, `Run`, `TrailRun`, etc.
+  @JsonKey(name: "sport_type")
+  String? sportType;
+
+  @JsonKey(name: "hide_from_home")
+  bool? hideFromHome;
+
+  @JsonKey(name: "upload_id_str")
+  String? uploadIdStr;
+
+  /// The activity's best efforts.
+  @JsonKey(name: "best_efforts", includeIfNull: false)
+  List<DetailedSegmentEffort>? bestEfforts;
+
+  /// The splits of this activity in imperial units (for runs).
+  @JsonKey(name: "splits_standard", includeIfNull: false)
+  List<SplitsMetric>? splitsStandard;
+
   DetailedActivity(
       {this.id,
       this.resourceState,
@@ -259,7 +278,12 @@ class DetailedActivity {
       this.deviceName,
       this.embedToken,
       this.segmentLeaderboardOptOut,
-      this.leaderboardOptOut});
+      this.leaderboardOptOut,
+      this.sportType,
+      this.hideFromHome,
+      this.uploadIdStr,
+      this.bestEfforts,
+      this.splitsStandard});
 
   factory DetailedActivity.fromJson(Map<String, dynamic> json) =>
       _$DetailedActivityFromJson(json);
@@ -517,6 +541,18 @@ class DetailedSegmentEffort {
   @JsonKey(name: "hidden")
   bool? hidden;
 
+  @JsonKey(name: "activity_id")
+  int? activityId;
+
+  @JsonKey(name: "average_heartrate")
+  double? averageHeartrate;
+
+  @JsonKey(name: "max_heartrate")
+  double? maxHeartrate;
+
+  @JsonKey(name: "is_kom")
+  bool? isKom;
+
   DetailedSegmentEffort(
       {this.id,
       this.resourceState,
@@ -537,7 +573,11 @@ class DetailedSegmentEffort {
       this.komRank,
       this.prRank,
       this.achievements,
-      this.hidden});
+      this.hidden,
+      this.activityId,
+      this.averageHeartrate,
+      this.maxHeartrate,
+      this.isKom});
 
   factory DetailedSegmentEffort.fromJson(Map<String, dynamic> json) =>
       _$DetailedSegmentEffortFromJson(json);

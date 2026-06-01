@@ -164,6 +164,28 @@ class SummaryActivity {
   @JsonKey(name: "suffer_score")
   double? sufferScore;
 
+  /// The activity's sport type. Strava's modern replacement for [type]; may take
+  /// values such as `Ride`, `MountainBikeRide`, `Run`, `TrailRun`, etc.
+  @JsonKey(name: "sport_type")
+  String? sportType;
+
+  /// The activity's highest elevation, in meters.
+  @JsonKey(name: "elev_high")
+  double? elevHigh;
+
+  /// The activity's lowest elevation, in meters.
+  @JsonKey(name: "elev_low")
+  double? elevLow;
+
+  @JsonKey(name: "device_name")
+  String? deviceName;
+
+  @JsonKey(name: "hide_from_home")
+  bool? hideFromHome;
+
+  @JsonKey(name: "upload_id_str")
+  String? uploadIdStr;
+
   SummaryActivity(
       {this.resourceState,
       this.athlete,
@@ -213,7 +235,13 @@ class SummaryActivity {
       this.prCount,
       this.totalPhotoCount,
       this.hasKudoed,
-      this.sufferScore});
+      this.sufferScore,
+      this.sportType,
+      this.elevHigh,
+      this.elevLow,
+      this.deviceName,
+      this.hideFromHome,
+      this.uploadIdStr});
 
   factory SummaryActivity.fromJson(Map<String, dynamic> json) =>
       _$SummaryActivityFromJson(json);

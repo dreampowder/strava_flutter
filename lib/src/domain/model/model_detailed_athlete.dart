@@ -72,7 +72,8 @@ class DetailedAthlete {
       required this.weight,
       required this.bikes,
       required this.shoes,
-      this.bio});
+      this.bio,
+      this.summit});
 
   @JsonKey(name: "id")
   int id;
@@ -107,6 +108,10 @@ class DetailedAthlete {
 
   @JsonKey(name: "premium", defaultValue: false)
   bool premium;
+
+  /// Whether the athlete has a Summit subscription.
+  @JsonKey(name: "summit")
+  bool? summit;
 
   @JsonKey(name: "created_at")
   DateTime? createdAt;

@@ -80,6 +80,10 @@ class Route {
   @JsonKey(name: "timestamp")
   int? timestamp;
 
+  /// The custom waypoints along this route.
+  @JsonKey(name: "waypoints", includeIfNull: false)
+  List<Waypoint>? waypoints;
+
   Route(
       {this.private,
       this.distance,
@@ -97,9 +101,52 @@ class Route {
       this.name,
       this.id,
       this.map,
-      this.timestamp});
+      this.timestamp,
+      this.waypoints});
 
   factory Route.fromJson(Map<String, dynamic> json) => _$RouteFromJson(json);
 
   Map<String, dynamic> toJson() => _$RouteToJson(this);
+}
+
+/// A custom waypoint along a [Route].
+@JsonSerializable()
+class Waypoint {
+  /// The location along the route that the waypoint is closest to.
+  @JsonKey(name: "latlng")
+  List<double>? latlng;
+
+  /// A location off of the route that the waypoint is (optionally) associated
+  /// with.
+  @JsonKey(name: "target_latlng")
+  List<double>? targetLatlng;
+
+  /// Categories that the waypoint belongs to.
+  @JsonKey(name: "categories")
+  List<String>? categories;
+
+  /// A title for the waypoint.
+  @JsonKey(name: "title")
+  String? title;
+
+  /// A description of the waypoint (optional).
+  @JsonKey(name: "description")
+  String? description;
+
+  /// The number of meters along the route that the waypoint is located.
+  @JsonKey(name: "distance_into_route")
+  double? distanceIntoRoute;
+
+  Waypoint(
+      {this.latlng,
+      this.targetLatlng,
+      this.categories,
+      this.title,
+      this.description,
+      this.distanceIntoRoute});
+
+  factory Waypoint.fromJson(Map<String, dynamic> json) =>
+      _$WaypointFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WaypointToJson(this);
 }

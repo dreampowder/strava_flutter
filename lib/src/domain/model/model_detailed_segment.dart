@@ -127,6 +127,10 @@ class DetailedSegment {
       readValue: _athleteSegmentStatsReadValue)
   SummaryPRSegmentEffort? athleteSegmentStats;
 
+  /// The authenticated athlete's PR effort on this segment.
+  @JsonKey(name: "athlete_pr_effort", includeIfNull: false)
+  SummaryPRSegmentEffort? athletePrEffort;
+
   DetailedSegment(
       {this.id,
       this.resourceState,
@@ -153,7 +157,8 @@ class DetailedSegment {
       this.effortCount,
       this.athleteCount,
       this.starCount,
-      this.athleteSegmentStats});
+      this.athleteSegmentStats,
+      this.athletePrEffort});
 
   factory DetailedSegment.fromJson(Map<String, dynamic> json) =>
       _$DetailedSegmentFromJson(json);

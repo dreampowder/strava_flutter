@@ -23,6 +23,7 @@ class SummaryClub {
     required this.featured,
     required this.verified,
     required this.url,
+    this.activityTypes,
   });
 
   @JsonKey(name: "id")
@@ -78,6 +79,11 @@ class SummaryClub {
 
   @JsonKey(name: "url")
   String? url;
+
+  /// The activity types that count for a club. This takes precedence over
+  /// [sportType]. Values such as `Ride`, `Run`, etc.
+  @JsonKey(name: "activity_types")
+  List<String>? activityTypes;
 
   factory SummaryClub.fromRawJson(String str) =>
       SummaryClub.fromJson(json.decode(str));

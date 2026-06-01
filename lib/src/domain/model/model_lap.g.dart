@@ -31,6 +31,7 @@ Lap _$LapFromJson(Map<String, dynamic> json) => Lap(
   averageWatts: (json['average_watts'] as num?)?.toDouble(),
   lapIndex: (json['lap_index'] as num?)?.toInt(),
   split: (json['split'] as num?)?.toInt(),
+  paceZone: (json['pace_zone'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$LapToJson(Lap instance) => <String, dynamic>{
@@ -54,6 +55,7 @@ Map<String, dynamic> _$LapToJson(Lap instance) => <String, dynamic>{
   'average_watts': instance.averageWatts,
   'lap_index': instance.lapIndex,
   'split': instance.split,
+  'pace_zone': instance.paceZone,
 };
 
 MetaAthlete _$MetaAthleteFromJson(Map<String, dynamic> json) => MetaAthlete(

@@ -30,6 +30,9 @@ Route _$RouteFromJson(Map<String, dynamic> json) => Route(
       ? null
       : PolyLineMap.fromJson(json['map'] as Map<String, dynamic>),
   timestamp: (json['timestamp'] as num?)?.toInt(),
+  waypoints: (json['waypoints'] as List<dynamic>?)
+      ?.map((e) => Waypoint.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$RouteToJson(Route instance) => <String, dynamic>{
@@ -50,4 +53,29 @@ Map<String, dynamic> _$RouteToJson(Route instance) => <String, dynamic>{
   'id': instance.id,
   'map': instance.map?.toJson(),
   'timestamp': instance.timestamp,
+  'waypoints': ?instance.waypoints?.map((e) => e.toJson()).toList(),
+};
+
+Waypoint _$WaypointFromJson(Map<String, dynamic> json) => Waypoint(
+  latlng: (json['latlng'] as List<dynamic>?)
+      ?.map((e) => (e as num).toDouble())
+      .toList(),
+  targetLatlng: (json['target_latlng'] as List<dynamic>?)
+      ?.map((e) => (e as num).toDouble())
+      .toList(),
+  categories: (json['categories'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  title: json['title'] as String?,
+  description: json['description'] as String?,
+  distanceIntoRoute: (json['distance_into_route'] as num?)?.toDouble(),
+);
+
+Map<String, dynamic> _$WaypointToJson(Waypoint instance) => <String, dynamic>{
+  'latlng': instance.latlng,
+  'target_latlng': instance.targetLatlng,
+  'categories': instance.categories,
+  'title': instance.title,
+  'description': instance.description,
+  'distance_into_route': instance.distanceIntoRoute,
 };

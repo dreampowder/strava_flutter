@@ -69,6 +69,9 @@ class Lap {
   @JsonKey(name: "split")
   int? split;
 
+  @JsonKey(name: "pace_zone")
+  int? paceZone;
+
   Lap(
       {this.id,
       this.resourceState,
@@ -89,7 +92,8 @@ class Lap {
       this.deviceWatts,
       this.averageWatts,
       this.lapIndex,
-      this.split});
+      this.split,
+      this.paceZone});
 
   factory Lap.fromJson(Map<String, dynamic> json) => _$LapFromJson(json);
 

@@ -61,6 +61,12 @@ SummaryActivity _$SummaryActivityFromJson(Map<String, dynamic> json) =>
       totalPhotoCount: (json['total_photo_count'] as num?)?.toInt(),
       hasKudoed: json['has_kudoed'] as bool?,
       sufferScore: (json['suffer_score'] as num?)?.toDouble(),
+      sportType: json['sport_type'] as String?,
+      elevHigh: (json['elev_high'] as num?)?.toDouble(),
+      elevLow: (json['elev_low'] as num?)?.toDouble(),
+      deviceName: json['device_name'] as String?,
+      hideFromHome: json['hide_from_home'] as bool?,
+      uploadIdStr: json['upload_id_str'] as String?,
     );
 
 Map<String, dynamic> _$SummaryActivityToJson(SummaryActivity instance) =>
@@ -114,4 +120,10 @@ Map<String, dynamic> _$SummaryActivityToJson(SummaryActivity instance) =>
       'total_photo_count': instance.totalPhotoCount,
       'has_kudoed': instance.hasKudoed,
       'suffer_score': instance.sufferScore,
+      'sport_type': instance.sportType,
+      'elev_high': instance.elevHigh,
+      'elev_low': instance.elevLow,
+      'device_name': instance.deviceName,
+      'hide_from_home': instance.hideFromHome,
+      'upload_id_str': instance.uploadIdStr,
     };
