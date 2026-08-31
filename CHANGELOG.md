@@ -1,3 +1,10 @@
+## [2.4.0]
+### Added
+- Implemented `RepositoryRoute.exportRouteGPX` and `exportRouteTCX`
+  (`GET /v3/routes/{id}/export_gpx` / `export_tcx`), which previously threw
+  `UnimplementedError` (#127). Both return the raw XML bytes as `Uint8List`.
+  (Thanks @kershik)
+
 ## [2.3.1]
 - Recognized OSI MIT `LICENSE`, `dart format` applied across the package, and
   added `repository` / `issue_tracker` / `documentation` / `topics` metadata

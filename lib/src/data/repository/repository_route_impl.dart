@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
+
 import 'package:strava_client/src/data/repository/client.dart';
 import 'package:strava_client/src/domain/model/model_route.dart';
 import 'package:strava_client/src/domain/repository/repository_route.dart';
@@ -32,12 +34,21 @@ class RepositoryRouteImpl extends RepositoryRoute {
 
   @override
   Future<Uint8List> exportRouteGPX(int routeId) {
-    throw UnimplementedError();
+    return _exportRoute(routeId, "gpx");
   }
 
   @override
   Future<Uint8List> exportRouteTCX(int routeId) {
-    // TODO: implement exportRouteTCX
-    throw UnimplementedError();
+    return _exportRoute(routeId, "tcx");
+  }
+
+  Future<Uint8List> _exportRoute(int routeId, String format) {
+    return ApiClient.getRequest(
+      endPoint: "/v3/routes/$routeId/export_$format",
+      responseType: ResponseType.bytes,
+      dataConstructor: (data) => data is Uint8List
+          ? data
+          : Uint8List.fromList(List<int>.from(data)),
+    );
   }
 }

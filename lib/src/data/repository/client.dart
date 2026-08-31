@@ -29,12 +29,19 @@ class ApiClient {
   static Future<T> getRequest<T>({
     required String endPoint,
     Map<String, dynamic>? queryParameters,
+    ResponseType? responseType,
     required T Function(dynamic) dataConstructor,
   }) async {
     var completer = Completer<T>();
     _getDioClient().then((client) {
       client
-          .get("$_baseUrl$endPoint", queryParameters: queryParameters)
+          .get(
+            "$_baseUrl$endPoint",
+            queryParameters: queryParameters,
+            options: responseType == null
+                ? null
+                : Options(responseType: responseType),
+          )
           .then(
             (response) => completer.complete(dataConstructor(response.data)),
           )
